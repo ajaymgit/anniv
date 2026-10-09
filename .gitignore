@@ -1,0 +1,6 @@
+.DS_Store
+.build/
+.swiftpm/
+CoupleStick.app/
+*.zip
+*.dmg
