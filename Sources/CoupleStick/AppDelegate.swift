@@ -274,6 +274,7 @@ public final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate 
             let window = NSWindow(contentViewController: hosting)
             window.title = "CoupleStick Settings"
             window.styleMask = [.titled, .closable]
+            window.setContentSize(NSSize(width: 820, height: 600))
             window.isReleasedWhenClosed = false
             window.center()
             self.settingsWindow = window
