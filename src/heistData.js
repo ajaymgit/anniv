@@ -263,15 +263,15 @@ export const DEFAULT_TRIVIA_QUESTIONS = [
   },
   {
     id: "t7",
-    question: "Where were we standing when we took our very first candid selfie together?",
+    question: "What is Ajay's absolute favorite food?",
     options: [
-      "Outside the café under the soft entrance lights",
-      "In the car waiting out the sudden rain",
-      "Along the quiet walkway under the streetlights",
-      "In front of the mirror before heading out"
+      "Mythri",
+      "Cold coffee",
+      "Dosa",
+      "Curd rice"
     ],
-    correctAnswerIndex: 1,
-    hint: "Look back at the background rain, the dashboard light, and the awkward smiles!"
+    correctAnswerIndex: 0,
+    hint: "His daily craving, main course, and favorite snack in the universe!"
   }
 ];
 
