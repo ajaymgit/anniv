@@ -15,12 +15,11 @@ import FinalReveal from "./stages/FinalReveal";
 import { RibbonBow, FlowerBlossom, WashiTape, SparkleStar } from "./common/GirlyPopDecorations";
 
 export default function HeistController() {
-  const { heistStage, setHeistStage } = useAnniversary();
+  const { heistStage, setHeistStage, soundEnabled, setSoundEnabled } = useAnniversary();
   const [currentStage, setCurrentStage] = useState(() => (typeof heistStage === "number" ? heistStage : 0));
   const [hintTier, setHintTier] = useState(0);
   const [showHintModal, setShowHintModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
   const [elapsedSec, setElapsedSec] = useState(0);
 
   useEffect(() => {
@@ -102,8 +101,9 @@ export default function HeistController() {
   };
 
   const toggleSound = () => {
-    const muted = sounds.toggleMute();
-    setIsMuted(muted);
+    const next = !soundEnabled;
+    setSoundEnabled(next);
+    sounds.muted = !next;
   };
 
   const handleSaveStory = (newConfig) => {
@@ -186,9 +186,9 @@ export default function HeistController() {
             type="button"
             onClick={toggleSound}
             className="p-2 rounded-full bg-white hover:bg-emerald-50 border border-[#bbf7d0] text-[#3d6350] hover:text-emerald-600 transition cursor-pointer shadow-sm active:scale-95"
-            title={isMuted ? "Unmute Sound" : "Mute Sound"}
+            title={!soundEnabled ? "Unmute Sound" : "Mute Sound"}
           >
-            {isMuted ? <VolumeX className="w-4 h-4 opacity-50" /> : <Volume2 className="w-4 h-4 text-emerald-500" />}
+            {!soundEnabled ? <VolumeX className="w-4 h-4 opacity-50" /> : <Volume2 className="w-4 h-4 text-emerald-500" />}
           </button>
         </div>
       </header>

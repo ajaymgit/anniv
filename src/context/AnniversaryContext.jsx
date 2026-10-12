@@ -99,7 +99,20 @@ export function AnniversaryProvider({ children }) {
   const initialRoute = parseCurrentUrl();
   const [activeSpaceId, setActiveSpaceId] = useState(initialRoute.spaceId);
   const [heistStage, setHeistStage] = useState(initialRoute.stage);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(() => {
+    try {
+      const saved = localStorage.getItem("time_heist_sound_enabled");
+      return saved !== null ? saved === "true" : true;
+    } catch {
+      return true;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("time_heist_sound_enabled", soundEnabled ? "true" : "false");
+    } catch (e) {}
+  }, [soundEnabled]);
 
   const [progress, setProgress] = useState(() => {
     try {

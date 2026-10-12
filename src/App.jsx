@@ -10,6 +10,7 @@ import SpaceFifth from "./spaces/SpaceFifth";
 import SpaceMythriEffect from "./spaces/SpaceMythriEffect";
 import SpaceHerSpace from "./spaces/SpaceHerSpace";
 import { FloatingPetalsBackground, FlowerClickSparkles } from "./components/common/GirlyPopDecorations";
+import BackgroundAudio from "./components/common/BackgroundAudio";
 import { AnimatePresence, motion } from "framer-motion";
 
 function SuiteRouter() {
@@ -17,6 +18,9 @@ function SuiteRouter() {
 
   return (
     <div className="min-h-screen bg-[#f7faf8] text-[#132e22] flex flex-col font-sans selection:bg-emerald-200 selection:text-emerald-900 relative">
+      {/* Background Full Song Player */}
+      <BackgroundAudio />
+
       {/* Site-wide Floating Cherry Blossom Petals & Floral Breeze */}
       <FloatingPetalsBackground />
 
