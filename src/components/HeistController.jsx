@@ -232,7 +232,7 @@ export default function HeistController() {
         {currentStage === 4 && (
           <PhotoMemoryIQ
             onComplete={nextStage}
-            customPhotos={storyData.chamberPhotos}
+            customPhotos={storyData.memoryPairs}
           />
         )}
         {currentStage === 5 && (

@@ -5,21 +5,25 @@ import {
   Sparkles,
   CheckCircle2,
   RotateCcw,
-  Volume2,
   Award,
   Zap
 } from "lucide-react";
 import { sounds } from "../../utils/audio";
-import { RibbonBow, FlowerBlossom, WashiTape, PopFlower } from "../common/GirlyPopDecorations";
+import { RibbonBow, FlowerBlossom, WashiTape } from "../common/GirlyPopDecorations";
 
-const DEFAULT_PHOTOS = [
-  { id: 0, title: "Our First Memory", src: "/lightchamber/polaroid1.jpg", note: "Day 01" },
-  { id: 1, title: "Midnight Ride", src: "/lightchamber/polaroid2.jpg", note: "Night Vibes" },
-  { id: 2, title: "Laughing Together", src: "/lightchamber/polaroid3.jpg", note: "Pure Joy" },
-  { id: 3, title: "Us Forever", src: "/lightchamber/polaroid4.jpg", note: "Forever" }
+const DEFAULT_9_PHOTOS = [
+  { id: 0, title: "Moment 01", src: "/memorymatch/card1.jpg", note: "Day 01" },
+  { id: 1, title: "Moment 02", src: "/memorymatch/card2.jpg", note: "Smile" },
+  { id: 2, title: "Moment 03", src: "/memorymatch/card3.jpg", note: "Pure Joy" },
+  { id: 3, title: "Moment 04", src: "/memorymatch/card4.jpg", note: "Together" },
+  { id: 4, title: "Moment 05", src: "/memorymatch/card5.jpg", note: "Us ♡" },
+  { id: 5, title: "Moment 06", src: "/memorymatch/card6.jpg", note: "Night Vibes" },
+  { id: 6, title: "Moment 07", src: "/memorymatch/card7.jpg", note: "Sweet Times" },
+  { id: 7, title: "Moment 08", src: "/memorymatch/card8.jpg", note: "Adventure" },
+  { id: 8, title: "Moment 09", src: "/memorymatch/card9.jpg", note: "Forever" }
 ];
 
-// 3 Friendly, easy progressive rounds
+// 3 Progressive, easy rounds for 3x3 (9 photos)
 const ROUNDS_CONFIG = [
   { round: 1, length: 2, label: "Round 1 · Warmup IQ", badge: "Smart ♡" },
   { round: 2, length: 3, label: "Round 2 · Genius IQ", badge: "Brilliant ♡" },
@@ -27,19 +31,19 @@ const ROUNDS_CONFIG = [
 ];
 
 export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
-  // Use custom photos if passed, otherwise default to chamber polaroids
-  const photos = DEFAULT_PHOTOS.map((p, idx) => ({
+  // If customPhotos provided (e.g. from memoryPairs or custom), use them, otherwise default to the 9 memorymatch photos
+  const photos = DEFAULT_9_PHOTOS.map((p, idx) => ({
     ...p,
-    src: (customPhotos && customPhotos[idx]) || p.src
+    src: (customPhotos && customPhotos[idx] && (customPhotos[idx].photo || customPhotos[idx])) || p.src
   }));
 
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0); // 0, 1, 2
-  const [sequence, setSequence] = useState([]); // Array of photo indices
+  const [sequence, setSequence] = useState([]); // Array of photo indices (0 to 8)
   const [activeFlashIndex, setActiveFlashIndex] = useState(null); // Which photo is currently glowing
   const [playerInput, setPlayerInput] = useState([]); // Array of player taps
   const [gameState, setGameState] = useState("idle"); // "displaying", "playerTurn", "roundSuccess", "error", "finished"
   const [iqScore, setIqScore] = useState(115);
-  const [statusMessage, setStatusMessage] = useState("Get ready to watch the memories glow...");
+  const [statusMessage, setStatusMessage] = useState("Get ready to watch the 3×3 memory matrix glow...");
 
   const isPlayingRef = useRef(false);
 
@@ -48,12 +52,12 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
     const config = ROUNDS_CONFIG[roundIdx];
     const targetLength = config.length;
 
-    // Generate random sequence of photos (0 to 3) without 3 identical repeats in a row
+    // Generate random sequence of photos (0 to 8) without consecutive repeats
     const newSeq = [];
     for (let i = 0; i < targetLength; i++) {
-      let rand = Math.floor(Math.random() * 4);
-      if (i >= 2 && rand === newSeq[i - 1] && rand === newSeq[i - 2]) {
-        rand = (rand + 1) % 4;
+      let rand = Math.floor(Math.random() * 9);
+      if (i > 0 && rand === newSeq[i - 1]) {
+        rand = (rand + 1) % 9;
       }
       newSeq.push(rand);
     }
@@ -66,11 +70,11 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
   // Playback the sequence flashing cards one by one
   const playSequence = (seqToPlay) => {
     setGameState("displaying");
-    setStatusMessage("Watch closely as our photos illuminate...");
+    setStatusMessage("Watch closely as the photos illuminate...");
     isPlayingRef.current = true;
 
     seqToPlay.forEach((photoId, stepIdx) => {
-      // Step interval: 650ms per card
+      // Step interval: 680ms per card
       setTimeout(() => {
         if (!isPlayingRef.current) return;
         setActiveFlashIndex(photoId);
@@ -164,18 +168,18 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
   };
 
   return (
-    <div className="w-full max-w-xl flex flex-col items-center font-sans select-none px-2 sm:px-4">
+    <div className="w-full max-w-2xl flex flex-col items-center font-sans select-none px-2 sm:px-4">
       {/* Header Info */}
       <div className="text-center mb-3">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-emerald-200 rounded-full text-emerald-700 text-xs font-semibold mb-2 shadow-sm">
           <FlowerBlossom className="w-3.5 h-3.5" />
-          <span>Chapter 1 · Puzzle 05 ♡ Photographic Memory IQ</span>
+          <span>Chapter 1 · Puzzle 05 ♡ Photographic Memory IQ (3×3 Matrix)</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#132e22] tracking-tight">
           Memory Matrix IQ Test
         </h2>
         <p className="text-xs text-[#3d6350] mt-1 max-w-md mx-auto leading-relaxed">
-          Watch our polaroid moments glow in rhythm, then tap them in the same order. Clear all 3 rounds to unlock the vault!
+          Watch our 9 polaroid moments glow in rhythm, then tap them in the same order. Clear all 3 rounds to unlock the vault!
         </p>
       </div>
 
@@ -190,7 +194,7 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
         </div>
 
         {/* Top Status & IQ Score Ribbon */}
-        <div className="flex items-center justify-between gap-2 mb-4 bg-[#f0fdf4] border border-[#bbf7d0] rounded-2xl px-3 sm:px-4 py-2 text-xs">
+        <div className="flex items-center justify-between gap-2 mb-3 bg-[#f0fdf4] border border-[#bbf7d0] rounded-2xl px-3 sm:px-4 py-2 text-xs">
           {/* Round Indicator */}
           <div className="flex items-center gap-2">
             <Brain className="w-4 h-4 text-emerald-600" />
@@ -227,7 +231,7 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
 
         {/* Dynamic Instructional Banner */}
         <div
-          className={`w-full py-2 px-3 rounded-2xl text-xs text-center font-medium mb-4 transition-all duration-300 border ${
+          className={`w-full py-2 px-3 rounded-2xl text-xs text-center font-medium mb-3.5 transition-all duration-300 border ${
             gameState === "displaying"
               ? "bg-amber-50 border-amber-200 text-amber-900"
               : gameState === "playerTurn"
@@ -246,9 +250,9 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
         </div>
 
         {/* ======================================================== */}
-        {/* 2x2 POLAROID PHOTO GRID (THE IQ TILES) */}
+        {/* 3×3 POLAROID PHOTO GRID (9 TILES) */}
         {/* ======================================================== */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-md mx-auto mb-4">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-lg mx-auto mb-4">
           {photos.map((photo) => {
             const isFlashing = activeFlashIndex === photo.id;
             const isClickable = gameState === "playerTurn";
@@ -256,20 +260,20 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
             return (
               <motion.div
                 key={photo.id}
-                whileHover={isClickable ? { scale: 1.02 } : {}}
-                whileTap={isClickable ? { scale: 0.96 } : {}}
+                whileHover={isClickable ? { scale: 1.03 } : {}}
+                whileTap={isClickable ? { scale: 0.95 } : {}}
                 onClick={() => handlePhotoClick(photo.id)}
-                className={`relative bg-white border-2 rounded-2xl p-2.5 sm:p-3 shadow-card transition-all duration-200 select-none ${
+                className={`relative bg-white border-2 rounded-2xl p-2 sm:p-2.5 shadow-card transition-all duration-200 select-none ${
                   isClickable
                     ? "cursor-pointer hover:border-emerald-300"
                     : "cursor-default"
                 } ${
                   isFlashing
-                    ? "border-amber-400 shadow-[0_0_25px_rgba(251,191,36,0.6)] scale-103 bg-amber-50/60"
+                    ? "border-amber-400 shadow-[0_0_25px_rgba(251,191,36,0.7)] scale-105 bg-amber-50/70 z-10"
                     : "border-emerald-200"
                 }`}
               >
-                {/* Polaroid Photo Canvas */}
+                {/* Polaroid Photo Frame */}
                 <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-emerald-50 border border-emerald-100 shadow-inner">
                   <img
                     src={photo.src}
@@ -277,18 +281,18 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
                     className="w-full h-full object-cover"
                   />
 
-                  {/* Flash Light Overlay */}
+                  {/* Flash Overlay with Sparkles */}
                   {isFlashing && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="absolute inset-0 bg-gradient-to-t from-amber-400/40 via-yellow-200/30 to-white/50 backdrop-blur-[1px] flex items-center justify-center"
+                      className="absolute inset-0 bg-gradient-to-t from-amber-400/40 via-yellow-200/30 to-white/60 backdrop-blur-[1px] flex items-center justify-center"
                     >
                       <motion.div
                         initial={{ scale: 0.5, rotate: -15 }}
-                        animate={{ scale: 1.2, rotate: 0 }}
-                        className="text-2xl drop-shadow-md"
+                        animate={{ scale: 1.25, rotate: 0 }}
+                        className="text-xl sm:text-2xl drop-shadow-md"
                       >
                         ✨
                       </motion.div>
@@ -296,12 +300,12 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
                   )}
                 </div>
 
-                {/* Polaroid Bottom Caption */}
-                <div className="pt-2 text-center">
-                  <h4 className="font-serif font-bold text-xs text-[#132e22] truncate">
+                {/* Polaroid Bottom Note */}
+                <div className="pt-1.5 text-center">
+                  <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#132e22] truncate">
                     {photo.title}
                   </h4>
-                  <span className="text-[10px] text-emerald-600 font-sans font-medium">
+                  <span className="text-[9px] sm:text-[10px] text-emerald-600 font-sans font-medium">
                     {photo.note}
                   </span>
                 </div>
@@ -324,7 +328,7 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
           </button>
 
           <span className="text-[11px] text-[#6e9981]">
-            {gameState === "displaying" ? "👀 Memorizing..." : "👆 Tap to repeat pattern"}
+            {gameState === "displaying" ? "👀 Memorizing..." : "👆 Tap photos to repeat sequence"}
           </span>
         </div>
       </div>
