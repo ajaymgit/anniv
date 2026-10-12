@@ -208,31 +208,6 @@ class SoundEngine {
     osc.stop(this.ctx.currentTime + 0.2);
   }
 
-  // Cheerful scooter horn ("Beep-beep!")
-  playHonk() {
-    if (this.muted) return;
-    this.init();
-    if (!this.ctx) return;
-
-    [0, 0.12].forEach((delay) => {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      const startTime = this.ctx.currentTime + delay;
-
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(620, startTime);
-      osc.frequency.setValueAtTime(680, startTime + 0.04);
-
-      gain.gain.setValueAtTime(0.12, startTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.08);
-
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(startTime);
-      osc.stop(startTime + 0.08);
-    });
-  }
-
   // Music-box victory fanfare
   playVictoryFanfare() {
     if (this.muted) return;

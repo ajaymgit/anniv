@@ -5,7 +5,7 @@ export const STAGE_NAMES = [
   "The Fractured Memory",
   "Relationship Crossword",
   "The Dark Archive",
-  "The Midnight Ride",
+  "Temporal Footprint",
   "Couple's Authenticator",
   "Neural Photo Match"
 ];
@@ -32,9 +32,9 @@ export const STAGE_HINTS = [
     literal: "Find the four Roman numeral digits: [I]=1, [II]=2, [III]=1, [IV]=0. Enter '1210' on the keypad.",
   },
   {
-    // Stage 5: The Midnight Ride
-    cryptic: "Hold onto Ajay as the two-wheeler rolls through the midnight breeze. Cruise through the 4 memory stops.",
-    literal: "Hold the green pedal (or Space / Right Arrow) to cruise forward, honk at the cute street puppies (H), collect treats, and collect all 4 anniversary tokens!",
+    // Stage 5: Timeline Sequencer
+    cryptic: "Chronological truth is the only biometric key. Re-order the 5 scrapbook memories from earliest to latest.",
+    literal: "Drag and drop (or use Up/Down arrows) to sort our milestones from earliest date (top) to most recent (bottom), then click 'Verify'.",
   },
   {
     // Stage 6: Couple's Authenticator

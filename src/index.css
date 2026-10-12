@@ -73,12 +73,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #86efac;
 }
-
-@keyframes roadMove {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
