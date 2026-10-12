@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -33,9 +33,9 @@ Two stubborn, fiery Aries who normally guard their independence fiercely—sudde
 
 You weren't like anyone else I had ever met. You carried this fierce, quiet authenticity that immediately broke through all my defenses. That first spark wasn't just a moment; it was the foundation of our entire story.`,
     photoUrl: "https://images.unsplash.com/photo-1517256673805-adc3f4a9b634?auto=format&fit=crop&w=800&q=80",
-    landingX: 140,
-    landingY: 455,
-    landingRotate: -25
+    landingX: 130,
+    landingY: 466,
+    landingRotate: -28
   },
   {
     id: 2,
@@ -51,9 +51,9 @@ Like riding through torrential night rain when neither of us had any business be
 
 In that quiet midnight city, with nobody else around, I realized I would ride anywhere in the world as long as you were sitting behind me.`,
     photoUrl: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80",
-    landingX: 300,
-    landingY: 458,
-    landingRotate: 30
+    landingX: 310,
+    landingY: 468,
+    landingRotate: 32
   },
   {
     id: 3,
@@ -69,9 +69,9 @@ Splitting an order of extra crispy fries and silently leaving the crunchiest one
 
 With you, there was never any awkward silence—only comfort so deep it felt like breathing.`,
     photoUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80",
-    landingX: 175,
-    landingY: 468,
-    landingRotate: -12
+    landingX: 165,
+    landingY: 476,
+    landingRotate: -15
   },
   {
     id: 4,
@@ -87,8 +87,8 @@ I learned the subtle signs of when you were exhausted before you said a word. I 
 
 We learned how to forgive quickly, how to tease gently, and how to hold space for each other when life felt heavy. You became my safest harbor.`,
     photoUrl: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80",
-    landingX: 265,
-    landingY: 466,
+    landingX: 275,
+    landingY: 474,
     landingRotate: 18
   },
   {
@@ -106,8 +106,8 @@ You never perform kindness for an audience. When someone is hurting, you show up
 In five years of watching you grow, my respect for your character only deepened. You are the standard of integrity and honesty in my life.`,
     photoUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
     landingX: 195,
-    landingY: 480,
-    landingRotate: -5
+    landingY: 486,
+    landingRotate: -8
   },
   {
     id: 6,
@@ -124,8 +124,8 @@ Yet across busy schedules, departures, and counting down the days until we could
 Physical miles could never dilute what we built. We were anchored in each other long before the miles appeared.`,
     photoUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80",
     landingX: 245,
-    landingY: 482,
-    landingRotate: 8
+    landingY: 488,
+    landingRotate: 10
   },
   {
     id: 7,
@@ -142,8 +142,8 @@ You don't need to give advice or solve my problems. Just resting your head on my
 In seven years, you turned love from a fleeting feeling into a permanent home.`,
     photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
     landingX: 215,
-    landingY: 490,
-    landingRotate: -2
+    landingY: 494,
+    landingRotate: -3
   },
   {
     id: 8,
@@ -162,7 +162,7 @@ There is no version of my future, no dream I want to build, and no horizon I loo
 To our next seven, our next seventy, and a lifetime of roses blooming for you. Happy 7th Anniversary, Mythri ♡`,
     photoUrl: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
     landingX: 220,
-    landingY: 472,
+    landingY: 478,
     landingRotate: 0
   }
 ];
@@ -189,7 +189,7 @@ export default function SpaceConstellation() {
   const [bloomedRosesEverywhere, setBloomedRosesEverywhere] = useState(false);
   const [showGrandFinale, setShowGrandFinale] = useState(false);
 
-  // Pluck a petal: it falls off realistically, lands in water, and memory appears
+  // Pluck a petal: visually detaches with natural fluttering fall, lands on water, and reveals memory
   const handlePluckPetal = (petal) => {
     if (fallenPetals.has(petal.id) || activeFallingPetalId === petal.id) {
       // If already plucked, tapping it opens its story directly
@@ -205,7 +205,7 @@ export default function SpaceConstellation() {
     setTimeout(() => {
       setActiveStory(petal);
       setActiveFallingPetalId(null);
-    }, 600);
+    }, 650);
 
     // If petal 8 is clicked (the final heart petal):
     if (petal.id === 8) {
@@ -318,13 +318,21 @@ export default function SpaceConstellation() {
         <div className="absolute w-96 h-96 rounded-full bg-rose-600/15 blur-3xl pointer-events-none" />
 
         {/* The Realistic Layered Rose SVG */}
-        <div className="relative w-[360px] h-[460px] sm:w-[440px] sm:h-[530px] flex items-center justify-center">
+        <div className="relative w-[360px] h-[470px] sm:w-[440px] sm:h-[540px] flex items-center justify-center">
           <svg
             viewBox="0 0 440 520"
             className="w-full h-full drop-shadow-[0_20px_45px_rgba(225,29,72,0.4)] select-none overflow-visible"
           >
             <defs>
-              {/* Ultra-realistic Velvet Crimson & Ruby Gradients */}
+              {/* Drop Shadow Filter for Layered Petal Realism */}
+              <filter id="petalShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="6" stdDeviation="5" floodColor="#1a0106" floodOpacity="0.65" />
+              </filter>
+              <filter id="innerPetalShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="3.5" stdDeviation="3.5" floodColor="#2d020c" floodOpacity="0.75" />
+              </filter>
+
+              {/* Velvet Crimson & Ruby Multi-Stop Shading Gradients */}
               <radialGradient id="petalVelvetDeep" cx="35%" cy="30%" r="75%">
                 <stop offset="0%" stopColor="#f43f5e" />
                 <stop offset="35%" stopColor="#e11d48" />
@@ -391,8 +399,8 @@ export default function SpaceConstellation() {
 
               {/* Petal Rim Translucent Stroke */}
               <linearGradient id="petalRimLight" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#ffe4e6" stopOpacity="0.85" />
-                <stop offset="100%" stopColor="#fda4af" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="#ffe4e6" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#fda4af" stopOpacity="0.35" />
               </linearGradient>
             </defs>
 
@@ -430,7 +438,7 @@ export default function SpaceConstellation() {
 
             {/* B. Botanical Stem, Thorns, and Compound Leaves */}
             <g className="botanical-foundation">
-              {/* Natural Stem */}
+              {/* Natural Stem with organic curve */}
               <path
                 d="M220,230 C216,285 228,350 218,415 C214,440 220,465 220,472"
                 stroke="url(#stemNatural)"
@@ -464,70 +472,69 @@ export default function SpaceConstellation() {
                 strokeWidth="0.8"
               />
 
-              {/* Left Compound Rose Leaf with Botanical Veins */}
+              {/* Left Compound Rose Leaf with Botanical Veins & Serrated Outline */}
               <g>
                 <path
-                  d="M215,335 C155,305 115,348 168,382 C202,366 214,345 215,335 Z"
+                  d="M215,335 C185,315 155,305 130,325 C115,340 120,360 145,372 C175,385 205,365 215,335 Z"
                   fill="url(#leafGradLeft)"
                   stroke="#052e16"
                   strokeWidth="1.8"
                 />
                 {/* Leaf Central Midrib */}
                 <path
-                  d="M215,335 C185,340 155,350 145,360"
+                  d="M215,335 C185,340 155,350 135,345"
                   stroke="#86efac"
                   strokeWidth="1.2"
                   strokeOpacity="0.65"
                   fill="none"
                 />
                 {/* Lateral veins */}
-                <path d="M195,338 L188,328 M180,344 L170,332 M165,350 L152,342" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
-                <path d="M195,338 L192,352 M180,344 L178,362 M165,350 L160,368" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+                <path d="M195,338 L188,326 M180,344 L170,330 M165,350 L152,340" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+                <path d="M195,338 L192,352 M180,344 L178,362 M165,350 L160,366" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
               </g>
 
               {/* Right Compound Rose Leaf with Botanical Veins */}
               <g>
                 <path
-                  d="M222,365 C285,335 325,378 272,412 C238,396 226,375 222,365 Z"
+                  d="M222,365 C252,345 282,335 307,355 C322,370 317,390 292,402 C262,415 232,395 222,365 Z"
                   fill="url(#leafGradRight)"
                   stroke="#052e16"
                   strokeWidth="1.8"
                 />
                 {/* Leaf Central Midrib */}
                 <path
-                  d="M222,365 C252,370 282,380 292,390"
+                  d="M222,365 C252,370 282,380 302,375"
                   stroke="#86efac"
                   strokeWidth="1.2"
                   strokeOpacity="0.65"
                   fill="none"
                 />
                 {/* Lateral veins */}
-                <path d="M242,368 L248,358 M257,374 L267,362 M272,380 L285,372" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
-                <path d="M242,368 L245,382 M257,374 L260,392 M272,380 L277,398" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+                <path d="M242,368 L248,356 M257,374 L267,360 M272,380 L285,370" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+                <path d="M242,368 L245,382 M257,374 L260,392 M272,380 L277,396" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
               </g>
 
               {/* Receptacle (Rose Hip) & Calyx Sepals (The botanical cup holding the flower) */}
-              {/* Swelling green receptacle bulb */}
-              <ellipse cx="220" cy="235" rx="14" ry="11" fill="url(#stemNatural)" />
+              <ellipse cx="220" cy="235" rx="15" ry="12" fill="url(#stemNatural)" />
               {/* 5 Calyx Sepals curling outward gracefully */}
-              <path d="M210,235 C190,245 170,268 165,282 C175,268 195,250 214,242 Z" fill="#15803d" stroke="#052e16" strokeWidth="0.8" />
-              <path d="M230,235 C250,245 270,268 275,282 C265,268 245,250 226,242 Z" fill="#166534" stroke="#052e16" strokeWidth="0.8" />
-              <path d="M205,238 C195,255 188,278 185,295 C192,278 202,258 212,244 Z" fill="#15803d" />
-              <path d="M235,238 C245,255 252,278 255,295 C248,278 238,258 228,244 Z" fill="#166534" />
-              <path d="M220,242 C218,260 217,285 220,305 C222,285 222,260 220,242 Z" fill="#14532d" />
+              <path d="M208,235 C185,248 165,272 158,288 C170,272 192,252 212,242 Z" fill="#15803d" stroke="#052e16" strokeWidth="0.8" />
+              <path d="M232,235 C255,248 275,272 282,288 C270,272 248,252 228,242 Z" fill="#166534" stroke="#052e16" strokeWidth="0.8" />
+              <path d="M204,238 C192,258 184,282 180,300 C188,282 200,260 210,244 Z" fill="#15803d" />
+              <path d="M236,238 C248,258 256,282 260,300 C252,282 240,260 230,244 Z" fill="#166534" />
+              <path d="M220,242 C218,262 216,288 220,310 C224,288 222,262 220,242 Z" fill="#14532d" />
             </g>
 
             {/* C. Permanent Underlying Inner Rose Base (Prevents a hollow hole when outer petals fall) */}
             <g className="inner-rose-receptacle">
               <path
-                d="M220,135 C175,130 160,215 220,232 C280,215 265,130 220,135 Z"
+                d="M220,130 C165,120 150,215 220,234 C290,215 275,120 220,130 Z"
                 fill="url(#roseBaseGrad)"
                 opacity="0.95"
               />
               <path
-                d="M220,150 C190,150 185,205 220,218 C255,205 250,150 220,150 Z"
+                d="M220,145 C185,145 180,205 220,220 C260,205 255,145 220,145 Z"
                 fill="#700c25"
-                opacity="0.8"
+                opacity="0.85"
               />
             </g>
 
@@ -535,59 +542,29 @@ export default function SpaceConstellation() {
             {/* D. THE 8 REALISTIC INTERACTIVE VELVET PETALS */}
             {/* ========================================================= */}
 
-            {/* PETAL 1: Outer Lower-Left Guard Petal */}
-            {!fallenPetals.has(1) && (
+            {/* PETAL 5: Upper Crown Petal (Back Petal of the Bloom) */}
+            {!fallenPetals.has(5) && (
               <g
-                onClick={() => handlePluckPetal(ROSE_PETALS[0])}
+                onClick={() => handlePluckPetal(ROSE_PETALS[4])}
                 className="cursor-pointer group"
+                filter="url(#petalShadow)"
               >
                 <path
-                  d="M215,145 C135,95 85,175 145,235 C178,255 210,238 215,145 Z"
-                  fill="url(#petalVelvetDeep)"
-                  stroke="url(#petalRimLight)"
+                  d="M220,150 C145,80 295,80 220,150 Z"
+                  fill="url(#petalVelvetInner)"
+                  stroke="#fda4af"
                   strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
                 />
-                {/* Curled outer lip edge highlight */}
+                {/* Curled back lip */}
                 <path
-                  d="M145,235 C115,195 110,135 155,115"
-                  stroke="#ffe4e6"
-                  strokeWidth="1.5"
+                  d="M170,108 C220,85 270,108 270,108"
+                  stroke="#ffffff"
+                  strokeWidth="1.6"
                   strokeLinecap="round"
                   fill="none"
-                  opacity="0.6"
+                  opacity="0.75"
                 />
-                {/* Glistening Dew Drop on Petal 1 */}
-                <ellipse cx="142" cy="188" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.85" />
-                <circle cx="141" cy="187" r="1" fill="#ffffff" />
-              </g>
-            )}
-
-            {/* PETAL 2: Outer Lower-Right Guard Petal */}
-            {!fallenPetals.has(2) && (
-              <g
-                onClick={() => handlePluckPetal(ROSE_PETALS[1])}
-                className="cursor-pointer group"
-              >
-                <path
-                  d="M225,145 C305,95 355,175 295,235 C262,255 230,238 225,145 Z"
-                  fill="url(#petalVelvetLustre)"
-                  stroke="url(#petalRimLight)"
-                  strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
-                />
-                {/* Curled outer lip edge highlight */}
-                <path
-                  d="M295,235 C325,195 330,135 285,115"
-                  stroke="#ffe4e6"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  fill="none"
-                  opacity="0.6"
-                />
-                {/* Glistening Dew Drop on Petal 2 */}
-                <ellipse cx="302" cy="180" rx="3.8" ry="2.6" fill="#ffffff" opacity="0.85" />
-                <circle cx="301" cy="179" r="1.1" fill="#ffffff" />
               </g>
             )}
 
@@ -596,21 +573,22 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[2])}
                 className="cursor-pointer group"
+                filter="url(#petalShadow)"
               >
                 <path
-                  d="M210,175 C125,180 135,255 208,245 C225,240 222,215 210,175 Z"
+                  d="M210,165 C115,160 120,255 208,245 C228,240 224,210 210,165 Z"
                   fill="url(#petalVelvetDeep)"
                   stroke="#fda4af"
                   strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
                 />
                 <path
-                  d="M138,205 C145,238 175,250 208,245"
+                  d="M132,195 C140,235 172,248 208,245"
                   stroke="#fecdd3"
                   strokeWidth="1.4"
                   strokeLinecap="round"
                   fill="none"
-                  opacity="0.75"
+                  opacity="0.8"
                 />
               </g>
             )}
@@ -620,46 +598,81 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[3])}
                 className="cursor-pointer group"
+                filter="url(#petalShadow)"
               >
                 <path
-                  d="M230,175 C315,180 305,255 232,245 C215,240 218,215 230,175 Z"
+                  d="M230,165 C325,160 320,255 232,245 C212,240 216,210 230,165 Z"
                   fill="url(#petalVelvetLustre)"
                   stroke="#fda4af"
                   strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
                 />
                 <path
-                  d="M302,205 C295,238 265,250 232,245"
+                  d="M308,195 C300,235 268,248 232,245"
                   stroke="#fecdd3"
                   strokeWidth="1.4"
                   strokeLinecap="round"
                   fill="none"
-                  opacity="0.75"
+                  opacity="0.8"
                 />
               </g>
             )}
 
-            {/* PETAL 5: Upper Crown Petal (Back Petal of the Bloom) */}
-            {!fallenPetals.has(5) && (
+            {/* PETAL 1: Outer Lower-Left Guard Petal */}
+            {!fallenPetals.has(1) && (
               <g
-                onClick={() => handlePluckPetal(ROSE_PETALS[4])}
+                onClick={() => handlePluckPetal(ROSE_PETALS[0])}
                 className="cursor-pointer group"
+                filter="url(#petalShadow)"
               >
                 <path
-                  d="M220,155 C155,90 285,90 220,155 Z"
-                  fill="url(#petalVelvetInner)"
-                  stroke="#fda4af"
+                  d="M215,145 C125,95 75,175 145,238 C180,258 212,240 215,145 Z"
+                  fill="url(#petalVelvetDeep)"
+                  stroke="url(#petalRimLight)"
                   strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
                 />
+                {/* Curled outer lip edge highlight */}
                 <path
-                  d="M175,115 C220,95 265,115 265,115"
-                  stroke="#ffffff"
-                  strokeWidth="1.5"
+                  d="M145,238 C110,195 105,135 152,112"
+                  stroke="#ffe4e6"
+                  strokeWidth="1.6"
                   strokeLinecap="round"
                   fill="none"
-                  opacity="0.65"
+                  opacity="0.7"
                 />
+                {/* Glistening Dew Drop on Petal 1 */}
+                <ellipse cx="140" cy="190" rx="3.8" ry="2.6" fill="#ffffff" opacity="0.85" />
+                <circle cx="139" cy="189" r="1.1" fill="#ffffff" />
+              </g>
+            )}
+
+            {/* PETAL 2: Outer Lower-Right Guard Petal */}
+            {!fallenPetals.has(2) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[1])}
+                className="cursor-pointer group"
+                filter="url(#petalShadow)"
+              >
+                <path
+                  d="M225,145 C315,95 365,175 295,238 C260,258 228,240 225,145 Z"
+                  fill="url(#petalVelvetLustre)"
+                  stroke="url(#petalRimLight)"
+                  strokeWidth="1.8"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                />
+                {/* Curled outer lip edge highlight */}
+                <path
+                  d="M295,238 C330,195 335,135 288,112"
+                  stroke="#ffe4e6"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.7"
+                />
+                {/* Glistening Dew Drop on Petal 2 */}
+                <ellipse cx="300" cy="182" rx="4" ry="2.8" fill="#ffffff" opacity="0.85" />
+                <circle cx="299" cy="181" r="1.2" fill="#ffffff" />
               </g>
             )}
 
@@ -668,20 +681,21 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[5])}
                 className="cursor-pointer group"
+                filter="url(#innerPetalShadow)"
               >
                 <path
-                  d="M218,160 C165,138 165,215 218,225 C226,218 224,188 218,160 Z"
+                  d="M218,155 C160,132 160,215 218,226 C228,218 226,185 218,155 Z"
                   fill="url(#petalVelvetInner)"
                   stroke="#fda4af"
                   strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
                 />
                 <path
-                  d="M178,165 C182,198 202,218 218,225"
+                  d="M174,162 C178,198 200,218 218,226"
                   stroke="#ffe4e6"
-                  strokeWidth="1.3"
+                  strokeWidth="1.4"
                   fill="none"
-                  opacity="0.7"
+                  opacity="0.75"
                 />
               </g>
             )}
@@ -691,20 +705,21 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[6])}
                 className="cursor-pointer group"
+                filter="url(#innerPetalShadow)"
               >
                 <path
-                  d="M222,160 C275,138 275,215 222,225 C214,218 216,188 222,160 Z"
+                  d="M222,155 C280,132 280,215 222,226 C212,218 214,185 222,155 Z"
                   fill="url(#petalVelvetInner)"
                   stroke="#fda4af"
                   strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
                 />
                 <path
-                  d="M262,165 C258,198 238,218 222,225"
+                  d="M266,162 C262,198 240,218 222,226"
                   stroke="#ffe4e6"
-                  strokeWidth="1.3"
+                  strokeWidth="1.4"
                   fill="none"
-                  opacity="0.7"
+                  opacity="0.75"
                 />
               </g>
             )}
@@ -714,22 +729,23 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[7])}
                 className="cursor-pointer group"
+                filter="url(#innerPetalShadow)"
               >
                 {/* Golden & Crimson Ambient Warmth */}
                 <circle cx="220" cy="188" r="32" fill="rgba(244,63,94,0.35)" className="animate-pulse" />
 
                 {/* Core Tight Bud Shell */}
                 <path
-                  d="M220,158 C188,168 192,218 220,222 C248,218 252,168 220,158 Z"
+                  d="M220,156 C186,166 190,218 220,222 C250,218 254,166 220,156 Z"
                   fill="url(#petalVelvetCore)"
                   stroke="#ffffff"
                   strokeWidth="2.2"
-                  className="transition-all duration-300 group-hover:scale-105 group-hover:brightness-120 group-hover:drop-shadow-[0_0_16px_rgba(255,228,230,0.9)]"
+                  className="transition-all duration-300 group-hover:scale-105 group-hover:brightness-120 group-hover:drop-shadow-[0_0_18px_rgba(255,228,230,0.95)]"
                 />
 
                 {/* Delicate Inner Spiral Folds of the Heart */}
                 <path
-                  d="M214,178 C210,168 228,168 226,178 C224,192 214,192 215,184"
+                  d="M214,176 C210,166 228,166 226,176 C224,192 214,192 215,184"
                   stroke="#fff1f2"
                   strokeWidth="1.8"
                   strokeLinecap="round"
