@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #f7faf8;
+    color: #132e22;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Girly Pop Pastel Glassmorphism & Fresh Mint Glows */
+.glass-pop {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(187, 247, 208, 0.9);
+  box-shadow: 0 10px 30px -5px rgba(74, 222, 128, 0.15), 0 4px 12px -2px rgba(134, 239, 172, 0.10);
+}
+
+.glass-pop-subtle {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(220, 252, 231, 0.85);
+  box-shadow: 0 6px 20px -3px rgba(30, 60, 45, 0.05);
+}
+
+.glow-bubblegum {
+  box-shadow: 0 0 25px rgba(74, 222, 128, 0.35);
+}
+
+.glow-lavender {
+  box-shadow: 0 0 25px rgba(167, 243, 208, 0.35);
+}
+
+.glow-strawberry {
+  box-shadow: 0 0 25px rgba(187, 247, 208, 0.40);
+}
+
+.glow-butter {
+  box-shadow: 0 0 25px rgba(254, 240, 138, 0.35);
+}
+
+.glow-sky {
+  box-shadow: 0 0 25px rgba(186, 230, 253, 0.35);
+}
+
+.glow-matcha {
+  box-shadow: 0 0 25px rgba(187, 247, 208, 0.35);
+}
+
+/* Handwritten Cursive Utility */
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+/* Custom Girly Pop Pastel Mint Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f7faf8;
+}
+::-webkit-scrollbar-thumb {
+  background: #bbf7d0;
+  border-radius: 9999px;
+  border: 2px solid #f7faf8;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #86efac;
+}
