@@ -340,6 +340,18 @@ export const DEFAULT_CHAMBER_PHOTOS = [
   "/lightchamber/polaroid4.jpg"
 ];
 
+export const DEFAULT_MATRIX_PHOTOS = [
+  "/memorymatrix/matrix1.jpg",
+  "/memorymatrix/matrix2.jpg",
+  "/memorymatrix/matrix3.jpg",
+  "/memorymatrix/matrix4.jpg",
+  "/memorymatrix/matrix5.jpg",
+  "/memorymatrix/matrix6.jpg",
+  "/memorymatrix/matrix7.jpg",
+  "/memorymatrix/matrix8.jpg",
+  "/memorymatrix/matrix9.jpg"
+];
+
 export const DEFAULT_STORY = {
   recipient: "Mythri",
   passcode: DEFAULT_PASSCODE,
@@ -351,5 +363,6 @@ export const DEFAULT_STORY = {
   triviaQuestions: DEFAULT_TRIVIA_QUESTIONS,
   jigsawPhoto: "/jigsaw.jpg",
   chamberPhotos: DEFAULT_CHAMBER_PHOTOS,
-  memoryPairs: DEFAULT_MEMORY_PAIRS
+  memoryPairs: DEFAULT_MEMORY_PAIRS,
+  matrixPhotos: DEFAULT_MATRIX_PHOTOS
 };

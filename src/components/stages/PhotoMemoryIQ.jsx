@@ -12,29 +12,29 @@ import { sounds } from "../../utils/audio";
 import { RibbonBow, FlowerBlossom, WashiTape } from "../common/GirlyPopDecorations";
 
 const DEFAULT_9_PHOTOS = [
-  { id: 0, title: "Moment 01", src: "/memorymatch/card1.jpg", note: "Day 01" },
-  { id: 1, title: "Moment 02", src: "/memorymatch/card2.jpg", note: "Smile" },
-  { id: 2, title: "Moment 03", src: "/memorymatch/card3.jpg", note: "Pure Joy" },
-  { id: 3, title: "Moment 04", src: "/memorymatch/card4.jpg", note: "Together" },
-  { id: 4, title: "Moment 05", src: "/memorymatch/card5.jpg", note: "Us ♡" },
-  { id: 5, title: "Moment 06", src: "/memorymatch/card6.jpg", note: "Night Vibes" },
-  { id: 6, title: "Moment 07", src: "/memorymatch/card7.jpg", note: "Sweet Times" },
-  { id: 7, title: "Moment 08", src: "/memorymatch/card8.jpg", note: "Adventure" },
-  { id: 8, title: "Moment 09", src: "/memorymatch/card9.jpg", note: "Forever" }
+  { id: 0, title: "Moment 01", src: "/memorymatrix/matrix1.jpg", note: "Day 01" },
+  { id: 1, title: "Moment 02", src: "/memorymatrix/matrix2.jpg", note: "Smile" },
+  { id: 2, title: "Moment 03", src: "/memorymatrix/matrix3.jpg", note: "Pure Joy" },
+  { id: 3, title: "Moment 04", src: "/memorymatrix/matrix4.jpg", note: "Together" },
+  { id: 4, title: "Moment 05", src: "/memorymatrix/matrix5.jpg", note: "Us ♡" },
+  { id: 5, title: "Moment 06", src: "/memorymatrix/matrix6.jpg", note: "Night Vibes" },
+  { id: 6, title: "Moment 07", src: "/memorymatrix/matrix7.jpg", note: "Sweet Times" },
+  { id: 7, title: "Moment 08", src: "/memorymatrix/matrix8.jpg", note: "Adventure" },
+  { id: 8, title: "Moment 09", src: "/memorymatrix/matrix9.jpg", note: "Forever" }
 ];
 
-// 3 Progressive, easy rounds for 3x3 (9 photos)
+// 3 Levels with 5, 6, and 7 illuminations
 const ROUNDS_CONFIG = [
-  { round: 1, length: 2, label: "Round 1 · Warmup IQ", badge: "Smart ♡" },
-  { round: 2, length: 3, label: "Round 2 · Genius IQ", badge: "Brilliant ♡" },
-  { round: 3, length: 4, label: "Round 3 · 100% Photographic Memory", badge: "Mastermind ♡" }
+  { round: 1, length: 5, label: "Level 1 · 5 Illuminations", badge: "Level 1 Cleared ♡" },
+  { round: 2, length: 6, label: "Level 2 · 6 Illuminations", badge: "Level 2 Cleared ♡" },
+  { round: 3, length: 7, label: "Level 3 · 7 Illuminations", badge: "Level 3 Mastermind ♡" }
 ];
 
 export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
-  // If customPhotos provided (e.g. from memoryPairs or custom), use them, otherwise default to the 9 memorymatch photos
+  // Use memorymatrix photos by default, or customPhotos if configured
   const photos = DEFAULT_9_PHOTOS.map((p, idx) => ({
     ...p,
-    src: (customPhotos && customPhotos[idx] && (customPhotos[idx].photo || customPhotos[idx])) || p.src
+    src: (customPhotos && customPhotos[idx] && (customPhotos[idx].photo || customPhotos[idx].src || customPhotos[idx])) || p.src
   }));
 
   const [currentRoundIndex, setCurrentRoundIndex] = useState(0); // 0, 1, 2

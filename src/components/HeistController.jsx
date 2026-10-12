@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HelpCircle, Volume2, VolumeX, Clock, Settings, Sparkles, Heart } from "lucide-react";
-import { STAGE_NAMES, STAGE_HINTS, DEFAULT_STORY } from "../heistData";
+import { STAGE_NAMES, STAGE_HINTS, DEFAULT_STORY, DEFAULT_MATRIX_PHOTOS } from "../heistData";
 import { sounds } from "../utils/audio";
 import { useAnniversary, STAGE_SLUGS } from "../context/AnniversaryContext";
 import StoryCustomizer from "./StoryCustomizer";
@@ -232,7 +232,7 @@ export default function HeistController() {
         {currentStage === 4 && (
           <PhotoMemoryIQ
             onComplete={nextStage}
-            customPhotos={storyData.memoryPairs}
+            customPhotos={storyData.matrixPhotos || DEFAULT_MATRIX_PHOTOS}
           />
         )}
         {currentStage === 5 && (
