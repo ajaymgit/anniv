@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Sparkles,
   X,
-  Heart,
   ChevronLeft,
   ChevronRight,
   RotateCcw,
-  Volume2,
-  VolumeX,
-  Eye
+  Sparkles,
+  Heart
 } from "lucide-react";
 import { useAnniversary } from "../context/AnniversaryContext";
 import confetti from "canvas-confetti";
@@ -17,7 +14,6 @@ import {
   RibbonBow,
   FlowerBlossom,
   SparkleStar,
-  PopFlower,
   WashiTape
 } from "../components/common/GirlyPopDecorations";
 
@@ -36,7 +32,10 @@ export const ROSE_PETALS = [
 Two stubborn, fiery Aries who normally guard their independence fiercely—suddenly wanting to stay in the exact same room, talking for hours without running out of things to say. 
 
 You weren't like anyone else I had ever met. You carried this fierce, quiet authenticity that immediately broke through all my defenses. That first spark wasn't just a moment; it was the foundation of our entire story.`,
-    photoUrl: "https://images.unsplash.com/photo-1517256673805-adc3f4a9b634?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1517256673805-adc3f4a9b634?auto=format&fit=crop&w=800&q=80",
+    landingX: 140,
+    landingY: 455,
+    landingRotate: -25
   },
   {
     id: 2,
@@ -51,7 +50,10 @@ You weren't like anyone else I had ever met. You carried this fierce, quiet auth
 Like riding through torrential night rain when neither of us had any business being on the road. Water dripping from our helmets and soaking through our jackets, cold winds whipping past, and your hands tucked tightly into my pockets.
 
 In that quiet midnight city, with nobody else around, I realized I would ride anywhere in the world as long as you were sitting behind me.`,
-    photoUrl: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80",
+    landingX: 300,
+    landingY: 458,
+    landingRotate: 30
   },
   {
     id: 3,
@@ -66,7 +68,10 @@ In that quiet midnight city, with nobody else around, I realized I would ride an
 Splitting an order of extra crispy fries and silently leaving the crunchiest one at the bottom for you. The way we could talk about the most absurd, ridiculous thoughts one minute, and dive into our deepest family vulnerabilities the next.
 
 With you, there was never any awkward silence—only comfort so deep it felt like breathing.`,
-    photoUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80",
+    landingX: 175,
+    landingY: 468,
+    landingRotate: -12
   },
   {
     id: 4,
@@ -81,7 +86,10 @@ With you, there was never any awkward silence—only comfort so deep it felt lik
 I learned the subtle signs of when you were exhausted before you said a word. I learned how your laughter could instantly dismantle a bad day, and how seriously you take an UNO Draw 4 card.
 
 We learned how to forgive quickly, how to tease gently, and how to hold space for each other when life felt heavy. You became my safest harbor.`,
-    photoUrl: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80",
+    landingX: 265,
+    landingY: 466,
+    landingRotate: 18
   },
   {
     id: 5,
@@ -96,7 +104,10 @@ We learned how to forgive quickly, how to tease gently, and how to hold space fo
 You never perform kindness for an audience. When someone is hurting, you show up. When things are difficult, you set your jaw, figure out what needs to be done, and do it with grace.
 
 In five years of watching you grow, my respect for your character only deepened. You are the standard of integrity and honesty in my life.`,
-    photoUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
+    landingX: 195,
+    landingY: 480,
+    landingRotate: -5
   },
   {
     id: 6,
@@ -111,7 +122,10 @@ In five years of watching you grow, my respect for your character only deepened.
 Yet across busy schedules, departures, and counting down the days until we could sit in the same room again, our bond never wavered. Every late-night call and every countdown proved what we always knew:
 
 Physical miles could never dilute what we built. We were anchored in each other long before the miles appeared.`,
-    photoUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80",
+    landingX: 245,
+    landingY: 482,
+    landingRotate: 8
   },
   {
     id: 7,
@@ -126,7 +140,10 @@ Physical miles could never dilute what we built. We were anchored in each other 
 You don't need to give advice or solve my problems. Just resting your head on my shoulder or holding my hand reminds me of who I am.
 
 In seven years, you turned love from a fleeting feeling into a permanent home.`,
-    photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
+    landingX: 215,
+    landingY: 490,
+    landingRotate: -2
   },
   {
     id: 8,
@@ -143,7 +160,10 @@ I chose you seven years ago on a quiet evening, and I have chosen you every sing
 There is no version of my future, no dream I want to build, and no horizon I look toward that doesn't have you standing by my side. Seven years of us was just the prologue.
 
 To our next seven, our next seventy, and a lifetime of roses blooming for you. Happy 7th Anniversary, Mythri ♡`,
-    photoUrl: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
+    photoUrl: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
+    landingX: 220,
+    landingY: 472,
+    landingRotate: 0
   }
 ];
 
@@ -162,48 +182,58 @@ export default function SpaceConstellation() {
 
   // Fallen petals state: set of petal IDs that have been plucked
   const [fallenPetals, setFallenPetals] = useState(new Set());
+  // Petal currently in mid-air falling animation
+  const [activeFallingPetalId, setActiveFallingPetalId] = useState(null);
   const [activeStory, setActiveStory] = useState(null);
   const [rippleActive, setRippleActive] = useState(false);
   const [bloomedRosesEverywhere, setBloomedRosesEverywhere] = useState(false);
   const [showGrandFinale, setShowGrandFinale] = useState(false);
 
-  // Pluck a petal and read its story
+  // Pluck a petal: it falls off realistically, lands in water, and memory appears
   const handlePluckPetal = (petal) => {
-    // If petal 8 is clicked:
-    if (petal.id === 8) {
-      // Trigger the 8th petal drop & massive ripple sequence!
-      setFallenPetals((prev) => new Set(prev).add(8));
+    if (fallenPetals.has(petal.id) || activeFallingPetalId === petal.id) {
+      // If already plucked, tapping it opens its story directly
       setActiveStory(petal);
+      return;
+    }
+
+    // Trigger visual detachment and falling animation
+    setActiveFallingPetalId(petal.id);
+    setFallenPetals((prev) => new Set(prev).add(petal.id));
+
+    // Stagger opening the memory modal so the user gets to see the petal peel and flutter down
+    setTimeout(() => {
+      setActiveStory(petal);
+      setActiveFallingPetalId(null);
+    }, 600);
+
+    // If petal 8 is clicked (the final heart petal):
+    if (petal.id === 8) {
       setRippleActive(true);
 
-      // Sound & dramatic ripple burst
       setTimeout(() => {
         setBloomedRosesEverywhere(true);
         markSpaceCompleted("02-constellation");
 
         try {
           confetti({
-            particleCount: 100,
-            spread: 120,
+            particleCount: 120,
+            spread: 130,
             origin: { y: 0.6 },
             colors: ["#ef4444", "#f43f5e", "#fda4af", "#fecdd3", "#ffffff"]
           });
         } catch (e) {}
-      }, 700);
+      }, 800);
 
       setTimeout(() => {
         setShowGrandFinale(true);
-      }, 2500);
-      return;
+      }, 2600);
     }
-
-    // Normal petal 1 to 7 pluck
-    setFallenPetals((prev) => new Set(prev).add(petal.id));
-    setActiveStory(petal);
   };
 
   const handleReset = () => {
     setFallenPetals(new Set());
+    setActiveFallingPetalId(null);
     setActiveStory(null);
     setRippleActive(false);
     setBloomedRosesEverywhere(false);
@@ -251,10 +281,10 @@ export default function SpaceConstellation() {
             </div>
             <p className="text-[11px] text-rose-200/80 font-sans mt-0.5">
               {remainingPetalCount > 1
-                ? `Pluck each petal to uncover our stories (${remainingPetalCount} petals remaining) ♡`
+                ? `Pluck each petal to let it fall and reveal our story (${remainingPetalCount} petals left) ♡`
                 : remainingPetalCount === 1
-                ? "Only the 8th heart petal remains... Tap to let it fall ♡"
-                : "The 8th petal has fallen — a sea of roses blooms for you ♡"}
+                ? "Only the 8th heart petal remains... Tap to let it drop ♡"
+                : "All eight petals have shed into the sea — a garden of roses blooms ♡"}
             </p>
           </div>
         </div>
@@ -282,313 +312,559 @@ export default function SpaceConstellation() {
         </div>
       </div>
 
-      {/* 3. The Centerpiece: The Enchanted 8-Petal Rose on Water */}
-      <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-4">
-        {/* Glow Halo behind Rose Head */}
-        <div className="absolute w-80 h-80 rounded-full bg-rose-500/15 blur-3xl pointer-events-none" />
+      {/* 3. The Centerpiece: The Realistic Rose Standing on Water */}
+      <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-2 sm:p-4">
+        {/* Ambient Romantic Halo behind Rose Head */}
+        <div className="absolute w-96 h-96 rounded-full bg-rose-600/15 blur-3xl pointer-events-none" />
 
-        {/* The Interactive Layered Rose Graphic */}
-        <div className="relative w-[340px] h-[400px] sm:w-[400px] sm:h-[460px] flex items-center justify-center">
+        {/* The Realistic Layered Rose SVG */}
+        <div className="relative w-[360px] h-[460px] sm:w-[440px] sm:h-[530px] flex items-center justify-center">
           <svg
-            viewBox="0 0 400 460"
-            className="w-full h-full drop-shadow-[0_15px_35px_rgba(225,29,72,0.35)] select-none overflow-visible"
+            viewBox="0 0 440 520"
+            className="w-full h-full drop-shadow-[0_20px_45px_rgba(225,29,72,0.4)] select-none overflow-visible"
           >
             <defs>
-              {/* Petal Rich Velvet Red & Rose Gradients */}
-              <radialGradient id="petalGradOuter1" cx="40%" cy="30%" r="70%">
+              {/* Ultra-realistic Velvet Crimson & Ruby Gradients */}
+              <radialGradient id="petalVelvetDeep" cx="35%" cy="30%" r="75%">
                 <stop offset="0%" stopColor="#f43f5e" />
-                <stop offset="50%" stopColor="#e11d48" />
-                <stop offset="100%" stopColor="#881337" />
+                <stop offset="35%" stopColor="#e11d48" />
+                <stop offset="70%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#4c0519" />
               </radialGradient>
-              <radialGradient id="petalGradOuter2" cx="60%" cy="30%" r="70%">
+
+              <radialGradient id="petalVelvetLustre" cx="65%" cy="25%" r="75%">
                 <stop offset="0%" stopColor="#fb7185" />
-                <stop offset="50%" stopColor="#e11d48" />
-                <stop offset="100%" stopColor="#9f1239" />
+                <stop offset="40%" stopColor="#e11d48" />
+                <stop offset="75%" stopColor="#9f1239" />
+                <stop offset="100%" stopColor="#4c0519" />
               </radialGradient>
-              <radialGradient id="petalGradInner" cx="50%" cy="40%" r="65%">
+
+              <radialGradient id="petalVelvetInner" cx="45%" cy="35%" r="70%">
                 <stop offset="0%" stopColor="#fda4af" />
-                <stop offset="45%" stopColor="#f43f5e" />
-                <stop offset="100%" stopColor="#be123c" />
+                <stop offset="30%" stopColor="#f43f5e" />
+                <stop offset="75%" stopColor="#be123c" />
+                <stop offset="100%" stopColor="#700c25" />
               </radialGradient>
-              <radialGradient id="petalGradCore" cx="50%" cy="35%" r="65%">
+
+              <radialGradient id="petalVelvetCore" cx="50%" cy="30%" r="70%">
                 <stop offset="0%" stopColor="#ffe4e6" />
-                <stop offset="35%" stopColor="#fb7185" />
-                <stop offset="80%" stopColor="#be123c" />
-                <stop offset="100%" stopColor="#881337" />
+                <stop offset="25%" stopColor="#fb7185" />
+                <stop offset="60%" stopColor="#e11d48" />
+                <stop offset="90%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#4c0519" />
               </radialGradient>
-              <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#15803d" />
-                <stop offset="50%" stopColor="#166534" />
+
+              {/* Underlying Inner Base Bud (Permanent Silhouette) */}
+              <radialGradient id="roseBaseGrad" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stopColor="#be123c" />
+                <stop offset="60%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#4c0519" />
+              </radialGradient>
+
+              {/* Stem & Leaves Botanically Textured Gradients */}
+              <linearGradient id="stemNatural" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#22c55e" />
+                <stop offset="25%" stopColor="#16a34a" />
+                <stop offset="60%" stopColor="#15803d" />
+                <stop offset="85%" stopColor="#14532d" />
                 <stop offset="100%" stopColor="#052e16" />
+              </linearGradient>
+
+              <linearGradient id="leafGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#22c55e" />
+                <stop offset="45%" stopColor="#15803d" />
+                <stop offset="100%" stopColor="#052e16" />
+              </linearGradient>
+
+              <linearGradient id="leafGradRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#4ade80" />
+                <stop offset="50%" stopColor="#16a34a" />
+                <stop offset="100%" stopColor="#052e16" />
+              </linearGradient>
+
+              {/* Water Surface Pond Glow */}
+              <radialGradient id="waterSurfaceGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#1e3a5f" stopOpacity="0.8" />
+                <stop offset="60%" stopColor="#0a192f" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#030712" stopOpacity="0" />
+              </radialGradient>
+
+              {/* Petal Rim Translucent Stroke */}
+              <linearGradient id="petalRimLight" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#ffe4e6" stopOpacity="0.85" />
+                <stop offset="100%" stopColor="#fda4af" stopOpacity="0.3" />
               </linearGradient>
             </defs>
 
-            {/* Stem & Leaves (Permanent Foundation) */}
-            <path
-              d="M200,240 Q190,320 205,430"
-              stroke="url(#stemGrad)"
-              strokeWidth="9"
-              strokeLinecap="round"
-              fill="none"
-            />
-            {/* Left Leaf */}
-            <path
-              d="M195,330 C130,320 110,380 190,360 Z"
-              fill="#15803d"
-              stroke="#052e16"
-              strokeWidth="2"
-            />
-            {/* Right Leaf */}
-            <path
-              d="M202,360 C270,350 280,410 206,390 Z"
-              fill="#166534"
-              stroke="#052e16"
-              strokeWidth="2"
-            />
-            {/* Sepals (Green base calyx) */}
-            <path d="M175,245 Q200,270 185,290 Q200,265 200,250 Z" fill="#15803d" />
-            <path d="M225,245 Q200,270 215,290 Q200,265 200,250 Z" fill="#166534" />
+            {/* A. Reflective Water Pond at the Base (Where Petals Rest) */}
+            <g className="water-base">
+              {/* Calm Water Surface Oval */}
+              <ellipse
+                cx="220"
+                cy="470"
+                rx="180"
+                ry="38"
+                fill="url(#waterSurfaceGrad)"
+              />
+              <ellipse
+                cx="220"
+                cy="470"
+                rx="140"
+                ry="22"
+                stroke="#60a5fa"
+                strokeWidth="0.8"
+                strokeOpacity="0.35"
+                fill="none"
+              />
+              <ellipse
+                cx="220"
+                cy="470"
+                rx="85"
+                ry="14"
+                stroke="#f43f5e"
+                strokeWidth="1"
+                strokeOpacity="0.3"
+                fill="none"
+              />
+            </g>
+
+            {/* B. Botanical Stem, Thorns, and Compound Leaves */}
+            <g className="botanical-foundation">
+              {/* Natural Stem */}
+              <path
+                d="M220,230 C216,285 228,350 218,415 C214,440 220,465 220,472"
+                stroke="url(#stemNatural)"
+                strokeWidth="10"
+                strokeLinecap="round"
+                fill="none"
+              />
+              {/* Shadow edge along stem for 3D cylindrical realism */}
+              <path
+                d="M217,235 C213,287 225,352 215,417 C211,442 217,465 217,472"
+                stroke="#052e16"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                fill="none"
+                opacity="0.75"
+              />
+
+              {/* Realistic Rose Thorns */}
+              {/* Left Thorn */}
+              <path
+                d="M215,310 C202,314 194,324 192,330 C200,328 214,324 216,322 Z"
+                fill="#881337"
+                stroke="#052e16"
+                strokeWidth="0.8"
+              />
+              {/* Right Thorn */}
+              <path
+                d="M222,390 C234,394 242,404 245,410 C236,408 223,404 221,402 Z"
+                fill="#881337"
+                stroke="#052e16"
+                strokeWidth="0.8"
+              />
+
+              {/* Left Compound Rose Leaf with Botanical Veins */}
+              <g>
+                <path
+                  d="M215,335 C155,305 115,348 168,382 C202,366 214,345 215,335 Z"
+                  fill="url(#leafGradLeft)"
+                  stroke="#052e16"
+                  strokeWidth="1.8"
+                />
+                {/* Leaf Central Midrib */}
+                <path
+                  d="M215,335 C185,340 155,350 145,360"
+                  stroke="#86efac"
+                  strokeWidth="1.2"
+                  strokeOpacity="0.65"
+                  fill="none"
+                />
+                {/* Lateral veins */}
+                <path d="M195,338 L188,328 M180,344 L170,332 M165,350 L152,342" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+                <path d="M195,338 L192,352 M180,344 L178,362 M165,350 L160,368" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+              </g>
+
+              {/* Right Compound Rose Leaf with Botanical Veins */}
+              <g>
+                <path
+                  d="M222,365 C285,335 325,378 272,412 C238,396 226,375 222,365 Z"
+                  fill="url(#leafGradRight)"
+                  stroke="#052e16"
+                  strokeWidth="1.8"
+                />
+                {/* Leaf Central Midrib */}
+                <path
+                  d="M222,365 C252,370 282,380 292,390"
+                  stroke="#86efac"
+                  strokeWidth="1.2"
+                  strokeOpacity="0.65"
+                  fill="none"
+                />
+                {/* Lateral veins */}
+                <path d="M242,368 L248,358 M257,374 L267,362 M272,380 L285,372" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+                <path d="M242,368 L245,382 M257,374 L260,392 M272,380 L277,398" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
+              </g>
+
+              {/* Receptacle (Rose Hip) & Calyx Sepals (The botanical cup holding the flower) */}
+              {/* Swelling green receptacle bulb */}
+              <ellipse cx="220" cy="235" rx="14" ry="11" fill="url(#stemNatural)" />
+              {/* 5 Calyx Sepals curling outward gracefully */}
+              <path d="M210,235 C190,245 170,268 165,282 C175,268 195,250 214,242 Z" fill="#15803d" stroke="#052e16" strokeWidth="0.8" />
+              <path d="M230,235 C250,245 270,268 275,282 C265,268 245,250 226,242 Z" fill="#166534" stroke="#052e16" strokeWidth="0.8" />
+              <path d="M205,238 C195,255 188,278 185,295 C192,278 202,258 212,244 Z" fill="#15803d" />
+              <path d="M235,238 C245,255 252,278 255,295 C248,278 238,258 228,244 Z" fill="#166534" />
+              <path d="M220,242 C218,260 217,285 220,305 C222,285 222,260 220,242 Z" fill="#14532d" />
+            </g>
+
+            {/* C. Permanent Underlying Inner Rose Base (Prevents a hollow hole when outer petals fall) */}
+            <g className="inner-rose-receptacle">
+              <path
+                d="M220,135 C175,130 160,215 220,232 C280,215 265,130 220,135 Z"
+                fill="url(#roseBaseGrad)"
+                opacity="0.95"
+              />
+              <path
+                d="M220,150 C190,150 185,205 220,218 C255,205 250,150 220,150 Z"
+                fill="#700c25"
+                opacity="0.8"
+              />
+            </g>
 
             {/* ========================================================= */}
-            {/* THE 8 INTERACTIVE PETALS */}
+            {/* D. THE 8 REALISTIC INTERACTIVE VELVET PETALS */}
             {/* ========================================================= */}
 
-            {/* PETAL 1: Outer Upper Left */}
-            <AnimatePresence>
-              {!fallenPetals.has(1) && (
-                <motion.path
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    y: 220,
-                    x: -60,
-                    rotate: -45,
-                    opacity: [1, 0.9, 0],
-                    transition: { duration: 1.2, ease: "easeIn" }
-                  }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[0])}
-                  className="cursor-pointer"
-                  d="M195,170 C120,90 90,190 165,245 C185,255 198,230 195,170 Z"
-                  fill="url(#petalGradOuter1)"
-                  stroke="#fda4af"
-                  strokeWidth="1.5"
+            {/* PETAL 1: Outer Lower-Left Guard Petal */}
+            {!fallenPetals.has(1) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[0])}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M215,145 C135,95 85,175 145,235 C178,255 210,238 215,145 Z"
+                  fill="url(#petalVelvetDeep)"
+                  stroke="url(#petalRimLight)"
+                  strokeWidth="1.8"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
                 />
-              )}
-            </AnimatePresence>
-
-            {/* PETAL 2: Outer Upper Right */}
-            <AnimatePresence>
-              {!fallenPetals.has(2) && (
-                <motion.path
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    y: 220,
-                    x: 60,
-                    rotate: 45,
-                    opacity: [1, 0.9, 0],
-                    transition: { duration: 1.2, ease: "easeIn" }
-                  }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[1])}
-                  className="cursor-pointer"
-                  d="M205,170 C280,90 310,190 235,245 C215,255 202,230 205,170 Z"
-                  fill="url(#petalGradOuter2)"
-                  stroke="#fda4af"
+                {/* Curled outer lip edge highlight */}
+                <path
+                  d="M145,235 C115,195 110,135 155,115"
+                  stroke="#ffe4e6"
                   strokeWidth="1.5"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.6"
                 />
-              )}
-            </AnimatePresence>
+                {/* Glistening Dew Drop on Petal 1 */}
+                <ellipse cx="142" cy="188" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.85" />
+                <circle cx="141" cy="187" r="1" fill="#ffffff" />
+              </g>
+            )}
 
-            {/* PETAL 3: Outer Lower Left */}
-            <AnimatePresence>
-              {!fallenPetals.has(3) && (
-                <motion.path
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    y: 210,
-                    x: -80,
-                    rotate: -35,
-                    opacity: [1, 0.9, 0],
-                    transition: { duration: 1.2, ease: "easeIn" }
-                  }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[2])}
-                  className="cursor-pointer"
-                  d="M190,200 C110,210 130,270 190,260 C205,255 200,230 190,200 Z"
-                  fill="url(#petalGradOuter1)"
-                  stroke="#fda4af"
+            {/* PETAL 2: Outer Lower-Right Guard Petal */}
+            {!fallenPetals.has(2) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[1])}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M225,145 C305,95 355,175 295,235 C262,255 230,238 225,145 Z"
+                  fill="url(#petalVelvetLustre)"
+                  stroke="url(#petalRimLight)"
+                  strokeWidth="1.8"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                />
+                {/* Curled outer lip edge highlight */}
+                <path
+                  d="M295,235 C325,195 330,135 285,115"
+                  stroke="#ffe4e6"
                   strokeWidth="1.5"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.6"
                 />
-              )}
-            </AnimatePresence>
+                {/* Glistening Dew Drop on Petal 2 */}
+                <ellipse cx="302" cy="180" rx="3.8" ry="2.6" fill="#ffffff" opacity="0.85" />
+                <circle cx="301" cy="179" r="1.1" fill="#ffffff" />
+              </g>
+            )}
 
-            {/* PETAL 4: Outer Lower Right */}
-            <AnimatePresence>
-              {!fallenPetals.has(4) && (
-                <motion.path
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    y: 210,
-                    x: 80,
-                    rotate: 35,
-                    opacity: [1, 0.9, 0],
-                    transition: { duration: 1.2, ease: "easeIn" }
-                  }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[3])}
-                  className="cursor-pointer"
-                  d="M210,200 C290,210 270,270 210,260 C195,255 200,230 210,200 Z"
-                  fill="url(#petalGradOuter2)"
+            {/* PETAL 3: Mid-Left Cupped Petal */}
+            {!fallenPetals.has(3) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[2])}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M210,175 C125,180 135,255 208,245 C225,240 222,215 210,175 Z"
+                  fill="url(#petalVelvetDeep)"
                   stroke="#fda4af"
-                  strokeWidth="1.5"
+                  strokeWidth="1.6"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
                 />
-              )}
-            </AnimatePresence>
+                <path
+                  d="M138,205 C145,238 175,250 208,245"
+                  stroke="#fecdd3"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.75"
+                />
+              </g>
+            )}
 
-            {/* PETAL 5: Upper Crown */}
-            <AnimatePresence>
-              {!fallenPetals.has(5) && (
-                <motion.path
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    y: 230,
-                    x: -20,
-                    rotate: -20,
-                    opacity: [1, 0.9, 0],
-                    transition: { duration: 1.2, ease: "easeIn" }
-                  }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[4])}
-                  className="cursor-pointer"
-                  d="M200,165 C145,105 255,105 200,165 Z"
-                  fill="url(#petalGradInner)"
+            {/* PETAL 4: Mid-Right Cupped Petal */}
+            {!fallenPetals.has(4) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[3])}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M230,175 C315,180 305,255 232,245 C215,240 218,215 230,175 Z"
+                  fill="url(#petalVelvetLustre)"
+                  stroke="#fda4af"
+                  strokeWidth="1.6"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                />
+                <path
+                  d="M302,205 C295,238 265,250 232,245"
+                  stroke="#fecdd3"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.75"
+                />
+              </g>
+            )}
+
+            {/* PETAL 5: Upper Crown Petal (Back Petal of the Bloom) */}
+            {!fallenPetals.has(5) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[4])}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M220,155 C155,90 285,90 220,155 Z"
+                  fill="url(#petalVelvetInner)"
+                  stroke="#fda4af"
+                  strokeWidth="1.8"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                />
+                <path
+                  d="M175,115 C220,95 265,115 265,115"
+                  stroke="#ffffff"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  fill="none"
+                  opacity="0.65"
+                />
+              </g>
+            )}
+
+            {/* PETAL 6: Inner Left Whorl Petal */}
+            {!fallenPetals.has(6) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[5])}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M218,160 C165,138 165,215 218,225 C226,218 224,188 218,160 Z"
+                  fill="url(#petalVelvetInner)"
+                  stroke="#fda4af"
+                  strokeWidth="1.6"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                />
+                <path
+                  d="M178,165 C182,198 202,218 218,225"
+                  stroke="#ffe4e6"
+                  strokeWidth="1.3"
+                  fill="none"
+                  opacity="0.7"
+                />
+              </g>
+            )}
+
+            {/* PETAL 7: Inner Right Whorl Petal */}
+            {!fallenPetals.has(7) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[6])}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M222,160 C275,138 275,215 222,225 C214,218 216,188 222,160 Z"
+                  fill="url(#petalVelvetInner)"
+                  stroke="#fda4af"
+                  strokeWidth="1.6"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.6)]"
+                />
+                <path
+                  d="M262,165 C258,198 238,218 222,225"
+                  stroke="#ffe4e6"
+                  strokeWidth="1.3"
+                  fill="none"
+                  opacity="0.7"
+                />
+              </g>
+            )}
+
+            {/* PETAL 8: The Core Heart Spiral Petal (The Climax of the Rose!) */}
+            {!fallenPetals.has(8) && (
+              <g
+                onClick={() => handlePluckPetal(ROSE_PETALS[7])}
+                className="cursor-pointer group"
+              >
+                {/* Golden & Crimson Ambient Warmth */}
+                <circle cx="220" cy="188" r="32" fill="rgba(244,63,94,0.35)" className="animate-pulse" />
+
+                {/* Core Tight Bud Shell */}
+                <path
+                  d="M220,158 C188,168 192,218 220,222 C248,218 252,168 220,158 Z"
+                  fill="url(#petalVelvetCore)"
+                  stroke="#ffffff"
+                  strokeWidth="2.2"
+                  className="transition-all duration-300 group-hover:scale-105 group-hover:brightness-120 group-hover:drop-shadow-[0_0_16px_rgba(255,228,230,0.9)]"
+                />
+
+                {/* Delicate Inner Spiral Folds of the Heart */}
+                <path
+                  d="M214,178 C210,168 228,168 226,178 C224,192 214,192 215,184"
+                  stroke="#fff1f2"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+                <path
+                  d="M218,192 Q220,202 222,192"
                   stroke="#fecdd3"
                   strokeWidth="1.5"
+                  fill="none"
                 />
-              )}
-            </AnimatePresence>
 
-            {/* PETAL 6: Mid Left Swirl */}
-            <AnimatePresence>
-              {!fallenPetals.has(6) && (
-                <motion.path
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    y: 220,
-                    x: -40,
-                    rotate: 25,
-                    opacity: [1, 0.9, 0],
-                    transition: { duration: 1.2, ease: "easeIn" }
-                  }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[5])}
-                  className="cursor-pointer"
-                  d="M198,175 C150,145 155,225 198,235 C205,225 202,195 198,175 Z"
-                  fill="url(#petalGradInner)"
-                  stroke="#fecdd3"
-                  strokeWidth="1.5"
-                />
-              )}
-            </AnimatePresence>
+                {/* Specular Glint Star on the Heart Petal */}
+                <circle cx="220" cy="188" r="3" fill="#ffffff" className="animate-ping" style={{ animationDuration: "2.5s" }} />
+                <circle cx="220" cy="188" r="2.5" fill="#ffffff" />
+              </g>
+            )}
 
-            {/* PETAL 7: Mid Right Swirl */}
-            <AnimatePresence>
-              {!fallenPetals.has(7) && (
-                <motion.path
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    y: 220,
-                    x: 40,
-                    rotate: -25,
-                    opacity: [1, 0.9, 0],
-                    transition: { duration: 1.2, ease: "easeIn" }
-                  }}
-                  whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[6])}
-                  className="cursor-pointer"
-                  d="M202,175 C250,145 245,225 202,235 C195,225 198,195 202,175 Z"
-                  fill="url(#petalGradInner)"
-                  stroke="#fecdd3"
-                  strokeWidth="1.5"
-                />
-              )}
-            </AnimatePresence>
+            {/* ========================================================= */}
+            {/* E. RESTING FALLEN PETALS FLOATING IN THE WATER AT THE BASE */}
+            {/* ========================================================= */}
+            <g className="resting-fallen-petals">
+              {ROSE_PETALS.map((petal) => {
+                if (!fallenPetals.has(petal.id) || activeFallingPetalId === petal.id) return null;
 
-            {/* PETAL 8: The Center Heart Core (The Climax Petal!) */}
-            <AnimatePresence>
-              {!fallenPetals.has(8) && (
+                return (
+                  <g
+                    key={`resting-${petal.id}`}
+                    transform={`translate(${petal.landingX}, ${petal.landingY}) rotate(${petal.landingRotate})`}
+                    onClick={() => setActiveStory(petal)}
+                    className="cursor-pointer group"
+                  >
+                    {/* Water Contact Ripple Ring */}
+                    <ellipse
+                      cx="0"
+                      cy="4"
+                      rx="26"
+                      ry="8"
+                      stroke="#fda4af"
+                      strokeWidth="0.8"
+                      strokeOpacity="0.4"
+                      fill="none"
+                    />
+
+                    {/* Resting Petal Silhouette */}
+                    <path
+                      d="M0,-14 C18,-6 24,12 0,16 C-24,12 -18,-6 0,-14 Z"
+                      fill="url(#petalVelvetLustre)"
+                      stroke="#fecdd3"
+                      strokeWidth="1.2"
+                      className="transition-transform duration-300 group-hover:scale-125 group-hover:brightness-120"
+                    />
+                    <path
+                      d="M0,-14 Q0,2 0,16"
+                      stroke="#ffffff"
+                      strokeWidth="0.8"
+                      strokeOpacity="0.6"
+                      fill="none"
+                    />
+
+                    {/* Subtle floating glow */}
+                    <circle cx="0" cy="0" r="12" fill="rgba(244,63,94,0.2)" className="group-hover:fill-rose-500/40 transition-colors" />
+                  </g>
+                );
+              })}
+            </g>
+
+            {/* ========================================================= */}
+            {/* F. ACTIVE FALLING PETAL FLUTTERING DOWN TO THE WATER */}
+            {/* ========================================================= */}
+            {activeFallingPetalId && (() => {
+              const petal = ROSE_PETALS.find((p) => p.id === activeFallingPetalId);
+              if (!petal) return null;
+
+              // Starting coordinate depending on which petal is plucked
+              const startX = petal.id % 2 === 1 ? 190 : 250;
+              const startY = petal.id <= 4 ? 180 : 160;
+
+              return (
                 <motion.g
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  key={`falling-${petal.id}`}
+                  initial={{
+                    x: startX,
+                    y: startY,
+                    rotate: 0,
+                    scale: 1,
+                    opacity: 1
+                  }}
                   animate={{
-                    opacity: 1,
-                    scale: [1, 1.06, 1],
-                    transition: { scale: { repeat: Infinity, duration: 2.2, ease: "easeInOut" } }
+                    x: [startX, startX + (petal.id % 2 === 1 ? -35 : 35), startX + (petal.id % 2 === 1 ? 15 : -15), petal.landingX],
+                    y: [startY, startY + 80, startY + 180, petal.landingY],
+                    rotate: [0, petal.id % 2 === 1 ? -45 : 45, petal.id % 2 === 1 ? 25 : -25, petal.landingRotate],
+                    scale: [1, 0.98, 0.95, 0.92],
+                    opacity: [1, 1, 0.95, 0.9]
                   }}
-                  exit={{
-                    y: 230,
-                    rotate: [0, 180, 360],
-                    scale: [1, 0.8, 0],
-                    opacity: [1, 1, 0],
-                    transition: { duration: 1.0, ease: "easeIn" }
+                  transition={{
+                    duration: 0.65,
+                    ease: [0.25, 0.1, 0.25, 1]
                   }}
-                  whileHover={{ scale: 1.15, filter: "brightness(1.2)" }}
-                  whileTap={{ scale: 0.92 }}
-                  onClick={() => handlePluckPetal(ROSE_PETALS[7])}
-                  className="cursor-pointer"
+                  className="pointer-events-none"
                 >
-                  {/* Glowing Heart Petal Aura */}
-                  <circle cx="200" cy="195" r="28" fill="rgba(244,63,94,0.35)" className="animate-pulse" />
-
-                  {/* Core Petal Spiral */}
                   <path
-                    d="M200,165 C170,175 180,225 200,228 C220,225 230,175 200,165 Z"
-                    fill="url(#petalGradCore)"
+                    d="M0,-18 C25,-8 32,16 0,22 C-32,16 -25,-8 0,-18 Z"
+                    fill="url(#petalVelvetLustre)"
                     stroke="#ffffff"
-                    strokeWidth="2"
-                  />
-                  {/* Subtle inner swirl curl */}
-                  <path
-                    d="M195,185 Q200,175 205,185 Q200,205 197,195"
-                    stroke="#ffe4e6"
                     strokeWidth="1.8"
+                    filter="drop-shadow(0 6px 12px rgba(225,29,72,0.6))"
+                  />
+                  <path
+                    d="M0,-18 Q0,2 0,22"
+                    stroke="#ffe4e6"
+                    strokeWidth="1.2"
+                    strokeOpacity="0.8"
                     fill="none"
                   />
-                  {/* Star glint icon on the 8th petal */}
-                  <circle cx="200" cy="195" r="3" fill="#ffffff" />
                 </motion.g>
-              )}
-            </AnimatePresence>
+              );
+            })()}
           </svg>
 
           {/* Water Ripple Shockwave on 8th Petal Drop */}
           <AnimatePresence>
             {rippleActive && (
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-none z-30">
-                {[0, 0.25, 0.5, 0.75].map((delay, idx) => (
+                {[0, 0.2, 0.4, 0.6].map((delay, idx) => (
                   <motion.div
                     key={idx}
                     initial={{ width: 10, height: 10, opacity: 1 }}
                     animate={{
                       width: [10, 800, 1600],
                       height: [10, 400, 800],
-                      opacity: [0.9, 0.6, 0]
+                      opacity: [0.95, 0.6, 0]
                     }}
-                    transition={{ duration: 2.2, delay, ease: "easeOut" }}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-rose-300/80 shadow-[0_0_40px_rgba(244,63,94,0.8)]"
+                    transition={{ duration: 2.4, delay, ease: "easeOut" }}
+                    className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-rose-300/80 shadow-[0_0_50px_rgba(244,63,94,0.9)]"
                   />
                 ))}
               </div>
@@ -597,13 +873,13 @@ export default function SpaceConstellation() {
         </div>
 
         {/* Prompt Cue Below the Rose */}
-        <div className="mt-4 text-center z-20">
+        <div className="mt-2 text-center z-20">
           <p className="text-xs font-serif italic text-rose-200/90 tracking-wide">
             {remainingPetalCount > 1
-              ? "Touch any petal to gently pluck it and reveal its memory ♡"
+              ? "Touch any petal to gently pluck it — watch it fall into the water and reveal its story ♡"
               : remainingPetalCount === 1
               ? "The final heart petal holds our infinity... Tap it to let it drop ♡"
-              : "A sea of blooming roses for Mythri ♡"}
+              : "All 8 petals rest peacefully in the water. Click any floating petal to re-read its memory ♡"}
           </p>
         </div>
       </div>
@@ -617,7 +893,7 @@ export default function SpaceConstellation() {
                 key={rose.id}
                 initial={{ scale: 0, opacity: 0, rotate: 0 }}
                 animate={{
-                  scale: [0, 1.2, 1],
+                  scale: [0, 1.25, 1],
                   opacity: [0, 1, 0.95],
                   rotate: rose.rotation
                 }}
@@ -636,19 +912,25 @@ export default function SpaceConstellation() {
                 }}
                 className="absolute text-rose-400 drop-shadow-[0_8px_20px_rgba(244,63,94,0.5)]"
               >
-                {/* Blooming Rose SVG Icon */}
+                {/* Realistic Blooming Rose SVG */}
                 <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <circle cx="50" cy="50" r="42" fill="#e11d48" opacity="0.9" />
+                  <circle cx="50" cy="50" r="44" fill="#881337" opacity="0.9" />
                   <path
-                    d="M50,15 C30,30 25,60 45,85 C65,60 70,30 50,15 Z"
-                    fill="#f43f5e"
+                    d="M50,12 C28,28 22,62 45,88 C68,62 72,28 50,12 Z"
+                    fill="#be123c"
                   />
                   <path
-                    d="M20,45 C35,25 65,25 80,45 C65,75 35,75 20,45 Z"
-                    fill="#fb7185"
+                    d="M18,45 C32,22 68,22 82,45 C68,78 32,78 18,45 Z"
+                    fill="#e11d48"
                   />
-                  <circle cx="50" cy="50" r="14" fill="#fda4af" />
-                  <circle cx="50" cy="50" r="6" fill="#fff1f2" />
+                  <circle cx="50" cy="50" r="18" fill="#fb7185" />
+                  <path
+                    d="M44,46 C42,40 56,40 54,46 C52,54 44,54 44,48"
+                    stroke="#fff1f2"
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                  <circle cx="50" cy="50" r="4" fill="#ffffff" />
                 </svg>
               </motion.div>
             ))}
@@ -657,7 +939,7 @@ export default function SpaceConstellation() {
       </AnimatePresence>
 
       {/* 5. Floating Bottom Navigation & Guidance */}
-      <div className="relative z-20 pb-5 text-center text-xs text-rose-200/70 font-sans">
+      <div className="relative z-20 pb-4 text-center text-xs text-rose-200/70 font-sans">
         <span>Chapter 2 • Dedicated to Mythri by Ajay // Forever & Always</span>
       </div>
 
