@@ -332,7 +332,7 @@ export default function SpaceConstellation() {
                 <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#2d020c" floodOpacity="0.8" />
               </filter>
 
-              {/* Multi-Stop Velvet Shading Gradients */}
+              {/* Multi-Stop Velvet Shading Gradients (Natural Light Incident from Top-Left) */}
               <radialGradient id="gradGuardLeft" cx="30%" cy="35%" r="75%">
                 <stop offset="0%" stopColor="#f43f5e" />
                 <stop offset="25%" stopColor="#e11d48" />
@@ -413,12 +413,18 @@ export default function SpaceConstellation() {
                 <stop offset="100%" stopColor="#030712" stopOpacity="0" />
               </radialGradient>
 
-              {/* Curled Lip Fold-over Highlight Gradient */}
+              {/* Curled Lip Fold-over Highlight Gradient (Organic lighting without cartoon strokes) */}
               <linearGradient id="curledLipHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
                 <stop offset="35%" stopColor="#ffe4e6" stopOpacity="0.85" />
                 <stop offset="75%" stopColor="#fb7185" stopOpacity="0.4" />
                 <stop offset="100%" stopColor="#be123c" stopOpacity="0.1" />
+              </linearGradient>
+
+              {/* Translucent rim light for reflexed petal edges */}
+              <linearGradient id="rimLightSubtle" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#fff1f2" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#fda4af" stopOpacity="0.1" />
               </linearGradient>
             </defs>
 
@@ -553,6 +559,7 @@ export default function SpaceConstellation() {
 
             {/* ========================================================= */}
             {/* D. THE 8 HYPER-REALISTIC INTERACTIVE VELVET PETALS */}
+            {/* (Sculpted with authentic botanical depth & NO cartoon strokes) */}
             {/* ========================================================= */}
 
             {/* PETAL 5: Upper Crown Petal (Back Petal of the Bloom) */}
@@ -562,22 +569,32 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Petal Body with organic wavy contours */}
+                {/* Organic Petal Body */}
                 <path
-                  d="M220,150 C190,140 155,115 140,95 C155,75 185,65 220,65 C255,65 285,75 300,95 C285,115 250,140 220,150 Z"
+                  d="M220,150 C185,140 148,118 138,96 C148,74 182,64 220,64 C258,64 292,74 302,96 C292,118 255,140 220,150 Z"
                   fill="url(#gradCrown)"
-                  stroke="#fda4af"
-                  strokeWidth="1.5"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
+                />
+                {/* Concave depth shadow */}
+                <path
+                  d="M220,145 C190,138 165,115 158,102 C178,92 220,90 262,102 C275,115 250,138 220,145 Z"
+                  fill="#2b020c"
+                  opacity="0.55"
                 />
                 {/* Radiating Petal Veins */}
-                <path d="M220,140 C210,115 200,90 190,75" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
-                <path d="M220,140 C220,110 220,85 220,70" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.28" fill="none" />
-                <path d="M220,140 C230,115 240,90 250,75" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
-                {/* Curled back lip with specular light */}
+                <path d="M220,140 C210,115 200,90 190,75" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.2" fill="none" />
+                <path d="M220,140 C220,110 220,85 220,70" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M220,140 C230,115 240,90 250,75" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.2" fill="none" />
+                {/* Curled back lip with specular light and soft underside shadow */}
                 <path
-                  d="M148,95 C175,76 220,72 265,76 C285,82 292,95 292,95 C275,84 220,80 148,95 Z"
+                  d="M144,96 C175,76 220,72 265,76 C285,82 296,96 296,96 C275,84 220,80 144,96 Z"
                   fill="url(#curledLipHighlight)"
+                />
+                <path
+                  d="M144,96 C175,76 220,72 265,76 C285,82 296,96"
+                  stroke="url(#rimLightSubtle)"
+                  strokeWidth="0.8"
+                  fill="none"
                 />
               </g>
             )}
@@ -589,25 +606,32 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Wavy scalloped petal contour */}
+                {/* Scalloped Petal Body */}
                 <path
                   d="M210,165 C160,155 125,175 105,205 C98,228 118,252 145,258 C175,264 200,255 208,245 C224,240 222,210 210,165 Z"
                   fill="url(#gradMidLeft)"
-                  stroke="#fda4af"
-                  strokeWidth="1.5"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
+                />
+                {/* Concave interior shadow */}
+                <path
+                  d="M205,175 C165,170 135,190 120,215 C132,235 168,245 202,238 Z"
+                  fill="#36030e"
+                  opacity="0.6"
                 />
                 {/* Petal Veins */}
-                <path d="M195,245 C165,235 140,215 125,195" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
-                <path d="M185,250 C155,245 130,235 115,220" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
+                <path d="M195,245 C165,235 140,215 125,195" stroke="#fda4af" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M185,250 C155,245 130,235 115,220" stroke="#fda4af" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
                 {/* Curled reflexed margin */}
                 <path
                   d="M105,205 C118,228 145,245 178,252 C152,246 128,230 115,212 C108,202 105,205 105,205 Z"
                   fill="url(#curledLipHighlight)"
                 />
-                {/* Dew drop */}
-                <ellipse cx="128" cy="225" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.9" />
-                <circle cx="127" cy="224" r="1" fill="#ffffff" />
+                {/* Refracted Dewdrop */}
+                <g transform="translate(126, 222)">
+                  <ellipse cx="0" cy="1" rx="4" ry="2.8" fill="#1f0208" opacity="0.6" />
+                  <ellipse cx="0" cy="0" rx="3.6" ry="2.4" fill="#fda4af" opacity="0.85" />
+                  <circle cx="-1" cy="-0.6" r="1" fill="#ffffff" />
+                </g>
               </g>
             )}
 
@@ -618,25 +642,32 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Wavy scalloped petal contour */}
+                {/* Scalloped Petal Body */}
                 <path
                   d="M230,165 C280,155 315,175 335,205 C342,228 322,252 295,258 C265,264 240,255 232,245 C216,240 218,210 230,165 Z"
                   fill="url(#gradMidRight)"
-                  stroke="#fda4af"
-                  strokeWidth="1.5"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
+                />
+                {/* Concave interior shadow */}
+                <path
+                  d="M235,175 C275,170 305,190 320,215 C308,235 272,245 238,238 Z"
+                  fill="#36030e"
+                  opacity="0.6"
                 />
                 {/* Petal Veins */}
-                <path d="M245,245 C275,235 300,215 315,195" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
-                <path d="M255,250 C285,245 310,235 325,220" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
+                <path d="M245,245 C275,235 300,215 315,195" stroke="#fda4af" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M255,250 C285,245 310,235 325,220" stroke="#fda4af" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
                 {/* Curled reflexed margin */}
                 <path
                   d="M335,205 C322,228 295,245 262,252 C288,246 312,230 325,212 C332,202 335,205 335,205 Z"
                   fill="url(#curledLipHighlight)"
                 />
-                {/* Dew drop */}
-                <ellipse cx="312" cy="225" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.9" />
-                <circle cx="311" cy="224" r="1" fill="#ffffff" />
+                {/* Refracted Dewdrop */}
+                <g transform="translate(314, 222)">
+                  <ellipse cx="0" cy="1" rx="4" ry="2.8" fill="#1f0208" opacity="0.6" />
+                  <ellipse cx="0" cy="0" rx="3.6" ry="2.4" fill="#fda4af" opacity="0.85" />
+                  <circle cx="-1" cy="-0.6" r="1" fill="#ffffff" />
+                </g>
               </g>
             )}
 
@@ -651,21 +682,19 @@ export default function SpaceConstellation() {
                 <path
                   d="M215,145 C150,110 95,160 120,225 C132,248 160,265 195,265 C215,265 220,250 215,145 Z"
                   fill="url(#gradGuardLeft)"
-                  stroke="#fda4af"
-                  strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_20px_rgba(244,63,94,0.8)]"
                 />
                 {/* Delicate radiating striations */}
-                <path d="M205,255 C185,245 155,220 140,185" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
-                <path d="M195,260 C175,252 145,232 130,205" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M205,255 C185,245 155,220 140,185" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.2" fill="none" />
+                <path d="M195,260 C175,252 145,232 130,205" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.2" fill="none" />
                 {/* Curled 3D Lip Fold */}
                 <path
                   d="M120,225 C110,185 135,135 175,120 C155,135 125,175 132,225 C135,238 128,235 120,225 Z"
                   fill="url(#curledLipHighlight)"
                 />
-                {/* Realistic Glistening Dewdrop */}
+                {/* Realistic Glistening Dewdrop with Refraction */}
                 <g transform="translate(138, 202)">
-                  <ellipse cx="0" cy="1" rx="4.5" ry="3.2" fill="#1f0208" opacity="0.6" />
+                  <ellipse cx="0" cy="1" rx="4.5" ry="3.2" fill="#1f0208" opacity="0.65" />
                   <ellipse cx="0" cy="0" rx="4" ry="2.8" fill="#fda4af" opacity="0.85" />
                   <circle cx="-1.2" cy="-0.8" r="1.2" fill="#ffffff" />
                 </g>
@@ -683,21 +712,19 @@ export default function SpaceConstellation() {
                 <path
                   d="M225,145 C290,110 345,160 320,225 C308,248 280,265 245,265 C225,265 220,250 225,145 Z"
                   fill="url(#gradGuardRight)"
-                  stroke="#fda4af"
-                  strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_20px_rgba(244,63,94,0.8)]"
                 />
                 {/* Delicate radiating striations */}
-                <path d="M235,255 C255,245 285,220 300,185" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
-                <path d="M245,260 C265,252 295,232 310,205" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M235,255 C255,245 285,220 300,185" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.2" fill="none" />
+                <path d="M245,260 C265,252 295,232 310,205" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.2" fill="none" />
                 {/* Curled 3D Lip Fold */}
                 <path
                   d="M320,225 C330,185 305,135 265,120 C285,135 315,175 308,225 C305,238 312,235 320,225 Z"
                   fill="url(#curledLipHighlight)"
                 />
-                {/* Realistic Glistening Dewdrop */}
+                {/* Realistic Glistening Dewdrop with Refraction */}
                 <g transform="translate(302, 196)">
-                  <ellipse cx="0" cy="1" rx="4.5" ry="3.2" fill="#1f0208" opacity="0.6" />
+                  <ellipse cx="0" cy="1" rx="4.5" ry="3.2" fill="#1f0208" opacity="0.65" />
                   <ellipse cx="0" cy="0" rx="4" ry="2.8" fill="#fda4af" opacity="0.85" />
                   <circle cx="-1.2" cy="-0.8" r="1.2" fill="#ffffff" />
                 </g>
@@ -715,9 +742,7 @@ export default function SpaceConstellation() {
                 <path
                   d="M218,150 C165,135 155,210 216,232 C228,222 225,185 218,150 Z"
                   fill="url(#gradMidLeft)"
-                  stroke="#fda4af"
-                  strokeWidth="1.5"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
                 {/* Curled Lip */}
                 <path
@@ -739,9 +764,7 @@ export default function SpaceConstellation() {
                 <path
                   d="M222,150 C275,135 285,210 224,232 C212,222 215,185 222,150 Z"
                   fill="url(#gradMidRight)"
-                  stroke="#fda4af"
-                  strokeWidth="1.5"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
                 {/* Curled Lip */}
                 <path
@@ -766,9 +789,7 @@ export default function SpaceConstellation() {
                 <path
                   d="M220,154 C184,166 188,220 220,225 C252,220 256,166 220,154 Z"
                   fill="url(#gradCoreBud)"
-                  stroke="#ffffff"
-                  strokeWidth="2.2"
-                  className="transition-all duration-300 group-hover:scale-105 group-hover:brightness-120 group-hover:drop-shadow-[0_0_18px_rgba(255,228,230,0.95)]"
+                  className="transition-all duration-300 group-hover:scale-105 group-hover:brightness-120 group-hover:drop-shadow-[0_0_22px_rgba(255,228,230,0.95)]"
                 />
 
                 {/* Concentric spiral folds of the center rosebud */}
