@@ -3,3 +3,8 @@ dist
 .vercel
 .DS_Store
 *.local
+.build/
+.swiftpm/
+CoupleStick.app/
+*.zip
+*.dmg
