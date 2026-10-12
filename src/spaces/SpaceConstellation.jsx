@@ -103,28 +103,15 @@ export const STARRY_NIGHT_STARS = [
   {
     id: "star-7",
     order: 7,
-    title: "Unshakable Home",
-    yearBadge: "Year 07 // 2025",
+    title: "Seven Years & An Infinity Ahead",
+    yearBadge: "Year 07 // Today",
     name: "The Village Watcher",
     x: "78%",
     y: "46%",
-    color: "#fef08a",
-    date: "Year 07 // Sanctuary",
-    caption: "Sitting beside you at the end of an exhausting week. In a world full of chaotic static and demands, you are the calm I always come home to.",
-    photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: "star-8",
-    order: 8,
-    title: "Seven Years & An Infinity Ahead",
-    yearBadge: "October 2026 // Today",
-    name: "The Moon Guardian Star",
-    x: "74%",
-    y: "25%",
     color: "#fde047",
-    date: "Forever & Always",
-    caption: "Seven years, two Aries, and a lifetime still to write. I chose you back then, and I would choose you in every single lifetime after.",
-    photoUrl: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
+    date: "October 2026 // Forever & Always",
+    caption: "Sitting beside you at the end of an exhausting week. In a world full of chaotic static and demands, you are the calm I always come home to. Seven years of us, and a lifetime still to write.",
+    photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
