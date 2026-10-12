@@ -57,14 +57,12 @@ export const ROUTE_MAP = {
   "match": { spaceId: "01-time-heist", stage: 6 },
   "reveal": { spaceId: "01-time-heist", stage: 7 },
 
-  // Stage 6 aliases (Puzzle 06 Trivia & Stage Index 6 Match)
-  "6": { spaceId: "01-time-heist", stage: 5 },
-  "puzzle-6": { spaceId: "01-time-heist", stage: 5 },
-  "puzzle6": { spaceId: "01-time-heist", stage: 5 },
+  // Stage 6 aliases (Stage 6: Neural Photo Match)
+  "6": { spaceId: "01-time-heist", stage: 6 },
   "stage-6": { spaceId: "01-time-heist", stage: 6 },
   "stage6": { spaceId: "01-time-heist", stage: 6 },
-  "7": { spaceId: "01-time-heist", stage: 6 },
-  "puzzle-7": { spaceId: "01-time-heist", stage: 6 },
+  "puzzle-6": { spaceId: "01-time-heist", stage: 5 },
+  "puzzle6": { spaceId: "01-time-heist", stage: 5 },
 
   // Space 02 through 07
   "constellation": { spaceId: "02-constellation", stage: 0 },
@@ -80,7 +78,7 @@ export const ROUTE_MAP = {
 };
 
 const parseCurrentUrl = () => {
-  if (typeof window === "undefined") return { spaceId: "01-time-heist", stage: 5 };
+  if (typeof window === "undefined") return { spaceId: "01-time-heist", stage: 6 };
 
   let rawPath = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, "");
   // Support prefixes like /anniversary/..., /anniv/...
@@ -101,9 +99,9 @@ const parseCurrentUrl = () => {
     return ROUTE_MAP[rawPath];
   }
 
-  // If path is empty, default directly to Puzzle 06 in The Memory Vault
+  // If path is empty, default directly to Stage 6 in The Memory Vault
   if (!rawPath) {
-    return { spaceId: "01-time-heist", stage: 5 };
+    return { spaceId: "01-time-heist", stage: 6 };
   }
 
   return { spaceId: null, stage: 0 };
