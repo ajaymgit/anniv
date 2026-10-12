@@ -43,10 +43,10 @@ const CHAPTER_METADATA = {
     highlight: "7 tactile memory games: crossword, darkroom, sliding tiles & trivia"
   },
   "02-constellation": {
-    designArchetype: "Van Gogh Starry Night",
-    formatBadge: "Impasto Oil Canvas",
+    designArchetype: "The Enchanted Rose",
+    formatBadge: "8 Petals & Blooming Sea",
     yearTag: "Year 02 // 2020",
-    highlight: "Swirling Starry Night sky with Van Gogh halos & Aries stars"
+    highlight: "Interactive 8-petal rose with stories, water ripples & blooming rose finale"
   },
   "03-seven-letters": {
     designArchetype: "Stationery Desk",
