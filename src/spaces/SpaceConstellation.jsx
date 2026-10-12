@@ -17,7 +17,8 @@ import {
   RibbonBow,
   FlowerBlossom,
   SparkleStar,
-  PopFlower
+  PopFlower,
+  WashiTape
 } from "../components/common/GirlyPopDecorations";
 
 // The 8 Petals & Stories of the Rose
@@ -368,7 +369,7 @@ export default function SpaceConstellation() {
                   whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePluckPetal(ROSE_PETALS[0])}
-                  className="cursor-pointer transition-all"
+                  className="cursor-pointer"
                   d="M195,170 C120,90 90,190 165,245 C185,255 198,230 195,170 Z"
                   fill="url(#petalGradOuter1)"
                   stroke="#fda4af"
@@ -393,7 +394,7 @@ export default function SpaceConstellation() {
                   whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePluckPetal(ROSE_PETALS[1])}
-                  className="cursor-pointer transition-all"
+                  className="cursor-pointer"
                   d="M205,170 C280,90 310,190 235,245 C215,255 202,230 205,170 Z"
                   fill="url(#petalGradOuter2)"
                   stroke="#fda4af"
@@ -418,7 +419,7 @@ export default function SpaceConstellation() {
                   whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePluckPetal(ROSE_PETALS[2])}
-                  className="cursor-pointer transition-all"
+                  className="cursor-pointer"
                   d="M190,200 C110,210 130,270 190,260 C205,255 200,230 190,200 Z"
                   fill="url(#petalGradOuter1)"
                   stroke="#fda4af"
@@ -443,7 +444,7 @@ export default function SpaceConstellation() {
                   whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePluckPetal(ROSE_PETALS[3])}
-                  className="cursor-pointer transition-all"
+                  className="cursor-pointer"
                   d="M210,200 C290,210 270,270 210,260 C195,255 200,230 210,200 Z"
                   fill="url(#petalGradOuter2)"
                   stroke="#fda4af"
@@ -468,7 +469,7 @@ export default function SpaceConstellation() {
                   whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePluckPetal(ROSE_PETALS[4])}
-                  className="cursor-pointer transition-all"
+                  className="cursor-pointer"
                   d="M200,165 C145,105 255,105 200,165 Z"
                   fill="url(#petalGradInner)"
                   stroke="#fecdd3"
@@ -493,7 +494,7 @@ export default function SpaceConstellation() {
                   whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePluckPetal(ROSE_PETALS[5])}
-                  className="cursor-pointer transition-all"
+                  className="cursor-pointer"
                   d="M198,175 C150,145 155,225 198,235 C205,225 202,195 198,175 Z"
                   fill="url(#petalGradInner)"
                   stroke="#fecdd3"
@@ -518,7 +519,7 @@ export default function SpaceConstellation() {
                   whileHover={{ scale: 1.05, filter: "brightness(1.15)" }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handlePluckPetal(ROSE_PETALS[6])}
-                  className="cursor-pointer transition-all"
+                  className="cursor-pointer"
                   d="M202,175 C250,145 245,225 202,235 C195,225 198,195 202,175 Z"
                   fill="url(#petalGradInner)"
                   stroke="#fecdd3"

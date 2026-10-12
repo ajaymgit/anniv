@@ -13,6 +13,42 @@ import { FloatingPetalsBackground, FlowerClickSparkles } from "./components/comm
 import BackgroundAudio from "./components/common/BackgroundAudio";
 import { AnimatePresence, motion } from "framer-motion";
 
+class ChapterErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("ChapterErrorBoundary caught:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+          <div className="bg-white/90 backdrop-blur-md border border-rose-200 rounded-3xl p-6 max-w-md shadow-xl">
+            <p className="text-sm font-serif font-bold text-rose-800 mb-2">
+              Something unexpectedly paused this chapter.
+            </p>
+            <p className="text-xs text-rose-600/80 mb-4">
+              {this.state.error?.message || "Render error"}
+            </p>
+            <button
+              onClick={() => this.setState({ hasError: false, error: null })}
+              className="px-5 py-2 rounded-full bg-emerald-600 text-white font-sans text-xs font-bold hover:bg-emerald-700 transition-colors shadow-md cursor-pointer"
+            >
+              Resume Chapter
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function SuiteRouter() {
   const { activeSpaceId } = useAnniversary();
 
@@ -65,7 +101,9 @@ function SuiteRouter() {
               transition={{ duration: 0.3 }}
               className="flex-1"
             >
-              <SpaceConstellation />
+              <ChapterErrorBoundary>
+                <SpaceConstellation />
+              </ChapterErrorBoundary>
             </motion.div>
           )}
 
