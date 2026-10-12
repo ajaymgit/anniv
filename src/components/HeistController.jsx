@@ -193,6 +193,43 @@ export default function HeistController() {
         </div>
       </header>
 
+      {/* Quick Stage Jump Navigator Bar */}
+      <div className="w-full bg-[#f0fdf4]/90 border-b border-[#bbf7d0] px-3 py-2 flex items-center justify-center gap-1.5 sm:gap-2 overflow-x-auto text-[11px] font-sans font-bold z-30">
+        {[
+          { idx: 0, label: "01 PIN" },
+          { idx: 1, label: "02 Jigsaw" },
+          { idx: 2, label: "03 Crossword" },
+          { idx: 3, label: "04 Lantern" },
+          { idx: 4, label: "05 Timeline" },
+          { idx: 5, label: "06 Trivia" },
+          { idx: 6, label: "07 Match" },
+          { idx: 7, label: "Reveal" }
+        ].map((stageItem) => {
+          const isActive = currentStage === stageItem.idx;
+          return (
+            <button
+              key={stageItem.idx}
+              type="button"
+              onClick={() => {
+                sounds.playClick();
+                setCurrentStage(stageItem.idx);
+                if (setHeistStage) setHeistStage(stageItem.idx);
+                if (STAGE_SLUGS && STAGE_SLUGS[stageItem.idx]) {
+                  window.history.pushState({ stage: stageItem.idx }, "", `/${STAGE_SLUGS[stageItem.idx]}`);
+                }
+              }}
+              className={`px-3 py-1 rounded-full transition-all shrink-0 cursor-pointer ${
+                isActive
+                  ? "bg-emerald-500 text-white shadow-xs font-extrabold scale-105"
+                  : "bg-white/80 hover:bg-emerald-100 text-[#3d6350] hover:text-[#132e22] border border-[#bbf7d0]"
+              }`}
+            >
+              {stageItem.label}
+            </button>
+          );
+        })}
+      </div>
+
       {/* Sweet Pastel Candy Progress Line */}
       {currentStage < 7 && (
         <div className="w-full bg-emerald-100/60 h-2 relative">
