@@ -215,27 +215,27 @@ export const DEFAULT_TRIVIA_QUESTIONS = [
   },
   {
     id: "t3",
-    question: "Which track officially feels like 'our song' on long late-night rides?",
+    question: "Where did Ajay get his first wholesome meal from Mythri?",
     options: [
-      "The slow acoustic track that always loops on our playlist",
-      "The nostalgic retro melody we both know every lyric to",
-      "The indie anthem we sing along to with the windows rolled down",
-      "The late-night mellow track that played on our first road trip"
+      "In the car during lunch break",
+      "In the balcony",
+      "At the college canteen corner",
+      "On a park bench under the trees"
     ],
     correctAnswerIndex: 1,
-    hint: "City breeze, late-night quiet streets, and singing the chorus together!"
+    hint: "Open air, cool breeze, and the sweetest homemade food!"
   },
   {
     id: "t4",
-    question: "Where were we sitting when we had our very first deep, hours-long heart-to-heart talk?",
+    question: "Which was the very first movie we watched together?",
     options: [
-      "Parked on the quiet side road with the engine off",
-      "In the rooftop café overlooking the city lights",
-      "On the lakefront bench late in the cool evening",
-      "Sitting on the floor surrounded by takeout boxes"
+      "Ye Maaya Chesave",
+      "Geetha Govindam",
+      "Surya s/o Krishnan",
+      "Dear Comrade"
     ],
-    correctAnswerIndex: 0,
-    hint: "Hours flew by in the quiet car and neither of us wanted to look at the clock."
+    correctAnswerIndex: 2,
+    hint: "An iconic musical love story that holds a forever place in our hearts!"
   },
   {
     id: "t5",
