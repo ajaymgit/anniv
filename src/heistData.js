@@ -251,15 +251,15 @@ export const DEFAULT_TRIVIA_QUESTIONS = [
   },
   {
     id: "t6",
-    question: "What is the go-to midnight snack we always end up craving after 12:00 AM?",
+    question: "What was the thing Ajay constantly got for you when we started talking again?",
     options: [
-      "Spicy instant noodles with extra cheese",
-      "Hot street-style rolls grabbed on the way home",
-      "Warm brownies with vanilla ice cream",
-      "Loaded fries eaten straight out of the paper bag"
+      "Dark chocolate",
+      "Steaming hot momos",
+      "Fresh mosambi juice",
+      "Wholesome food from home"
     ],
     correctAnswerIndex: 0,
-    hint: "Quick, steaming hot, and best eaten at 1 AM while talking about everything."
+    hint: "Rich, bittersweet, and his signature daily peace offering!"
   },
   {
     id: "t7",
