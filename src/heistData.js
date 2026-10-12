@@ -239,15 +239,15 @@ export const DEFAULT_TRIVIA_QUESTIONS = [
   },
   {
     id: "t5",
-    question: "What was the very first treat or meal we actually shared across the table?",
+    question: "What was the very first gift Ajay ever gave to Mythri?",
     options: [
-      "Splitting a warm dessert with two spoons",
-      "Hot pizza slices straight from the box",
-      "Burgers and a single basket of fries",
-      "Cold coffee and a slice of chocolate cake"
+      "A silver charm bracelet",
+      "An angel",
+      "A handwritten letter with chocolate",
+      "A plush teddy keychain"
     ],
-    correctAnswerIndex: 2,
-    hint: "Think about the gentle hesitation before taking the very last fry!"
+    correctAnswerIndex: 1,
+    hint: "A sweet symbol of protection and love watching over her!"
   },
   {
     id: "t6",
