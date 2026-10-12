@@ -273,6 +273,32 @@ export default function SpaceConstellation() {
     nebulaStarsRef.current = list;
   }, []);
 
+  // Generate 220 Van Gogh Swirling Impasto Brushstrokes
+  const vanGoghSwirlsRef = useRef([]);
+  useEffect(() => {
+    const list = [];
+    for (let i = 0; i < 220; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 0.08 + Math.random() * 0.48;
+      list.push({
+        baseAngle: angle,
+        radius,
+        length: 14 + Math.random() * 22,
+        speed: (Math.random() > 0.5 ? 1 : -1) * (0.00025 + Math.random() * 0.0004),
+        lineWidth: 1.8 + Math.random() * 2.2,
+        color:
+          Math.random() > 0.72
+            ? "rgba(254, 240, 138, 0.45)" // Warm starlight gold
+            : Math.random() > 0.45
+            ? "rgba(110, 231, 183, 0.35)" // Soft mint impasto
+            : Math.random() > 0.2
+            ? "rgba(52, 211, 153, 0.30)" // Emerald sweep
+            : "rgba(20, 75, 48, 0.40)"   // Deep pine oil stroke
+      });
+    }
+    vanGoghSwirlsRef.current = list;
+  }, []);
+
   // Spawn Traveling Photons
   useEffect(() => {
     const interval = setInterval(() => {
@@ -319,14 +345,55 @@ export default function SpaceConstellation() {
       const h = canvas.height;
       const now = Date.now();
 
-      // 1. Deep Pine Celestial Observatory Night Gradient
-      const grad = ctx.createRadialGradient(w * 0.5, h * 0.5, 40, w * 0.5, h * 0.5, w * 0.75);
-      grad.addColorStop(0, "#0a261a");
-      grad.addColorStop(0.35, "#061a11");
+      // 1. Van Gogh Starry Night Sky: Deep Pine Oil Canvas
+      const grad = ctx.createRadialGradient(w * 0.5, h * 0.45, 40, w * 0.5, h * 0.45, w * 0.75);
+      grad.addColorStop(0, "#0c2c1e");
+      grad.addColorStop(0.35, "#071e14");
       grad.addColorStop(0.7, "#03100a");
-      grad.addColorStop(1, "#010503");
+      grad.addColorStop(1, "#010604");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
+
+      // 2. Van Gogh Sweeping Impasto Swirls (Dynamic Celestial Vortex)
+      ctx.lineCap = "round";
+      vanGoghSwirlsRef.current.forEach((swirl) => {
+        const curAngle = swirl.baseAngle + now * swirl.speed;
+        const sx = (0.5 + Math.cos(curAngle) * swirl.radius * 1.45) * w;
+        const sy = (0.44 + Math.sin(curAngle) * swirl.radius * 0.85) * h;
+        const tangent = curAngle + Math.PI / 2;
+
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        const ex = sx + Math.cos(tangent) * swirl.length;
+        const ey = sy + Math.sin(tangent) * swirl.length * 0.7;
+        const cpx = (sx + ex) / 2 + Math.cos(curAngle) * 5;
+        const cpy = (sy + ey) / 2 + Math.sin(curAngle) * 5;
+        ctx.quadraticCurveTo(cpx, cpy, ex, ey);
+
+        ctx.strokeStyle = swirl.color;
+        ctx.lineWidth = swirl.lineWidth;
+        ctx.stroke();
+      });
+
+      // Painterly rolling hills & cypress silhouette at the horizon
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      ctx.lineTo(0, h * 0.89);
+      ctx.bezierCurveTo(w * 0.25, h * 0.84, w * 0.45, h * 0.93, w * 0.7, h * 0.87);
+      ctx.bezierCurveTo(w * 0.85, h * 0.83, w * 0.95, h * 0.88, w, h * 0.86);
+      ctx.lineTo(w, h);
+      ctx.closePath();
+      ctx.fillStyle = "#03100a";
+      ctx.fill();
+
+      // Stylized Van Gogh Cypress silhouette on left horizon
+      ctx.beginPath();
+      ctx.moveTo(w * 0.07, h);
+      ctx.bezierCurveTo(w * 0.05, h * 0.82, w * 0.07, h * 0.70, w * 0.09, h * 0.58);
+      ctx.bezierCurveTo(w * 0.11, h * 0.70, w * 0.13, h * 0.82, w * 0.12, h);
+      ctx.closePath();
+      ctx.fillStyle = "#010704";
+      ctx.fill();
 
       // Aurora Stardust & Emerald Nebula clouds
       const drawNebulaCloud = (cx, cy, r, color) => {
@@ -431,23 +498,23 @@ export default function SpaceConstellation() {
           ctx.lineTo(x2, y2);
 
           if (isIgnited) {
-            // Radiant Energy Filament
-            ctx.strokeStyle = "rgba(251, 191, 36, 0.85)";
-            ctx.lineWidth = 2.2;
-            ctx.shadowColor = "#f59e0b";
+            // Radiant Van Gogh Impasto Filament
+            ctx.strokeStyle = "rgba(110, 231, 183, 0.9)";
+            ctx.lineWidth = 3.2;
+            ctx.shadowColor = "#34d399";
             ctx.shadowBlur = 14;
             ctx.stroke();
             ctx.shadowBlur = 0;
 
-            // Core white light
-            ctx.strokeStyle = "#ffffff";
-            ctx.lineWidth = 0.9;
+            // Core gold starlight stroke
+            ctx.strokeStyle = "#fef08a";
+            ctx.lineWidth = 1.2;
             ctx.stroke();
           } else {
-            // Dormant dotted starlight guide
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.10)";
-            ctx.lineWidth = 1;
-            ctx.setLineDash([4, 6]);
+            // Dormant Van Gogh dashed brushstroke guide
+            ctx.strokeStyle = "rgba(167, 243, 208, 0.20)";
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 8]);
             ctx.stroke();
             ctx.setLineDash([]);
           }
@@ -524,31 +591,23 @@ export default function SpaceConstellation() {
           const sy = star.y * h;
           const isLit = litStarIds.has(star.id);
 
-          // Diffraction Spike Flare on Bright Lit Stars
+          // Van Gogh Haloed Star Orbs (Broken Concentric Rings of Starlight Impasto)
           if (isLit) {
-            const flareLen = (Math.sin(now * 0.004 + star.order) + 1) * 6 + 18;
-            ctx.strokeStyle = `${star.color}44`;
-            ctx.lineWidth = 1;
-
-            // Horizontal cross
-            ctx.beginPath();
-            ctx.moveTo(sx - flareLen, sy);
-            ctx.lineTo(sx + flareLen, sy);
-            ctx.stroke();
-
-            // Vertical cross
-            ctx.beginPath();
-            ctx.moveTo(sx, sy - flareLen);
-            ctx.lineTo(sx, sy + flareLen);
-            ctx.stroke();
-
-            // Outer Pulsing Glow Halo
-            const halo = (Math.sin(now * 0.005 + star.order) + 1) * 5 + 16;
-            ctx.beginPath();
-            ctx.arc(sx, sy, halo, 0, Math.PI * 2);
-            ctx.strokeStyle = `${star.color}33`;
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
+            const rings = [
+              { r: 28, dashes: [4, 6], color: 'rgba(110, 231, 183, 0.40)', width: 2 },
+              { r: 21, dashes: [5, 5], color: 'rgba(167, 243, 208, 0.55)', width: 2.2 },
+              { r: 14, dashes: [6, 4], color: 'rgba(254, 240, 138, 0.75)', width: 2.5 }
+            ];
+            rings.forEach((ring) => {
+              const pulse = (Math.sin(now * 0.003 + star.order) + 1) * 3;
+              ctx.beginPath();
+              ctx.arc(sx, sy, ring.r + pulse, 0, Math.PI * 2);
+              ctx.strokeStyle = ring.color;
+              ctx.lineWidth = ring.width;
+              ctx.setLineDash(ring.dashes);
+              ctx.stroke();
+              ctx.setLineDash([]);
+            });
           }
 
           // Star Core Body
@@ -609,36 +668,42 @@ export default function SpaceConstellation() {
   }, [phase, beaconA, beaconB, activeBeams, litStarIds]);
 
   // Helper: Draw Beacon (Intro Phase)
+  // Helper: Draw Beacon (Intro Phase - Van Gogh Star Orbs)
   const drawBeacon = (ctx, x, y, color, label, proximity) => {
-    const pulse = (Math.sin(Date.now() * 0.005) + 1) * 8 + 14;
+    const now = Date.now();
+    const pulse = (Math.sin(now * 0.005) + 1) * 8 + 14;
 
-    // Glowing aura
-    ctx.beginPath();
-    ctx.arc(x, y, pulse + proximity * 15, 0, Math.PI * 2);
-    ctx.strokeStyle = `${color}44`;
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    // Van Gogh Impasto Concentric Radiant Halos
+    [pulse + 16, pulse + 8].forEach((r, idx) => {
+      ctx.beginPath();
+      ctx.arc(x, y, r + proximity * 15, 0, Math.PI * 2);
+      ctx.strokeStyle = idx === 0 ? "rgba(110, 231, 183, 0.40)" : "rgba(254, 240, 138, 0.55)";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 6]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    });
 
-    // Core
+    // Core Star Orb
     ctx.beginPath();
-    ctx.arc(x, y, 12, 0, Math.PI * 2);
+    ctx.arc(x, y, 13, 0, Math.PI * 2);
     ctx.fillStyle = color;
     ctx.shadowColor = color;
     ctx.shadowBlur = 25;
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    // Specular
+    // Specular Impasto Core
     ctx.beginPath();
-    ctx.arc(x, y, 4, 0, Math.PI * 2);
-    ctx.fillStyle = "#ffffff";
+    ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+    ctx.fillStyle = "#fef08a";
     ctx.fill();
 
     // Label
     ctx.font = "bold 12px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "#f0fdf4";
     ctx.textAlign = "center";
-    ctx.fillText(label, x, y - 24);
+    ctx.fillText(label, x, y - 26);
   };
 
   // Trigger Fusion: Inside-out Awakening!
@@ -847,14 +912,14 @@ export default function SpaceConstellation() {
           <div>
             <div className="flex items-center gap-2">
               <span className="font-serif text-sm text-[#132e22] font-bold">
-                Chapter 2 // Observatory Dome • Two Points, One Constellation
+                Chapter 2 // The Starry Night • Vincent van Gogh Style
               </span>
               <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
             </div>
             <p className="text-[11px] text-[#3d6350] font-sans mt-0.5">
               {phase === "intro"
-                ? "Drag our two Aries stars together to ignite the infinity loop ♡ (RA 02h 07m • DEC +23° 27')"
-                : "Trace stardust lines from the center outward to weave the infinity ♡"}
+                ? "Drag our two Aries stars together to ignite the Van Gogh starry night vortex ♡"
+                : "Trace swirling impasto stardust lines to weave the celestial infinity ♡"}
             </p>
           </div>
         </div>

@@ -43,10 +43,10 @@ const CHAPTER_METADATA = {
     highlight: "7 tactile memory games: crossword, darkroom, sliding tiles & trivia"
   },
   "02-constellation": {
-    designArchetype: "Stargazing Observatory",
-    formatBadge: "Celestial Planetarium",
+    designArchetype: "Van Gogh Starry Night",
+    formatBadge: "Impasto Oil Canvas",
     yearTag: "Year 02 // 2020",
-    highlight: "Deep pine starry night sky connecting our two Aries stars into infinity"
+    highlight: "Swirling Starry Night sky with Van Gogh halos & Aries stars"
   },
   "03-seven-letters": {
     designArchetype: "Stationery Desk",
