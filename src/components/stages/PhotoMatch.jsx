@@ -145,39 +145,26 @@ export default function PhotoMatch({ onComplete, customPairs }) {
                 }`}
               >
                 {isFlipped ? (
-                  <div className="w-full h-full flex flex-col items-center justify-between p-1.5 animate-in fade-in duration-200">
-                    {/* Card Photo / Icon */}
-                    <div className="w-full h-[65%] rounded-xl overflow-hidden bg-emerald-50 border border-emerald-100 relative">
+                  <div className="w-full h-full p-1 animate-in fade-in duration-200">
+                    {/* Pure Full-Card Photo — No text or label overlays */}
+                    <div className="w-full h-full rounded-xl overflow-hidden bg-emerald-50 border border-emerald-100">
                       {card.photo ? (
                         <img
                           src={card.photo}
-                          alt={card.label}
+                          alt="Memory Card"
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-2xl">
+                        <div className="w-full h-full flex items-center justify-center text-3xl">
                           {card.icon || "💖"}
                         </div>
                       )}
-                      {card.icon && card.photo && (
-                        <span className="absolute bottom-1 right-1 text-xs drop-shadow">
-                          {card.icon}
-                        </span>
-                      )}
                     </div>
-
-                    {/* Card Label */}
-                    <span className="text-[10px] sm:text-[11px] text-[#132e22] font-serif font-bold truncate max-w-full px-1 text-center">
-                      {card.label}
-                    </span>
                   </div>
                 ) : (
-                  /* Card Back (Girly Pop Ribbon & Heart) */
-                  <div className="w-full h-full flex flex-col items-center justify-center p-2 text-emerald-300 group-hover:text-emerald-500 transition">
-                    <RibbonBow className="w-6 h-5 mb-1 group-hover:scale-110 transition-transform" />
-                    <span className="text-[9px] font-serif text-[#6e9981] font-bold">
-                      #{idx + 1}
-                    </span>
+                  /* Card Back (Girly Pop Ribbon — Clean & no text) */
+                  <div className="w-full h-full flex items-center justify-center p-2 text-emerald-300 group-hover:text-emerald-500 transition">
+                    <RibbonBow className="w-7 h-6 group-hover:scale-115 transition-transform drop-shadow-xs" />
                   </div>
                 )}
               </div>

@@ -242,46 +242,15 @@ export default function SpaceConstellation() {
     }
   }, [audioMuted]);
 
-  // Ambient Drone loop
+  // Ambient sound management
   useEffect(() => {
-    if (audioMuted) {
+    return () => {
       if (droneOscRef.current) {
         try { droneOscRef.current.stop(); } catch (e) {}
         droneOscRef.current = null;
       }
-      return;
-    }
-
-    try {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      const ctx = audioCtxRef.current;
-      const drone = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const filter = ctx.createBiquadFilter();
-
-      drone.type = "sine";
-      drone.frequency.setValueAtTime(65.41, ctx.currentTime); // C2 warm sub drone
-
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(180, ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.02, ctx.currentTime);
-
-      drone.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-
-      drone.start();
-      droneOscRef.current = drone;
-
-      return () => {
-        try { drone.stop(); } catch (e) {}
-        droneOscRef.current = null;
-      };
-    } catch (e) {}
-  }, [audioMuted]);
+    };
+  }, []);
 
   // Generate 260 Ambient Nebula Star Dust Particles
   useEffect(() => {

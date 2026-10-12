@@ -22,39 +22,37 @@ class SoundEngine {
 
   toggleMute() {
     this.muted = !this.muted;
-    if (this.muted && this.droneGain) {
-      this.droneGain.gain.setValueAtTime(0, this.ctx?.currentTime || 0);
-    } else if (!this.muted && this.droneGain && this.isDronePlaying) {
-      this.droneGain.gain.setValueAtTime(0.025, this.ctx?.currentTime || 0);
+    if (this.muted) {
+      this.stopAmbientDrone();
     }
     return this.muted;
   }
 
-  // Soft atmospheric background ambient drone (warm, romantic, sci-fi)
-  startAmbientDrone() {
-    if (this.isDronePlaying) return;
-    this.init();
-    if (!this.ctx) return;
-
+  // Stop any background drone or buzzing
+  stopAmbientDrone() {
     try {
-      this.droneGain = this.ctx.createGain();
-      this.droneGain.gain.setValueAtTime(this.muted ? 0 : 0.025, this.ctx.currentTime);
-      this.droneGain.connect(this.ctx.destination);
+      if (this.droneOscs && this.droneOscs.length > 0) {
+        this.droneOscs.forEach((osc) => {
+          try {
+            osc.stop();
+            osc.disconnect();
+          } catch (e) {}
+        });
+        this.droneOscs = [];
+      }
+      if (this.droneGain) {
+        try {
+          this.droneGain.disconnect();
+        } catch (e) {}
+        this.droneGain = null;
+      }
+    } catch (e) {}
+    this.isDronePlaying = false;
+  }
 
-      // Ethereal chord triad (F# minor / A major harmony)
-      const freqs = [110, 164.81, 220, 277.18];
-      this.droneOscs = freqs.map((f) => {
-        const osc = this.ctx.createOscillator();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(f, this.ctx.currentTime);
-        osc.connect(this.droneGain);
-        osc.start();
-        return osc;
-      });
-      this.isDronePlaying = true;
-    } catch (e) {
-      console.log("Drone audio start error", e);
-    }
+  // Disabled to eliminate vibrating drone noise
+  startAmbientDrone() {
+    this.stopAmbientDrone();
   }
 
   // Crystal chime for keypad & PIN interaction

@@ -6,7 +6,7 @@ export default function Navbar() {
   const { activeSpace, goToHub, soundEnabled, setSoundEnabled } = useAnniversary();
 
   return (
-    <header className="sticky top-0 z-50 bg-[#fffdfa]/90 backdrop-blur-xl border-b border-[#bbf7d0] px-6 sm:px-10 py-3.5 transition-all text-[#3b1c32]">
+    <header className="sticky top-0 z-40 bg-[#fffdfa]/90 backdrop-blur-xl border-b border-[#bbf7d0] px-6 sm:px-10 py-3.5 transition-all text-[#3b1c32]">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         {/* Left: Brand with Ribbon Bow or Back Link */}
         <div className="flex items-center gap-3">

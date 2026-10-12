@@ -1,20 +1,27 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
-import { Sparkles, CheckCircle2, Delete, Lightbulb, ArrowRight, HelpCircle, Eye } from "lucide-react";
+import { Sparkles, Delete, Lightbulb, ArrowRight, HelpCircle, X } from "lucide-react";
 import { sounds } from "../../utils/audio";
 import { RibbonBow, FlowerBlossom, WashiTape } from "../common/GirlyPopDecorations";
 
-// The 4 photos from the lightchamber folder
+// Default 4 photos from the lightchamber folder (cache-busted with version query)
 const CHAMBER_PHOTOS = [
-  "/lightchamber/polaroid1.jpg",
-  "/lightchamber/polaroid2.jpg",
-  "/lightchamber/polaroid3.jpg",
-  "/lightchamber/polaroid4.jpg"
+  "/lightchamber/polaroid1.jpg?v=3",
+  "/lightchamber/polaroid2.jpg?v=3",
+  "/lightchamber/polaroid3.jpg?v=3",
+  "/lightchamber/polaroid4.jpg?v=3"
+];
+
+const ROMAN_NUMERALS = ["[I]", "[II]", "[III]", "[IV]"];
+const POLAROID_LOCATIONS = [
+  "Upper-Left Room Corner",
+  "Lower-Left Scrapbook Wall",
+  "Upper-Right Ceiling Corner",
+  "Lower-Right Cozy Floor"
 ];
 
 export default function FlashlightArchive({ onComplete, customCode = "1210", customPhotos }) {
-  const containerRef = useRef(null);
-  const [pos, setPos] = useState({ x: 180, y: 150 });
+  const [pos, setPos] = useState({ x: 300, y: 300 });
   const [code, setCode] = useState("");
   const [status, setStatus] = useState("IDLE"); // IDLE, SUCCESS, ERROR
   const [isLanternBoosted, setIsLanternBoosted] = useState(false);
@@ -24,23 +31,32 @@ export default function FlashlightArchive({ onComplete, customCode = "1210", cus
   const digits = targetCode.padEnd(4, "0").split("");
   const photos = customPhotos && customPhotos.length >= 4 ? customPhotos : CHAMBER_PHOTOS;
 
-  const updateCoordinates = (clientX, clientY) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
-    const y = Math.max(0, Math.min(rect.height, clientY - rect.top));
-    setPos({ x, y });
-  };
-
-  const handleMouseMove = (e) => {
-    updateCoordinates(e.clientX, e.clientY);
-  };
-
-  const handleTouchMove = (e) => {
-    if (e.touches && e.touches[0]) {
-      updateCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+  // Initialize lantern near center of window
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setPos({ x: window.innerWidth / 2, y: Math.min(360, window.innerHeight / 2) });
     }
-  };
+  }, []);
+
+  // Track pointer across the entire page so the whole page is the room
+  useEffect(() => {
+    const handlePointerMove = (e) => {
+      setPos({ x: e.clientX, y: e.clientY });
+    };
+
+    const handleTouch = (e) => {
+      if (e.touches && e.touches[0]) {
+        setPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+      }
+    };
+
+    window.addEventListener("mousemove", handlePointerMove);
+    window.addEventListener("touchmove", handleTouch, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handlePointerMove);
+      window.removeEventListener("touchmove", handleTouch);
+    };
+  }, []);
 
   // Keyboard support for 4-digit code
   useEffect(() => {
@@ -55,13 +71,17 @@ export default function FlashlightArchive({ onComplete, customCode = "1210", cus
         handleBackspace();
       } else if (e.key === "Escape") {
         e.preventDefault();
-        handleClear();
+        if (activePreview !== null) {
+          setActivePreview(null);
+        } else {
+          handleClear();
+        }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [code, status, targetCode]);
+  }, [code, status, targetCode, activePreview]);
 
   const handleKeypad = (digit) => {
     if (status === "SUCCESS") return;
@@ -132,9 +152,8 @@ export default function FlashlightArchive({ onComplete, customCode = "1210", cus
     });
   };
 
-  const handlePolaroidClick = (idx, targetX, targetY) => {
+  const handlePolaroidClick = (idx) => {
     sounds.playClick();
-    setPos({ x: targetX, y: targetY });
     setActivePreview(idx);
     // Input this digit into the keypad
     if (code.length < 4) {
@@ -143,11 +162,142 @@ export default function FlashlightArchive({ onComplete, customCode = "1210", cus
   };
 
   return (
-    <div className="flex flex-col items-center max-w-xl w-full font-sans select-none text-[#132e22] pb-6">
+    <div className="w-full max-w-5xl min-h-[740px] sm:min-h-[800px] flex flex-col items-center justify-center font-sans select-none text-[#132e22] relative px-4 py-8">
+      {/* ============================================================== */}
+      {/* CEILING FAIRY LIGHTS STRING ACROSS TOP OF THE ROOM            */}
+      {/* ============================================================== */}
+      <div className="absolute top-2 left-0 right-0 h-1 border-t-2 border-dashed border-amber-300/40 flex justify-between px-8 pointer-events-none z-10">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <div
+            key={i}
+            className="relative -translate-y-2 flex flex-col items-center opacity-85"
+          >
+            <div className="w-0.5 h-2 bg-amber-400/40" />
+            <div
+              className="w-2.5 h-2.5 rounded-full bg-amber-200/90 shadow-md shadow-amber-300/40 animate-pulse"
+              style={{
+                animationDuration: `${2.2 + (i % 3) * 0.5}s`,
+                animationDelay: `${i * 180}ms`
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* ============================================================== */}
+      {/* 4 POLAROIDS SPREAD AROUND THE ENTIRE ROOM CANVAS               */}
+      {/* ============================================================== */}
+
+      {/* Polaroid 1: Upper-Left of the Room (Clue [I]) */}
+      <div
+        onClick={() => handlePolaroidClick(0)}
+        className="absolute top-6 sm:top-12 left-2 sm:left-8 md:left-14 lg:left-18 w-20 sm:w-24 md:w-28 bg-[#fffdfa] border-2 border-amber-200/90 rounded-xl p-1.5 sm:p-2 shadow-xl rotate-[-9deg] transition-all hover:scale-125 cursor-pointer z-20 group"
+        title="Click to inspect Polaroid I"
+      >
+        <div className="w-3 h-3 bg-amber-400 rounded-xs mx-auto -mt-3.5 mb-1 shadow-xs" />
+        <div className="w-full h-16 sm:h-20 md:h-24 rounded-sm overflow-hidden bg-black mb-1 border border-black/15">
+          <img
+            src={photos[0]}
+            alt="Polaroid 1"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div className="text-center font-bold text-[10px] sm:text-xs text-emerald-800 font-serif leading-none tracking-tight py-1 bg-emerald-50 rounded-sm border border-emerald-100/70">
+          [I] = {digits[0]}
+        </div>
+      </div>
+
+      {/* Polaroid 2: Lower-Left of the Room (Clue [II]) */}
+      <div
+        onClick={() => handlePolaroidClick(1)}
+        className="absolute bottom-8 sm:bottom-16 left-3 sm:left-10 md:left-16 lg:left-20 w-20 sm:w-24 md:w-28 bg-[#fffdfa] border-2 border-amber-200/90 rounded-xl p-1.5 sm:p-2 shadow-xl rotate-[8deg] transition-all hover:scale-125 cursor-pointer z-20 group"
+        title="Click to inspect Polaroid II"
+      >
+        <div className="w-3 h-3 bg-amber-400 rounded-xs mx-auto -mt-3.5 mb-1 shadow-xs" />
+        <div className="w-full h-16 sm:h-20 md:h-24 rounded-sm overflow-hidden bg-black mb-1 border border-black/15">
+          <img
+            src={photos[1]}
+            alt="Polaroid 2"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div className="text-center font-bold text-[10px] sm:text-xs text-rose-800 font-serif leading-none tracking-tight py-1 bg-rose-50 rounded-sm border border-rose-100/70">
+          [II] = {digits[1]}
+        </div>
+      </div>
+
+      {/* Polaroid 3: Upper-Right of the Room (Clue [III]) */}
+      <div
+        onClick={() => handlePolaroidClick(2)}
+        className="absolute top-8 sm:top-14 right-2 sm:right-8 md:right-14 lg:right-18 w-20 sm:w-24 md:w-28 bg-[#fffdfa] border-2 border-amber-200/90 rounded-xl p-1.5 sm:p-2 shadow-xl rotate-[-8deg] transition-all hover:scale-125 cursor-pointer z-20 group"
+        title="Click to inspect Polaroid III"
+      >
+        <div className="w-3 h-3 bg-amber-400 rounded-xs mx-auto -mt-3.5 mb-1 shadow-xs" />
+        <div className="w-full h-16 sm:h-20 md:h-24 rounded-sm overflow-hidden bg-black mb-1 border border-black/15">
+          <img
+            src={photos[2]}
+            alt="Polaroid 3"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div className="text-center font-bold text-[10px] sm:text-xs text-purple-800 font-serif leading-none tracking-tight py-1 bg-purple-50 rounded-sm border border-purple-100/70">
+          [III] = {digits[2]}
+        </div>
+      </div>
+
+      {/* Polaroid 4: Lower-Right of the Room (Clue [IV]) */}
+      <div
+        onClick={() => handlePolaroidClick(3)}
+        className="absolute bottom-10 sm:bottom-18 right-3 sm:right-10 md:right-16 lg:right-20 w-20 sm:w-24 md:w-28 bg-[#fffdfa] border-2 border-amber-200/90 rounded-xl p-1.5 sm:p-2 shadow-xl rotate-[9deg] transition-all hover:scale-125 cursor-pointer z-20 group"
+        title="Click to inspect Polaroid IV"
+      >
+        <div className="w-3 h-3 bg-amber-400 rounded-xs mx-auto -mt-3.5 mb-1 shadow-xs" />
+        <div className="w-full h-16 sm:h-20 md:h-24 rounded-sm overflow-hidden bg-black mb-1 border border-black/15">
+          <img
+            src={photos[3]}
+            alt="Polaroid 4"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div className="text-center font-bold text-[10px] sm:text-xs text-amber-900 font-serif leading-none tracking-tight py-1 bg-amber-50 rounded-sm border border-amber-100/70">
+          [IV] = {digits[3]}
+        </div>
+      </div>
+
+      {/* ============================================================== */}
+      {/* FULL-PAGE DARK ROOM SHADOW MASK OVERLAY                        */}
+      {/* Covers the entire screen: pitch-black outside the circular beam */}
+      {/* ============================================================== */}
+      <div
+        className="fixed inset-0 pointer-events-none z-30 transition-opacity duration-500"
+        style={{
+          background: isLanternBoosted
+            ? "radial-gradient(circle 800px at 50% 50%, rgba(254, 240, 138, 0.18) 0%, rgba(0, 0, 0, 0.45) 100%)"
+            : `radial-gradient(circle 150px at ${pos.x}px ${pos.y}px, rgba(254, 240, 138, 0.28) 0%, rgba(254, 240, 138, 0.08) 60px, rgba(0, 0, 0, 0.95) 130px, rgba(0, 0, 0, 0.998) 165px)`
+        }}
+      />
+
+      {/* Glowing Fairy Lantern Halo following pointer anywhere */}
+      {!isLanternBoosted && (
+        <div
+          className="fixed pointer-events-none z-35 transform -translate-x-1/2 -translate-y-1/2"
+          style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
+        >
+          <div className="w-20 h-20 rounded-full bg-amber-300/35 blur-xl animate-pulse" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Sparkles className="w-5 h-5 text-amber-300 drop-shadow-md" />
+          </div>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* CENTER ROOM CONTENT (Original pastel scrapbook aesthetic)       */}
+      {/* ============================================================== */}
+
       {/* Header Info */}
-      <div className="text-center mb-4">
+      <div className="text-center mb-5 relative z-10">
         <div className="flex justify-center mb-2">
-          <RibbonBow className="w-9 h-7 text-emerald-400" />
+          <RibbonBow className="w-9 h-7 text-emerald-400 drop-shadow-sm" />
         </div>
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-emerald-200 rounded-full text-emerald-700 text-xs font-semibold mb-2 shadow-sm">
           <FlowerBlossom className="w-3.5 h-3.5" />
@@ -157,149 +307,12 @@ export default function FlashlightArchive({ onComplete, customCode = "1210", cus
           The Fairy-Light Chamber
         </h2>
         <p className="text-xs sm:text-sm text-[#3d6350] mt-1 max-w-md mx-auto leading-relaxed">
-          The room is dark! Sweep your fairy lantern into the corners to hunt down 4 mini Polaroids hidden in the shadows ♡
+          The entire page is the dark room! Sweep your fairy lantern across the room to hunt down the 4 Polaroids spread across the shadows ♡
         </p>
       </div>
 
-      {/* Interactive Pitch-Dark Chamber */}
-      <div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onTouchMove={handleTouchMove}
-        className="relative w-full h-[420px] sm:h-[460px] bg-black rounded-[32px] border-2 border-emerald-200/90 overflow-hidden mb-4 shadow-card select-none touch-none"
-        style={{ minHeight: "400px" }}
-      >
-        {/* Subtle ceiling fairy lights string (dim, giving ambiance) */}
-        <div className="absolute top-5 left-0 right-0 h-1 border-t-2 border-dashed border-amber-300/30 flex justify-between px-6 pointer-events-none z-10">
-          {Array.from({ length: 11 }).map((_, i) => (
-            <div
-              key={i}
-              className="relative -translate-y-2 flex flex-col items-center opacity-85"
-            >
-              <div className="w-0.5 h-1.5 bg-amber-400/40" />
-              <div
-                className="w-2.5 h-2.5 rounded-full bg-amber-200/90 shadow-md shadow-amber-300/40 animate-pulse"
-                style={{
-                  animationDuration: `${2.2 + (i % 3) * 0.5}s`,
-                  animationDelay: `${i * 200}ms`
-                }}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* ============================================================== */}
-        {/* 4 COMPACT MINI POLAROIDS HIDDEN IN SNEAKY CORNERS              */}
-        {/* ============================================================== */}
-
-        {/* Polaroid 1: Top-Left Corner (Clue [I]) */}
-        <div
-          onClick={() => handlePolaroidClick(0, 48, 70)}
-          className="absolute top-7 left-4 sm:left-7 w-14 sm:w-16 bg-[#fffdfa] border border-amber-200/90 rounded-md p-1 shadow-lg rotate-[-8deg] transition-all hover:scale-130 hover:z-30 cursor-pointer z-10 group"
-          title="Click to inspect Polaroid I"
-        >
-          <div className="w-2 h-2.5 bg-amber-400 rounded-xs mx-auto -mt-2.5 mb-0.5 shadow-xs" />
-          <div className="w-full h-11 sm:h-13 rounded-xs overflow-hidden bg-black mb-1 border border-black/20">
-            <img
-              src={photos[0]}
-              alt="Polaroid 1"
-              onError={(e) => { e.currentTarget.src = "/jigsaw.jpg"; }}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <div className="text-center font-bold text-[9px] sm:text-[10px] text-emerald-800 font-serif leading-none tracking-tight py-0.5 bg-emerald-50 rounded-xs">
-            [I] = {digits[0]}
-          </div>
-        </div>
-
-        {/* Polaroid 2: Center-Left Lower Ground (Clue [II]) */}
-        <div
-          onClick={() => handlePolaroidClick(1, 130, 360)}
-          className="absolute bottom-6 left-20 sm:left-28 w-14 sm:w-16 bg-[#fffdfa] border border-amber-200/90 rounded-md p-1 shadow-lg rotate-[7deg] transition-all hover:scale-130 hover:z-30 cursor-pointer z-10 group"
-          title="Click to inspect Polaroid II"
-        >
-          <div className="w-2 h-2.5 bg-amber-400 rounded-xs mx-auto -mt-2.5 mb-0.5 shadow-xs" />
-          <div className="w-full h-11 sm:h-13 rounded-xs overflow-hidden bg-black mb-1 border border-black/20">
-            <img
-              src={photos[1]}
-              alt="Polaroid 2"
-              onError={(e) => { e.currentTarget.src = "/jigsaw.jpg"; }}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <div className="text-center font-bold text-[9px] sm:text-[10px] text-rose-800 font-serif leading-none tracking-tight py-0.5 bg-rose-50 rounded-xs">
-            [II] = {digits[1]}
-          </div>
-        </div>
-
-        {/* Polaroid 3: High Upper Right Ceiling (Clue [III]) */}
-        <div
-          onClick={() => handlePolaroidClick(2, 380, 80)}
-          className="absolute top-9 right-6 sm:right-12 w-14 sm:w-16 bg-[#fffdfa] border border-amber-200/90 rounded-md p-1 shadow-lg rotate-[-6deg] transition-all hover:scale-130 hover:z-30 cursor-pointer z-10 group"
-          title="Click to inspect Polaroid III"
-        >
-          <div className="w-2 h-2.5 bg-amber-400 rounded-xs mx-auto -mt-2.5 mb-0.5 shadow-xs" />
-          <div className="w-full h-11 sm:h-13 rounded-xs overflow-hidden bg-black mb-1 border border-black/20">
-            <img
-              src={photos[2]}
-              alt="Polaroid 3"
-              onError={(e) => { e.currentTarget.src = "/jigsaw.jpg"; }}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <div className="text-center font-bold text-[9px] sm:text-[10px] text-purple-800 font-serif leading-none tracking-tight py-0.5 bg-purple-50 rounded-xs">
-            [III] = {digits[2]}
-          </div>
-        </div>
-
-        {/* Polaroid 4: Far Bottom-Right Floor Corner (Clue [IV]) */}
-        <div
-          onClick={() => handlePolaroidClick(3, 440, 370)}
-          className="absolute bottom-7 right-4 sm:right-8 w-14 sm:w-16 bg-[#fffdfa] border border-amber-200/90 rounded-md p-1 shadow-lg rotate-[8deg] transition-all hover:scale-130 hover:z-30 cursor-pointer z-10 group"
-          title="Click to inspect Polaroid IV"
-        >
-          <div className="w-2 h-2.5 bg-amber-400 rounded-xs mx-auto -mt-2.5 mb-0.5 shadow-xs" />
-          <div className="w-full h-11 sm:h-13 rounded-xs overflow-hidden bg-black mb-1 border border-black/20">
-            <img
-              src={photos[3]}
-              alt="Polaroid 4"
-              onError={(e) => { e.currentTarget.src = "/jigsaw.jpg"; }}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <div className="text-center font-bold text-[9px] sm:text-[10px] text-amber-900 font-serif leading-none tracking-tight py-0.5 bg-amber-50 rounded-xs">
-            [IV] = {digits[3]}
-          </div>
-        </div>
-
-        {/* ============================================================== */}
-        {/* PITCH-BLACK SHADOW MASK (Everything pitch-black outside beam)  */}
-        {/* ============================================================== */}
-        <div
-          className="absolute inset-0 pointer-events-none z-20"
-          style={{
-            background: isLanternBoosted
-              ? "radial-gradient(circle 500px at 50% 50%, rgba(254, 240, 138, 0.18) 0%, rgba(0, 0, 0, 0.6) 100%)"
-              : `radial-gradient(circle 95px at ${pos.x}px ${pos.y}px, rgba(254, 240, 138, 0.28) 0%, rgba(254, 240, 138, 0.08) 42%, rgba(0, 0, 0, 0.96) 82px, rgba(0, 0, 0, 0.998) 115px)`
-          }}
-        />
-
-        {/* Glowing Fairy Lantern Halo Cursor following pointer */}
-        {!isLanternBoosted && (
-          <div
-            className="absolute pointer-events-none z-25 transform -translate-x-1/2 -translate-y-1/2"
-            style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
-          >
-            <div className="w-16 h-16 rounded-full bg-amber-300/30 blur-lg animate-pulse" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-amber-300 drop-shadow-md" />
-            </div>
-          </div>
-        )}
-      </div>
-
       {/* Helper Controls: Light Boost & Instructions */}
-      <div className="flex items-center justify-between w-full max-w-sm mb-4 px-2">
+      <div className="flex items-center justify-between w-full max-w-sm mb-5 px-2 relative z-10">
         <button
           type="button"
           onClick={() => {
@@ -327,7 +340,7 @@ export default function FlashlightArchive({ onComplete, customCode = "1210", cus
       </div>
 
       {/* Girly Pop Pastel Keypad Panel */}
-      <div className="bg-white border-2 border-[#bbf7d0] rounded-[32px] p-5 sm:p-6 flex flex-col items-center shadow-card w-full max-w-xs relative">
+      <div className="bg-white border-2 border-[#bbf7d0] rounded-[32px] p-5 sm:p-6 flex flex-col items-center shadow-card w-full max-w-xs relative z-10">
         <div className="absolute -top-1.5 right-6 z-20 pointer-events-none">
           <WashiTape className="w-16 h-4 opacity-75" color="bg-emerald-200/80" />
         </div>
@@ -409,6 +422,48 @@ export default function FlashlightArchive({ onComplete, customCode = "1210", cus
           </div>
         )}
       </div>
+
+      {/* Polaroid Inspection Lightbox Modal */}
+      {activePreview !== null && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-in fade-in">
+          <div className="bg-[#fffdfa] border-2 border-amber-200 rounded-[28px] p-5 sm:p-6 max-w-sm w-full shadow-2xl flex flex-col items-center relative text-[#132e22]">
+            <button
+              type="button"
+              onClick={() => setActivePreview(null)}
+              className="absolute top-4 right-4 p-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-[#3d6350] hover:text-[#132e22] cursor-pointer transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="w-2.5 h-3 bg-amber-400 rounded-xs mx-auto -mt-3 mb-2 shadow-xs" />
+
+            <div className="w-full h-64 sm:h-72 rounded-xl overflow-hidden bg-black mb-3 border border-black/20 shadow-md">
+              <img
+                src={photos[activePreview]}
+                alt={`Inspected Polaroid ${activePreview + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            <div className="text-center space-y-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 rounded-full text-emerald-800 text-xs font-bold font-serif">
+                <span>{ROMAN_NUMERALS[activePreview]} = {digits[activePreview]}</span>
+              </div>
+              <p className="text-[11px] text-[#3d6350]">
+                Location: {POLAROID_LOCATIONS[activePreview]}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setActivePreview(null)}
+              className="mt-4 px-5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full text-xs shadow-sm transition active:scale-95 cursor-pointer"
+            >
+              Close & Keep Exploring ♡
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

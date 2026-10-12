@@ -39,6 +39,15 @@ export default function HeistController() {
         if (parsed.jigsawPhoto && parsed.jigsawPhoto.includes("images.unsplash.com/photo-1529156069898")) {
           parsed.jigsawPhoto = "/jigsaw.jpg";
         }
+        // If memoryPairs are still pointing to old unsplash URLs, replace with local memorymatch photos
+        if (
+          !parsed.memoryPairs ||
+          parsed.memoryPairs.some(
+            (p) => p.photo && p.photo.includes("images.unsplash.com")
+          )
+        ) {
+          parsed.memoryPairs = DEFAULT_MEMORY_PAIRS;
+        }
         return parsed;
       }
       return DEFAULT_STORY;
@@ -110,7 +119,6 @@ export default function HeistController() {
 
   return (
     <div
-      onClick={() => sounds.startAmbientDrone()}
       className="min-h-screen bg-[#f7faf8] text-[#132e22] flex flex-col font-sans selection:bg-emerald-200 selection:text-emerald-900 relative select-none"
     >
       {/* Top Girly Pop Pastel Header Bar with Ribbon & Flowers */}
@@ -218,6 +226,7 @@ export default function HeistController() {
           <FlashlightArchive
             onComplete={nextStage}
             customCode={storyData.archiveCode}
+            customPhotos={storyData.chamberPhotos}
           />
         )}
         {currentStage === 4 && (

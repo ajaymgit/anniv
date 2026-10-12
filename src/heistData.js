@@ -319,18 +319,25 @@ export const TIMELINE_MEMORIES = [
   }
 ];
 
-// 10 Pairs (20 Cards Total) for Layer 07 (5x4 Grid)
+// 10 Pairs (20 Cards Total) for Layer 07 (5x4 Grid) using the 10 photos from /memorymatch
 export const DEFAULT_MEMORY_PAIRS = [
-  { pairKey: "p1", label: "First Coffee", icon: "☕", photo: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p2", label: "Bike Rides", icon: "🛵", photo: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p3", label: "Midnight Talks", icon: "🌙", photo: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p4", label: "Favorite Fries", icon: "🍟", photo: "https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p5", label: "Shopping Day", icon: "🛍️", photo: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p6", label: "Inside Jokes", icon: "😂", photo: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p7", label: "Warm Hugs", icon: "🫂", photo: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p8", label: "UNO Battles", icon: "🃏", photo: "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p9", label: "Stolen Hoodies", icon: "🧥", photo: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=300&q=80" },
-  { pairKey: "p10", label: "Forever & Always", icon: "💖", photo: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=300&q=80" },
+  { pairKey: "p1", label: "Moment 01", icon: "💖", photo: "/memorymatch/card1.jpg" },
+  { pairKey: "p2", label: "Moment 02", icon: "💖", photo: "/memorymatch/card2.jpg" },
+  { pairKey: "p3", label: "Moment 03", icon: "💖", photo: "/memorymatch/card3.jpg" },
+  { pairKey: "p4", label: "Moment 04", icon: "💖", photo: "/memorymatch/card4.jpg" },
+  { pairKey: "p5", label: "Moment 05", icon: "💖", photo: "/memorymatch/card5.jpg" },
+  { pairKey: "p6", label: "Moment 06", icon: "💖", photo: "/memorymatch/card6.jpg" },
+  { pairKey: "p7", label: "Moment 07", icon: "💖", photo: "/memorymatch/card7.jpg" },
+  { pairKey: "p8", label: "Moment 08", icon: "💖", photo: "/memorymatch/card8.jpg" },
+  { pairKey: "p9", label: "Moment 09", icon: "💖", photo: "/memorymatch/card9.jpg" },
+  { pairKey: "p10", label: "Moment 10", icon: "💖", photo: "/memorymatch/card10.jpg" },
+];
+
+export const DEFAULT_CHAMBER_PHOTOS = [
+  "/lightchamber/polaroid1.jpg",
+  "/lightchamber/polaroid2.jpg",
+  "/lightchamber/polaroid3.jpg",
+  "/lightchamber/polaroid4.jpg"
 ];
 
 export const DEFAULT_STORY = {
@@ -342,5 +349,7 @@ export const DEFAULT_STORY = {
     "Through every locked dial, every dark corridor, and every scrambled memory, you proved that what we have is impossible to erase. Happy Anniversary, Mythri! Forever and always. ❤️",
   memories: TIMELINE_MEMORIES,
   triviaQuestions: DEFAULT_TRIVIA_QUESTIONS,
-  jigsawPhoto: "/jigsaw.jpg"
+  jigsawPhoto: "/jigsaw.jpg",
+  chamberPhotos: DEFAULT_CHAMBER_PHOTOS,
+  memoryPairs: DEFAULT_MEMORY_PAIRS
 };
