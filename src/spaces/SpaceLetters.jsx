@@ -7,10 +7,20 @@ import {
   ChevronRight,
   X,
   Heart,
-  Feather
+  Feather,
+  Stamp,
+  BookOpen
 } from "lucide-react";
 import { useAnniversary } from "../context/AnniversaryContext";
-import { RibbonBow, PopFlower, FlowerBlossom, FlowerCluster, FlowerGarland, WashiTape } from "../components/common/GirlyPopDecorations";
+import {
+  RibbonBow,
+  PopFlower,
+  FlowerBlossom,
+  FlowerCluster,
+  FlowerGarland,
+  WashiTape,
+  SparkleStar
+} from "../components/common/GirlyPopDecorations";
 
 export const LETTERS = [
   {
@@ -18,9 +28,8 @@ export const LETTERS = [
     roman: "I",
     title: "On Quiet Fierceness",
     subtitle: "Something I admire about you",
-    postmark: "OUR STORY ♡ OCT 2019",
-    flowerColor: "rose",
-    waxColor: "from-teal-400 to-emerald-500",
+    postmark: "OCTOBER 2019 // DISCOVERY",
+    stampCode: "PAR AVION • No. 01",
     preview: "The quiet grace with which you hold your ground and carry everyone around you...",
     date: "Chapter 1 // The Discovery",
     content: `There is a particular kind of strength that never advertises itself, and you carry it everywhere you go.
@@ -36,9 +45,8 @@ In seven years of watching you grow and change, my admiration for your character
     roman: "II",
     title: "The Quieting of the Static",
     subtitle: "Something you may not realise you do for me",
-    postmark: "MIDNIGHT ♡ US",
-    flowerColor: "lavender",
-    waxColor: "from-emerald-400 to-teal-400",
+    postmark: "MIDNIGHT // THE ANCHOR",
+    stampCode: "PAR AVION • No. 02",
     preview: "You anchor my mind whenever my thoughts start racing ahead of me...",
     date: "Chapter 2 // The Anchor",
     content: `My mind rarely sits still. It is almost always racing ahead—calculating, overthinking, worrying about what comes next, dissecting things that haven't even happened.
@@ -54,9 +62,8 @@ You are the only person who can make me stop living inside my head and simply be
     roman: "III",
     title: "Love on Ordinary Tuesdays",
     subtitle: "What being with you has taught me",
-    postmark: "RAIN SEASONS ♡ US",
-    flowerColor: "buttercup",
-    waxColor: "from-purple-300 to-indigo-400",
+    postmark: "RAIN SEASONS // EVERYDAY",
+    stampCode: "PAR AVION • No. 03",
     preview: "That love isn't dramatic speeches; it is showing up on ordinary days...",
     date: "Chapter 3 // The Lesson",
     content: `When you are younger, you assume love is made of dramatic declarations, grand surprises, and cinematic milestones.
@@ -72,9 +79,8 @@ You turned love from a fleeting feeling into a permanent home.`
     roman: "IV",
     title: "The Rituals Nobody Else Sees",
     subtitle: "What I find beautiful in the ordinary",
-    postmark: "LATE NIGHTS ♡ 01:00 AM",
-    flowerColor: "peach",
-    waxColor: "from-amber-300 to-orange-400",
+    postmark: "LATE NIGHTS // 01:00 AM",
+    stampCode: "PAR AVION • No. 04",
     preview: "The mundane rituals that nobody else gets to witness...",
     date: "Chapter 4 // Everyday Poetry",
     content: `If you asked anyone else what makes you special, they would talk about your smile, your sharp wit, or how effortlessly you light up a room.
@@ -90,9 +96,8 @@ The ordinary life we have woven together is my favorite place in the universe. I
     roman: "V",
     title: "The Weight of Vulnerability",
     subtitle: "Something difficult to express out loud",
-    postmark: "HEART TO HEART ♡ FOREVER",
-    flowerColor: "mint",
-    waxColor: "from-teal-400 to-red-400",
+    postmark: "HEART TO HEART // VULNERABILITY",
+    stampCode: "PAR AVION • No. 05",
     preview: "The vulnerability of knowing how much of my happiness lives in you...",
     date: "Chapter 5 // The Truth",
     content: `I don’t always have the courage to say this to your face, because admitting it feels like exposing my softest, most vulnerable underbelly.
@@ -108,9 +113,8 @@ Loving you with this much vulnerability is the safest thing I have ever done.`
     roman: "VI",
     title: "The Unconditional Anchor",
     subtitle: "What I hope you never doubt about us",
-    postmark: "COUNTING MILES ♡ US",
-    flowerColor: "mint",
-    waxColor: "from-teal-300 to-emerald-400",
+    postmark: "COUNTING MILES // CERTAINTY",
+    stampCode: "PAR AVION • No. 06",
     preview: "That distance, time, and chaotic seasons can ever weaken this bond...",
     date: "Chapter 6 // The Promise",
     content: `Relationships live through many seasons. We have lived through seasons of effortless laughter, seasons of heavy fatigue, seasons of quiet routine, and seasons where distance or chaotic schedules tested our stamina.
@@ -126,9 +130,8 @@ There is no version of my future, no dream I am building, and no horizon I look 
     roman: "VII",
     title: "Armor for the Hard Days",
     subtitle: "What I want you to carry with you",
-    postmark: "INTO FOREVER ♡ ALWAYS",
-    flowerColor: "sky",
-    waxColor: "from-emerald-400 to-purple-400",
+    postmark: "INTO FOREVER // ALWAYS",
+    stampCode: "PAR AVION • No. 07",
     preview: "A reminder of who you are whenever the world feels overwhelming...",
     date: "Chapter 7 // Into Forever",
     content: `Whenever the world gets loud, demanding, or unkind—and whenever your own mind tries to convince you that you aren’t doing enough or being enough—I want you to pull this letter out and read these words:
@@ -193,57 +196,57 @@ export default function SpaceLetters() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] py-12 px-4 sm:px-6 relative select-none">
-      {/* Header Section */}
+    <div className="min-h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] py-12 px-4 sm:px-6 relative select-none font-sans">
+      {/* Writing Desk Stationery Header */}
       <div className="max-w-4xl mx-auto text-center mb-10 relative z-10">
         <div className="flex justify-center mb-3">
           <RibbonBow className="w-12 h-10 drop-shadow-sm text-emerald-400" />
         </div>
 
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-emerald-200 text-emerald-700 text-xs font-sans font-medium mb-4 shadow-sm">
-          <FlowerBlossom className="w-3.5 h-3.5" />
-          <span>Chapter 3 // Seven Love Letters</span>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-emerald-200 text-emerald-800 text-xs font-sans font-semibold mb-4 shadow-sm">
+          <Feather className="w-3.5 h-3.5 text-emerald-600" />
+          <span>Chapter 3 // The Writing Desk • Seven Love Letters</span>
         </div>
 
         <h2 className="text-3xl sm:text-5xl font-bold text-[#132e22] mb-3 font-serif tracking-tight">
           Words Kept For You
         </h2>
-        <p className="text-sm sm:text-base text-[#3d6350] max-w-xl mx-auto leading-relaxed font-sans">
-          Seven sealed envelopes tied with ribbon bows. Quiet truths written specifically for you to read at your own unhurried pace.
+        <p className="text-sm sm:text-base text-[#3d6350] max-w-xl mx-auto leading-relaxed font-sans font-normal">
+          Seven hand-folded epistolary envelopes sealed with custom sage wax monograms. Quiet truths written specifically for you to read at your own unhurried pace.
         </p>
 
         {/* View Mode Toggle */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs font-sans">
-          <div className="px-4 py-1.5 rounded-full bg-white border border-[#bbf7d0] text-emerald-700 font-medium shadow-sm flex items-center gap-1.5">
-            <Heart className="w-3.5 h-3.5 fill-emerald-400 text-emerald-500" />
-            <span>Unsealed: {readLetters.size} of 7 Letters</span>
+          <div className="px-4 py-1.5 rounded-full bg-white border border-[#bbf7d0] text-emerald-800 font-semibold shadow-sm flex items-center gap-1.5">
+            <Heart className="w-3.5 h-3.5 fill-emerald-400 text-emerald-600" />
+            <span>Unsealed: {readLetters.size} of 7 Epistles</span>
           </div>
 
           <div className="flex rounded-full bg-white border border-[#bbf7d0] p-1 shadow-sm">
             <button
               onClick={() => setViewMode("desk")}
               className={`px-4 py-1 rounded-full transition-all ${
-                viewMode === "desk" ? "bg-emerald-100 text-emerald-800 font-bold" : "text-[#3d6350] hover:text-[#132e22]"
+                viewMode === "desk" ? "bg-emerald-100/90 text-emerald-800 font-bold" : "text-[#3d6350] hover:text-[#132e22]"
               }`}
             >
-              Envelope Desk
+              Writing Desk
             </button>
             <button
               onClick={() => setViewMode("archive")}
               className={`px-4 py-1 rounded-full transition-all ${
-                viewMode === "archive" ? "bg-emerald-100 text-emerald-800 font-bold" : "text-[#3d6350] hover:text-[#132e22]"
+                viewMode === "archive" ? "bg-emerald-100/90 text-emerald-800 font-bold" : "text-[#3d6350] hover:text-[#132e22]"
               }`}
             >
-              Reading View
+              Reading Archive
             </button>
           </div>
         </div>
       </div>
 
-      {/* MODE 1: ENVELOPE DESK (Tactile Stationery Grid with Ribbon Bows & Washi Tape) */}
+      {/* MODE 1: ENVELOPE DESK (Tactile Stationery Desk Spread with Wax Seals & Postmarks) */}
       {viewMode === "desk" && (
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 relative z-10">
-          {LETTERS.map((letter, idx) => {
+          {LETTERS.map((letter) => {
             const isRead = readLetters.has(letter.id);
 
             return (
@@ -252,59 +255,68 @@ export default function SpaceLetters() {
                 whileHover={{ y: -6, scale: 1.015 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => openLetter(letter)}
-                className={`cursor-pointer rounded-[32px] p-7 border-2 transition-all duration-300 relative flex flex-col justify-between overflow-hidden shadow-card hover:shadow-pop group ${
-                  isRead
-                    ? "bg-white border-emerald-200"
-                    : "bg-[#fff8fa] border-[#bbf7d0] hover:border-emerald-300"
-                }`}
+                className="cursor-pointer rounded-[32px] p-7 border-2 transition-all duration-300 relative flex flex-col justify-between overflow-hidden shadow-card hover:shadow-pop group bg-white border-[#bbf7d0] hover:border-emerald-300"
               >
-                {/* Washi Tape Accent on Envelope Corner with Pinned PopFlower */}
+                {/* Washi Tape Accent on Envelope Corner */}
                 <div className="absolute -top-1.5 right-6 z-20 pointer-events-none flex items-center">
-                  <WashiTape className="w-16 h-4 opacity-75" color={idx % 2 === 0 ? "bg-emerald-200/80" : "bg-purple-200/80"} />
-                  <PopFlower color={letter.flowerColor || "mint"} className="w-5 h-5 -ml-3 -mt-2 drop-shadow-xs" rotate={12} />
+                  <WashiTape className="w-16 h-4 opacity-80" color="bg-emerald-200/80" />
+                  <PopFlower color="mint" className="w-5 h-5 -ml-3 -mt-2 drop-shadow-xs" rotate={12} />
                 </div>
 
-                {/* Top: Silk Ribbon Bow Tie & Postal Mark */}
+                {/* Simulated Envelope Flap Top Edge */}
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-emerald-100 via-emerald-50 to-emerald-100 border-b border-emerald-100" />
+
+                {/* Top: Wax Seal Stamp Medallion & Postal Mark */}
                 <div className="flex items-center justify-between mb-5 relative z-10">
-                  <div className="flex items-center gap-2">
-                    <RibbonBow className="w-8 h-7 text-emerald-400 drop-shadow-sm group-hover:scale-110 transition-transform" />
-                    <span className="font-serif font-bold text-xs text-emerald-700 bg-emerald-100/70 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <PopFlower color={letter.flowerColor || "mint"} className="w-3.5 h-3.5" />
-                      <span>Truth {letter.roman}</span>
-                    </span>
+                  <div className="flex items-center gap-2.5">
+                    {/* Realistic 3D Wax Seal Stamp */}
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800 text-emerald-50 flex items-center justify-center font-serif font-bold text-xs shadow-md border border-emerald-500/50 group-hover:scale-105 transition-transform">
+                      <span>{letter.roman}</span>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <span className="font-serif font-bold text-xs text-emerald-800">
+                        Truth {letter.roman}
+                      </span>
+                      <span className="text-[10px] text-emerald-600 font-sans font-medium">
+                        {letter.stampCode}
+                      </span>
+                    </div>
                   </div>
 
-                  <span className="text-[10px] text-[#6e9981] font-sans font-medium">
+                  <span className="text-[10px] text-[#6e9981] font-sans font-medium px-2 py-0.5 rounded-full bg-[#f0fdf4] border border-[#bbf7d0]">
                     {letter.postmark}
                   </span>
                 </div>
 
                 {/* Letter Title & Description */}
                 <div className="relative z-10 mb-6">
-                  <h3 className="text-2xl font-serif text-[#132e22] mb-1.5 group-hover:text-emerald-700 transition-colors">
+                  <h3 className="text-2xl font-serif text-[#132e22] mb-1.5 group-hover:text-emerald-800 transition-colors">
                     {letter.title}
                   </h3>
                   <p className="text-xs text-[#3d6350] mb-3 font-medium">{letter.subtitle}</p>
-                  <p className="text-xs text-[#55324e] line-clamp-2 italic leading-relaxed font-sans">
+                  <p className="text-xs text-[#3d6350] line-clamp-2 italic leading-relaxed font-sans">
                     "{letter.preview}"
                   </p>
                 </div>
 
-                {/* Bottom Action Footer with Flower */}
+                {/* Bottom Action Footer */}
                 <div className="relative z-10 pt-4 border-t border-[#bbf7d0]/70 flex items-center justify-between text-xs font-sans">
-                  <span className="text-emerald-700 font-medium flex items-center gap-1">
+                  <span className="text-emerald-800 font-medium flex items-center gap-1.5">
                     {isRead ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-emerald-500" /> Unsealed
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Unsealed</span>
                       </>
                     ) : (
                       <>
-                        <PopFlower color={letter.flowerColor || "mint"} className="w-4 h-4" /> Sealed with Flower
+                        <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
+                        <span>Sealed with Wax</span>
                       </>
                     )}
                   </span>
-                  <span className="text-emerald-600 font-bold group-hover:text-emerald-700 group-hover:translate-x-0.5 transition-all">
-                    Open letter ♡ →
+                  <span className="text-emerald-700 font-bold group-hover:text-emerald-900 group-hover:translate-x-0.5 transition-all">
+                    Unfold Epistle ♡ →
                   </span>
                 </div>
               </motion.div>
@@ -324,8 +336,8 @@ export default function SpaceLetters() {
               <div className="flex items-center justify-between border-b border-[#bbf7d0]/60 pb-4 mb-6">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <FlowerBlossom className="w-4 h-4" />
-                    <span className="text-xs font-bold text-emerald-600">
+                    <FlowerBlossom className="w-4 h-4" petalColor="#bbf7d0" centerColor="#fef08a" />
+                    <span className="text-xs font-bold text-emerald-700">
                       Truth {letter.roman} // {letter.date}
                     </span>
                   </div>
@@ -344,14 +356,14 @@ export default function SpaceLetters() {
 
               <div className="mt-8 pt-6 border-t border-[#bbf7d0]/60 flex items-center justify-between text-xs font-sans text-[#3d6350]">
                 <span>From Ajay ♡ Dedicated to Mythri</span>
-                <span className="font-script text-2xl text-emerald-600 font-bold">Always yours.</span>
+                <span className="font-script text-2xl text-emerald-700 font-bold">Always yours.</span>
               </div>
             </article>
           ))}
         </div>
       )}
 
-      {/* READING ROOM MODAL WITH FLOWERS & RIBBONS */}
+      {/* READING ROOM PARCHMENT MODAL */}
       <AnimatePresence>
         {selectedLetter && (
           <motion.div
@@ -366,14 +378,14 @@ export default function SpaceLetters() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.93, y: 25 }}
               transition={{ duration: 0.25 }}
-              className="relative max-w-2xl w-full bg-[#fffdfa] border-2 border-emerald-200 rounded-[36px] p-7 sm:p-10 shadow-2xl overflow-y-auto max-h-[90vh] text-[#132e22]"
+              className="relative max-w-2xl w-full bg-[#fcfdfc] border-2 border-emerald-200 rounded-[36px] p-7 sm:p-10 shadow-2xl overflow-y-auto max-h-[90vh] text-[#132e22]"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header with Ribbon & Controls */}
+              {/* Top Letterhead with Stamp & Controls */}
               <div className="flex items-center justify-between border-b border-[#bbf7d0]/70 pb-4 mb-6">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <RibbonBow className="w-7 h-6 text-emerald-400" />
-                  <span className="text-xs font-bold text-emerald-700">
+                  <span className="text-xs font-bold text-emerald-800">
                     Truth {selectedLetter.roman} ♡ {selectedLetter.postmark}
                   </span>
                 </div>
@@ -397,15 +409,15 @@ export default function SpaceLetters() {
               {/* Title */}
               <div className="mb-6">
                 <div className="flex items-center gap-2 mb-1">
-                  <PopFlower color={selectedLetter.flowerColor || "mint"} className="w-5 h-5" />
-                  <p className="text-xs font-semibold text-emerald-600">{selectedLetter.subtitle}</p>
+                  <PopFlower color="mint" className="w-5 h-5" />
+                  <p className="text-xs font-semibold text-emerald-700">{selectedLetter.subtitle}</p>
                 </div>
                 <h3 className="text-3xl sm:text-4xl font-serif text-[#132e22]">
                   {selectedLetter.title}
                 </h3>
               </div>
 
-              {/* Content */}
+              {/* Letter Content */}
               <div
                 className={`font-serif text-[#132e22] leading-relaxed whitespace-pre-line space-y-5 ${
                   fontSize === "large" ? "text-xl sm:text-2xl leading-loose" : "text-lg leading-relaxed"
@@ -414,26 +426,26 @@ export default function SpaceLetters() {
                 {selectedLetter.content}
               </div>
 
-              {/* Footer */}
+              {/* Footer with Fountain Pen Signature */}
               <div className="mt-10 pt-6 border-t border-[#bbf7d0]/70 flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="font-script text-2xl text-emerald-600 font-bold">Always yours,</p>
+                  <p className="font-script text-2xl text-emerald-700 font-bold">Always yours,</p>
                   <p className="text-xs font-sans text-[#3d6350]">Ajay ♡ Forever & Always</p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={goToPrevLetter}
-                    className="p-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-colors"
+                    className="p-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 transition-colors"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="px-3 py-1 rounded-full bg-emerald-100/70 text-xs font-sans text-emerald-800 font-bold">
+                  <span className="px-3 py-1 rounded-full bg-emerald-100/80 text-xs font-sans text-emerald-800 font-bold">
                     {selectedLetter.id} of 7
                   </span>
                   <button
                     onClick={goToNextLetter}
-                    className="p-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 transition-colors"
+                    className="p-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 transition-colors"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>

@@ -10,15 +10,15 @@ import {
   Heart,
   ChevronDown,
   ChevronUp,
-  Camera
+  Camera,
+  Eye,
+  Info
 } from "lucide-react";
 import { useAnniversary } from "../context/AnniversaryContext";
-import { RibbonBow, FlowerBlossom, WashiTape } from "../components/common/GirlyPopDecorations";
+import { RibbonBow, FlowerBlossom, PopFlower, WashiTape, SparkleStar } from "../components/common/GirlyPopDecorations";
 
 // -------------------------------------------------------------
-// Emergent Personal Truths
-// These are not unlocked via buttons. They emerge dynamically
-// based on her interaction dynamics (gentleness, dwelling, sweeping, repetition).
+// Emergent Personal Truths (Botanical Living Art)
 // -------------------------------------------------------------
 const EMERGENT_TRUTHS = [
   {
@@ -26,7 +26,7 @@ const EMERGENT_TRUTHS = [
     trigger: "Gentle Touch",
     title: "The Quieting of Noise",
     vignette: "When your movements slow down, the static clears. In seven years, your gentleness has always been the one thing capable of silencing the storm in my head.",
-    color: "#4ade80",
+    color: "#34d399",
     badge: "Discovered through Calmness"
   },
   {
@@ -34,7 +34,7 @@ const EMERGENT_TRUTHS = [
     trigger: "Sweeping Momentum",
     title: "Altered Trajectory",
     vignette: "A single burst of your energy or laughter changes the course of my entire day. You gently redirected my compass away from cynicism and toward heart.",
-    color: "#38bdf8",
+    color: "#6ee7b7",
     badge: "Discovered through Momentum"
   },
   {
@@ -42,7 +42,7 @@ const EMERGENT_TRUTHS = [
     trigger: "Lingering Presence",
     title: "The Center of Gravity",
     vignette: "Whenever you hold still, everything gathers around you. In the chaos of work, cities, and distance, you became the gravity I always return to.",
-    color: "#c084fc",
+    color: "#10b981",
     badge: "Discovered through Stillness"
   },
   {
@@ -50,7 +50,7 @@ const EMERGENT_TRUTHS = [
     trigger: "Spatial Bloom",
     title: "Vibrancy in the Routine",
     vignette: "You flooded my world with color—your spontaneous food cravings, your fiery opinions, and the sheer warmth you radiate wherever you step.",
-    color: "#fbbf24",
+    color: "#a7f3d0",
     badge: "Discovered through Breadth"
   },
   {
@@ -58,7 +58,7 @@ const EMERGENT_TRUTHS = [
     trigger: "Repeated Pathways",
     title: "Trails That Never Fade",
     vignette: "Moments from year one and yesterday don't disappear into memory. They leave permanent golden trails across my mind, shaping who I am becoming.",
-    color: "#fb7185",
+    color: "#86efac",
     badge: "Discovered through Habit"
   },
   {
@@ -66,7 +66,7 @@ const EMERGENT_TRUTHS = [
     trigger: "The Cumulative Effect",
     title: "The Mythri Effect",
     vignette: "Seven years of your light, ripples, gravity, and warmth. I am kinder, happier, and infinitely better because I love you. That is the Mythri Effect.",
-    color: "#10b981",
+    color: "#059669",
     badge: "Complete Organic Symphony"
   }
 ];
@@ -161,7 +161,7 @@ export default function SpaceMythriEffect() {
     }, 6000);
   };
 
-  // Initialize Particles with Soft Pastel Hues
+  // Initialize Particles in Organic Botanical Green Spectrum
   useEffect(() => {
     const count = 120;
     const initial = [];
@@ -171,12 +171,12 @@ export default function SpaceMythriEffect() {
         y: Math.random(),
         vx: (Math.random() - 0.5) * 0.001,
         vy: (Math.random() - 0.5) * 0.001,
-        baseRadius: Math.random() * 3 + 1.5,
-        radius: Math.random() * 3 + 1.5,
-        // Pastel color spectrum: Pinks, lilacs, soft peaches, sky
-        hue: Math.random() > 0.5 ? 330 + Math.random() * 30 : 250 + Math.random() * 40,
-        lightness: 75 + Math.random() * 15,
-        alpha: Math.random() * 0.6 + 0.2
+        baseRadius: Math.random() * 3.5 + 1.5,
+        radius: Math.random() * 3.5 + 1.5,
+        // Botanical green spectrum: mint (150) to emerald (165) with occasional gold (50)
+        hue: Math.random() > 0.8 ? 50 : 140 + Math.random() * 25,
+        lightness: 65 + Math.random() * 20,
+        alpha: Math.random() * 0.6 + 0.25
       });
     }
     particlesRef.current = initial;
@@ -201,15 +201,15 @@ export default function SpaceMythriEffect() {
       const h = canvas.height;
       const metrics = metricsRef.current;
 
-      // Soft Warm Ivory Background with slight decay trail
-      ctx.fillStyle = "rgba(250, 246, 240, 0.25)";
+      // Soft Warm Matcha Pearl Canvas with gentle persistence decay
+      ctx.fillStyle = "rgba(247, 250, 248, 0.25)";
       ctx.fillRect(0, 0, w, h);
 
-      // Render Persistent Memory Trails (reinforced by habit)
+      // Render Persistent Memory Trails in soft sage/mint
       persistentTrailsRef.current.forEach((tr) => {
         ctx.beginPath();
         ctx.arc(tr.x * w, tr.y * h, tr.weight * 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(244, 114, 182, ${Math.min(0.4, tr.weight * 0.15)})`;
+        ctx.fillStyle = `rgba(52, 211, 153, ${Math.min(0.35, tr.weight * 0.12)})`;
         ctx.fill();
       });
 
@@ -220,7 +220,7 @@ export default function SpaceMythriEffect() {
 
         ctx.beginPath();
         ctx.arc(sw.x * w, sw.y * h, sw.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(244, 114, 182, ${sw.alpha})`;
+        ctx.strokeStyle = `rgba(52, 211, 153, ${sw.alpha})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
@@ -229,10 +229,10 @@ export default function SpaceMythriEffect() {
         }
       });
 
-      // Update and Draw Adaptive Particles
+      // Update and Draw Adaptive Botanical Particles
       const particles = particlesRef.current;
       particles.forEach((p, idx) => {
-        // Dwell Gravity Pull: If user is lingering, pull particles toward dwell anchor
+        // Dwell Gravity Pull
         if (metrics.dwellAnchor) {
           const dx = metrics.dwellAnchor.x - p.x;
           const dy = metrics.dwellAnchor.y - p.y;
@@ -253,16 +253,16 @@ export default function SpaceMythriEffect() {
         const px = p.x * w;
         const py = p.y * h;
 
-        // Draw particle body in pastel glow
+        // Draw particle body in pastel green glow
         ctx.beginPath();
         ctx.arc(px, py, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue}, 80%, ${p.lightness}%, ${p.alpha})`;
-        ctx.shadowColor = `hsla(${p.hue}, 80%, 70%, 0.4)`;
+        ctx.fillStyle = `hsla(${p.hue}, 75%, ${p.lightness}%, ${p.alpha})`;
+        ctx.shadowColor = `hsla(${p.hue}, 70%, 60%, 0.35)`;
         ctx.shadowBlur = 10;
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Draw connective stardust web between close particles
+        // Connective organic botanical vine filaments between close particles
         for (let j = idx + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
@@ -270,7 +270,7 @@ export default function SpaceMythriEffect() {
             ctx.beginPath();
             ctx.moveTo(px, py);
             ctx.lineTo(p2.x * w, p2.y * h);
-            ctx.strokeStyle = `hsla(${p.hue}, 70%, 75%, ${(1 - dist / 0.12) * 0.25})`;
+            ctx.strokeStyle = `hsla(${p.hue}, 65%, 65%, ${(1 - dist / 0.12) * 0.22})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -288,7 +288,7 @@ export default function SpaceMythriEffect() {
     };
   }, []);
 
-  // Pointer Interaction & Reinforcement Tracking
+  // Pointer Interaction Tracking
   const handlePointerDown = (e) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -318,7 +318,7 @@ export default function SpaceMythriEffect() {
     if (m.lastX !== null && m.lastY !== null && m.lastTime !== null) {
       const dist = Math.hypot(x - m.lastX, y - m.lastY);
       const dt = Math.max(1, now - m.lastTime);
-      const velocity = dist / (dt / 1000); // units per second
+      const velocity = dist / (dt / 1000);
 
       m.totalDistance += dist;
 
@@ -331,7 +331,7 @@ export default function SpaceMythriEffect() {
         if (m.momentumScore > 30) triggerUnlock("rhythm");
       }
 
-      // 2. Evaluate Dwell (Holding close to anchor)
+      // 2. Evaluate Dwell
       if (m.dwellAnchor) {
         const driftFromAnchor = Math.hypot(x - m.dwellAnchor.x, y - m.dwellAnchor.y);
         if (driftFromAnchor < 0.08) {
@@ -342,11 +342,11 @@ export default function SpaceMythriEffect() {
         }
       }
 
-      // 3. Evaluate Spatial Coverage (Quadrants)
+      // 3. Evaluate Spatial Coverage
       m.coverageScore += dist * 10;
       if (m.coverageScore > 45) triggerUnlock("color");
 
-      // 4. Leave and Reinforce Persistent Memory Trails
+      // 4. Reinforce Persistent Trails
       const existingTrail = persistentTrailsRef.current.find(
         (t) => Math.hypot(t.x - x, t.y - y) < 0.03
       );
@@ -371,7 +371,7 @@ export default function SpaceMythriEffect() {
         triggerUnlock("synthesis");
       }
 
-      // Dynamic Sound Feedback matching movement
+      // Dynamic Sound Feedback
       if (Math.random() < 0.15) {
         const noteFreq = 260 + (x + y) * 280;
         playAdaptiveChime(noteFreq, Math.min(1.0, velocity));
@@ -413,26 +413,26 @@ export default function SpaceMythriEffect() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const link = document.createElement("a");
-    link.download = "The_Mythri_Effect_Organic_Canvas.png";
+    link.download = "The_Mythri_Effect_Botanical_Exhibition.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-65px)] bg-[#faf6f0] text-[#2e232e] flex flex-col justify-between overflow-hidden select-none">
-      {/* Top HUD Header */}
+    <div className="relative w-full h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] flex flex-col justify-between overflow-hidden select-none font-sans">
+      {/* Top HUD Header - Botanical Art Gallery Installation */}
       <div className="absolute top-4 left-6 right-6 z-10 flex items-center justify-between pointer-events-none">
-        <div className="pointer-events-auto bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-emerald-200 shadow-sm flex items-center gap-3">
+        <div className="pointer-events-auto bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-emerald-200 shadow-sm flex items-center gap-3">
           <RibbonBow className="w-7 h-6 text-emerald-400" />
           <div>
             <div className="flex items-center gap-2">
               <span className="font-serif text-sm text-[#132e22] font-bold">
-                Chapter 6 // The Mythri Effect
+                Chapter 6 // Living Art Gallery • The Mythri Effect
               </span>
-              <FlowerBlossom className="w-3.5 h-3.5" />
+              <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
             </div>
             <p className="text-[11px] text-[#3d6350] font-sans mt-0.5">
-              An open ecosystem learning from your touch — move freely ♡
+              Exhibition No. 06 — Living botanical flora responds to your touch ♡
             </p>
           </div>
         </div>
@@ -441,16 +441,16 @@ export default function SpaceMythriEffect() {
           {/* Audio Synthesizer */}
           <button
             onClick={() => setAudioMuted(!audioMuted)}
-            className="p-2.5 rounded-full bg-white/90 backdrop-blur-md border border-emerald-200 text-[#3d6350] hover:text-emerald-600 hover:bg-white transition-colors shadow-sm"
+            className="p-2.5 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200 text-[#3d6350] hover:text-emerald-700 hover:bg-white transition-colors shadow-sm"
             title={audioMuted ? "Unmute Adaptive Sound" : "Mute Sound"}
           >
-            {audioMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-emerald-500" />}
+            {audioMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-emerald-600" />}
           </button>
 
           {/* Reset */}
           <button
             onClick={handleReset}
-            className="p-2.5 rounded-full bg-white/90 backdrop-blur-md border border-emerald-200 text-[#3d6350] hover:text-[#132e22] hover:bg-white transition-colors shadow-sm"
+            className="p-2.5 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200 text-[#3d6350] hover:text-[#132e22] hover:bg-white transition-colors shadow-sm"
             title="Reset Canvas"
           >
             <RefreshCw className="w-4 h-4" />
@@ -459,15 +459,15 @@ export default function SpaceMythriEffect() {
           {/* Download Imprint */}
           <button
             onClick={handleDownloadSnapshot}
-            className="p-2.5 rounded-full bg-white/90 backdrop-blur-md border border-emerald-200 text-[#3d6350] hover:text-emerald-600 hover:bg-white transition-colors shadow-sm"
-            title="Save Your Imprint"
+            className="p-2.5 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200 text-[#3d6350] hover:text-emerald-700 hover:bg-white transition-colors shadow-sm"
+            title="Save Gallery Imprint"
           >
             <Download className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* Main Adaptive Canvas */}
+      {/* Main Adaptive Botanical Canvas with Art Frame Border */}
       <div
         className="w-full h-full relative cursor-crosshair touch-none"
         onPointerDown={handlePointerDown}
@@ -476,15 +476,33 @@ export default function SpaceMythriEffect() {
       >
         <canvas ref={canvasRef} className="w-full h-full block" />
 
+        {/* Museum Exhibition Wall Plaque (Bottom Left Corner) */}
+        <div className="absolute bottom-6 left-6 pointer-events-none hidden md:block z-10">
+          <div className="bg-white/90 backdrop-blur-md border border-emerald-200 rounded-2xl p-4 shadow-sm max-w-xs text-left">
+            <span className="text-[10px] font-mono text-emerald-700 font-bold uppercase block tracking-wider">
+              EXHIBITION PLAQUE No. 06
+            </span>
+            <h4 className="font-serif text-base font-bold text-[#132e22] mt-0.5">
+              The Mythri Effect
+            </h4>
+            <p className="text-[11px] text-emerald-800 font-sans mt-0.5">
+              Ajay & Mythri // 2019 — Present
+            </p>
+            <p className="text-[10px] text-[#3d6350] font-sans mt-1 italic">
+              Medium: Touch-Responsive Generative Flora. The canvas learns and blooms from your stillness, sweep, and touch.
+            </p>
+          </div>
+        </div>
+
         {/* Ambient Starting Whisper when canvas is untouched */}
         {unlockedTruths.length === 0 && (
           <div className="absolute bottom-12 left-1/2 -translate-x-1/2 pointer-events-none text-center">
             <motion.div
               animate={{ opacity: [0.6, 1, 0.6] }}
               transition={{ duration: 3.5, repeat: Infinity }}
-              className="px-5 py-2.5 rounded-full bg-white/90 backdrop-blur-md border border-emerald-200 text-xs font-sans text-emerald-700 shadow-sm flex items-center gap-2"
+              className="px-5 py-2.5 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200 text-xs font-sans text-emerald-800 shadow-sm flex items-center gap-2"
             >
-              <FlowerBlossom className="w-4 h-4" />
+              <FlowerBlossom className="w-4 h-4" petalColor="#bbf7d0" centerColor="#fef08a" />
               <span>Touch and explore freely. The world blossoms to how you move ♡</span>
             </motion.div>
           </div>
@@ -504,7 +522,7 @@ export default function SpaceMythriEffect() {
               <div className="flex justify-center mb-1">
                 <RibbonBow className="w-7 h-6 text-emerald-400" />
               </div>
-              <span className="text-[11px] font-sans uppercase tracking-widest text-emerald-600 font-bold block mb-1">
+              <span className="text-[11px] font-sans uppercase tracking-widest text-emerald-700 font-bold block mb-1">
                 {activeWhisper.badge}
               </span>
               <h3 className="text-2xl font-bold text-[#132e22] font-serif mb-2">
@@ -521,11 +539,11 @@ export default function SpaceMythriEffect() {
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20">
           <button
             onClick={() => setDrawerOpen(!drawerOpen)}
-            className="px-5 py-2 rounded-full bg-white/95 hover:bg-white border border-emerald-200 text-xs font-sans font-semibold text-[#3d6350] hover:text-[#132e22] shadow-sm flex items-center gap-2 transition-all active:scale-95"
+            className="px-5 py-2 rounded-full bg-white/95 hover:bg-white border border-emerald-200 text-xs font-sans font-semibold text-emerald-800 hover:text-emerald-950 shadow-sm flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
           >
-            <FlowerBlossom className="w-3.5 h-3.5" />
+            <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
             <span>
-              Discovered Truths ({unlockedTruths.length} of {EMERGENT_TRUTHS.length})
+              Curatorial Log ({unlockedTruths.length} of {EMERGENT_TRUTHS.length} Discoveries)
             </span>
             {drawerOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
           </button>
@@ -538,10 +556,10 @@ export default function SpaceMythriEffect() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              className="absolute bottom-20 left-1/2 -translate-x-1/2 max-w-2xl w-[94%] max-h-[60vh] bg-white/95 backdrop-blur-2xl border-2 border-emerald-200 rounded-[32px] p-6 sm:p-7 shadow-2xl overflow-y-auto z-30 relative"
+              className="absolute bottom-20 left-1/2 -translate-x-1/2 max-w-2xl w-[94%] max-h-[60vh] bg-white/95 backdrop-blur-2xl border-2 border-emerald-200 rounded-[32px] p-6 sm:p-7 shadow-2xl overflow-y-auto z-30 relative text-left"
             >
               <div className="absolute -top-1.5 right-10 z-20 pointer-events-none">
-                <WashiTape className="w-20 h-4.5 opacity-75" color="bg-emerald-200/80" />
+                <WashiTape className="w-20 h-4.5 opacity-80" color="bg-emerald-200/80" />
               </div>
 
               <div className="flex items-center justify-between border-b border-[#bbf7d0]/70 pb-3 mb-4">
@@ -568,13 +586,13 @@ export default function SpaceMythriEffect() {
                   {unlockedTruths.map((t) => (
                     <div
                       key={t.id}
-                      className="p-4 rounded-2xl bg-[#fff8fa] border border-emerald-200 text-left space-y-1 shadow-xs"
+                      className="p-4 rounded-2xl bg-[#f0fdf4] border border-emerald-200 text-left space-y-1 shadow-2xs"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-sans text-emerald-600 font-bold uppercase">
+                        <span className="text-[10px] font-sans text-emerald-700 font-bold uppercase">
                           {t.badge}
                         </span>
-                        <span className="text-[11px] font-sans text-[#3d6350]">{t.trigger}</span>
+                        <span className="text-[11px] font-sans text-emerald-800">{t.trigger}</span>
                       </div>
                       <h5 className="text-base font-bold text-[#132e22] font-serif">{t.title}</h5>
                       <p className="text-xs text-[#2d4d3d] font-sans leading-relaxed">

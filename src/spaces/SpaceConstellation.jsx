@@ -54,7 +54,7 @@ export const CONSTELLATION_STARS = [
     x: 0.36,
     y: 0.37,
     photoUrl: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80",
-    color: "#38bdf8"
+    color: "#6ee7b7"
   },
   {
     id: "star-left-2",
@@ -68,7 +68,7 @@ export const CONSTELLATION_STARS = [
     x: 0.22,
     y: 0.50,
     photoUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80",
-    color: "#22d3ee"
+    color: "#34d399"
   },
   {
     id: "star-left-3",
@@ -82,7 +82,7 @@ export const CONSTELLATION_STARS = [
     x: 0.36,
     y: 0.63,
     photoUrl: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80",
-    color: "#818cf8"
+    color: "#a7f3d0"
   },
   // Right Loop (Mythri's Aries Arc)
   {
@@ -111,7 +111,7 @@ export const CONSTELLATION_STARS = [
     x: 0.78,
     y: 0.50,
     photoUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80",
-    color: "#fb7185"
+    color: "#86efac"
   },
   {
     id: "star-right-3",
@@ -125,7 +125,7 @@ export const CONSTELLATION_STARS = [
     x: 0.64,
     y: 0.63,
     photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
-    color: "#c084fc"
+    color: "#10b981"
   },
   // Grand Apex Crown Star (Year 07)
   {
@@ -141,7 +141,7 @@ export const CONSTELLATION_STARS = [
     y: 0.22,
     isApex: true,
     photoUrl: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-    color: "#e879f9"
+    color: "#fef08a"
   }
 ];
 
@@ -319,16 +319,16 @@ export default function SpaceConstellation() {
       const h = canvas.height;
       const now = Date.now();
 
-      // 1. Romantic Twilight Constellation Gradient
+      // 1. Deep Pine Celestial Observatory Night Gradient
       const grad = ctx.createRadialGradient(w * 0.5, h * 0.5, 40, w * 0.5, h * 0.5, w * 0.75);
-      grad.addColorStop(0, "#2c1538");
-      grad.addColorStop(0.35, "#200e2b");
-      grad.addColorStop(0.7, "#170720");
-      grad.addColorStop(1, "#100417");
+      grad.addColorStop(0, "#0a261a");
+      grad.addColorStop(0.35, "#061a11");
+      grad.addColorStop(0.7, "#03100a");
+      grad.addColorStop(1, "#010503");
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // Aurora Nebula clouds
+      // Aurora Stardust & Emerald Nebula clouds
       const drawNebulaCloud = (cx, cy, r, color) => {
         const nGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, r);
         nGrad.addColorStop(0, color);
@@ -338,9 +338,9 @@ export default function SpaceConstellation() {
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
         ctx.fill();
       };
-      drawNebulaCloud(w * 0.32, h * 0.48, w * 0.30, "rgba(244, 114, 182, 0.08)");
-      drawNebulaCloud(w * 0.68, h * 0.48, w * 0.30, "rgba(216, 180, 254, 0.08)");
-      drawNebulaCloud(w * 0.50, h * 0.25, w * 0.25, "rgba(254, 240, 138, 0.06)");
+      drawNebulaCloud(w * 0.32, h * 0.48, w * 0.30, "rgba(52, 211, 153, 0.09)");
+      drawNebulaCloud(w * 0.68, h * 0.48, w * 0.30, "rgba(110, 231, 183, 0.07)");
+      drawNebulaCloud(w * 0.50, h * 0.25, w * 0.25, "rgba(254, 240, 138, 0.05)");
 
       // 2. Background Twinkling Stars
       nebulaStarsRef.current.forEach((star) => {
@@ -812,7 +812,7 @@ export default function SpaceConstellation() {
         particleCount: 70,
         spread: 90,
         origin: { y: 0.65 },
-        colors: ["#fbbf24", "#4ade80", "#38bdf8", "#e879f9", "#ffffff"]
+        colors: ["#34d399", "#6ee7b7", "#a7f3d0", "#fef08a", "#ffffff"]
       });
     } catch (e) {}
   };
@@ -839,21 +839,21 @@ export default function SpaceConstellation() {
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-65px)] bg-[#100417] text-[#132e22] flex flex-col justify-between overflow-hidden select-none font-sans">
-      {/* Top HUD Header */}
+    <div className="relative w-full h-[calc(100vh-65px)] bg-[#010503] text-[#132e22] flex flex-col justify-between overflow-hidden select-none font-sans">
+      {/* Top HUD Header - Stargazing Observatory Dome */}
       <div className="absolute top-4 left-6 right-6 z-10 flex items-center justify-between pointer-events-none">
-        <div className="pointer-events-auto bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-emerald-200 text-[#132e22] shadow-sm flex items-center gap-3">
+        <div className="pointer-events-auto bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-emerald-200 text-[#132e22] shadow-sm flex items-center gap-3">
           <RibbonBow className="w-7 h-6 text-emerald-400" />
           <div>
             <div className="flex items-center gap-2">
               <span className="font-serif text-sm text-[#132e22] font-bold">
-                Chapter 2 // Two Points, One Constellation
+                Chapter 2 // Observatory Dome • Two Points, One Constellation
               </span>
-              <FlowerBlossom className="w-3.5 h-3.5" />
+              <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
             </div>
             <p className="text-[11px] text-[#3d6350] font-sans mt-0.5">
               {phase === "intro"
-                ? "Drag our two Aries stars together to ignite the infinity ♡"
+                ? "Drag our two Aries stars together to ignite the infinity loop ♡ (RA 02h 07m • DEC +23° 27')"
                 : "Trace stardust lines from the center outward to weave the infinity ♡"}
             </p>
           </div>

@@ -158,10 +158,10 @@ export default function HeistController() {
               <button
                 type="button"
                 onClick={handleOpenHint}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 hover:bg-amber-100 rounded-full text-amber-800 transition border border-amber-200 cursor-pointer shadow-sm text-xs font-bold active:scale-95"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 rounded-full text-emerald-800 transition border border-emerald-200 cursor-pointer shadow-sm text-xs font-bold active:scale-95"
                 title="Get Help or Skip"
               >
-                <HelpCircle className="w-3.5 h-3.5 text-amber-500" />
+                <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
                 <span>HINT ♡</span>
               </button>
             </>
@@ -234,7 +234,7 @@ export default function HeistController() {
       {currentStage < 7 && (
         <div className="w-full bg-emerald-100/60 h-2 relative">
           <div
-            className="bg-gradient-to-r from-emerald-400 via-teal-300 to-purple-300 h-2 rounded-r-full transition-all duration-500 shadow-sm"
+            className="bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-300 h-2 rounded-r-full transition-all duration-500 shadow-sm"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -308,15 +308,15 @@ export default function HeistController() {
         <div className="fixed inset-0 bg-[#132e22]/40 backdrop-blur-md z-50 flex items-center justify-center p-4 font-sans">
           <div className="bg-white border-2 border-emerald-200 rounded-[32px] p-6 sm:p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
             <div className="absolute -top-1.5 right-8 z-20 pointer-events-none">
-              <WashiTape className="w-16 h-4 opacity-75" color="bg-amber-200/80" />
+              <WashiTape className="w-16 h-4 opacity-75" color="bg-emerald-200/80" />
             </div>
 
-            <div className="flex items-center gap-2 text-amber-700 font-bold text-sm mb-4">
-              <FlowerBlossom className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-emerald-800 font-bold text-sm mb-4">
+              <FlowerBlossom className="w-4 h-4" petalColor="#bbf7d0" centerColor="#fef08a" />
               <span>A Little Gentle Hint ♡ [Tier {hintTier + 1}/3]</span>
             </div>
 
-            <div className="bg-[#fff8fa] p-4 rounded-2xl border border-[#bbf7d0] text-xs mb-6 min-h-[90px] flex items-center leading-relaxed font-sans text-[#132e22]">
+            <div className="bg-[#f0fdf4] p-4 rounded-2xl border border-[#bbf7d0] text-xs mb-6 min-h-[90px] flex items-center leading-relaxed font-sans text-[#132e22]">
               {hintTier === 0 && (
                 <p className="italic font-serif text-sm">"{STAGE_HINTS[currentStage]?.cryptic}"</p>
               )}
@@ -325,7 +325,7 @@ export default function HeistController() {
               )}
               {hintTier === 2 && (
                 <div className="text-center w-full">
-                  <p className="text-emerald-600 font-bold mb-1">Want to skip forward?</p>
+                  <p className="text-emerald-700 font-bold mb-1">Want to skip forward?</p>
                   <p className="text-[11px] text-[#3d6350]">
                     You can bypass this puzzle right now and continue on to the next chapter.
                   </p>
@@ -349,7 +349,7 @@ export default function HeistController() {
                 <button
                   type="button"
                   onClick={escalateHint}
-                  className="px-4 py-2 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-800 border border-amber-300 cursor-pointer transition font-bold"
+                  className="px-4 py-2 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 cursor-pointer transition font-bold"
                 >
                   Need a Bigger Clue? ♡
                 </button>
@@ -357,7 +357,7 @@ export default function HeistController() {
                 <button
                   type="button"
                   onClick={bypassCurrentStage}
-                  className="px-4 py-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold cursor-pointer shadow-md shadow-emerald-500/20"
+                  className="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold cursor-pointer shadow-md shadow-emerald-500/20"
                 >
                   Skip to Next Puzzle ♡
                 </button>
