@@ -1,96 +1,76 @@
-# CoupleStick ❤️ — Live Couple Desktop Stickers for macOS
-
-CoupleStick is a lightweight, native macOS menu-bar and desktop sticker app that keeps two partners connected in real-time across the internet.
+# 🌿 The 7-Year Anniversary Suite (Time Heist Web App)
+### Dedicated to Mythri ♡
+A bespoke interactive web suite built with React 19, Vite, Tailwind CSS, and Framer Motion, styled in a Girly Pop pastel green scrapbook aesthetic.
 
 ---
 
-## 📥 Download & Quick Install
+## ✨ Features & Architecture
 
-### Option 1: Direct Download
-👉 **[Click Here to Download CoupleStick.dmg (Latest Release)](https://github.com/ajaymgit/anniv/releases/latest/download/CoupleStick.dmg)**
+1. **Chapter 1: The Memory Vault (7 Interactive Puzzles)**
+   - **Puzzle 01 (Birthday Keypad):** 6-digit PIN entry (`220305`) with pastel macaron keys and blooming flower slots.
+   - **Puzzle 02 (Polaroid Jigsaw):** 9-piece tap-to-swap polaroid puzzle using your custom anniversary photo (`/jigsaw.jpg`), complete with a full-photo reveal lightbox.
+   - **Puzzle 03 (2D Relationship Crossword):** Authentic 2D interlocking crossword board (13×12 grid, 55 letters) with all 14 inside-joke clues crossing at shared letters, standard corner numbering (1–14), keyboard navigation, and side-by-side clue decks.
+   - **Puzzle 04 (The Fairy-Light Chamber):** Dark room with glowing ceiling fairy lights, warm lantern spotlight beam (`circle 140px`), pointer halo, "Light Up Chamber" boost toggle, and clothespinned Polaroids displaying Roman numerals (`[I]`, `[II]`, `[III]`, `[IV]` = `1210`).
+   - **Puzzle 05 (Timeline Sequencer):** Drag-and-drop chronological sorting of 5 core milestones.
+   - **Puzzle 06 (Couple's Trivia):** 7 shared memory verification questions with feedback.
+   - **Puzzle 07 (Memory Match):** 20-card memory matching matrix (10 pairs).
+   - **Climax Reveal:** Final vault decryption, celebration fanfare, and anniversary letter.
 
-1. Open `CoupleStick.dmg` and drag **CoupleStick.app** into your **Applications** folder.
-2. If macOS displays *"Apple cannot check it for malicious software"*, run this once in Terminal:
-   ```bash
-   xattr -cr /Applications/CoupleStick.app
-   ```
+2. **Chapter 2: Two Points, One Constellation**
+   - Interactive celestial canvas where Jayjay and Mythri star nodes connect into the infinity symbol (∞).
 
-### Option 2: 1-Line Terminal Download & Open
-Paste this into Terminal to download and open the installer automatically:
+3. **Chapter 3: Seven Love Letters**
+   - 7 sealed wax envelopes with typographic reading room.
+
+4. **Chapter 4: Couplestick Web Showcase**
+   - Interactive desktop simulator, reaction triggers, pairing code (`220305`), and download link for the macOS app.
+
+5. **Chapter 5: The Fifth Space**
+   - Preview chamber for Heartbeat Frequency, Coordinate Atlas, and Forward Horizon.
+
+6. **Chapter 6: The Mythri Effect**
+   - 7-layer generative particle world blooming organically with touch and movement.
+
+7. **Chapter 7: Her Space**
+   - Private writing sanctuary with prompt drawer and local autosave.
+
+---
+
+## 🎨 Theme & Styling
+
+- **Background:** Fresh vanilla matcha cream (`#f7faf8`)
+- **Card Surfaces:** Soft honeydew mint (`#f0fdf4`)
+- **Borders & Accents:** Pastel mint green lace (`#bbf7d0` / `#dcfce7`)
+- **Typography:** High-contrast deep forest slate (`#132e22`) and muted sage (`#3d6350`)
+- **Scrapbook Decor:** Silk ribbon bows, washi tape strips, 5-petal blossoms, and drifting flower breeze.
+
+---
+
+## 📱 Mobile Responsiveness
+
+- Grid scales responsively to fit screens down to 320px width without horizontal scrolling.
+- Tap-friendly touch targets with `active:scale-95` tactile feedback.
+- `touch-none` enabled in the lantern chamber to prevent unintended page scroll while dragging.
+
+---
+
+## 🚀 Development & Deployment
+
+### Run Locally:
 ```bash
-curl -L -O https://github.com/ajaymgit/anniv/releases/latest/download/CoupleStick.dmg && open CoupleStick.dmg
+npm install
+npm run dev
+```
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Build for Production:
+```bash
+npm run build
 ```
 
----
-
-## ✨ Features
-
-- **Live Desktop Sticker:** Anchored, draggable partner avatar that stays pinned to your screen across all Spaces and full-screen apps.
-- **Two-Column Settings:** Organized side-by-side layout separating connection/profile configuration from reaction media.
-- **Paginated Reaction Media:** Browse custom reaction media 5 at a time with page controls, or switch to smooth scroll-all mode.
-- **Instant Unpair & Pair:** Connect via 6-digit OTP code or unpair at any time to generate a new private room code.
-- **Real-Time Reactions:** Send and receive kisses, pokes, hugs, love notes, and reactions with custom sounds and fluid spring animations.
-- **Bottom-Docked Messaging:** Minimal, distraction-free speech bubbles that pop in directly below the avatar.
-- **Instant Photo & Video Sharing:** Mini picture-frame display for photos and video clips right on your desktop.
-- **0% Idle CPU & Battery Efficient:** Geometric hit-testing, coalesced timers, and on-demand rendering.
-- **Sparkle 2 Auto-Updates:** In-app updates via `appcast.xml` feed.
-
----
-
-## ⌨️ Global Shortcuts
-
-| Shortcut | Action |
-| :--- | :--- |
-| `Cmd + Shift + P` | Poke Partner 👉 |
-| `Cmd + Shift + K` | Send Kiss 💋 |
-| `Cmd + Shift + R` | React Back ❤️ |
-| `Cmd + Shift + U` | Send Photo / Video 📸 |
-
----
-
-## 🚀 Building & Packaging
-
-### Run in Development:
+### Deploy to Vercel:
 ```bash
-swift build
-swift run
+git push -u origin main
+# or directly:
+npx vercel --prod
 ```
-
-### Build & Package DMG:
-```bash
-./build_dmg.sh
-```
-Produces an optimized `CoupleStick.dmg` with embedded frameworks and code-signing.
-
-### Notarize for Distribution:
-```bash
-./notarize_dmg.sh
-```
-
----
-
-## 🔄 Auto-Updates (Sparkle)
-1. Generate your EdDSA keypair:
-   ```bash
-   ./.build/artifacts/sparkle/Sparkle/bin/generate_keys
-   ```
-2. Update `SPARKLE_PUBLIC_ED_KEY` in `build_dmg.sh` and host `appcast.xml` on your GitHub Releases or server.
-
----
-
-## 🛡️ macOS Gatekeeper / Quarantine Override
-
-If you download `CoupleStick.dmg` or `CoupleStick.app` directly from GitHub without Apple Developer Notarization, macOS may show a warning:
-> *"CoupleStick.app can't be opened because Apple cannot check it for malicious software"*.
-
-To bypass this check, open Terminal and run:
-
-```bash
-# If installed in Applications:
-xattr -cr /Applications/CoupleStick.app
-
-# Or directly on the app bundle in your Downloads:
-xattr -cr ~/Downloads/CoupleStick.app
-```
-
-*(Alternatively, go to **System Settings > Privacy & Security** and click **Open Anyway**.)*

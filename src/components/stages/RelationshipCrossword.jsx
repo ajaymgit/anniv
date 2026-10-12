@@ -464,7 +464,7 @@ export default function RelationshipCrossword({ onComplete }) {
         {/* 2D Crossword Grid Container */}
         <div className="w-full flex justify-center overflow-x-auto pb-4 pt-1">
           <div
-            className="grid gap-1 sm:gap-1.5 p-3 sm:p-4 bg-[#fff7fa] border border-[#bbf7d0] rounded-3xl shadow-inner max-w-full"
+            className="grid gap-0.5 sm:gap-1.5 p-2 sm:p-4 bg-[#f0fdf4] border border-[#bbf7d0] rounded-2xl sm:rounded-3xl shadow-inner max-w-full"
             style={{
               gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`
             }}
@@ -477,7 +477,7 @@ export default function RelationshipCrossword({ onComplete }) {
                   return (
                     <div
                       key={key}
-                      className="w-7 h-7 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl bg-[#fff2f6]/40 pointer-events-none"
+                      className="w-6 h-6 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-md sm:rounded-xl bg-[#f0fdf4]/50 pointer-events-none"
                     />
                   );
                 }
@@ -495,7 +495,7 @@ export default function RelationshipCrossword({ onComplete }) {
                     key={key}
                     type="button"
                     onClick={() => handleCellClick(r, c)}
-                    className={`relative w-7 h-7 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl flex items-center justify-center font-serif font-bold transition-all cursor-pointer focus:outline-none select-none ${
+                    className={`relative w-6 h-6 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-md sm:rounded-xl flex items-center justify-center font-serif font-bold transition-all cursor-pointer focus:outline-none select-none ${
                       isSelected
                         ? "bg-white ring-2 ring-emerald-500 shadow-md scale-105 z-20 text-emerald-900 border border-emerald-300"
                         : isInActiveClue
@@ -507,13 +507,13 @@ export default function RelationshipCrossword({ onComplete }) {
                   >
                     {/* Clue Number in corner */}
                     {cell.number && (
-                      <span className="absolute top-0.5 left-1 text-[8px] sm:text-[9px] font-sans font-extrabold text-emerald-600/90 pointer-events-none leading-none">
+                      <span className="absolute top-0.5 left-0.5 sm:left-1 text-[7px] sm:text-[9px] font-sans font-extrabold text-emerald-600/90 pointer-events-none leading-none">
                         {cell.number}
                       </span>
                     )}
 
                     {/* Letter */}
-                    <span className="text-xs sm:text-base md:text-lg font-serif">
+                    <span className="text-[11px] sm:text-base md:text-lg font-serif">
                       {enteredChar}
                     </span>
                   </button>

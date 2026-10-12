@@ -4,12 +4,12 @@ import { Sparkles, CheckCircle2, KeyRound, Delete, Heart, Lightbulb, ArrowRight,
 import { sounds } from "../../utils/audio";
 import { RibbonBow, FlowerBlossom, WashiTape } from "../common/GirlyPopDecorations";
 
-// Default photos for the 4 hanging Polaroids with local fallback
+// Default photos for the 4 hanging Polaroids from user's lightchamber folder
 const DEFAULT_POLAROID_PHOTOS = [
-  "/jigsaw.jpg",
-  "https://images.unsplash.com/photo-1517256673805-adc3f4a9b634?auto=format&fit=crop&w=400&q=80",
-  "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=400&q=80",
-  "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=400&q=80"
+  "/lightchamber/polaroid1.jpg",
+  "/lightchamber/polaroid2.jpg",
+  "/lightchamber/polaroid3.jpg",
+  "/lightchamber/polaroid4.jpg"
 ];
 
 export default function FlashlightArchive({ onComplete, customCode = "1210", customPhotos }) {
