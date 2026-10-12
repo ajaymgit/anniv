@@ -12,15 +12,15 @@ import { sounds } from "../../utils/audio";
 import { RibbonBow, FlowerBlossom, WashiTape } from "../common/GirlyPopDecorations";
 
 const DEFAULT_9_PHOTOS = [
-  { id: 0, title: "Moment 01", src: "/memorymatrix/matrix1.jpg", note: "Day 01" },
-  { id: 1, title: "Moment 02", src: "/memorymatrix/matrix2.jpg", note: "Smile" },
-  { id: 2, title: "Moment 03", src: "/memorymatrix/matrix3.jpg", note: "Pure Joy" },
-  { id: 3, title: "Moment 04", src: "/memorymatrix/matrix4.jpg", note: "Together" },
-  { id: 4, title: "Moment 05", src: "/memorymatrix/matrix5.jpg", note: "Us ♡" },
-  { id: 5, title: "Moment 06", src: "/memorymatrix/matrix6.jpg", note: "Night Vibes" },
-  { id: 6, title: "Moment 07", src: "/memorymatrix/matrix7.jpg", note: "Sweet Times" },
-  { id: 7, title: "Moment 08", src: "/memorymatrix/matrix8.jpg", note: "Adventure" },
-  { id: 8, title: "Moment 09", src: "/memorymatrix/matrix9.jpg", note: "Forever" }
+  { id: 0, src: "/memorymatrix/matrix1.jpg" },
+  { id: 1, src: "/memorymatrix/matrix2.jpg" },
+  { id: 2, src: "/memorymatrix/matrix3.jpg" },
+  { id: 3, src: "/memorymatrix/matrix4.jpg" },
+  { id: 4, src: "/memorymatrix/matrix5.jpg" },
+  { id: 5, src: "/memorymatrix/matrix6.jpg" },
+  { id: 6, src: "/memorymatrix/matrix7.jpg" },
+  { id: 7, src: "/memorymatrix/matrix8.jpg" },
+  { id: 8, src: "/memorymatrix/matrix9.jpg" }
 ];
 
 // 3 Levels with 5, 6, and 7 illuminations
@@ -179,7 +179,7 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
           Memory Matrix IQ Test
         </h2>
         <p className="text-xs text-[#3d6350] mt-1 max-w-md mx-auto leading-relaxed">
-          Watch our 9 polaroid moments glow in rhythm, then tap them in the same order. Clear all 3 rounds to unlock the vault!
+          Watch our 9 photo moments illuminate in sequence, then tap them in the exact order. Clear all 3 levels to unlock the vault!
         </p>
       </div>
 
@@ -199,11 +199,11 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
           <div className="flex items-center gap-2">
             <Brain className="w-4 h-4 text-emerald-600" />
             <span className="font-serif font-bold text-emerald-950 text-sm">
-              Round {currentRoundIndex + 1} of 3
+              Level {currentRoundIndex + 1} of 3
             </span>
           </div>
 
-          {/* 3 Round Bulbs */}
+          {/* 3 Level Bulbs */}
           <div className="flex items-center gap-1.5">
             {ROUNDS_CONFIG.map((r, idx) => (
               <div
@@ -244,15 +244,15 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
           <span>{statusMessage}</span>
           {gameState === "playerTurn" && (
             <span className="ml-2 font-mono font-bold text-emerald-600">
-              ({playerInput.length}/{sequence.length} steps)
+              ({playerInput.length}/{sequence.length} taps)
             </span>
           )}
         </div>
 
         {/* ======================================================== */}
-        {/* 3×3 POLAROID PHOTO GRID (9 TILES) */}
+        {/* 3×3 PHOTO GRID (9 TILES - NO TEXT LABELS) */}
         {/* ======================================================== */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-lg mx-auto mb-4">
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5 max-w-md mx-auto mb-4">
           {photos.map((photo) => {
             const isFlashing = activeFlashIndex === photo.id;
             const isClickable = gameState === "playerTurn";
@@ -260,25 +260,25 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
             return (
               <motion.div
                 key={photo.id}
-                whileHover={isClickable ? { scale: 1.03 } : {}}
+                whileHover={isClickable ? { scale: 1.04 } : {}}
                 whileTap={isClickable ? { scale: 0.95 } : {}}
                 onClick={() => handlePhotoClick(photo.id)}
-                className={`relative bg-white border-2 rounded-2xl p-2 sm:p-2.5 shadow-card transition-all duration-200 select-none ${
+                className={`relative bg-white border-2 rounded-2xl p-1.5 sm:p-2 shadow-card transition-all duration-200 select-none overflow-hidden ${
                   isClickable
-                    ? "cursor-pointer hover:border-emerald-300"
+                    ? "cursor-pointer hover:border-emerald-300 hover:shadow-md"
                     : "cursor-default"
                 } ${
                   isFlashing
-                    ? "border-amber-400 shadow-[0_0_25px_rgba(251,191,36,0.7)] scale-105 bg-amber-50/70 z-10"
+                    ? "border-amber-400 shadow-[0_0_28px_rgba(251,191,36,0.85)] scale-105 bg-amber-100/80 z-10 ring-2 ring-amber-300"
                     : "border-emerald-200"
                 }`}
               >
-                {/* Polaroid Photo Frame */}
+                {/* Photo Frame */}
                 <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-emerald-50 border border-emerald-100 shadow-inner">
                   <img
                     src={photo.src}
-                    alt={photo.title}
-                    className="w-full h-full object-cover"
+                    alt=""
+                    className="w-full h-full object-cover pointer-events-none"
                   />
 
                   {/* Flash Overlay with Sparkles */}
@@ -292,22 +292,12 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
                       <motion.div
                         initial={{ scale: 0.5, rotate: -15 }}
                         animate={{ scale: 1.25, rotate: 0 }}
-                        className="text-xl sm:text-2xl drop-shadow-md"
+                        className="text-2xl sm:text-3xl drop-shadow-md"
                       >
                         ✨
                       </motion.div>
                     </motion.div>
                   )}
-                </div>
-
-                {/* Polaroid Bottom Note */}
-                <div className="pt-1.5 text-center">
-                  <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#132e22] truncate">
-                    {photo.title}
-                  </h4>
-                  <span className="text-[9px] sm:text-[10px] text-emerald-600 font-sans font-medium">
-                    {photo.note}
-                  </span>
                 </div>
               </motion.div>
             );
@@ -320,7 +310,7 @@ export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
             type="button"
             onClick={handleReplay}
             disabled={gameState !== "playerTurn"}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-emerald-50 border border-emerald-200 text-emerald-700 font-semibold cursor-pointer disabled:opacity-40 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-emerald-50 border border-emerald-200 text-emerald-700 font-semibold cursor-pointer disabled:opacity-40 transition shadow-2xs"
             title="Watch the sequence flash again"
           >
             <RotateCcw className="w-3.5 h-3.5" />
