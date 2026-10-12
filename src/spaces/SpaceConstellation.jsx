@@ -177,6 +177,16 @@ const BLOOMING_ROSES = Array.from({ length: 36 }).map((_, i) => ({
   delay: (i * 0.05) + Math.random() * 0.2
 }));
 
+// Floating stardust embers inside the cloche
+const CLOCHE_EMBERS = Array.from({ length: 18 }).map((_, i) => ({
+  id: i,
+  cx: 140 + Math.random() * 160,
+  cy: 140 + Math.random() * 240,
+  r: Math.random() * 2 + 1,
+  duration: Math.random() * 3 + 3,
+  delay: Math.random() * 2
+}));
+
 export default function SpaceConstellation() {
   const { markSpaceCompleted } = useAnniversary();
 
@@ -312,18 +322,36 @@ export default function SpaceConstellation() {
         </div>
       </div>
 
-      {/* 3. The Centerpiece: The Realistic Rose Standing on Water */}
+      {/* 3. The Centerpiece: The Enchanted Rose Inside Glass Bell Jar */}
       <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-2 sm:p-4">
         {/* Ambient Romantic Halo behind Rose Head */}
         <div className="absolute w-96 h-96 rounded-full bg-rose-600/15 blur-3xl pointer-events-none" />
 
-        {/* The Realistic Layered Rose SVG */}
-        <div className="relative w-[360px] h-[470px] sm:w-[440px] sm:h-[540px] flex items-center justify-center">
+        {/* The Realistic Layered Rose SVG with Glass Bell Jar */}
+        <div className="relative w-[360px] h-[480px] sm:w-[440px] sm:h-[550px] flex items-center justify-center">
           <svg
             viewBox="0 0 440 520"
             className="w-full h-full drop-shadow-[0_20px_45px_rgba(225,29,72,0.4)] select-none overflow-visible"
           >
             <defs>
+              {/* Real Photographic Rose Velvet Texture Fill Pattern */}
+              <pattern
+                id="realRoseVelvetPattern"
+                patternUnits="userSpaceOnUse"
+                width="440"
+                height="440"
+              >
+                <image
+                  href="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
+                  x="40"
+                  y="20"
+                  width="360"
+                  height="360"
+                  preserveAspectRatio="xMidYMid slice"
+                  opacity="0.88"
+                />
+              </pattern>
+
               {/* Drop Shadow Filters for Layered Petal Depth */}
               <filter id="petalShadow3D" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="0" dy="7" stdDeviation="6" floodColor="#1a0106" floodOpacity="0.75" />
@@ -426,10 +454,26 @@ export default function SpaceConstellation() {
                 <stop offset="0%" stopColor="#fff1f2" stopOpacity="0.6" />
                 <stop offset="100%" stopColor="#fda4af" stopOpacity="0.1" />
               </linearGradient>
+
+              {/* Glass Cloche Sheen & Reflection Gradients */}
+              <linearGradient id="clocheSheenLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.25" />
+                <stop offset="20%" stopColor="#ffffff" stopOpacity="0.08" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="clocheSheenRight" x1="100%" y1="0%" x2="0%" y2="0%">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.2" />
+                <stop offset="25%" stopColor="#ffffff" stopOpacity="0.05" />
+                <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+              </linearGradient>
             </defs>
 
-            {/* A. Reflective Water Pond at the Base (Where Petals Rest) */}
+            {/* A. Reflective Water Pond & Pedestal Base (Where Petals Rest) */}
             <g className="water-base">
+              {/* Ornate Gold & Mahogany Pedestal Trim */}
+              <ellipse cx="220" cy="482" rx="195" ry="32" fill="#1e1b18" stroke="#d97706" strokeWidth="1.2" strokeOpacity="0.6" />
+              <ellipse cx="220" cy="480" rx="188" ry="28" fill="#120e0c" stroke="#fbbf24" strokeWidth="0.8" strokeOpacity="0.4" />
+
               {/* Calm Water Surface Oval */}
               <ellipse
                 cx="220"
@@ -559,7 +603,7 @@ export default function SpaceConstellation() {
 
             {/* ========================================================= */}
             {/* D. THE 8 HYPER-REALISTIC INTERACTIVE VELVET PETALS */}
-            {/* (Sculpted with authentic botanical depth & NO cartoon strokes) */}
+            {/* (Photographic velvet texture + sculpted botanical shading) */}
             {/* ========================================================= */}
 
             {/* PETAL 5: Upper Crown Petal (Back Petal of the Bloom) */}
@@ -569,10 +613,17 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Organic Petal Body */}
+                {/* Photographic Texture Underlay */}
+                <path
+                  d="M220,150 C185,140 148,118 138,96 C148,74 182,64 220,64 C258,64 292,74 302,96 C292,118 255,140 220,150 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.8"
+                />
+                {/* Velvet Shading Overlay */}
                 <path
                   d="M220,150 C185,140 148,118 138,96 C148,74 182,64 220,64 C258,64 292,74 302,96 C292,118 255,140 220,150 Z"
                   fill="url(#gradCrown)"
+                  opacity="0.88"
                   className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
                 {/* Concave depth shadow */}
@@ -606,10 +657,17 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Scalloped Petal Body */}
+                {/* Photographic Texture Underlay */}
+                <path
+                  d="M210,165 C160,155 125,175 105,205 C98,228 118,252 145,258 C175,264 200,255 208,245 C224,240 222,210 210,165 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.75"
+                />
+                {/* Velvet Shading Overlay */}
                 <path
                   d="M210,165 C160,155 125,175 105,205 C98,228 118,252 145,258 C175,264 200,255 208,245 C224,240 222,210 210,165 Z"
                   fill="url(#gradMidLeft)"
+                  opacity="0.85"
                   className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
                 {/* Concave interior shadow */}
@@ -642,10 +700,17 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Scalloped Petal Body */}
+                {/* Photographic Texture Underlay */}
+                <path
+                  d="M230,165 C280,155 315,175 335,205 C342,228 322,252 295,258 C265,264 240,255 232,245 C216,240 218,210 230,165 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.75"
+                />
+                {/* Velvet Shading Overlay */}
                 <path
                   d="M230,165 C280,155 315,175 335,205 C342,228 322,252 295,258 C265,264 240,255 232,245 C216,240 218,210 230,165 Z"
                   fill="url(#gradMidRight)"
+                  opacity="0.85"
                   className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
                 {/* Concave interior shadow */}
@@ -678,10 +743,17 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Voluptuous guard petal contour */}
+                {/* Photographic Texture Underlay */}
+                <path
+                  d="M215,145 C150,110 95,160 120,225 C132,248 160,265 195,265 C215,265 220,250 215,145 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.8"
+                />
+                {/* Velvet Shading Overlay */}
                 <path
                   d="M215,145 C150,110 95,160 120,225 C132,248 160,265 195,265 C215,265 220,250 215,145 Z"
                   fill="url(#gradGuardLeft)"
+                  opacity="0.88"
                   className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_20px_rgba(244,63,94,0.8)]"
                 />
                 {/* Delicate radiating striations */}
@@ -708,10 +780,17 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#petalShadow3D)"
               >
-                {/* Voluptuous guard petal contour */}
+                {/* Photographic Texture Underlay */}
+                <path
+                  d="M225,145 C290,110 345,160 320,225 C308,248 280,265 245,265 C225,265 220,250 225,145 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.8"
+                />
+                {/* Velvet Shading Overlay */}
                 <path
                   d="M225,145 C290,110 345,160 320,225 C308,248 280,265 245,265 C225,265 220,250 225,145 Z"
                   fill="url(#gradGuardRight)"
+                  opacity="0.88"
                   className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_20px_rgba(244,63,94,0.8)]"
                 />
                 {/* Delicate radiating striations */}
@@ -738,10 +817,17 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#innerPetalShadow3D)"
               >
-                {/* Swirling Whorl Contour */}
+                {/* Photographic Texture Underlay */}
+                <path
+                  d="M218,150 C165,135 155,210 216,232 C228,222 225,185 218,150 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.8"
+                />
+                {/* Velvet Shading */}
                 <path
                   d="M218,150 C165,135 155,210 216,232 C228,222 225,185 218,150 Z"
                   fill="url(#gradMidLeft)"
+                  opacity="0.88"
                   className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
                 {/* Curled Lip */}
@@ -760,10 +846,17 @@ export default function SpaceConstellation() {
                 className="cursor-pointer group"
                 filter="url(#innerPetalShadow3D)"
               >
-                {/* Swirling Whorl Contour */}
+                {/* Photographic Texture Underlay */}
+                <path
+                  d="M222,150 C275,135 285,210 224,232 C212,222 215,185 222,150 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.8"
+                />
+                {/* Velvet Shading */}
                 <path
                   d="M222,150 C275,135 285,210 224,232 C212,222 215,185 222,150 Z"
                   fill="url(#gradMidRight)"
+                  opacity="0.88"
                   className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
                 {/* Curled Lip */}
@@ -785,10 +878,16 @@ export default function SpaceConstellation() {
                 {/* Golden & Crimson Ambient Warmth */}
                 <circle cx="220" cy="188" r="32" fill="rgba(244,63,94,0.35)" className="animate-pulse" />
 
-                {/* Core Tight Bud Shell */}
+                {/* Core Tight Bud Shell with Photographic Texture */}
+                <path
+                  d="M220,154 C184,166 188,220 220,225 C252,220 256,166 220,154 Z"
+                  fill="url(#realRoseVelvetPattern)"
+                  opacity="0.85"
+                />
                 <path
                   d="M220,154 C184,166 188,220 220,225 C252,220 256,166 220,154 Z"
                   fill="url(#gradCoreBud)"
+                  opacity="0.88"
                   className="transition-all duration-300 group-hover:scale-105 group-hover:brightness-120 group-hover:drop-shadow-[0_0_22px_rgba(255,228,230,0.95)]"
                 />
 
@@ -845,10 +944,15 @@ export default function SpaceConstellation() {
                       fill="none"
                     />
 
-                    {/* Resting Petal Silhouette */}
+                    {/* Resting Petal Silhouette with Photographic Velvet */}
+                    <path
+                      d="M0,-14 C18,-6 24,12 0,16 C-24,12 -18,-6 0,-14 Z"
+                      fill="url(#realRoseVelvetPattern)"
+                    />
                     <path
                       d="M0,-14 C18,-6 24,12 0,16 C-24,12 -18,-6 0,-14 Z"
                       fill="url(#gradGuardRight)"
+                      opacity="0.85"
                       stroke="#fecdd3"
                       strokeWidth="1.2"
                       className="transition-transform duration-300 group-hover:scale-125 group-hover:brightness-120"
@@ -904,7 +1008,12 @@ export default function SpaceConstellation() {
                 >
                   <path
                     d="M0,-18 C25,-8 32,16 0,22 C-32,16 -25,-8 0,-18 Z"
+                    fill="url(#realRoseVelvetPattern)"
+                  />
+                  <path
+                    d="M0,-18 C25,-8 32,16 0,22 C-32,16 -25,-8 0,-18 Z"
                     fill="url(#gradGuardRight)"
+                    opacity="0.88"
                     stroke="#ffffff"
                     strokeWidth="1.8"
                     filter="drop-shadow(0 6px 12px rgba(225,29,72,0.6))"
@@ -919,6 +1028,51 @@ export default function SpaceConstellation() {
                 </motion.g>
               );
             })()}
+
+            {/* ========================================================= */}
+            {/* G. ENCHANTED GLASS BELL JAR (CLOCHE) SHEEN & STARDUST */}
+            {/* ========================================================= */}
+            <g className="enchanted-cloche pointer-events-none">
+              {/* Glass Cloche Outline */}
+              <path
+                d="M100,470 L100,210 C100,100 340,100 340,210 L340,470"
+                stroke="rgba(255,255,255,0.35)"
+                strokeWidth="2"
+                fill="none"
+              />
+              {/* Inner ambient glass reflection */}
+              <path
+                d="M100,470 L100,210 C100,100 340,100 340,210 L340,470 Z"
+                fill="rgba(255,255,255,0.02)"
+              />
+              {/* Left Curved Glass Sheen */}
+              <path
+                d="M104,465 L104,215 C104,130 180,108 210,105 C160,118 116,160 116,220 L116,465 Z"
+                fill="url(#clocheSheenLeft)"
+              />
+              {/* Right Curved Glass Sheen */}
+              <path
+                d="M336,465 L336,215 C336,130 260,108 230,105 C280,118 324,160 324,220 L324,465 Z"
+                fill="url(#clocheSheenRight)"
+              />
+              {/* Ornate Glass Finial Knob at top of Dome */}
+              <circle cx="220" cy="98" r="8" fill="rgba(255,255,255,0.4)" stroke="rgba(255,255,255,0.8)" strokeWidth="1" />
+              <circle cx="218" cy="96" r="2.5" fill="#ffffff" />
+
+              {/* Floating Golden Stardust Embers inside Cloche */}
+              {CLOCHE_EMBERS.map((ember) => (
+                <circle
+                  key={`ember-${ember.id}`}
+                  cx={ember.cx}
+                  cy={ember.cy}
+                  r={ember.r}
+                  fill="#fef08a"
+                  opacity="0.75"
+                  className="animate-pulse"
+                  style={{ animationDuration: `${ember.duration}s`, animationDelay: `${ember.delay}s` }}
+                />
+              ))}
+            </g>
           </svg>
 
           {/* Water Ripple Shockwave on 8th Petal Drop */}
@@ -947,7 +1101,7 @@ export default function SpaceConstellation() {
         <div className="mt-2 text-center z-20">
           <p className="text-xs font-serif italic text-rose-200/90 tracking-wide">
             {remainingPetalCount > 1
-              ? "Touch any petal to gently pluck it — watch it fall into the water and reveal its story ♡"
+              ? "Touch any petal on the enchanted rose — watch it fall into the water and reveal its story ♡"
               : remainingPetalCount === 1
               ? "The final heart petal holds our infinity... Tap it to let it drop ♡"
               : "All 8 petals rest peacefully in the water. Click any floating petal to re-read its memory ♡"}
