@@ -324,49 +324,65 @@ export default function SpaceConstellation() {
             className="w-full h-full drop-shadow-[0_20px_45px_rgba(225,29,72,0.4)] select-none overflow-visible"
           >
             <defs>
-              {/* Drop Shadow Filter for Layered Petal Realism */}
-              <filter id="petalShadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="6" stdDeviation="5" floodColor="#1a0106" floodOpacity="0.65" />
+              {/* Drop Shadow Filters for Layered Petal Depth */}
+              <filter id="petalShadow3D" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="7" stdDeviation="6" floodColor="#1a0106" floodOpacity="0.75" />
               </filter>
-              <filter id="innerPetalShadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="3.5" stdDeviation="3.5" floodColor="#2d020c" floodOpacity="0.75" />
+              <filter id="innerPetalShadow3D" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#2d020c" floodOpacity="0.8" />
               </filter>
 
-              {/* Velvet Crimson & Ruby Multi-Stop Shading Gradients */}
-              <radialGradient id="petalVelvetDeep" cx="35%" cy="30%" r="75%">
+              {/* Multi-Stop Velvet Shading Gradients */}
+              <radialGradient id="gradGuardLeft" cx="30%" cy="35%" r="75%">
                 <stop offset="0%" stopColor="#f43f5e" />
-                <stop offset="35%" stopColor="#e11d48" />
-                <stop offset="70%" stopColor="#881337" />
-                <stop offset="100%" stopColor="#4c0519" />
+                <stop offset="25%" stopColor="#e11d48" />
+                <stop offset="55%" stopColor="#9f1239" />
+                <stop offset="85%" stopColor="#58081f" />
+                <stop offset="100%" stopColor="#2b020c" />
               </radialGradient>
 
-              <radialGradient id="petalVelvetLustre" cx="65%" cy="25%" r="75%">
+              <radialGradient id="gradGuardRight" cx="70%" cy="35%" r="75%">
                 <stop offset="0%" stopColor="#fb7185" />
-                <stop offset="40%" stopColor="#e11d48" />
-                <stop offset="75%" stopColor="#9f1239" />
-                <stop offset="100%" stopColor="#4c0519" />
+                <stop offset="30%" stopColor="#e11d48" />
+                <stop offset="60%" stopColor="#9f1239" />
+                <stop offset="85%" stopColor="#58081f" />
+                <stop offset="100%" stopColor="#2b020c" />
               </radialGradient>
 
-              <radialGradient id="petalVelvetInner" cx="45%" cy="35%" r="70%">
+              <radialGradient id="gradMidLeft" cx="35%" cy="30%" r="70%">
                 <stop offset="0%" stopColor="#fda4af" />
                 <stop offset="30%" stopColor="#f43f5e" />
-                <stop offset="75%" stopColor="#be123c" />
-                <stop offset="100%" stopColor="#700c25" />
+                <stop offset="65%" stopColor="#be123c" />
+                <stop offset="100%" stopColor="#4c0519" />
               </radialGradient>
 
-              <radialGradient id="petalVelvetCore" cx="50%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#ffe4e6" />
-                <stop offset="25%" stopColor="#fb7185" />
-                <stop offset="60%" stopColor="#e11d48" />
-                <stop offset="90%" stopColor="#881337" />
+              <radialGradient id="gradMidRight" cx="65%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#fda4af" />
+                <stop offset="30%" stopColor="#f43f5e" />
+                <stop offset="65%" stopColor="#be123c" />
                 <stop offset="100%" stopColor="#4c0519" />
+              </radialGradient>
+
+              <radialGradient id="gradCrown" cx="50%" cy="25%" r="75%">
+                <stop offset="0%" stopColor="#fb7185" />
+                <stop offset="35%" stopColor="#e11d48" />
+                <stop offset="70%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#3d0311" />
+              </radialGradient>
+
+              <radialGradient id="gradCoreBud" cx="50%" cy="25%" r="75%">
+                <stop offset="0%" stopColor="#ffe4e6" />
+                <stop offset="20%" stopColor="#fb7185" />
+                <stop offset="55%" stopColor="#e11d48" />
+                <stop offset="85%" stopColor="#881337" />
+                <stop offset="100%" stopColor="#38020d" />
               </radialGradient>
 
               {/* Underlying Inner Base Bud (Permanent Silhouette) */}
               <radialGradient id="roseBaseGrad" cx="50%" cy="40%" r="60%">
                 <stop offset="0%" stopColor="#be123c" />
                 <stop offset="60%" stopColor="#881337" />
-                <stop offset="100%" stopColor="#4c0519" />
+                <stop offset="100%" stopColor="#38020d" />
               </radialGradient>
 
               {/* Stem & Leaves Botanically Textured Gradients */}
@@ -397,10 +413,12 @@ export default function SpaceConstellation() {
                 <stop offset="100%" stopColor="#030712" stopOpacity="0" />
               </radialGradient>
 
-              {/* Petal Rim Translucent Stroke */}
-              <linearGradient id="petalRimLight" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#ffe4e6" stopOpacity="0.9" />
-                <stop offset="100%" stopColor="#fda4af" stopOpacity="0.35" />
+              {/* Curled Lip Fold-over Highlight Gradient */}
+              <linearGradient id="curledLipHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
+                <stop offset="35%" stopColor="#ffe4e6" stopOpacity="0.85" />
+                <stop offset="75%" stopColor="#fb7185" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#be123c" stopOpacity="0.1" />
               </linearGradient>
             </defs>
 
@@ -446,7 +464,7 @@ export default function SpaceConstellation() {
                 strokeLinecap="round"
                 fill="none"
               />
-              {/* Shadow edge along stem for 3D cylindrical realism */}
+              {/* Cylindrical shadow edge */}
               <path
                 d="M217,235 C213,287 225,352 215,417 C211,442 217,465 217,472"
                 stroke="#052e16"
@@ -472,7 +490,7 @@ export default function SpaceConstellation() {
                 strokeWidth="0.8"
               />
 
-              {/* Left Compound Rose Leaf with Botanical Veins & Serrated Outline */}
+              {/* Left Compound Rose Leaf with Botanical Veins */}
               <g>
                 <path
                   d="M215,335 C185,315 155,305 130,325 C115,340 120,360 145,372 C175,385 205,365 215,335 Z"
@@ -480,7 +498,6 @@ export default function SpaceConstellation() {
                   stroke="#052e16"
                   strokeWidth="1.8"
                 />
-                {/* Leaf Central Midrib */}
                 <path
                   d="M215,335 C185,340 155,350 135,345"
                   stroke="#86efac"
@@ -488,7 +505,6 @@ export default function SpaceConstellation() {
                   strokeOpacity="0.65"
                   fill="none"
                 />
-                {/* Lateral veins */}
                 <path d="M195,338 L188,326 M180,344 L170,330 M165,350 L152,340" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
                 <path d="M195,338 L192,352 M180,344 L178,362 M165,350 L160,366" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
               </g>
@@ -501,7 +517,6 @@ export default function SpaceConstellation() {
                   stroke="#052e16"
                   strokeWidth="1.8"
                 />
-                {/* Leaf Central Midrib */}
                 <path
                   d="M222,365 C252,370 282,380 302,375"
                   stroke="#86efac"
@@ -509,14 +524,12 @@ export default function SpaceConstellation() {
                   strokeOpacity="0.65"
                   fill="none"
                 />
-                {/* Lateral veins */}
                 <path d="M242,368 L248,356 M257,374 L267,360 M272,380 L285,370" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
                 <path d="M242,368 L245,382 M257,374 L260,392 M272,380 L277,396" stroke="#86efac" strokeWidth="0.8" strokeOpacity="0.45" fill="none" />
               </g>
 
-              {/* Receptacle (Rose Hip) & Calyx Sepals (The botanical cup holding the flower) */}
+              {/* Receptacle & Calyx Sepals (The botanical cup holding the flower) */}
               <ellipse cx="220" cy="235" rx="15" ry="12" fill="url(#stemNatural)" />
-              {/* 5 Calyx Sepals curling outward gracefully */}
               <path d="M208,235 C185,248 165,272 158,288 C170,272 192,252 212,242 Z" fill="#15803d" stroke="#052e16" strokeWidth="0.8" />
               <path d="M232,235 C255,248 275,272 282,288 C270,272 248,252 228,242 Z" fill="#166534" stroke="#052e16" strokeWidth="0.8" />
               <path d="M204,238 C192,258 184,282 180,300 C188,282 200,260 210,244 Z" fill="#15803d" />
@@ -539,7 +552,7 @@ export default function SpaceConstellation() {
             </g>
 
             {/* ========================================================= */}
-            {/* D. THE 8 REALISTIC INTERACTIVE VELVET PETALS */}
+            {/* D. THE 8 HYPER-REALISTIC INTERACTIVE VELVET PETALS */}
             {/* ========================================================= */}
 
             {/* PETAL 5: Upper Crown Petal (Back Petal of the Bloom) */}
@@ -547,23 +560,24 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[4])}
                 className="cursor-pointer group"
-                filter="url(#petalShadow)"
+                filter="url(#petalShadow3D)"
               >
+                {/* Petal Body with organic wavy contours */}
                 <path
-                  d="M220,150 C145,80 295,80 220,150 Z"
-                  fill="url(#petalVelvetInner)"
+                  d="M220,150 C190,140 155,115 140,95 C155,75 185,65 220,65 C255,65 285,75 300,95 C285,115 250,140 220,150 Z"
+                  fill="url(#gradCrown)"
                   stroke="#fda4af"
-                  strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                  strokeWidth="1.5"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
                 />
-                {/* Curled back lip */}
+                {/* Radiating Petal Veins */}
+                <path d="M220,140 C210,115 200,90 190,75" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M220,140 C220,110 220,85 220,70" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.28" fill="none" />
+                <path d="M220,140 C230,115 240,90 250,75" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                {/* Curled back lip with specular light */}
                 <path
-                  d="M170,108 C220,85 270,108 270,108"
-                  stroke="#ffffff"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  fill="none"
-                  opacity="0.75"
+                  d="M148,95 C175,76 220,72 265,76 C285,82 292,95 292,95 C275,84 220,80 148,95 Z"
+                  fill="url(#curledLipHighlight)"
                 />
               </g>
             )}
@@ -573,23 +587,27 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[2])}
                 className="cursor-pointer group"
-                filter="url(#petalShadow)"
+                filter="url(#petalShadow3D)"
               >
+                {/* Wavy scalloped petal contour */}
                 <path
-                  d="M210,165 C115,160 120,255 208,245 C228,240 224,210 210,165 Z"
-                  fill="url(#petalVelvetDeep)"
+                  d="M210,165 C160,155 125,175 105,205 C98,228 118,252 145,258 C175,264 200,255 208,245 C224,240 222,210 210,165 Z"
+                  fill="url(#gradMidLeft)"
                   stroke="#fda4af"
-                  strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                  strokeWidth="1.5"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
                 />
+                {/* Petal Veins */}
+                <path d="M195,245 C165,235 140,215 125,195" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
+                <path d="M185,250 C155,245 130,235 115,220" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
+                {/* Curled reflexed margin */}
                 <path
-                  d="M132,195 C140,235 172,248 208,245"
-                  stroke="#fecdd3"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  fill="none"
-                  opacity="0.8"
+                  d="M105,205 C118,228 145,245 178,252 C152,246 128,230 115,212 C108,202 105,205 105,205 Z"
+                  fill="url(#curledLipHighlight)"
                 />
+                {/* Dew drop */}
+                <ellipse cx="128" cy="225" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.9" />
+                <circle cx="127" cy="224" r="1" fill="#ffffff" />
               </g>
             )}
 
@@ -598,81 +616,91 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[3])}
                 className="cursor-pointer group"
-                filter="url(#petalShadow)"
+                filter="url(#petalShadow3D)"
               >
+                {/* Wavy scalloped petal contour */}
                 <path
-                  d="M230,165 C325,160 320,255 232,245 C212,240 216,210 230,165 Z"
-                  fill="url(#petalVelvetLustre)"
+                  d="M230,165 C280,155 315,175 335,205 C342,228 322,252 295,258 C265,264 240,255 232,245 C216,240 218,210 230,165 Z"
+                  fill="url(#gradMidRight)"
                   stroke="#fda4af"
-                  strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                  strokeWidth="1.5"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
                 />
+                {/* Petal Veins */}
+                <path d="M245,245 C275,235 300,215 315,195" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
+                <path d="M255,250 C285,245 310,235 325,220" stroke="#fda4af" strokeWidth="0.9" strokeOpacity="0.3" fill="none" />
+                {/* Curled reflexed margin */}
                 <path
-                  d="M308,195 C300,235 268,248 232,245"
-                  stroke="#fecdd3"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  fill="none"
-                  opacity="0.8"
+                  d="M335,205 C322,228 295,245 262,252 C288,246 312,230 325,212 C332,202 335,205 335,205 Z"
+                  fill="url(#curledLipHighlight)"
                 />
+                {/* Dew drop */}
+                <ellipse cx="312" cy="225" rx="3.5" ry="2.5" fill="#ffffff" opacity="0.9" />
+                <circle cx="311" cy="224" r="1" fill="#ffffff" />
               </g>
             )}
 
-            {/* PETAL 1: Outer Lower-Left Guard Petal */}
+            {/* PETAL 1: Outer Front-Left Guard Petal */}
             {!fallenPetals.has(1) && (
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[0])}
                 className="cursor-pointer group"
-                filter="url(#petalShadow)"
+                filter="url(#petalShadow3D)"
               >
+                {/* Voluptuous guard petal contour */}
                 <path
-                  d="M215,145 C125,95 75,175 145,238 C180,258 212,240 215,145 Z"
-                  fill="url(#petalVelvetDeep)"
-                  stroke="url(#petalRimLight)"
+                  d="M215,145 C150,110 95,160 120,225 C132,248 160,265 195,265 C215,265 220,250 215,145 Z"
+                  fill="url(#gradGuardLeft)"
+                  stroke="#fda4af"
                   strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
-                {/* Curled outer lip edge highlight */}
+                {/* Delicate radiating striations */}
+                <path d="M205,255 C185,245 155,220 140,185" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M195,260 C175,252 145,232 130,205" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                {/* Curled 3D Lip Fold */}
                 <path
-                  d="M145,238 C110,195 105,135 152,112"
-                  stroke="#ffe4e6"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  fill="none"
-                  opacity="0.7"
+                  d="M120,225 C110,185 135,135 175,120 C155,135 125,175 132,225 C135,238 128,235 120,225 Z"
+                  fill="url(#curledLipHighlight)"
                 />
-                {/* Glistening Dew Drop on Petal 1 */}
-                <ellipse cx="140" cy="190" rx="3.8" ry="2.6" fill="#ffffff" opacity="0.85" />
-                <circle cx="139" cy="189" r="1.1" fill="#ffffff" />
+                {/* Realistic Glistening Dewdrop */}
+                <g transform="translate(138, 202)">
+                  <ellipse cx="0" cy="1" rx="4.5" ry="3.2" fill="#1f0208" opacity="0.6" />
+                  <ellipse cx="0" cy="0" rx="4" ry="2.8" fill="#fda4af" opacity="0.85" />
+                  <circle cx="-1.2" cy="-0.8" r="1.2" fill="#ffffff" />
+                </g>
               </g>
             )}
 
-            {/* PETAL 2: Outer Lower-Right Guard Petal */}
+            {/* PETAL 2: Outer Front-Right Guard Petal */}
             {!fallenPetals.has(2) && (
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[1])}
                 className="cursor-pointer group"
-                filter="url(#petalShadow)"
+                filter="url(#petalShadow3D)"
               >
+                {/* Voluptuous guard petal contour */}
                 <path
-                  d="M225,145 C315,95 365,175 295,238 C260,258 228,240 225,145 Z"
-                  fill="url(#petalVelvetLustre)"
-                  stroke="url(#petalRimLight)"
+                  d="M225,145 C290,110 345,160 320,225 C308,248 280,265 245,265 C225,265 220,250 225,145 Z"
+                  fill="url(#gradGuardRight)"
+                  stroke="#fda4af"
                   strokeWidth="1.8"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_18px_rgba(244,63,94,0.75)]"
                 />
-                {/* Curled outer lip edge highlight */}
+                {/* Delicate radiating striations */}
+                <path d="M235,255 C255,245 285,220 300,185" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                <path d="M245,260 C265,252 295,232 310,205" stroke="#ffffff" strokeWidth="0.8" strokeOpacity="0.25" fill="none" />
+                {/* Curled 3D Lip Fold */}
                 <path
-                  d="M295,238 C330,195 335,135 288,112"
-                  stroke="#ffe4e6"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  fill="none"
-                  opacity="0.7"
+                  d="M320,225 C330,185 305,135 265,120 C285,135 315,175 308,225 C305,238 312,235 320,225 Z"
+                  fill="url(#curledLipHighlight)"
                 />
-                {/* Glistening Dew Drop on Petal 2 */}
-                <ellipse cx="300" cy="182" rx="4" ry="2.8" fill="#ffffff" opacity="0.85" />
-                <circle cx="299" cy="181" r="1.2" fill="#ffffff" />
+                {/* Realistic Glistening Dewdrop */}
+                <g transform="translate(302, 196)">
+                  <ellipse cx="0" cy="1" rx="4.5" ry="3.2" fill="#1f0208" opacity="0.6" />
+                  <ellipse cx="0" cy="0" rx="4" ry="2.8" fill="#fda4af" opacity="0.85" />
+                  <circle cx="-1.2" cy="-0.8" r="1.2" fill="#ffffff" />
+                </g>
               </g>
             )}
 
@@ -681,21 +709,21 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[5])}
                 className="cursor-pointer group"
-                filter="url(#innerPetalShadow)"
+                filter="url(#innerPetalShadow3D)"
               >
+                {/* Swirling Whorl Contour */}
                 <path
-                  d="M218,155 C160,132 160,215 218,226 C228,218 226,185 218,155 Z"
-                  fill="url(#petalVelvetInner)"
+                  d="M218,150 C165,135 155,210 216,232 C228,222 225,185 218,150 Z"
+                  fill="url(#gradMidLeft)"
                   stroke="#fda4af"
-                  strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                  strokeWidth="1.5"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
                 />
+                {/* Curled Lip */}
                 <path
-                  d="M174,162 C178,198 200,218 218,226"
-                  stroke="#ffe4e6"
-                  strokeWidth="1.4"
-                  fill="none"
-                  opacity="0.75"
+                  d="M172,160 C178,202 205,224 216,232 C210,224 186,204 180,168 Z"
+                  fill="url(#curledLipHighlight)"
+                  opacity="0.85"
                 />
               </g>
             )}
@@ -705,21 +733,21 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[6])}
                 className="cursor-pointer group"
-                filter="url(#innerPetalShadow)"
+                filter="url(#innerPetalShadow3D)"
               >
+                {/* Swirling Whorl Contour */}
                 <path
-                  d="M222,155 C280,132 280,215 222,226 C212,218 214,185 222,155 Z"
-                  fill="url(#petalVelvetInner)"
+                  d="M222,150 C275,135 285,210 224,232 C212,222 215,185 222,150 Z"
+                  fill="url(#gradMidRight)"
                   stroke="#fda4af"
-                  strokeWidth="1.6"
-                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_14px_rgba(244,63,94,0.65)]"
+                  strokeWidth="1.5"
+                  className="transition-all duration-300 group-hover:brightness-115 group-hover:drop-shadow-[0_0_16px_rgba(244,63,94,0.7)]"
                 />
+                {/* Curled Lip */}
                 <path
-                  d="M266,162 C262,198 240,218 222,226"
-                  stroke="#ffe4e6"
-                  strokeWidth="1.4"
-                  fill="none"
-                  opacity="0.75"
+                  d="M268,160 C262,202 235,224 224,232 C230,224 254,204 260,168 Z"
+                  fill="url(#curledLipHighlight)"
+                  opacity="0.85"
                 />
               </g>
             )}
@@ -729,32 +757,38 @@ export default function SpaceConstellation() {
               <g
                 onClick={() => handlePluckPetal(ROSE_PETALS[7])}
                 className="cursor-pointer group"
-                filter="url(#innerPetalShadow)"
+                filter="url(#innerPetalShadow3D)"
               >
                 {/* Golden & Crimson Ambient Warmth */}
                 <circle cx="220" cy="188" r="32" fill="rgba(244,63,94,0.35)" className="animate-pulse" />
 
                 {/* Core Tight Bud Shell */}
                 <path
-                  d="M220,156 C186,166 190,218 220,222 C250,218 254,166 220,156 Z"
-                  fill="url(#petalVelvetCore)"
+                  d="M220,154 C184,166 188,220 220,225 C252,220 256,166 220,154 Z"
+                  fill="url(#gradCoreBud)"
                   stroke="#ffffff"
                   strokeWidth="2.2"
                   className="transition-all duration-300 group-hover:scale-105 group-hover:brightness-120 group-hover:drop-shadow-[0_0_18px_rgba(255,228,230,0.95)]"
                 />
 
-                {/* Delicate Inner Spiral Folds of the Heart */}
+                {/* Concentric spiral folds of the center rosebud */}
                 <path
-                  d="M214,176 C210,166 228,166 226,176 C224,192 214,192 215,184"
+                  d="M212,175 C208,162 232,162 228,175 C225,192 212,192 214,182"
                   stroke="#fff1f2"
-                  strokeWidth="1.8"
+                  strokeWidth="1.9"
                   strokeLinecap="round"
                   fill="none"
                 />
                 <path
-                  d="M218,192 Q220,202 222,192"
+                  d="M216,192 Q220,204 224,192"
                   stroke="#fecdd3"
-                  strokeWidth="1.5"
+                  strokeWidth="1.6"
+                  fill="none"
+                />
+                <path
+                  d="M220,168 C226,172 224,185 218,188"
+                  stroke="#ffe4e6"
+                  strokeWidth="1.3"
                   fill="none"
                 />
 
@@ -793,7 +827,7 @@ export default function SpaceConstellation() {
                     {/* Resting Petal Silhouette */}
                     <path
                       d="M0,-14 C18,-6 24,12 0,16 C-24,12 -18,-6 0,-14 Z"
-                      fill="url(#petalVelvetLustre)"
+                      fill="url(#gradGuardRight)"
                       stroke="#fecdd3"
                       strokeWidth="1.2"
                       className="transition-transform duration-300 group-hover:scale-125 group-hover:brightness-120"
@@ -835,9 +869,9 @@ export default function SpaceConstellation() {
                     opacity: 1
                   }}
                   animate={{
-                    x: [startX, startX + (petal.id % 2 === 1 ? -35 : 35), startX + (petal.id % 2 === 1 ? 15 : -15), petal.landingX],
+                    x: [startX, startX + (petal.id % 2 === 1 ? -38 : 38), startX + (petal.id % 2 === 1 ? 18 : -18), petal.landingX],
                     y: [startY, startY + 80, startY + 180, petal.landingY],
-                    rotate: [0, petal.id % 2 === 1 ? -45 : 45, petal.id % 2 === 1 ? 25 : -25, petal.landingRotate],
+                    rotate: [0, petal.id % 2 === 1 ? -48 : 48, petal.id % 2 === 1 ? 28 : -28, petal.landingRotate],
                     scale: [1, 0.98, 0.95, 0.92],
                     opacity: [1, 1, 0.95, 0.9]
                   }}
@@ -849,7 +883,7 @@ export default function SpaceConstellation() {
                 >
                   <path
                     d="M0,-18 C25,-8 32,16 0,22 C-32,16 -25,-8 0,-18 Z"
-                    fill="url(#petalVelvetLustre)"
+                    fill="url(#gradGuardRight)"
                     stroke="#ffffff"
                     strokeWidth="1.8"
                     filter="drop-shadow(0 6px 12px rgba(225,29,72,0.6))"
