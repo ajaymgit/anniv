@@ -191,27 +191,27 @@ export const CROSSWORD_DATA = {
 export const DEFAULT_TRIVIA_QUESTIONS = [
   {
     id: "t1",
-    question: "Where did we sit for our very first coffee date together?",
+    question: "What was the very first food Ajay ever got for you?",
     options: [
-      "A quiet corner table tucked away from the crowd",
-      "Near the front glass window watching the street outside",
-      "An open-air garden terrace under warm fairy lights",
-      "A cozy leather booth where hours felt like minutes"
+      "Crispy hot French fries",
+      "Steaming hot momos",
+      "Spicy chicken burger",
+      "Cold coffee & chocolate doughnut"
     ],
     correctAnswerIndex: 0,
-    hint: "Think about the quiet corner where our first nervous conversations started!"
+    hint: "Golden, crispy, and the ultimate comfort treat!"
   },
   {
     id: "t2",
-    question: "What is our undisputed signature café order whenever we sit down together?",
+    question: "Where did we share our very first hug?",
     options: [
-      "Two piping hot cappuccinos with extra froth",
-      "Rich hazelnut lattes and a warm pastry to share",
-      "Iced coffees paired with extra crispy fries",
-      "Hot chocolate with whipped cream and cookies"
+      "Outside a café after our first date",
+      "A small street near her house",
+      "In the parking lot late in the evening",
+      "Near the metro station walkway"
     ],
-    correctAnswerIndex: 2,
-    hint: "The comfort combination we order automatically without opening the menu!"
+    correctAnswerIndex: 1,
+    hint: "Think of that quiet, narrow street right near home where our hearts were racing!"
   },
   {
     id: "t3",
