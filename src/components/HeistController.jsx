@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { HelpCircle, Volume2, VolumeX, Clock, Settings, Sparkles, Heart } from "lucide-react";
 import { STAGE_NAMES, STAGE_HINTS, DEFAULT_STORY } from "../heistData";
 import { sounds } from "../utils/audio";
+import { useAnniversary, STAGE_SLUGS } from "../context/AnniversaryContext";
 import StoryCustomizer from "./StoryCustomizer";
 import BootSequence from "./stages/BootSequence";
 import PhotoJigsaw from "./stages/PhotoJigsaw";
@@ -14,12 +15,19 @@ import FinalReveal from "./stages/FinalReveal";
 import { RibbonBow, FlowerBlossom, WashiTape, SparkleStar } from "./common/GirlyPopDecorations";
 
 export default function HeistController() {
-  const [currentStage, setCurrentStage] = useState(0);
+  const { heistStage, setHeistStage } = useAnniversary();
+  const [currentStage, setCurrentStage] = useState(() => (typeof heistStage === "number" ? heistStage : 0));
   const [hintTier, setHintTier] = useState(0);
   const [showHintModal, setShowHintModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [elapsedSec, setElapsedSec] = useState(0);
+
+  useEffect(() => {
+    if (typeof heistStage === "number" && heistStage !== currentStage) {
+      setCurrentStage(heistStage);
+    }
+  }, [heistStage]);
 
   // Load custom story from localStorage if present
   const [storyData, setStoryData] = useState(() => {
@@ -57,7 +65,14 @@ export default function HeistController() {
   const nextStage = () => {
     setHintTier(0);
     setShowHintModal(false);
-    setCurrentStage((prev) => prev + 1);
+    setCurrentStage((prev) => {
+      const next = prev + 1;
+      if (setHeistStage) setHeistStage(next);
+      if (STAGE_SLUGS && STAGE_SLUGS[next]) {
+        window.history.pushState({ stage: next }, "", `/${STAGE_SLUGS[next]}`);
+      }
+      return next;
+    });
   };
 
   const handleOpenHint = () => {
