@@ -5,7 +5,7 @@ export const STAGE_NAMES = [
   "The Fractured Memory",
   "Relationship Crossword",
   "The Dark Archive",
-  "Temporal Footprint",
+  "Photographic Memory IQ",
   "Couple's Authenticator",
   "Neural Photo Match"
 ];
@@ -32,9 +32,9 @@ export const STAGE_HINTS = [
     literal: "Find the four Roman numeral digits: [I]=1, [II]=2, [III]=1, [IV]=0. Enter '1210' on the keypad.",
   },
   {
-    // Stage 5: Timeline Sequencer
-    cryptic: "Chronological truth is the only biometric key. Re-order the 5 scrapbook memories from earliest to latest.",
-    literal: "Drag and drop (or use Up/Down arrows) to sort our milestones from earliest date (top) to most recent (bottom), then click 'Verify'.",
+    // Stage 5: Photographic Memory IQ
+    cryptic: "Four moments illuminate in rhythmic sequence across the matrix. Mirror their light to verify your photographic memory.",
+    literal: "Watch which polaroid photos flash, then tap them in the exact same order across 3 easy rounds to unlock the vault!",
   },
   {
     // Stage 6: Couple's Authenticator

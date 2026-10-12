@@ -1,0 +1,347 @@
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Brain,
+  Sparkles,
+  CheckCircle2,
+  RotateCcw,
+  Volume2,
+  Award,
+  Zap
+} from "lucide-react";
+import { sounds } from "../../utils/audio";
+import { RibbonBow, FlowerBlossom, WashiTape, PopFlower } from "../common/GirlyPopDecorations";
+
+const DEFAULT_PHOTOS = [
+  { id: 0, title: "Our First Memory", src: "/lightchamber/polaroid1.jpg", note: "Day 01" },
+  { id: 1, title: "Midnight Ride", src: "/lightchamber/polaroid2.jpg", note: "Night Vibes" },
+  { id: 2, title: "Laughing Together", src: "/lightchamber/polaroid3.jpg", note: "Pure Joy" },
+  { id: 3, title: "Us Forever", src: "/lightchamber/polaroid4.jpg", note: "Forever" }
+];
+
+// 3 Friendly, easy progressive rounds
+const ROUNDS_CONFIG = [
+  { round: 1, length: 2, label: "Round 1 · Warmup IQ", badge: "Smart ♡" },
+  { round: 2, length: 3, label: "Round 2 · Genius IQ", badge: "Brilliant ♡" },
+  { round: 3, length: 4, label: "Round 3 · 100% Photographic Memory", badge: "Mastermind ♡" }
+];
+
+export default function PhotoMemoryIQ({ onComplete, customPhotos }) {
+  // Use custom photos if passed, otherwise default to chamber polaroids
+  const photos = DEFAULT_PHOTOS.map((p, idx) => ({
+    ...p,
+    src: (customPhotos && customPhotos[idx]) || p.src
+  }));
+
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(0); // 0, 1, 2
+  const [sequence, setSequence] = useState([]); // Array of photo indices
+  const [activeFlashIndex, setActiveFlashIndex] = useState(null); // Which photo is currently glowing
+  const [playerInput, setPlayerInput] = useState([]); // Array of player taps
+  const [gameState, setGameState] = useState("idle"); // "displaying", "playerTurn", "roundSuccess", "error", "finished"
+  const [iqScore, setIqScore] = useState(115);
+  const [statusMessage, setStatusMessage] = useState("Get ready to watch the memories glow...");
+
+  const isPlayingRef = useRef(false);
+
+  // Generate sequence for current round
+  const startRound = (roundIdx) => {
+    const config = ROUNDS_CONFIG[roundIdx];
+    const targetLength = config.length;
+
+    // Generate random sequence of photos (0 to 3) without 3 identical repeats in a row
+    const newSeq = [];
+    for (let i = 0; i < targetLength; i++) {
+      let rand = Math.floor(Math.random() * 4);
+      if (i >= 2 && rand === newSeq[i - 1] && rand === newSeq[i - 2]) {
+        rand = (rand + 1) % 4;
+      }
+      newSeq.push(rand);
+    }
+
+    setSequence(newSeq);
+    setPlayerInput([]);
+    playSequence(newSeq);
+  };
+
+  // Playback the sequence flashing cards one by one
+  const playSequence = (seqToPlay) => {
+    setGameState("displaying");
+    setStatusMessage("Watch closely as our photos illuminate...");
+    isPlayingRef.current = true;
+
+    seqToPlay.forEach((photoId, stepIdx) => {
+      // Step interval: 650ms per card
+      setTimeout(() => {
+        if (!isPlayingRef.current) return;
+        setActiveFlashIndex(photoId);
+        sounds.playCrystalTap(photoId);
+
+        // Turn off flash after 420ms
+        setTimeout(() => {
+          setActiveFlashIndex(null);
+        }, 420);
+      }, stepIdx * 680 + 500);
+    });
+
+    // When sequence finishes, switch to player turn
+    setTimeout(() => {
+      if (!isPlayingRef.current) return;
+      setActiveFlashIndex(null);
+      setGameState("playerTurn");
+      setStatusMessage("Your turn! Tap the photos in the exact same order ♡");
+    }, seqToPlay.length * 680 + 700);
+  };
+
+  // Start round 1 on initial mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      startRound(0);
+    }, 600);
+    return () => {
+      isPlayingRef.current = false;
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // Handle player clicking a photo
+  const handlePhotoClick = (photoId) => {
+    if (gameState !== "playerTurn") return;
+
+    // Play tactile feedback
+    sounds.playCrystalTap(photoId);
+    setActiveFlashIndex(photoId);
+    setTimeout(() => setActiveFlashIndex(null), 250);
+
+    const nextInput = [...playerInput, photoId];
+    setPlayerInput(nextInput);
+
+    const currentStep = nextInput.length - 1;
+
+    // Check if the tap is correct for this step
+    if (nextInput[currentStep] !== sequence[currentStep]) {
+      // Mistake: Forgiving, play gentle buzz and replay sequence
+      sounds.playError();
+      setGameState("error");
+      setStatusMessage("Oops, almost! Watch the replay and try again ♡");
+
+      setTimeout(() => {
+        setPlayerInput([]);
+        playSequence(sequence);
+      }, 1400);
+      return;
+    }
+
+    // If step is correct and round is finished!
+    if (nextInput.length === sequence.length) {
+      sounds.playSuccess();
+      setGameState("roundSuccess");
+      const nextScore = iqScore + (currentRoundIndex === 0 ? 25 : currentRoundIndex === 1 ? 30 : 35);
+      setIqScore(nextScore);
+
+      // Check if all 3 rounds are complete
+      if (currentRoundIndex + 1 >= ROUNDS_CONFIG.length) {
+        setGameState("finished");
+        setStatusMessage("100% Photographic Memory Confirmed! You're a Genius ♡");
+        sounds.playVictoryFanfare();
+        setTimeout(() => {
+          onComplete();
+        }, 2200);
+      } else {
+        setStatusMessage(`${ROUNDS_CONFIG[currentRoundIndex].badge} completed! Loading next round...`);
+        setTimeout(() => {
+          const nextIdx = currentRoundIndex + 1;
+          setCurrentRoundIndex(nextIdx);
+          startRound(nextIdx);
+        }, 1300);
+      }
+    }
+  };
+
+  const handleReplay = () => {
+    if (gameState !== "playerTurn") return;
+    setPlayerInput([]);
+    playSequence(sequence);
+  };
+
+  return (
+    <div className="w-full max-w-xl flex flex-col items-center font-sans select-none px-2 sm:px-4">
+      {/* Header Info */}
+      <div className="text-center mb-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-emerald-200 rounded-full text-emerald-700 text-xs font-semibold mb-2 shadow-sm">
+          <FlowerBlossom className="w-3.5 h-3.5" />
+          <span>Chapter 1 · Puzzle 05 ♡ Photographic Memory IQ</span>
+        </div>
+        <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#132e22] tracking-tight">
+          Memory Matrix IQ Test
+        </h2>
+        <p className="text-xs text-[#3d6350] mt-1 max-w-md mx-auto leading-relaxed">
+          Watch our polaroid moments glow in rhythm, then tap them in the same order. Clear all 3 rounds to unlock the vault!
+        </p>
+      </div>
+
+      {/* Main Container */}
+      <div className="w-full bg-white border-2 border-[#bbf7d0] rounded-[32px] p-4 sm:p-6 shadow-card relative overflow-hidden">
+        {/* Washi Tape Decor */}
+        <div className="absolute -top-1.5 right-8 z-20 pointer-events-none">
+          <WashiTape className="w-20 h-4.5 opacity-75" color="bg-emerald-200/80" />
+        </div>
+        <div className="absolute -top-1.5 left-8 z-20 pointer-events-none">
+          <WashiTape className="w-16 h-4 opacity-75" color="bg-purple-200/80" />
+        </div>
+
+        {/* Top Status & IQ Score Ribbon */}
+        <div className="flex items-center justify-between gap-2 mb-4 bg-[#f0fdf4] border border-[#bbf7d0] rounded-2xl px-3 sm:px-4 py-2 text-xs">
+          {/* Round Indicator */}
+          <div className="flex items-center gap-2">
+            <Brain className="w-4 h-4 text-emerald-600" />
+            <span className="font-serif font-bold text-emerald-950 text-sm">
+              Round {currentRoundIndex + 1} of 3
+            </span>
+          </div>
+
+          {/* 3 Round Bulbs */}
+          <div className="flex items-center gap-1.5">
+            {ROUNDS_CONFIG.map((r, idx) => (
+              <div
+                key={r.round}
+                className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold border transition-all ${
+                  idx < currentRoundIndex
+                    ? "bg-emerald-500 border-emerald-600 text-white"
+                    : idx === currentRoundIndex
+                    ? "bg-amber-300 border-amber-400 text-amber-950 animate-pulse scale-110"
+                    : "bg-white border-emerald-200 text-emerald-300"
+                }`}
+                title={r.label}
+              >
+                {idx < currentRoundIndex ? "✓" : idx + 1}
+              </div>
+            ))}
+          </div>
+
+          {/* Live IQ Rating */}
+          <div className="flex items-center gap-1 text-emerald-800 font-bold bg-white px-2.5 py-1 rounded-full border border-emerald-200 shadow-2xs">
+            <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-300" />
+            <span>IQ: {iqScore}</span>
+          </div>
+        </div>
+
+        {/* Dynamic Instructional Banner */}
+        <div
+          className={`w-full py-2 px-3 rounded-2xl text-xs text-center font-medium mb-4 transition-all duration-300 border ${
+            gameState === "displaying"
+              ? "bg-amber-50 border-amber-200 text-amber-900"
+              : gameState === "playerTurn"
+              ? "bg-emerald-50 border-emerald-300 text-emerald-800 shadow-xs"
+              : gameState === "error"
+              ? "bg-rose-50 border-rose-200 text-rose-700"
+              : "bg-purple-50 border-purple-200 text-purple-900"
+          }`}
+        >
+          <span>{statusMessage}</span>
+          {gameState === "playerTurn" && (
+            <span className="ml-2 font-mono font-bold text-emerald-600">
+              ({playerInput.length}/{sequence.length} steps)
+            </span>
+          )}
+        </div>
+
+        {/* ======================================================== */}
+        {/* 2x2 POLAROID PHOTO GRID (THE IQ TILES) */}
+        {/* ======================================================== */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-md mx-auto mb-4">
+          {photos.map((photo) => {
+            const isFlashing = activeFlashIndex === photo.id;
+            const isClickable = gameState === "playerTurn";
+
+            return (
+              <motion.div
+                key={photo.id}
+                whileHover={isClickable ? { scale: 1.02 } : {}}
+                whileTap={isClickable ? { scale: 0.96 } : {}}
+                onClick={() => handlePhotoClick(photo.id)}
+                className={`relative bg-white border-2 rounded-2xl p-2.5 sm:p-3 shadow-card transition-all duration-200 select-none ${
+                  isClickable
+                    ? "cursor-pointer hover:border-emerald-300"
+                    : "cursor-default"
+                } ${
+                  isFlashing
+                    ? "border-amber-400 shadow-[0_0_25px_rgba(251,191,36,0.6)] scale-103 bg-amber-50/60"
+                    : "border-emerald-200"
+                }`}
+              >
+                {/* Polaroid Photo Canvas */}
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-emerald-50 border border-emerald-100 shadow-inner">
+                  <img
+                    src={photo.src}
+                    alt={photo.title}
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* Flash Light Overlay */}
+                  {isFlashing && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute inset-0 bg-gradient-to-t from-amber-400/40 via-yellow-200/30 to-white/50 backdrop-blur-[1px] flex items-center justify-center"
+                    >
+                      <motion.div
+                        initial={{ scale: 0.5, rotate: -15 }}
+                        animate={{ scale: 1.2, rotate: 0 }}
+                        className="text-2xl drop-shadow-md"
+                      >
+                        ✨
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </div>
+
+                {/* Polaroid Bottom Caption */}
+                <div className="pt-2 text-center">
+                  <h4 className="font-serif font-bold text-xs text-[#132e22] truncate">
+                    {photo.title}
+                  </h4>
+                  <span className="text-[10px] text-emerald-600 font-sans font-medium">
+                    {photo.note}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Actions (Replay Helper) */}
+        <div className="flex items-center justify-between text-xs text-[#3d6350] pt-2 border-t border-emerald-100">
+          <button
+            type="button"
+            onClick={handleReplay}
+            disabled={gameState !== "playerTurn"}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white hover:bg-emerald-50 border border-emerald-200 text-emerald-700 font-semibold cursor-pointer disabled:opacity-40 transition"
+            title="Watch the sequence flash again"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Replay Flashes ♡</span>
+          </button>
+
+          <span className="text-[11px] text-[#6e9981]">
+            {gameState === "displaying" ? "👀 Memorizing..." : "👆 Tap to repeat pattern"}
+          </span>
+        </div>
+      </div>
+
+      {/* Finished Celebration Banner */}
+      <AnimatePresence>
+        {gameState === "finished" && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-4 p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl text-center text-emerald-800 text-xs font-bold shadow-lg flex items-center justify-center gap-2"
+          >
+            <Award className="w-5 h-5 text-emerald-600" />
+            <span>IQ TEST PASSED: 100% Photographic Memory! Unlocking Vault... ♡</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

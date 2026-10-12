@@ -8,7 +8,7 @@ import BootSequence from "./stages/BootSequence";
 import PhotoJigsaw from "./stages/PhotoJigsaw";
 import RelationshipCrossword from "./stages/RelationshipCrossword";
 import FlashlightArchive from "./stages/FlashlightArchive";
-import TimelineSequencer from "./stages/TimelineSequencer";
+import PhotoMemoryIQ from "./stages/PhotoMemoryIQ";
 import CoupleTrivia from "./stages/CoupleTrivia";
 import PhotoMatch from "./stages/PhotoMatch";
 import FinalReveal from "./stages/FinalReveal";
@@ -230,9 +230,9 @@ export default function HeistController() {
           />
         )}
         {currentStage === 4 && (
-          <TimelineSequencer
+          <PhotoMemoryIQ
             onComplete={nextStage}
-            customMemories={storyData.memories}
+            customPhotos={storyData.chamberPhotos}
           />
         )}
         {currentStage === 5 && (
