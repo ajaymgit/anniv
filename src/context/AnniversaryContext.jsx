@@ -51,6 +51,8 @@ export const ROUTE_MAP = {
   "lightchamber": { spaceId: "01-time-heist", stage: 3 },
   "chamber": { spaceId: "01-time-heist", stage: 3 },
   "timeline": { spaceId: "01-time-heist", stage: 4 },
+  "ride": { spaceId: "01-time-heist", stage: 4 },
+  "midnight-ride": { spaceId: "01-time-heist", stage: 4 },
   "trivia": { spaceId: "01-time-heist", stage: 5 },
   "match": { spaceId: "01-time-heist", stage: 6 },
   "reveal": { spaceId: "01-time-heist", stage: 7 },
