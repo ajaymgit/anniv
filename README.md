@@ -16,8 +16,14 @@ A bespoke interactive web suite built with React 19, Vite, Tailwind CSS, and Fra
    - **Puzzle 07 (Memory Match):** 20-card memory matching matrix (10 pairs).
    - **Climax Reveal:** Final vault decryption, celebration fanfare, and anniversary letter.
 
-2. **Chapter 2: Two Points, One Constellation**
-   - Interactive celestial canvas where Jayjay and Mythri star nodes connect into the infinity symbol (∞).
+2. **Chapter 2: The Stargazer Lily (3D Nocturnal Bloom & 8 Stories)**
+   - **Full-Viewport 3D Nocturnal Canvas:** Three.js scene (`absolute inset-0 w-full h-full`) over a star-reflecting nocturnal pond.
+   - **Solitary Entrance:** Starts with only a solitary, unbloomed Stargazer lily bud that blossoms smoothly at 2.0 seconds.
+   - **Botanical Realism:** 8-petal double whorl geometry with curled tips, magenta stippling, lime throat, and tapered curved lanceolate leaves with watercolor midrib veins.
+   - **Interactive 8-Petal Fall:** Tapping the lily releases petals sequentially with flutter physics and water ripples upon hitting the pond, progressively unlocking 8 intimate stories.
+   - **Unbloomed Buds & Grand Finale:** Upon completing all 8 drops, unbloomed celestial and pond buds appear with visible lime-green nectar furrows.
+   - **Pull-Down Bloom Gesture:** Smooth pull-down handle gesture at top center blooms celestial lilies and pond blossoms simultaneously.
+   - **Unobtrusive Side Card:** Unfolds reflection card on the bottom-left (`fixed bottom-6 left-6 max-w-sm`), keeping the central 3D flower and pond fully in view.
 
 3. **Chapter 3: Seven Love Letters**
    - 7 sealed wax envelopes with typographic reading room.
@@ -28,8 +34,8 @@ A bespoke interactive web suite built with React 19, Vite, Tailwind CSS, and Fra
 5. **Chapter 5: The Fifth Space**
    - Preview chamber for Heartbeat Frequency, Coordinate Atlas, and Forward Horizon.
 
-6. **Chapter 6: The Mythri Effect**
-   - 7-layer generative particle world blooming organically with touch and movement.
+6. **Chapter 6: The Transformation (Personal Evolution)**
+   - Freeform interactive experience exploring personal growth, new perspectives learned, and the profound mutual effect over time.
 
 7. **Chapter 7: Her Space**
    - Private writing sanctuary with prompt drawer and local autosave.
