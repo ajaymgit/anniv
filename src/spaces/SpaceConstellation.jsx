@@ -253,6 +253,78 @@ function createWaterTexture() {
   return texture;
 }
 
+// Builds a floating blooming water lily with notched emerald lily pad beside the main flower
+function buildPondLily(x, z, scale = 1.0, notchRotation = 0, offset = 0) {
+  const group = new THREE.Group();
+  group.position.set(x, -1.93, z);
+  group.scale.setScalar(scale);
+
+  // 1. Lily pad with natural V-notch
+  const shape = new THREE.Shape();
+  const radius = 0.58;
+  shape.moveTo(0, 0);
+  shape.absarc(0, 0, radius, 0.22, Math.PI * 2 - 0.22, false);
+  shape.lineTo(0, 0);
+  const padGeom = new THREE.ShapeGeometry(shape, 32);
+  const padMat = new THREE.MeshStandardMaterial({
+    color: 0x166534,
+    roughness: 0.55,
+    metalness: 0.05,
+    side: THREE.DoubleSide
+  });
+  const padMesh = new THREE.Mesh(padGeom, padMat);
+  padMesh.rotation.x = -Math.PI / 2;
+  padMesh.rotation.z = notchRotation;
+  padMesh.receiveShadow = true;
+  group.add(padMesh);
+
+  // 2. Flower group on pad
+  const flower = new THREE.Group();
+  flower.position.set(0, 0.02, 0);
+  group.add(flower);
+
+  const petalPivots = [];
+  const outerMat = new THREE.MeshStandardMaterial({
+    color: 0xffe4e6, // blush pearl white
+    roughness: 0.35,
+    metalness: 0.02,
+    side: THREE.DoubleSide
+  });
+  const innerMat = new THREE.MeshStandardMaterial({
+    color: 0xf43f5e, // rose pink
+    roughness: 0.35,
+    metalness: 0.02,
+    side: THREE.DoubleSide
+  });
+
+  const count = 10;
+  for (let i = 0; i < count; i++) {
+    const angle = (i * Math.PI * 2) / count;
+    const isOuter = i % 2 === 0;
+    const pivot = new THREE.Group();
+    pivot.rotation.y = -angle - Math.PI / 2;
+    pivot.position.set(Math.cos(angle) * (isOuter ? 0.07 : 0.04), 0, Math.sin(angle) * (isOuter ? 0.07 : 0.04));
+
+    const pGeom = new THREE.PlaneGeometry(isOuter ? 0.15 : 0.12, isOuter ? 0.44 : 0.36, 6, 8);
+    pGeom.translate(0, (isOuter ? 0.44 : 0.36) / 2, 0);
+    const pMesh = new THREE.Mesh(pGeom, isOuter ? outerMat : innerMat);
+    pMesh.rotation.x = -0.15; // starts closed in bud
+    pivot.add(pMesh);
+    flower.add(pivot);
+    petalPivots.push({ pivot, mesh: pMesh, isOuter });
+  }
+
+  // Golden stamen core
+  const coreMesh = new THREE.Mesh(
+    new THREE.SphereGeometry(0.055, 10, 10),
+    new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.4, metalness: 0.1 })
+  );
+  coreMesh.position.y = 0.04;
+  flower.add(coreMesh);
+
+  return { group, flower, petalPivots, baseY: -1.93, offset };
+}
+
 // Builds single petal geometry with base anchored at y = 0
 function createPetalGeometry(width = 1.15, length = 2.45, isOuter = true) {
   const segX = 24;
@@ -330,6 +402,8 @@ export default function SpaceConstellation() {
   const petalPivotsRef = useRef([]);
   const fallingPetalsRef = useRef([]);
   const ripplePlaneRef = useRef(null);
+  const pondLiliesRef = useRef([]);
+  const bloomedLiliesTriggeredRef = useRef(false);
 
   // Blooming animation tracking (starts at 0 in bud, delays 2 seconds, then blooms to 1)
   const bloomProgressRef = useRef(0);
@@ -407,6 +481,8 @@ export default function SpaceConstellation() {
     bloomProgressRef.current = 0;
     pageEnterTimeRef.current = performance.now();
     isBloomingRef.current = true;
+    bloomedLiliesTriggeredRef.current = false;
+    setBloomedLiliesEverywhere(false);
 
     petalPivotsRef.current.forEach(({ pivot, mesh, layout }) => {
       if (!mesh.userData.plucked) {
@@ -418,6 +494,13 @@ export default function SpaceConstellation() {
         mesh.rotation.x = -layout.budTilt;
         applyPetalCurvature(mesh.geometry, 0.0);
       }
+    });
+
+    // Reset pond water lilies beside the flower to closed buds
+    pondLiliesRef.current.forEach((pl) => {
+      pl.petalPivots.forEach(({ mesh }) => {
+        mesh.rotation.x = -0.15;
+      });
     });
 
     if (stamenGroupRef.current) {
@@ -598,6 +681,16 @@ export default function SpaceConstellation() {
     ripplePlane.position.y = -1.94;
     scene.add(ripplePlane);
     ripplePlaneRef.current = ripplePlane;
+
+    // Floating water lilies beside the main flower on the nocturnal pond
+    const pondLilies = [
+      buildPondLily(-1.75, 0.40, 0.78, 0.8, 0),
+      buildPondLily(-2.40, -0.45, 0.60, 2.3, 1.2),
+      buildPondLily(1.75, 0.40, 0.78, 3.9, 2.4),
+      buildPondLily(2.40, -0.45, 0.60, 5.1, 3.6)
+    ];
+    pondLilies.forEach((pl) => scene.add(pl.group));
+    pondLiliesRef.current = pondLilies;
 
     // Botanical Lily Stem, Foliage, Receptacle, and Stamens
     const lilyGroup = new THREE.Group();
@@ -836,6 +929,20 @@ export default function SpaceConstellation() {
             stamenGroupRef.current.scale.setScalar(THREE.MathUtils.lerp(0.25, 1.0, stamenT));
           }
 
+          // Trigger blooming lilies across the page too
+          if (!bloomedLiliesTriggeredRef.current) {
+            bloomedLiliesTriggeredRef.current = true;
+            setBloomedLiliesEverywhere(true);
+          }
+
+          // Unfurl floating pond water lilies beside the flower
+          pondLiliesRef.current.forEach((pl) => {
+            pl.petalPivots.forEach(({ mesh, isOuter }) => {
+              const targetTilt = isOuter ? -1.18 : -1.05;
+              mesh.rotation.x = THREE.MathUtils.lerp(-0.15, targetTilt, easeT);
+            });
+          });
+
           // Inner glowing starlight intensifies as flower opens
           if (heartGlowRef.current) {
             heartGlowRef.current.intensity = THREE.MathUtils.lerp(0.3, 2.5, easeT);
@@ -856,6 +963,11 @@ export default function SpaceConstellation() {
         lilyGroup.rotation.y = Math.sin(elapsed * 0.5) * 0.04;
         lilyGroup.rotation.z = Math.cos(elapsed * 0.7) * 0.012;
       }
+
+      // Ambient floating bob for pond water lilies beside the flower
+      pondLiliesRef.current.forEach((pl) => {
+        pl.group.position.y = pl.baseY + Math.sin(elapsed * 1.5 + pl.offset) * 0.005;
+      });
 
       // Animate active falling petals (flutter down and disappear into the water)
       for (let i = fallingPetalsRef.current.length - 1; i >= 0; i--) {
@@ -924,6 +1036,9 @@ export default function SpaceConstellation() {
       container.removeEventListener("pointerdown", onPointerDown);
       container.removeEventListener("pointermove", onPointerMove);
       container.removeEventListener("pointerup", onPointerUp);
+      pondLiliesRef.current.forEach((pl) => {
+        if (pl.group.parent) pl.group.parent.remove(pl.group);
+      });
       if (controlsRef.current) controlsRef.current.dispose();
       if (rendererRef.current) rendererRef.current.dispose();
     };
@@ -987,6 +1102,7 @@ export default function SpaceConstellation() {
     buildLilyPetals();
     setActiveStory(null);
     setBloomedLiliesEverywhere(false);
+    bloomedLiliesTriggeredRef.current = false;
     setShowGrandFinale(false);
     setPluckedCount(0);
     replayBloom();
