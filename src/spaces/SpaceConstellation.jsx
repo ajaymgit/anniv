@@ -6,6 +6,7 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   RotateCcw,
   Sparkles,
   Heart,
@@ -486,6 +487,40 @@ export default function SpaceConstellation() {
   const [showGrandFinale, setShowGrandFinale] = useState(false);
   const [autoRotate, setAutoRotate] = useState(false);
   const [currentCameraPreset, setCurrentCameraPreset] = useState("cinematic");
+  const [finaleReady, setFinaleReady] = useState(false);
+  const [finaleBloomed, setFinaleBloomed] = useState(false);
+  const [pullProgress, setPullProgress] = useState(0);
+
+  const updatePondLiliesBloom = (progress) => {
+    pondLiliesRef.current.forEach((pl) => {
+      pl.group.visible = true;
+      pl.petalPivots.forEach(({ mesh, isOuter }) => {
+        const targetTilt = isOuter ? -1.18 : -1.05;
+        mesh.rotation.x = THREE.MathUtils.lerp(-0.15, targetTilt, progress);
+      });
+    });
+  };
+
+  const completeFinaleBloom = () => {
+    setPullProgress(1);
+    updatePondLiliesBloom(1);
+    setFinaleBloomed(true);
+    setShowGrandFinale(true);
+    try {
+      confetti({
+        particleCount: 160,
+        spread: 140,
+        origin: { y: 0.6 },
+        colors: ["#f43f5e", "#fb7185", "#fda4af", "#fef08a", "#ffffff"]
+      });
+    } catch (e) {}
+  };
+
+  const resetPullDownBloom = () => {
+    setFinaleBloomed(false);
+    setPullProgress(0);
+    updatePondLiliesBloom(0);
+  };
 
   // 8 distinct petals layout in a balanced double whorl:
   // 4 Outer primary tepals (Petals 1..4 at 0, 90, 180, 270 deg) - wide star flare
@@ -1136,28 +1171,21 @@ export default function SpaceConstellation() {
       isPluckingRef.current = false;
     }, 1400);
 
-    // All 8 petals shed
+    // All 8 petals shed -> initiate Grand Finale ready state with unbloomed lilies
     if (newCount >= 8) {
       setTimeout(() => {
-        setBloomedLiliesEverywhere(true);
         markSpaceCompleted("02-constellation");
+        setFinaleReady(true);
+        setFinaleBloomed(false);
+        setPullProgress(0);
 
-        // Reveal and bloom pond water lilies beside the flower on the water
+        // Show pond water lilies beside the flower in UNBLOOMED BUD state
         pondLiliesRef.current.forEach((pl) => {
           pl.group.visible = true;
-          pl.petalPivots.forEach(({ mesh, isOuter }) => {
-            mesh.rotation.x = isOuter ? -1.18 : -1.05;
+          pl.petalPivots.forEach(({ mesh }) => {
+            mesh.rotation.x = -0.15; // closed bud
           });
         });
-
-        try {
-          confetti({
-            particleCount: 160,
-            spread: 140,
-            origin: { y: 0.6 },
-            colors: ["#f43f5e", "#fb7185", "#fda4af", "#fef08a", "#ffffff"]
-          });
-        } catch (e) {}
       }, 1500);
     }
   };
@@ -1167,6 +1195,9 @@ export default function SpaceConstellation() {
     setActiveStory(null);
     setBloomedLiliesEverywhere(false);
     bloomedLiliesTriggeredRef.current = false;
+    setFinaleReady(false);
+    setFinaleBloomed(false);
+    setPullProgress(0);
     pondLiliesRef.current.forEach((pl) => {
       pl.group.visible = false;
     });
@@ -1315,67 +1346,118 @@ export default function SpaceConstellation() {
         </p>
       </div>
 
-      {/* 5. Climax Lilies Blooming Across the Night Sky */}
+      {/* 5. Climax Lilies Around the Screen (Unbloomed with nectar in bud state, unfurling on pull-down) */}
       <AnimatePresence>
-        {bloomedLiliesEverywhere && (
-          <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden">
-            {BLOOMING_LILIES.map((lily) => (
-              <motion.div
-                key={lily.id}
-                initial={{ scale: 0, opacity: 0, rotate: 0 }}
-                animate={{
-                  scale: [0, 1.25, 1],
-                  opacity: [0, 1, 0.95],
-                  rotate: lily.rotation
-                }}
-                transition={{
-                  duration: 0.95,
-                  delay: lily.delay,
-                  type: "spring",
-                  stiffness: 210,
-                  damping: 14
-                }}
-                style={{
-                  left: lily.x,
-                  top: lily.y,
-                  width: lily.size,
-                  height: lily.size
-                }}
-                className="absolute text-rose-400 drop-shadow-[0_8px_20px_rgba(244,63,94,0.55)]"
-              >
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <defs>
-                    <radialGradient id={`lily-grad-${lily.id}`} cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stopColor="#881337" />
-                      <stop offset="35%" stopColor="#e11d48" />
-                      <stop offset="70%" stopColor="#fb7185" />
-                      <stop offset="100%" stopColor="#ffffff" />
-                    </radialGradient>
-                  </defs>
-                  {[0, 60, 120, 180, 240, 300].map((deg, idx) => (
-                    <path
-                      key={idx}
-                      d="M50,50 Q43,22 50,6 Q57,22 50,50 Z"
-                      fill={`url(#lily-grad-${lily.id})`}
-                      stroke="#fff1f2"
-                      strokeWidth="0.8"
-                      transform={`rotate(${deg} 50 50)`}
-                    />
-                  ))}
-                  {[30, 90, 150, 210, 270, 330].map((deg, idx) => (
-                    <circle
-                      key={`stamen-${idx}`}
-                      cx={50 + Math.cos((deg * Math.PI) / 180) * 12}
-                      cy={50 + Math.sin((deg * Math.PI) / 180) * 12}
-                      r="2.2"
-                      fill="#f59e0b"
-                    />
-                  ))}
-                  <circle cx="50" cy="50" r="4.5" fill="#4ade80" />
-                  <circle cx="50" cy="50" r="2" fill="#ffffff" />
-                </svg>
-              </motion.div>
-            ))}
+        {(bloomedLiliesEverywhere || finaleReady) && (
+          <div className="fixed inset-0 pointer-events-none z-20 overflow-hidden">
+            {BLOOMING_LILIES.map((lily) => {
+              const prog = finaleBloomed ? 1.0 : (finaleReady ? pullProgress : 1.0);
+              const scale = 0.38 + prog * 0.62;
+              const petalLength = 26 + prog * 24; // slender in bud, expands in bloom
+              const petalBulge = 4.5 + prog * 9.5;
+              const budSpread = prog * 26;
+
+              return (
+                <motion.div
+                  key={lily.id}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{
+                    scale: scale,
+                    opacity: 0.35 + prog * 0.6,
+                    rotate: lily.rotation
+                  }}
+                  transition={{ duration: 0.25 }}
+                  style={{
+                    left: lily.x,
+                    top: lily.y,
+                    width: lily.size,
+                    height: lily.size
+                  }}
+                  className="absolute text-rose-400 drop-shadow-[0_8px_20px_rgba(244,63,94,0.45)]"
+                >
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <defs>
+                      <radialGradient id={`lily-grad-${lily.id}`} cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="#881337" />
+                        <stop offset="35%" stopColor="#e11d48" />
+                        <stop offset="70%" stopColor="#fb7185" />
+                        <stop offset="100%" stopColor="#ffffff" />
+                      </radialGradient>
+                    </defs>
+
+                    {/* Lanceolate petals: tight closed bud when prog=0, wide bloom when prog=1 */}
+                    {[0, 60, 120, 180, 240, 300].map((deg, idx) => (
+                      <path
+                        key={idx}
+                        d={`M50,50 Q${50 - petalBulge},${50 - petalLength * 0.55} 50,${50 - petalLength} Q${50 + petalBulge},${50 - petalLength * 0.55} 50,50 Z`}
+                        fill={`url(#lily-grad-${lily.id})`}
+                        stroke="#fff1f2"
+                        strokeWidth={0.8}
+                        transform={`rotate(${deg} 50 50)`}
+                      />
+                    ))}
+
+                    {/* Lime-green nectar furrow in bud & throat */}
+                    <circle cx="50" cy="50" r={4.8 * (1 - prog * 0.25)} fill="#84cc16" opacity={0.92} />
+
+                    {/* Golden stamens unfurl as the lily blooms */}
+                    {prog > 0.2 && [30, 90, 150, 210, 270, 330].map((deg, idx) => (
+                      <circle
+                        key={`stamen-${idx}`}
+                        cx={50 + Math.cos((deg * Math.PI) / 180) * (budSpread * 0.42)}
+                        cy={50 + Math.sin((deg * Math.PI) / 180) * (budSpread * 0.42)}
+                        r={2.2 * prog}
+                        fill="#f59e0b"
+                      />
+                    ))}
+                    <circle cx="50" cy="50" r={2 * prog} fill="#ffffff" />
+                  </svg>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Interactive Pull-Down Handle when Grand Finale is ready (Lilies unbloomed) */}
+      <AnimatePresence>
+        {finaleReady && !finaleBloomed && (
+          <div className="fixed top-24 left-1/2 -translate-x-1/2 z-40 pointer-events-auto flex flex-col items-center">
+            <motion.div
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 120 }}
+              dragElastic={0.25}
+              onDrag={(_, info) => {
+                const prog = Math.min(1, Math.max(0, info.offset.y / 85));
+                setPullProgress(prog);
+                updatePondLiliesBloom(prog);
+              }}
+              onDragEnd={(_, info) => {
+                if (info.offset.y > 55) {
+                  completeFinaleBloom();
+                } else {
+                  setPullProgress(0);
+                  updatePondLiliesBloom(0);
+                }
+              }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.98 }}
+              className="cursor-grab active:cursor-grabbing bg-slate-900/90 backdrop-blur-xl border-2 border-rose-300/60 rounded-full px-5 py-2.5 shadow-2xl flex items-center gap-3 text-rose-100 font-sans text-xs select-none"
+            >
+              <ChevronDown className="w-4 h-4 text-rose-300 animate-bounce" />
+              <span className="font-serif font-bold tracking-wide">
+                {pullProgress > 0 ? `Blooming ${(pullProgress * 100).toFixed(0)}%` : "Pull Down to Bloom"}
+              </span>
+              <div className="w-5 h-5 rounded-full bg-rose-500/30 flex items-center justify-center">
+                <FlowerBlossom className="w-3.5 h-3.5" petalColor="#fda4af" centerColor="#84cc16" />
+              </div>
+            </motion.div>
+            <button
+              onClick={completeFinaleBloom}
+              className="mt-2 text-[10px] text-rose-200/80 hover:text-white underline cursor-pointer"
+            >
+              or click to bloom
+            </button>
           </div>
         )}
       </AnimatePresence>
@@ -1478,49 +1560,55 @@ export default function SpaceConstellation() {
         )}
       </AnimatePresence>
 
-      {/* 7. Grand Finale Climax Modal */}
+      {/* 7. Non-Obstructive Side Textbox (Leaves the central 3D flower and pond completely visible) */}
       <AnimatePresence>
         {showGrandFinale && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#050b14]/80 backdrop-blur-md flex items-center justify-center p-4"
+            initial={{ opacity: 0, x: -35, y: 20 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, x: -35, y: 20 }}
+            transition={{ duration: 0.35, type: "spring", stiffness: 220, damping: 20 }}
+            className="fixed bottom-6 left-6 sm:left-8 max-w-sm w-full z-40 bg-slate-900/85 backdrop-blur-xl border border-rose-300/40 rounded-3xl p-6 text-white shadow-2xl pointer-events-auto"
           >
-            <motion.div
-              initial={{ scale: 0.9, y: 30 }}
-              animate={{ scale: 1, y: 0 }}
-              className="max-w-md w-full bg-[#fffdfa] text-[#132e22] border-4 border-rose-300 rounded-[36px] p-8 shadow-2xl text-center relative overflow-hidden"
-            >
-              <div className="flex justify-center mb-3">
-                <RibbonBow className="w-12 h-10 text-rose-400 drop-shadow-sm" />
+            <div className="flex items-center justify-between border-b border-rose-300/20 pb-3 mb-3">
+              <div className="flex items-center gap-2">
+                <FlowerBlossom className="w-4 h-4" petalColor="#fda4af" centerColor="#84cc16" />
+                <span className="text-xs font-serif font-bold text-rose-100">
+                  A Pond of Lilies
+                </span>
               </div>
+              <button
+                onClick={() => setShowGrandFinale(false)}
+                className="p-1 rounded-full text-rose-300 hover:text-white cursor-pointer transition-colors"
+                title="Minimize note"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
-              <span className="text-[10px] font-mono tracking-widest text-rose-600 font-bold uppercase block mb-1">
-                ALL EIGHT PETALS HAVE SHED INTO THE WATER
-              </span>
-              <h3 className="text-3xl font-serif font-bold text-[#132e22] mb-3">
-                A Pond of Lilies For You
-              </h3>
-              <p className="text-sm font-serif text-[#3d6350] leading-relaxed italic mb-6">
-                "Each petal was a year we lived through. And when the heart of the lily fell, it didn't end—it sent ripples across the water, blooming a constellation of lilies. I will love you through every season, Mythri."
+            {/* Clean placeholder message container ready for custom text */}
+            <div className="bg-white/5 border border-rose-200/15 rounded-2xl p-4 my-3 text-xs font-serif text-rose-100/90 italic leading-relaxed min-h-[90px] flex items-center justify-center text-center">
+              <p className="text-rose-200/70 not-italic font-sans text-xs">
+                [ Personal note will appear here ]
               </p>
+            </div>
 
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => setShowGrandFinale(false)}
-                  className="w-full py-3 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs font-sans transition-all shadow-md active:scale-95 cursor-pointer"
-                >
-                  Admire the Blooming Pond of Lilies ♡
-                </button>
-                <button
-                  onClick={handleReset}
-                  className="w-full py-2.5 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-800 font-bold text-xs font-sans transition-colors cursor-pointer"
-                >
-                  Re-bloom the Lily from the Start
-                </button>
-              </div>
-            </motion.div>
+            <div className="flex items-center justify-between gap-2 mt-4 pt-2 border-t border-rose-300/20 text-xs">
+              <button
+                onClick={resetPullDownBloom}
+                className="px-3 py-1.5 rounded-full bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 font-serif cursor-pointer transition-colors"
+                title="Reset to unbloomed buds to pull down again"
+              >
+                Pull to Re-Bloom
+              </button>
+              <button
+                onClick={handleReset}
+                className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-rose-200 font-serif cursor-pointer transition-colors"
+                title="Reset Chapter 2 from the start"
+              >
+                Reset to Start
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
