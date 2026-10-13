@@ -251,8 +251,8 @@ function createPetalGeometry(width = 1.15, length = 2.45, isOuter = true) {
   for (let i = 0; i < pos.count; i++) {
     const x = pos.getX(i);
     const y = pos.getY(i);
-    origU.push(x / (width / 2));
-    origV.push(y / length); // 0 at base, 1 at tip
+    origU.push(Math.max(-1, Math.min(1, x / (width / 2))));
+    origV.push(Math.max(0, Math.min(1, y / length))); // clamp strictly to [0, 1] to avoid float precision NaN
   }
 
   geom.userData = { origU, origV, width, length, isOuter };
