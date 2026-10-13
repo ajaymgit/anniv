@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -7,7 +8,13 @@ import {
   ChevronRight,
   RotateCcw,
   Sparkles,
-  Heart
+  Heart,
+  Camera,
+  Eye,
+  Maximize2,
+  RefreshCw,
+  Compass,
+  Play
 } from "lucide-react";
 import { useAnniversary } from "../context/AnniversaryContext";
 import confetti from "canvas-confetti";
@@ -18,12 +25,11 @@ import {
   WashiTape
 } from "../components/common/GirlyPopDecorations";
 
-// The 8 Petals & Stories of the 3D Stargazer Lily
-export const LILY_PETALS = [
+// Sequential Milestone Stories (1 through 8 in order)
+export const LILY_STORIES = [
   {
     id: 1,
     order: 1,
-    name: "Outer Tepal I",
     title: "Where Two Aries Collided",
     yearBadge: "Year 01 // 2019",
     date: "October 2019 // The First Spark",
@@ -33,18 +39,11 @@ export const LILY_PETALS = [
 Two stubborn, fiery Aries who normally guard their independence fiercely—suddenly wanting to stay in the exact same room, talking for hours without running out of things to say. 
 
 You weren't like anyone else I had ever met. You carried this fierce, quiet authenticity that immediately broke through all my defenses. That first spark wasn't just a moment; it was the foundation of our entire story.`,
-    photoUrl: "https://images.unsplash.com/photo-1517256673805-adc3f4a9b634?auto=format&fit=crop&w=800&q=80",
-    angle: 0,
-    radius: 0.88,
-    elevation: 0.12,
-    tilt: 0.94,
-    curl: 0.42,
-    scale: 1.15
+    photoUrl: "https://images.unsplash.com/photo-1517256673805-adc3f4a9b634?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 2,
     order: 2,
-    name: "Outer Tepal II",
     title: "Midnight Rain & Empty Roads",
     yearBadge: "Year 02 // 2020",
     date: "Year 02 // City Nights",
@@ -54,18 +53,11 @@ You weren't like anyone else I had ever met. You carried this fierce, quiet auth
 Like riding through torrential night rain when neither of us had any business being on the road. Water dripping from our helmets and soaking through our jackets, cold winds whipping past, and your hands tucked tightly into my pockets.
 
 In that quiet midnight city, with nobody else around, I realized I would ride anywhere in the world as long as you were sitting behind me.`,
-    photoUrl: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80",
-    angle: Math.PI / 2,
-    radius: 0.9,
-    elevation: 0.14,
-    tilt: 0.96,
-    curl: 0.45,
-    scale: 1.18
+    photoUrl: "https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 3,
     order: 3,
-    name: "Outer Tepal III",
     title: "The Corner Table & Crispy Fries",
     yearBadge: "Year 03 // 2021",
     date: "Year 03 // Favorite Café",
@@ -75,18 +67,11 @@ In that quiet midnight city, with nobody else around, I realized I would ride an
 Splitting an order of extra crispy fries and silently leaving the crunchiest one at the bottom for you. The way we could talk about the most absurd, ridiculous thoughts one minute, and dive into our deepest family vulnerabilities the next.
 
 With you, there was never any awkward silence—only comfort so deep it felt like breathing.`,
-    photoUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80",
-    angle: Math.PI,
-    radius: 0.89,
-    elevation: 0.13,
-    tilt: 0.95,
-    curl: 0.44,
-    scale: 1.16
+    photoUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 4,
     order: 4,
-    name: "Outer Tepal IV",
     title: "Learning Your Quiet Cadence",
     yearBadge: "Year 04 // 2022",
     date: "Year 04 // Inside Jokes",
@@ -96,18 +81,11 @@ With you, there was never any awkward silence—only comfort so deep it felt lik
 I learned the subtle signs of when you were exhausted before you said a word. I learned how your laughter could instantly dismantle a bad day, and how seriously you take an UNO Draw 4 card.
 
 We learned how to forgive quickly, how to tease gently, and how to hold space for each other when life felt heavy. You became my safest harbor.`,
-    photoUrl: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80",
-    angle: (3 * Math.PI) / 2,
-    radius: 0.88,
-    elevation: 0.12,
-    tilt: 0.94,
-    curl: 0.43,
-    scale: 1.15
+    photoUrl: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 5,
     order: 5,
-    name: "Inner Tepal V",
     title: "Your Fierce, Unshakable Heart",
     yearBadge: "Year 05 // 2023",
     date: "Year 05 // Benchmark of Integrity",
@@ -117,18 +95,11 @@ We learned how to forgive quickly, how to tease gently, and how to hold space fo
 You never perform kindness for an audience. When someone is hurting, you show up. When things are difficult, you set your jaw, figure out what needs to be done, and do it with grace.
 
 In five years of watching you grow, my respect for your character only deepened. You are the standard of integrity and honesty in my life.`,
-    photoUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
-    angle: Math.PI / 4,
-    radius: 0.54,
-    elevation: 0.34,
-    tilt: 0.65,
-    curl: 0.32,
-    scale: 0.98
+    photoUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 6,
     order: 6,
-    name: "Inner Tepal VI",
     title: "Counting Gates & Time Zones",
     yearBadge: "Year 06 // 2024",
     date: "Year 06 // The Distance Anchor",
@@ -138,18 +109,12 @@ In five years of watching you grow, my respect for your character only deepened.
 Yet across busy schedules, departures, and counting down the days until we could sit in the same room again, our bond never wavered. Every late-night call and every countdown proved what we always knew:
 
 Physical miles could never dilute what we built. We were anchored in each other long before the miles appeared.`,
-    photoUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80",
-    angle: (11 * Math.PI) / 12,
-    radius: 0.56,
-    elevation: 0.38,
-    tilt: 0.68,
-    curl: 0.34,
-    scale: 0.96
+    photoUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 7,
     order: 7,
-    name: "Inner Tepal VII",
+    name: "Heart Petal VII",
     title: "Unshakable Home",
     yearBadge: "Year 07 // 2025",
     date: "Year 07 // The Sanctuary",
@@ -159,13 +124,7 @@ Physical miles could never dilute what we built. We were anchored in each other 
 You don't need to give advice or solve my problems. Just resting your head on my shoulder or holding my hand reminds me of who I am.
 
 In seven years, you turned love from a fleeting feeling into a permanent home.`,
-    photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
-    angle: (19 * Math.PI) / 12,
-    radius: 0.53,
-    elevation: 0.35,
-    tilt: 0.64,
-    curl: 0.31,
-    scale: 0.95
+    photoUrl: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: 8,
@@ -182,20 +141,13 @@ I chose you seven years ago on a quiet evening, and I have chosen you every sing
 There is no version of my future, no dream I want to build, and no horizon I look toward that doesn't have you standing by my side. Seven years of us was just the prologue.
 
 To our next seven, our next seventy, and a lifetime of lilies blooming for you. Happy 7th Anniversary, Mythri ♡`,
-    photoUrl: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
-    angle: 0,
-    radius: 0.04,
-    elevation: 0.58,
-    tilt: 0.18,
-    curl: 0.18,
-    scale: 0.85
+    photoUrl: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
-// Backward-compatible alias
-export const ROSE_PETALS = LILY_PETALS;
+export const LILY_PETALS = LILY_STORIES;
+export const ROSE_PETALS = LILY_STORIES;
 
-// 36 blooming celestial lilies for the finale
 export const BLOOMING_LILIES = Array.from({ length: 36 }).map((_, i) => ({
   id: i,
   x: `${(i * 19.3) % 92 + 4}%`,
@@ -205,62 +157,61 @@ export const BLOOMING_LILIES = Array.from({ length: 36 }).map((_, i) => ({
   delay: (i % 12) * 0.12
 }));
 
-// Generates procedural Stargazer Lily petal canvas texture
-function createStargazerLilyTexture() {
+// Generates high-res botanical watercolor canvas texture for the Stargazer Lily
+function createLilyTexture() {
   const canvas = document.createElement("canvas");
-  canvas.width = 512;
+  canvas.width = 1024;
   canvas.height = 1024;
   const ctx = canvas.getContext("2d");
 
-  // Vertical gradient: deep carmine-throat -> blush pink -> pearl white at tip
-  const grad = ctx.createLinearGradient(256, 1024, 256, 0);
-  grad.addColorStop(0, "#881337");    // Deep ruby throat
-  grad.addColorStop(0.2, "#be123c");   // Carmine midtone
-  grad.addColorStop(0.55, "#f43f5e");  // Stargazer pink
-  grad.addColorStop(0.8, "#fda4af");   // Blush edge
-  grad.addColorStop(0.95, "#fff1f2");  // Soft cream
+  // Vertical gradient from throat to tip
+  const grad = ctx.createLinearGradient(512, 1024, 512, 0);
+  grad.addColorStop(0.0, "#9f1239");   // Deep ruby throat
+  grad.addColorStop(0.2, "#be123c");   // Velvety carmine
+  grad.addColorStop(0.5, "#f43f5e");   // Stargazer rose-pink
+  grad.addColorStop(0.75, "#fda4af");  // Blush pink
+  grad.addColorStop(0.92, "#fff1f2");  // Soft cream
   grad.addColorStop(1.0, "#ffffff");   // Pure white reflexed tip
   ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 512, 1024);
+  ctx.fillRect(0, 0, 1024, 1024);
 
-  // Central vivid magenta/carmine flame streak
-  const centerGrad = ctx.createLinearGradient(256, 1024, 256, 150);
+  // Central vivid ruby midrib streak
+  const centerGrad = ctx.createLinearGradient(512, 1024, 512, 120);
   centerGrad.addColorStop(0, "rgba(159, 18, 57, 0.95)");
-  centerGrad.addColorStop(0.4, "rgba(225, 29, 72, 0.88)");
-  centerGrad.addColorStop(0.75, "rgba(251, 113, 133, 0.5)");
-  centerGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
-
+  centerGrad.addColorStop(0.35, "rgba(225, 29, 72, 0.88)");
+  centerGrad.addColorStop(0.7, "rgba(251, 113, 133, 0.5)");
+  centerGrad.addColorStop(1.0, "rgba(255, 255, 255, 0)");
   ctx.fillStyle = centerGrad;
   ctx.beginPath();
-  ctx.moveTo(256, 1024);
-  ctx.bezierCurveTo(232, 700, 238, 350, 256, 140);
-  ctx.bezierCurveTo(274, 350, 280, 700, 256, 1024);
+  ctx.moveTo(512, 1024);
+  ctx.bezierCurveTo(460, 650, 480, 300, 512, 80);
+  ctx.bezierCurveTo(544, 300, 564, 650, 512, 1024);
   ctx.fill();
 
-  // Nectar groove: pale yellow-green streak at the very base
-  const grooveGrad = ctx.createLinearGradient(256, 1024, 256, 820);
-  grooveGrad.addColorStop(0, "rgba(132, 204, 22, 0.95)");
-  grooveGrad.addColorStop(0.7, "rgba(190, 242, 100, 0.65)");
-  grooveGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
+  // Pale lime-green nectar furrow at base
+  const grooveGrad = ctx.createLinearGradient(512, 1024, 512, 800);
+  grooveGrad.addColorStop(0.0, "rgba(132, 204, 22, 0.95)");
+  grooveGrad.addColorStop(0.75, "rgba(190, 242, 100, 0.65)");
+  grooveGrad.addColorStop(1.0, "rgba(255, 255, 255, 0)");
   ctx.fillStyle = grooveGrad;
   ctx.beginPath();
-  ctx.ellipse(256, 930, 8, 95, 0, 0, Math.PI * 2);
+  ctx.ellipse(512, 920, 18, 110, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Crisp white outer margins on left and right
-  const leftEdge = ctx.createLinearGradient(0, 0, 110, 0);
+  // Pearlescent translucent outer white margins
+  const leftEdge = ctx.createLinearGradient(0, 0, 180, 0);
   leftEdge.addColorStop(0, "rgba(255, 255, 255, 0.92)");
   leftEdge.addColorStop(1, "rgba(255, 255, 255, 0)");
   ctx.fillStyle = leftEdge;
-  ctx.fillRect(0, 0, 110, 1024);
+  ctx.fillRect(0, 0, 180, 1024);
 
-  const rightEdge = ctx.createLinearGradient(512, 0, 402, 0);
+  const rightEdge = ctx.createLinearGradient(1024, 0, 844, 0);
   rightEdge.addColorStop(0, "rgba(255, 255, 255, 0.92)");
   rightEdge.addColorStop(1, "rgba(255, 255, 255, 0)");
   ctx.fillStyle = rightEdge;
-  ctx.fillRect(402, 0, 110, 1024);
+  ctx.fillRect(844, 0, 180, 1024);
 
-  // Stargazer Papillae / Freckles: burgundy dots clustered along the central midrib
+  // Stargazer freckles / papillae clustered along throat
   ctx.fillStyle = "#4c0519";
   for (let i = 0; i < 170; i++) {
     const seed = i * 9301 + 49297;
@@ -268,10 +219,10 @@ function createStargazerLilyTexture() {
     const r2 = ((seed * 7) % 233280) / 233280;
     const r3 = ((seed * 13) % 233280) / 233280;
 
-    const py = 340 + r1 * 560;
-    const spread = (1 - Math.abs((py - 600) / 420)) * 130;
-    const px = 256 + (r2 - 0.5) * spread * 2;
-    const radius = 1.6 + r3 * 3.4;
+    const py = 360 + r1 * 540;
+    const spread = (1 - Math.abs((py - 620) / 380)) * 130;
+    const px = 512 + (r2 - 0.5) * spread * 2;
+    const radius = 1.4 + r3 * 2.8;
 
     ctx.beginPath();
     ctx.arc(px, py, radius, 0, Math.PI * 2);
@@ -281,50 +232,71 @@ function createStargazerLilyTexture() {
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.ClampToEdgeWrapping;
   texture.wrapT = THREE.ClampToEdgeWrapping;
+  texture.colorSpace = THREE.SRGBColorSpace;
   return texture;
 }
 
-// Builds a botanical 3D Stargazer Lily petal with lanceolate profile, central midrib, arching curve, and reflexed tip
-function create3DLilyPetalGeometry(width = 0.85, length = 1.95, arch = 0.65, reflex = 0.38, cup = 0.28) {
+// Builds single petal geometry with base anchored at y = 0
+function createPetalGeometry(width = 1.15, length = 2.45, isOuter = true) {
   const segX = 24;
-  const segY = 36;
+  const segY = 32;
   const geom = new THREE.PlaneGeometry(width, length, segX, segY);
+  // Shift pivot so base connects cleanly at (0, 0, 0)
+  geom.translate(0, length / 2, 0);
+
   const pos = geom.attributes.position;
+  const origU = [];
+  const origV = [];
 
   for (let i = 0; i < pos.count; i++) {
     const x = pos.getX(i);
     const y = pos.getY(i);
-
-    // Normalize coordinates: u in [-1, 1], v in [0, 1]
-    const u = x / (width / 2);
-    const v = (y + length / 2) / length;
-
-    // Organic lanceolate width profile: narrow claw base, widest at ~40-45% height, pointed apex
-    const widthFactor = Math.sin(Math.pow(v, 0.72) * Math.PI) * (1 - 0.15 * v);
-    pos.setX(i, (u * width / 2) * widthFactor);
-
-    // Central longitudinal midrib depression & transverse cupping
-    const midrib = -Math.abs(u) * 0.08 * (1 - v * 0.3);
-    const cupZ = -Math.pow(u, 2) * cup * Math.sin(v * Math.PI * 0.85);
-
-    // Graceful outward arching curve
-    let archZ = Math.sin(v * Math.PI * 0.65) * arch;
-
-    // Dramatic recurved / reflexed tip
-    if (v > 0.55) {
-      const tipV = (v - 0.55) / 0.45;
-      archZ -= Math.pow(tipV, 2.2) * (arch * 1.35 + reflex);
-    }
-
-    // Natural undulating ruffles along outer margins
-    const marginDist = Math.abs(u);
-    const ruffle = Math.sin(v * 24 + u * 6) * 0.035 * Math.pow(marginDist, 1.8) * Math.sin(v * Math.PI);
-
-    pos.setZ(i, cupZ + archZ + midrib + ruffle);
+    origU.push(x / (width / 2));
+    origV.push(y / length); // 0 at base, 1 at tip
   }
 
-  geom.computeVertexNormals();
+  geom.userData = { origU, origV, width, length, isOuter };
   return geom;
+}
+
+// Updates petal curvature based on bloom progress (0 = closed bud, 1 = open bloom)
+function applyPetalCurvature(geom, bloomT) {
+  const { origU, origV, width, length, isOuter } = geom.userData;
+  const pos = geom.attributes.position;
+
+  // Closed bud (bloomT=0): cupped snugly inward, straight/inward arch, no reflex
+  // Full bloom (bloomT=1): broad flare, outward arch, dramatic recurved reflex
+  const cup = THREE.MathUtils.lerp(0.32, isOuter ? 0.14 : 0.20, bloomT);
+  const arch = THREE.MathUtils.lerp(0.12, 0.48, bloomT);
+  const reflex = THREE.MathUtils.lerp(0.0, 0.46, bloomT);
+
+  for (let i = 0; i < pos.count; i++) {
+    const u = origU[i];
+    const v = origV[i];
+
+    // Organic lanceolate outline: narrow claw at base, widest at ~38% height
+    const widthFactor = Math.sin(Math.pow(v, 0.68) * Math.PI) * (1.0 - 0.16 * v);
+    const wExpand = THREE.MathUtils.lerp(0.72, 1.0, bloomT);
+    pos.setX(i, (u * (width * wExpand) / 2) * widthFactor);
+
+    // Transverse cup
+    const cupZ = -Math.pow(u, 2) * cup * Math.sin(v * Math.PI * 0.9);
+
+    // Longitudinal curve: arches outward, reflexes backward at tip when bloomed
+    let archZ = Math.sin(v * Math.PI * 0.72) * arch;
+    if (v > 0.48) {
+      const tipV = (v - 0.48) / 0.52;
+      archZ -= Math.pow(tipV, 2.1) * reflex;
+    }
+
+    const midrib = -Math.abs(u) * 0.035 * Math.sin(v * Math.PI);
+    const softWave = Math.sin(v * 6 + u * 2) * (0.012 * bloomT) * Math.pow(Math.abs(u), 1.4);
+
+    pos.setZ(i, cupZ + archZ + midrib + softWave);
+  }
+
+  pos.needsUpdate = true;
+  geom.computeVertexNormals();
 }
 
 export default function SpaceConstellation() {
@@ -334,19 +306,187 @@ export default function SpaceConstellation() {
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
   const cameraRef = useRef(null);
-  const petalMeshesRef = useRef([]);
+  const controlsRef = useRef(null);
+  const lilyGroupRef = useRef(null);
+  const stamenGroupRef = useRef(null);
+  const heartGlowRef = useRef(null);
+  const petalPivotsRef = useRef([]);
   const fallingPetalsRef = useRef([]);
-  const restingPetalsRef = useRef([]);
   const ripplePlaneRef = useRef(null);
 
+  // Blooming animation tracking (starts at 0 in bud, delays 2 seconds, then blooms to 1)
+  const bloomProgressRef = useRef(0);
+  const pageEnterTimeRef = useRef(null);
+  const isBloomingRef = useRef(true);
+
+  // Interaction lock
+  const isPluckingRef = useRef(false);
+  const nextStoryIndexRef = useRef(0);
+  const pointerDownPosRef = useRef({ x: 0, y: 0, time: 0 });
+
   // React state
-  const [fallenPetals, setFallenPetals] = useState(new Set());
+  const [pluckedCount, setPluckedCount] = useState(0);
   const [activeStory, setActiveStory] = useState(null);
-  const [hoveredPetal, setHoveredPetal] = useState(null);
   const [bloomedLiliesEverywhere, setBloomedLiliesEverywhere] = useState(false);
   const [showGrandFinale, setShowGrandFinale] = useState(false);
+  const [autoRotate, setAutoRotate] = useState(false);
+  const [currentCameraPreset, setCurrentCameraPreset] = useState("cinematic");
 
-  // Set up the Three.js 3D Stargazer Lily Scene
+  // 8 distinct petals layout:
+  // In bud: tilt ~ 0.12 (upright, tightly clustered), radius ~ 0.16
+  // In full bloom: tilt ~ 1.18 (wide open 68 deg star!), radius ~ 0.58
+  const PETAL_LAYOUT = [
+    { id: 1, angle: 0,                   bloomRadius: 0.58, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.05 },
+    { id: 2, angle: (2 * Math.PI) / 3,   bloomRadius: 0.58, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.05 },
+    { id: 3, angle: (4 * Math.PI) / 3,   bloomRadius: 0.58, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.05 },
+    { id: 4, angle: Math.PI / 3,         bloomRadius: 0.48, budRadius: 0.13, bloomTilt: 1.05, budTilt: 0.10, isOuter: false, wScale: 1.25 },
+    { id: 5, angle: Math.PI,             bloomRadius: 0.48, budRadius: 0.13, bloomTilt: 1.05, budTilt: 0.10, isOuter: false, wScale: 1.25 },
+    { id: 6, angle: (5 * Math.PI) / 3,   bloomRadius: 0.48, budRadius: 0.13, bloomTilt: 1.05, budTilt: 0.10, isOuter: false, wScale: 1.25 },
+    { id: 7, angle: Math.PI / 6,         bloomRadius: 0.28, budRadius: 0.09, bloomTilt: 0.42, budTilt: 0.08, isOuter: false, wScale: 0.95 },
+    { id: 8, angle: (7 * Math.PI) / 6,   bloomRadius: 0.12, budRadius: 0.05, bloomTilt: 0.22, budTilt: 0.06, isOuter: false, wScale: 0.88 }
+  ];
+
+  // Camera presets
+  const CAMERA_PRESETS = [
+    { id: "cinematic", label: "Cinematic", icon: Camera, pos: [0, 1.2, 5.2], target: [0, 0.4, 0], desc: "Beauty 3/4 Overview" },
+    { id: "top", label: "Top Bloom", icon: Maximize2, pos: [0, 5.2, 0.1], target: [0, 0.5, 0], desc: "Direct Downward Star Bloom" },
+    { id: "front", label: "Eye Level", icon: Eye, pos: [0, 0.5, 4.6], target: [0, 0.5, 0], desc: "Straight Front Profile" },
+    { id: "side", label: "Side Angle", icon: Compass, pos: [4.8, 0.8, 0], target: [0, 0.4, 0], desc: "Stem Arch & Reflexed Petals" },
+    { id: "macro", label: "Macro", icon: Sparkles, pos: [0, 0.7, 2.1], target: [0, 0.55, 0], desc: "Golden Anthers & Nectar Throat" }
+  ];
+
+  const applyCameraPreset = (preset) => {
+    if (!cameraRef.current || !controlsRef.current) return;
+    setCurrentCameraPreset(preset.id);
+    const cam = cameraRef.current;
+    const ctrl = controlsRef.current;
+
+    const startPos = cam.position.clone();
+    const endPos = new THREE.Vector3(...preset.pos);
+    const startTarget = ctrl.target.clone();
+    const endTarget = new THREE.Vector3(...preset.target);
+
+    let progress = 0;
+    const duration = 24;
+    const animateCam = () => {
+      progress++;
+      const t = Math.min(progress / duration, 1);
+      const ease = 0.5 - 0.5 * Math.cos(t * Math.PI);
+
+      cam.position.lerpVectors(startPos, endPos, ease);
+      ctrl.target.lerpVectors(startTarget, endTarget, ease);
+      ctrl.update();
+
+      if (t < 1) {
+        requestAnimationFrame(animateCam);
+      }
+    };
+    animateCam();
+  };
+
+  // Replay the 2-second pause and blooming sequence
+  const replayBloom = () => {
+    bloomProgressRef.current = 0;
+    pageEnterTimeRef.current = performance.now();
+    isBloomingRef.current = true;
+
+    petalPivotsRef.current.forEach(({ pivot, mesh, layout }) => {
+      if (!mesh.userData.plucked) {
+        pivot.position.set(
+          Math.cos(layout.angle) * layout.budRadius,
+          0.38,
+          Math.sin(layout.angle) * layout.budRadius
+        );
+        mesh.rotation.x = -layout.budTilt;
+        applyPetalCurvature(mesh.geometry, 0.0);
+      }
+    });
+
+    if (stamenGroupRef.current) {
+      stamenGroupRef.current.scale.setScalar(0.25);
+    }
+    if (heartGlowRef.current) {
+      heartGlowRef.current.intensity = 0.3;
+    }
+  };
+
+  // Build the 8 Individual Independent Petal Pivots
+  const buildLilyPetals = () => {
+    const lilyGroup = lilyGroupRef.current;
+    if (!lilyGroup || !sceneRef.current) return;
+
+    // Clean old objects
+    petalPivotsRef.current.forEach(({ pivot, mesh }) => {
+      if (pivot.parent) pivot.parent.remove(pivot);
+      if (mesh.geometry) mesh.geometry.dispose();
+      if (mesh.material) mesh.material.dispose();
+    });
+    petalPivotsRef.current = [];
+
+    fallingPetalsRef.current.forEach((fp) => {
+      if (fp.mesh.parent) fp.mesh.parent.remove(fp.mesh);
+      if (fp.mesh.geometry) fp.mesh.geometry.dispose();
+      if (fp.mesh.material) fp.mesh.material.dispose();
+    });
+    fallingPetalsRef.current = [];
+
+    const texture = createLilyTexture();
+    const petalPivots = [];
+
+    PETAL_LAYOUT.forEach((layout) => {
+      // Pivot object placed at radial coordinate (outward flaring orientation)
+      const pivot = new THREE.Group();
+      pivot.rotation.y = -layout.angle - Math.PI / 2;
+      pivot.position.set(
+        Math.cos(layout.angle) * layout.budRadius,
+        0.38,
+        Math.sin(layout.angle) * layout.budRadius
+      );
+
+      // Petal mesh attached to pivot at (0, 0, 0)
+      const geom = createPetalGeometry(layout.wScale * 1.15, 2.45, layout.isOuter);
+      applyPetalCurvature(geom, 0.0);
+
+      const mat = new THREE.MeshStandardMaterial({
+        map: texture,
+        roughness: 0.38,
+        metalness: 0.02,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 1.0
+      });
+
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.rotation.x = -layout.budTilt;
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      mesh.userData = {
+        id: layout.id,
+        layout,
+        pivot,
+        plucked: false
+      };
+
+      pivot.add(mesh);
+      lilyGroup.add(pivot);
+      petalPivots.push({ pivot, mesh, layout });
+    });
+
+    petalPivotsRef.current = petalPivots;
+
+    if (stamenGroupRef.current) {
+      stamenGroupRef.current.scale.setScalar(0.25);
+    }
+    if (heartGlowRef.current) {
+      heartGlowRef.current.intensity = 0.3;
+    }
+
+    isPluckingRef.current = false;
+    nextStoryIndexRef.current = 0;
+  };
+
+  // Main Three.js Scene Setup
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -354,13 +494,12 @@ export default function SpaceConstellation() {
     const width = container.clientWidth || 400;
     const height = container.clientHeight || 500;
 
-    // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-    camera.position.set(0, 0.95, 5.3);
-    camera.lookAt(0, -0.15, 0);
+    camera.position.set(0, 1.2, 5.2);
+    camera.lookAt(0, 0.4, 0);
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -369,55 +508,65 @@ export default function SpaceConstellation() {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.18;
+    renderer.toneMappingExposure = 1.22;
     container.innerHTML = "";
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 2. Cinematic 3D Lighting
-    const ambientLight = new THREE.AmbientLight(0x280512, 1.6);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.maxPolarAngle = Math.PI / 2 + 0.12;
+    controls.minPolarAngle = 0.05;
+    controls.minDistance = 1.6;
+    controls.maxDistance = 8.5;
+    controls.target.set(0, 0.4, 0);
+    controls.autoRotate = false;
+    controls.autoRotateSpeed = 1.5;
+    controlsRef.current = controls;
+
+    // Cinematic Botanical Warm Lighting
+    const ambientLight = new THREE.AmbientLight(0x381220, 1.8);
     scene.add(ambientLight);
 
-    // Warm Key Light (Directional from top-left)
-    const keyLight = new THREE.DirectionalLight(0xfff1f2, 2.9);
-    keyLight.position.set(-3.5, 4.5, 4);
+    const keyLight = new THREE.DirectionalLight(0xfff5f5, 3.2);
+    keyLight.position.set(-3.5, 5.2, 4.5);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 1024;
     keyLight.shadow.mapSize.height = 1024;
     scene.add(keyLight);
 
-    // Rim Light (Directional from behind-right, catches reflexed tips)
-    const rimLight = new THREE.DirectionalLight(0xfb7185, 2.4);
-    rimLight.position.set(3, 2, -2.5);
+    const rimLight = new THREE.DirectionalLight(0xfb7185, 2.6);
+    rimLight.position.set(3.5, 3.0, -3.0);
     scene.add(rimLight);
 
-    // Soft Blue Water Bounce Light
-    const bounceLight = new THREE.DirectionalLight(0x38bdf8, 0.95);
-    bounceLight.position.set(0, -3, 2);
-    scene.add(bounceLight);
+    const fillLight = new THREE.DirectionalLight(0xfecdd3, 0.7);
+    fillLight.position.set(0, -2, 2.5);
+    scene.add(fillLight);
 
-    // Warm Inner Starlight Glow in the center of the bloom
-    const heartGlow = new THREE.PointLight(0xff85a1, 1.9, 3.8);
-    heartGlow.position.set(0, 0.5, 0.25);
+    // Glowing inner starlight inside flower throat
+    const heartGlow = new THREE.PointLight(0xff4d79, 0.3, 4.2);
+    heartGlow.position.set(0, 0.65, 0.2);
     scene.add(heartGlow);
+    heartGlowRef.current = heartGlow;
 
-    // 3. Water Pool Plane & Ripples
-    const waterGeom = new THREE.CircleGeometry(2.3, 48);
+    // Soft Nocturnal Reflective Water Pool (blends into starry night)
+    const waterGeom = new THREE.CircleGeometry(3.5, 64);
     const waterMat = new THREE.MeshStandardMaterial({
       color: 0x07111e,
-      roughness: 0.08,
-      metalness: 0.88,
+      roughness: 0.12,
+      metalness: 0.85,
       transparent: true,
-      opacity: 0.78
+      opacity: 0.48
     });
     const waterPlane = new THREE.Mesh(waterGeom, waterMat);
     waterPlane.rotation.x = -Math.PI / 2;
-    waterPlane.position.y = -1.85;
+    waterPlane.position.y = -1.95;
     waterPlane.receiveShadow = true;
     scene.add(waterPlane);
 
-    // Expanding water ripple ring mesh
-    const rippleGeom = new THREE.RingGeometry(0.01, 0.09, 48);
+    // Water ripple ring mesh
+    const rippleGeom = new THREE.RingGeometry(0.01, 0.1, 48);
     const rippleMat = new THREE.MeshBasicMaterial({
       color: 0xfda4af,
       transparent: true,
@@ -426,47 +575,46 @@ export default function SpaceConstellation() {
     });
     const ripplePlane = new THREE.Mesh(rippleGeom, rippleMat);
     ripplePlane.rotation.x = -Math.PI / 2;
-    ripplePlane.position.y = -1.84;
+    ripplePlane.position.y = -1.94;
     scene.add(ripplePlane);
     ripplePlaneRef.current = ripplePlane;
 
-    // 4. Botanical Lily Stem, Foliage, Receptacle, and Stamens
+    // Botanical Lily Stem, Foliage, Receptacle, and Stamens
     const lilyGroup = new THREE.Group();
     lilyGroup.position.set(0, -0.1, 0);
     scene.add(lilyGroup);
+    lilyGroupRef.current = lilyGroup;
 
-    // Natural curved lily stem spline
+    // Curved stem
     const stemCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, 0.35, 0),
-      new THREE.Vector3(-0.05, -0.25, 0.03),
-      new THREE.Vector3(0.04, -0.95, -0.02),
+      new THREE.Vector3(0, 0.38, 0),
+      new THREE.Vector3(-0.04, -0.22, 0.02),
+      new THREE.Vector3(0.03, -0.92, -0.02),
       new THREE.Vector3(-0.02, -1.45, 0.02),
-      new THREE.Vector3(0, -1.85, 0)
+      new THREE.Vector3(0, -1.95, 0)
     ]);
-    const stemGeom = new THREE.TubeGeometry(stemCurve, 32, 0.052, 12, false);
+    const stemGeom = new THREE.TubeGeometry(stemCurve, 32, 0.054, 14, false);
     const stemMat = new THREE.MeshStandardMaterial({
-      color: 0x15803d,
-      roughness: 0.6,
-      metalness: 0.08
+      color: 0x166534,
+      roughness: 0.55,
+      metalness: 0.05
     });
     const stemMesh = new THREE.Mesh(stemGeom, stemMat);
     stemMesh.castShadow = true;
     lilyGroup.add(stemMesh);
 
-    // Slender lanceolate lily leaves arching outward
-    const leafGeom = new THREE.PlaneGeometry(0.28, 0.95, 8, 12);
-    // Curl leaf along length
+    // Arching leaves
+    const leafGeom = new THREE.PlaneGeometry(0.3, 0.98, 8, 12);
     const leafPos = leafGeom.attributes.position;
     for (let i = 0; i < leafPos.count; i++) {
       const y = leafPos.getY(i);
-      const v = (y + 0.475) / 0.95;
-      leafPos.setZ(i, Math.sin(v * Math.PI * 0.7) * 0.14);
+      const v = (y + 0.49) / 0.98;
+      leafPos.setZ(i, Math.sin(v * Math.PI * 0.7) * 0.15);
     }
     leafGeom.computeVertexNormals();
-
     const leafMat = new THREE.MeshStandardMaterial({
-      color: 0x166534,
-      roughness: 0.4,
+      color: 0x15803d,
+      roughness: 0.45,
       side: THREE.DoubleSide
     });
 
@@ -480,136 +628,92 @@ export default function SpaceConstellation() {
     leaf2.rotation.set(-0.25, -0.35, -Math.PI / 3.2);
     lilyGroup.add(leaf2);
 
-    // Flower receptacle base
-    const baseBudGeom = new THREE.SphereGeometry(0.35, 20, 20);
+    // Receptacle base bud
+    const baseBudGeom = new THREE.SphereGeometry(0.32, 20, 20);
     const baseBudMat = new THREE.MeshStandardMaterial({
       color: 0x15803d,
       roughness: 0.5,
       metalness: 0.05
     });
     const baseBud = new THREE.Mesh(baseBudGeom, baseBudMat);
-    baseBud.position.set(0, 0.35, 0);
+    baseBud.position.set(0, 0.38, 0);
     baseBud.scale.set(0.85, 1.1, 0.85);
     lilyGroup.add(baseBud);
 
-    // Botanical Stamens & Anthers in the heart of the Lily
+    // Botanical Stamens & Anthers radiating outward in full bloom
     const stamenGroup = new THREE.Group();
     stamenGroup.position.set(0, 0.45, 0);
+    stamenGroup.scale.setScalar(0.25);
     lilyGroup.add(stamenGroup);
+    stamenGroupRef.current = stamenGroup;
 
     const filamentMat = new THREE.MeshStandardMaterial({
-      color: 0xd9f99d, // Pale lime filament
+      color: 0xd9f99d,
       roughness: 0.4
     });
     const antherMat = new THREE.MeshStandardMaterial({
-      color: 0xb45309, // Velvety rust/golden pollen
-      roughness: 0.85,
-      metalness: 0.05
+      color: 0xb45309,
+      roughness: 0.88,
+      metalness: 0.04
     });
 
-    // 6 arching filaments with golden pollen anthers
     for (let i = 0; i < 6; i++) {
-      const theta = (i * Math.PI * 2) / 6;
+      const theta = (i * Math.PI * 2) / 6 + Math.PI / 6;
       const filCurve = new THREE.CatmullRomCurve3([
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(Math.cos(theta) * 0.12, 0.35, Math.sin(theta) * 0.12),
-        new THREE.Vector3(Math.cos(theta) * 0.24, 0.72, Math.sin(theta) * 0.24)
+        new THREE.Vector3(0, 0.04, 0),
+        new THREE.Vector3(Math.cos(theta) * 0.18, 0.42, Math.sin(theta) * 0.18),
+        new THREE.Vector3(Math.cos(theta) * 0.42, 0.88, Math.sin(theta) * 0.42)
       ]);
-      const filGeom = new THREE.TubeGeometry(filCurve, 16, 0.015, 8, false);
+      const filGeom = new THREE.TubeGeometry(filCurve, 20, 0.018, 8, false);
       const filMesh = new THREE.Mesh(filGeom, filamentMat);
       stamenGroup.add(filMesh);
 
-      // T-shaped pollen anther at filament tip
-      const antherGeom = new THREE.CapsuleGeometry(0.025, 0.12, 8, 8);
+      const antherGeom = new THREE.CapsuleGeometry(0.032, 0.16, 8, 8);
       const antherMesh = new THREE.Mesh(antherGeom, antherMat);
-      antherMesh.position.set(Math.cos(theta) * 0.25, 0.73, Math.sin(theta) * 0.25);
-      antherMesh.rotation.set(Math.random() * 0.4, theta, Math.PI / 2);
+      antherMesh.position.set(Math.cos(theta) * 0.44, 0.89, Math.sin(theta) * 0.44);
+      antherMesh.rotation.set(0.25, theta, Math.PI / 2);
       stamenGroup.add(antherMesh);
     }
 
     // Central Pistil / Style
     const styleCurve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0, 0, 0),
-      new THREE.Vector3(0.02, 0.45, 0.01),
-      new THREE.Vector3(0, 0.88, 0)
+      new THREE.Vector3(0, 0.04, 0),
+      new THREE.Vector3(0.02, 0.55, 0.01),
+      new THREE.Vector3(0, 1.05, 0)
     ]);
     const styleMesh = new THREE.Mesh(
-      new THREE.TubeGeometry(styleCurve, 16, 0.02, 8, false),
+      new THREE.TubeGeometry(styleCurve, 20, 0.024, 8, false),
       new THREE.MeshStandardMaterial({ color: 0x86efac, roughness: 0.4 })
     );
     stamenGroup.add(styleMesh);
 
-    // 3-lobed Stigma on top of pistil
+    // 3-lobed Emerald Stigma
     const stigmaMesh = new THREE.Mesh(
-      new THREE.SphereGeometry(0.045, 12, 12),
-      new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 0.6 })
+      new THREE.SphereGeometry(0.055, 14, 14),
+      new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 0.55 })
     );
-    stigmaMesh.position.set(0, 0.9, 0);
+    stigmaMesh.position.set(0, 1.07, 0);
     stamenGroup.add(stigmaMesh);
 
-    // 5. The 8 Interactive 3D Stargazer Lily Petals
-    const lilyTexture = createStargazerLilyTexture();
-    const petalMeshes = [];
-    petalMeshesRef.current = petalMeshes;
+    // Build the 8 Individual Independent Petal Pivots
+    buildLilyPetals();
 
-    LILY_PETALS.forEach((petalData) => {
-      const isOuter = petalData.order <= 4;
-      const isHeart = petalData.order === 8;
+    // Start 2-second entrance delay timer
+    pageEnterTimeRef.current = performance.now();
+    bloomProgressRef.current = 0;
+    isBloomingRef.current = true;
 
-      const geom = create3DLilyPetalGeometry(
-        0.82 * petalData.scale,
-        1.95 * petalData.scale,
-        petalData.curl,
-        petalData.tilt * 0.42,
-        isOuter ? 0.3 : 0.22
-      );
-
-      // Stargazer lily material with custom procedural texture
-      const mat = new THREE.MeshStandardMaterial({
-        map: lilyTexture,
-        roughness: 0.36,
-        metalness: 0.03,
-        side: THREE.DoubleSide
-      });
-
-      const mesh = new THREE.Mesh(geom, mat);
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-
-      // Position along star whorl
-      const angle = petalData.angle;
-      const radius = petalData.radius;
-      mesh.position.set(
-        Math.cos(angle) * radius,
-        petalData.elevation + 0.3,
-        Math.sin(angle) * radius
-      );
-
-      // Rotate petal so it flares outward in star formation
-      mesh.rotation.y = -angle + Math.PI / 2;
-      mesh.rotation.x = -petalData.tilt;
-
-      // Center heart petal wraps softly around the pistil base
-      if (isHeart) {
-        mesh.rotation.set(-0.25, 0.3, 0);
-        mesh.position.set(0, 0.58, 0);
-      }
-
-      mesh.userData = {
-        id: petalData.id,
-        petalData,
-        originalPos: mesh.position.clone(),
-        originalRot: mesh.rotation.clone(),
-        plucked: false
-      };
-
-      lilyGroup.add(mesh);
-      petalMeshes.push(mesh);
-    });
-
-    // 6. Interactive Raycaster on Pointer Move
+    // Raycasting Pointer Events
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
+
+    const onPointerDown = (e) => {
+      pointerDownPosRef.current = {
+        x: e.clientX,
+        y: e.clientY,
+        time: Date.now()
+      };
+    };
 
     const onPointerMove = (e) => {
       const rect = container.getBoundingClientRect();
@@ -617,112 +721,165 @@ export default function SpaceConstellation() {
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
       raycaster.setFromCamera(mouse, camera);
-      const activeMeshes = petalMeshes.filter((m) => !m.userData.plucked);
+      const activeMeshes = petalPivotsRef.current
+        .map((p) => p.mesh)
+        .filter((m) => !m.userData.plucked);
       const intersects = raycaster.intersectObjects(activeMeshes, false);
 
-      if (intersects.length > 0) {
-        const topMesh = intersects[0].object;
-        setHoveredPetal(topMesh.userData.petalData);
-        container.style.cursor = "pointer";
-
-        // Highlight hovered petal
-        petalMeshes.forEach((m) => {
-          if (m === topMesh) {
-            m.material.emissive.setHex(0x500718);
-          } else {
-            m.material.emissive.setHex(0x000000);
-          }
-        });
-      } else {
-        setHoveredPetal(null);
-        container.style.cursor = "default";
-        petalMeshes.forEach((m) => m.material.emissive.setHex(0x000000));
-      }
+      container.style.cursor = intersects.length > 0 ? "pointer" : "default";
     };
 
-    const onClick = (e) => {
+    const onPointerUp = (e) => {
+      const down = pointerDownPosRef.current;
+      const dist = Math.hypot(e.clientX - down.x, e.clientY - down.y);
+      const dt = Date.now() - down.time;
+
+      if (dist > 7 || dt > 650) {
+        return;
+      }
+
       const rect = container.getBoundingClientRect();
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
 
       raycaster.setFromCamera(mouse, camera);
 
-      // Check active unplucked petals
-      const activeMeshes = petalMeshes.filter((m) => !m.userData.plucked);
+      // Check unplucked petal clicks
+      const activeMeshes = petalPivotsRef.current
+        .map((p) => p.mesh)
+        .filter((m) => !m.userData.plucked);
       const intersects = raycaster.intersectObjects(activeMeshes, false);
 
       if (intersects.length > 0) {
-        const clickedMesh = intersects[0].object;
-        pluckPetal3D(clickedMesh);
-        return;
-      }
-
-      // Also check resting petals floating in the water to reopen memories
-      const restingMeshes = restingPetalsRef.current;
-      const restingIntersects = raycaster.intersectObjects(restingMeshes, false);
-      if (restingIntersects.length > 0) {
-        const clickedResting = restingIntersects[0].object;
-        setActiveStory(clickedResting.userData.petalData);
+        pluckSinglePetal(intersects[0].object);
+      } else {
+        // Also allow clicking flower group generally
+        const groupIntersects = raycaster.intersectObjects(lilyGroup.children, true);
+        if (groupIntersects.length > 0 && activeMeshes.length > 0) {
+          pluckSinglePetal(activeMeshes[0]);
+        }
       }
     };
 
+    container.addEventListener("pointerdown", onPointerDown);
     container.addEventListener("pointermove", onPointerMove);
-    container.addEventListener("click", onClick);
+    container.addEventListener("pointerup", onPointerUp);
 
-    // 7. Render Animation Loop
+    // Animation Render Loop (Handles 2-second delay + organic blooming curve)
     let animId;
     let clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
+      const now = performance.now();
 
-      // Gentle ambient sway of the lily
-      lilyGroup.rotation.y = Math.sin(elapsed * 0.5) * 0.08;
-      lilyGroup.rotation.z = Math.cos(elapsed * 0.7) * 0.02;
+      // 2-Second Delay + 2.8-Second Organic Blooming Engine
+      if (isBloomingRef.current && pageEnterTimeRef.current) {
+        const timeSinceEnter = now - pageEnterTimeRef.current;
+        const delayMs = 2000;      // 2.0 second pause in closed bud state
+        const durationMs = 2800;   // 2.8 second gentle unfurling bloom
 
-      // Animate active falling petals
+        if (timeSinceEnter < delayMs) {
+          bloomProgressRef.current = 0.0;
+        } else {
+          const rawT = Math.min((timeSinceEnter - delayMs) / durationMs, 1.0);
+          const easeT = 1 - Math.pow(1 - rawT, 3); // Organic ease-out-cubic
+          bloomProgressRef.current = easeT;
+
+          petalPivotsRef.current.forEach(({ pivot, mesh, layout }) => {
+            if (!mesh.userData.plucked) {
+              const staggerDelay = layout.isOuter ? 0.0 : 0.12;
+              const petalT = Math.max(0, Math.min((rawT - staggerDelay) / (1 - staggerDelay), 1.0));
+              const petalEase = 1 - Math.pow(1 - petalT, 3);
+
+              // Morph geometry curvature
+              applyPetalCurvature(mesh.geometry, petalEase);
+
+              // Expand radial radius
+              const curRadius = THREE.MathUtils.lerp(layout.budRadius, layout.bloomRadius, petalEase);
+              pivot.position.set(
+                Math.cos(layout.angle) * curRadius,
+                0.38,
+                Math.sin(layout.angle) * curRadius
+              );
+
+              // Flare open tilt
+              const curTilt = THREE.MathUtils.lerp(layout.budTilt, layout.bloomTilt, petalEase);
+              mesh.rotation.x = -curTilt;
+            }
+          });
+
+          // Unfurl stamens from bud heart
+          if (stamenGroupRef.current) {
+            const stamenT = Math.max(0, (easeT - 0.2) / 0.8);
+            stamenGroupRef.current.scale.setScalar(THREE.MathUtils.lerp(0.25, 1.0, stamenT));
+          }
+
+          // Inner glowing starlight intensifies as flower opens
+          if (heartGlowRef.current) {
+            heartGlowRef.current.intensity = THREE.MathUtils.lerp(0.3, 2.5, easeT);
+          }
+
+          if (rawT >= 1.0) {
+            isBloomingRef.current = false;
+          }
+        }
+      }
+
+      if (controlsRef.current) {
+        controlsRef.current.update();
+      }
+
+      // Gentle ambient lily sway when not spinning
+      if (!controlsRef.current || !controlsRef.current.autoRotate) {
+        lilyGroup.rotation.y = Math.sin(elapsed * 0.5) * 0.04;
+        lilyGroup.rotation.z = Math.cos(elapsed * 0.7) * 0.012;
+      }
+
+      // Animate active falling petals (flutter down and disappear)
       for (let i = fallingPetalsRef.current.length - 1; i >= 0; i--) {
         const fp = fallingPetalsRef.current[i];
-        fp.progress += 0.02;
+        fp.progress += 0.022;
 
-        // Aerodynamic S-curve fluttering fall
-        fp.mesh.position.y -= 0.052;
-        fp.mesh.position.x += Math.sin(fp.progress * 7) * 0.028;
-        fp.mesh.position.z += Math.cos(fp.progress * 5) * 0.016;
+        fp.mesh.position.y -= 0.055;
+        fp.mesh.position.x += Math.sin(fp.progress * 6.5) * 0.03;
+        fp.mesh.position.z += Math.cos(fp.progress * 5.0) * 0.018;
 
-        fp.mesh.rotation.x += 0.05;
+        fp.mesh.rotation.x += 0.045;
         fp.mesh.rotation.z += 0.035;
 
-        // Petal hits water surface
-        if (fp.mesh.position.y <= -1.82) {
-          fp.mesh.position.y = -1.82;
-          fp.mesh.rotation.x = Math.PI / 2;
-          fp.mesh.rotation.z = Math.random() * Math.PI * 2;
+        if (fp.mesh.position.y < -0.8) {
+          fp.mesh.material.opacity = Math.max(0, fp.mesh.material.opacity - 0.035);
+        }
 
-          // Trigger water ripple
+        // Reaches water surface -> ripple and DISAPPEAR
+        if (fp.mesh.position.y <= -1.90 || fp.mesh.material.opacity <= 0) {
           if (ripplePlaneRef.current) {
-            ripplePlaneRef.current.position.set(fp.mesh.position.x, -1.84, fp.mesh.position.z);
+            ripplePlaneRef.current.position.set(fp.mesh.position.x, -1.94, fp.mesh.position.z);
             ripplePlaneRef.current.material.opacity = 0.95;
             ripplePlaneRef.current.scale.set(0.1, 0.1, 0.1);
           }
 
-          // Move from falling to resting collection
-          restingPetalsRef.current.push(fp.mesh);
+          if (fp.mesh.parent) {
+            fp.mesh.parent.remove(fp.mesh);
+          }
+          if (fp.mesh.geometry) {
+            fp.mesh.geometry.dispose();
+          }
+          if (fp.mesh.material) {
+            fp.mesh.material.dispose();
+          }
+
           fallingPetalsRef.current.splice(i, 1);
         }
       }
 
-      // Animate resting petals floating gently on the water
-      restingPetalsRef.current.forEach((mesh, idx) => {
-        mesh.position.y = -1.82 + Math.sin(elapsed * 1.5 + idx) * 0.014;
-      });
-
-      // Animate water ripple fade & expand
+      // Water ripple expand & fade
       if (ripplePlaneRef.current && ripplePlaneRef.current.material.opacity > 0) {
         ripplePlaneRef.current.scale.x += 0.06;
         ripplePlaneRef.current.scale.y += 0.06;
-        ripplePlaneRef.current.material.opacity -= 0.022;
+        ripplePlaneRef.current.material.opacity -= 0.024;
       }
 
       renderer.render(scene, camera);
@@ -730,7 +887,6 @@ export default function SpaceConstellation() {
 
     animate();
 
-    // Resize handler
     const handleResize = () => {
       if (!container || !rendererRef.current || !cameraRef.current) return;
       const w = container.clientWidth || 400;
@@ -745,52 +901,59 @@ export default function SpaceConstellation() {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", handleResize);
+      container.removeEventListener("pointerdown", onPointerDown);
       container.removeEventListener("pointermove", onPointerMove);
-      container.removeEventListener("click", onClick);
-      if (rendererRef.current) {
-        rendererRef.current.dispose();
-      }
+      container.removeEventListener("pointerup", onPointerUp);
+      if (controlsRef.current) controlsRef.current.dispose();
+      if (rendererRef.current) rendererRef.current.dispose();
     };
   }, []);
 
-  // Pluck a 3D petal: detaches in 3D, flutters down, ripples in water, and opens memory
-  const pluckPetal3D = (mesh) => {
-    if (mesh.userData.plucked) return;
-    mesh.userData.plucked = true;
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.autoRotate = autoRotate;
+    }
+  }, [autoRotate]);
 
-    const petalData = mesh.userData.petalData;
+  // Plucks EXACTLY ONE single petal, detaches it, flutters down, and opens the next sequential story
+  const pluckSinglePetal = (petalMesh) => {
+    if (isPluckingRef.current || petalMesh.userData.plucked) return;
+    isPluckingRef.current = true;
+    petalMesh.userData.plucked = true;
 
-    // Convert mesh to scene world coordinates and detach from lilyGroup
-    const worldPos = new THREE.Vector3();
-    mesh.getWorldPosition(worldPos);
-    const worldQuat = new THREE.Quaternion();
-    mesh.getWorldQuaternion(worldQuat);
+    // Attach directly to scene to preserve world transform without position doubling
+    if (sceneRef.current) {
+      sceneRef.current.attach(petalMesh);
+    }
 
-    sceneRef.current.attach(mesh);
-
-    // Add to active falling animation physics
+    // Add ONLY this single petal to falling physics
     fallingPetalsRef.current.push({
-      mesh,
-      petalData,
+      mesh: petalMesh,
       progress: 0
     });
 
-    setFallenPetals((prev) => new Set(prev).add(petalData.id));
+    // Sequential milestone story (1 through 8 in order)
+    const storyIdx = nextStoryIndexRef.current;
+    const currentStory = LILY_STORIES[storyIdx % LILY_STORIES.length];
+    nextStoryIndexRef.current = storyIdx + 1;
+    const newCount = storyIdx + 1;
 
-    // Open memory modal right as the petal descends toward the water
+    setPluckedCount(newCount);
+
     setTimeout(() => {
-      setActiveStory(petalData);
-    }, 600);
+      setActiveStory(currentStory);
+      isPluckingRef.current = false;
+    }, 550);
 
-    // If Petal 8 (The Center Heart) is plucked:
-    if (petalData.id === 8) {
+    // All 8 petals shed
+    if (newCount >= 8) {
       setTimeout(() => {
         setBloomedLiliesEverywhere(true);
         markSpaceCompleted("02-constellation");
 
         try {
           confetti({
-            particleCount: 150,
+            particleCount: 160,
             spread: 140,
             origin: { y: 0.6 },
             colors: ["#f43f5e", "#fb7185", "#fda4af", "#fef08a", "#ffffff"]
@@ -805,40 +968,29 @@ export default function SpaceConstellation() {
   };
 
   const handleReset = () => {
-    // Reset all 3D meshes
-    petalMeshesRef.current.forEach((mesh) => {
-      mesh.userData.plucked = false;
-      mesh.position.copy(mesh.userData.originalPos);
-      mesh.rotation.copy(mesh.userData.originalRot);
-      mesh.material.emissive.setHex(0x000000);
-      sceneRef.current.children[5].attach(mesh); // Reattach to lilyGroup
-    });
-
-    fallingPetalsRef.current = [];
-    restingPetalsRef.current = [];
-
-    setFallenPetals(new Set());
+    buildLilyPetals();
     setActiveStory(null);
-    setHoveredPetal(null);
     setBloomedLiliesEverywhere(false);
     setShowGrandFinale(false);
+    setPluckedCount(0);
+    replayBloom();
   };
 
   const nextStory = () => {
     if (!activeStory) return;
-    const curIdx = LILY_PETALS.findIndex((p) => p.id === activeStory.id);
-    const nextIdx = (curIdx + 1) % LILY_PETALS.length;
-    setActiveStory(LILY_PETALS[nextIdx]);
+    const curIdx = LILY_STORIES.findIndex((p) => p.id === activeStory.id);
+    const nextIdx = (curIdx + 1) % LILY_STORIES.length;
+    setActiveStory(LILY_STORIES[nextIdx]);
   };
 
   const prevStory = () => {
     if (!activeStory) return;
-    const curIdx = LILY_PETALS.findIndex((p) => p.id === activeStory.id);
-    const prevIdx = curIdx === 0 ? LILY_PETALS.length - 1 : curIdx - 1;
-    setActiveStory(LILY_PETALS[prevIdx]);
+    const curIdx = LILY_STORIES.findIndex((p) => p.id === activeStory.id);
+    const prevIdx = curIdx === 0 ? LILY_STORIES.length - 1 : curIdx - 1;
+    setActiveStory(LILY_STORIES[prevIdx]);
   };
 
-  const remainingPetalCount = 8 - fallenPetals.size;
+  const remainingPetalCount = Math.max(0, 8 - pluckedCount);
 
   return (
     <div className="relative w-full min-h-[calc(100vh-65px)] bg-[#070e17] text-white overflow-hidden select-none font-sans flex flex-col justify-between">
@@ -849,96 +1001,124 @@ export default function SpaceConstellation() {
         className="absolute inset-0 w-full h-full object-cover object-center opacity-35 select-none pointer-events-none filter blur-[1px]"
       />
 
-      {/* Atmospheric Dark Velvet Vignette */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#060b13]/85 via-[#08121f]/75 to-[#04080e]/95 pointer-events-none" />
 
-      {/* 2. Floating Top Header Overlay */}
-      <div className="relative z-30 pt-6 px-6 sm:px-10 flex flex-wrap items-center justify-between gap-4 pointer-events-none max-w-6xl mx-auto w-full">
-        <div className="pointer-events-auto bg-slate-900/80 backdrop-blur-xl border border-rose-300/30 px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-3">
+      {/* 2. Top Header Overlay */}
+      <div className="relative z-30 pt-5 px-4 sm:px-8 flex flex-wrap items-center justify-between gap-3 pointer-events-none max-w-6xl mx-auto w-full">
+        <div className="pointer-events-auto bg-slate-900/85 backdrop-blur-xl border border-rose-300/30 px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-3">
           <RibbonBow className="w-6 h-5 text-rose-300 shrink-0" />
           <div>
             <div className="flex items-center gap-2">
               <span className="font-serif text-sm sm:text-base text-rose-100 font-bold">
-                Chapter 2 // The 3D Stargazer Lily of Seven Years
+                Chapter 2 // The Stargazer Lily of Seven Years
               </span>
               <FlowerBlossom className="w-3.5 h-3.5" petalColor="#fda4af" centerColor="#fecdd3" />
             </div>
             <p className="text-[11px] text-rose-200/80 font-sans mt-0.5">
               {remainingPetalCount > 1
-                ? `Click any 3D petal to pluck it into the water (${remainingPetalCount} petals left) ♡`
+                ? `Tap to drop a single petal into the water (${remainingPetalCount} petals left) ♡`
                 : remainingPetalCount === 1
-                ? "Only the 8th heart petal remains... Click to drop the core ♡"
-                : "All eight petals have shed into the water — a pond of lilies blooms ♡"}
+                ? "Only 1 petal left... Tap to drop the heart of the lily ♡"
+                : "All petals have shed — celestial lilies bloom across the night ♡"}
             </p>
           </div>
         </div>
 
         <div className="pointer-events-auto flex items-center gap-2">
-          {/* Reset Button */}
-          {fallenPetals.size > 0 && (
+          {/* Replay Bloom Button */}
+          <button
+            onClick={replayBloom}
+            className="px-3.5 py-2 rounded-full bg-slate-900/80 backdrop-blur-xl border border-rose-300/30 text-rose-200 hover:text-white transition-colors shadow-xl flex items-center gap-1.5 text-xs font-serif cursor-pointer"
+            title="Watch the Lily Bloom Again"
+          >
+            <Play className="w-3 h-3 text-rose-300 fill-rose-300" />
+            <span>Replay Bloom</span>
+          </button>
+
+          {/* Reset Plucked Petals Button */}
+          {pluckedCount > 0 && (
             <button
               onClick={handleReset}
               className="p-2.5 rounded-full bg-slate-900/80 backdrop-blur-xl border border-rose-300/30 text-rose-200 hover:text-white transition-colors shadow-xl cursor-pointer"
-              title="Reset 3D Lily"
+              title="Reset Lily and Reattach Petals"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
           )}
 
-          {/* Petal Progress Pill */}
           <div className="bg-slate-900/80 backdrop-blur-xl border border-rose-300/30 text-xs font-sans text-rose-100 px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2">
             <SparkleStar className="w-3.5 h-3.5 text-rose-300" />
-            <span>Petals Plucked:</span>
+            <span>Petals Dropped:</span>
             <span className="font-mono text-rose-300 font-bold">
-              {fallenPetals.size} / 8
+              {pluckedCount} / 8
             </span>
           </div>
         </div>
       </div>
 
-      {/* 3. The 3D Three.js WebGL Lily Viewport */}
-      <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-2 sm:p-4">
-        {/* Ambient Romantic Halo behind Lily */}
-        <div className="absolute w-[460px] h-[460px] rounded-full bg-rose-600/15 blur-3xl pointer-events-none" />
-
-        {/* Floating Tooltip when hovering over a 3D petal */}
-        <div className="h-7 mb-1 z-30 flex items-center justify-center pointer-events-none">
-          <AnimatePresence>
-            {hoveredPetal && (
-              <motion.div
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 6 }}
-                className="px-4 py-1 rounded-full bg-slate-900/90 border border-rose-300/40 text-xs font-serif text-rose-200 shadow-xl flex items-center gap-2 backdrop-blur-md"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-rose-300" />
-                <span>
-                  Pluck {hoveredPetal.name} // {hoveredPetal.yearBadge} ({hoveredPetal.title})
-                </span>
-              </motion.div>
-            )}
-          </AnimatePresence>
+      {/* 3. Floating Camera Views Toolbar (Right Side) */}
+      <div className="absolute top-20 right-4 sm:right-8 z-30 flex flex-col gap-1.5 bg-slate-900/85 backdrop-blur-xl border border-rose-300/30 p-2 sm:p-2.5 rounded-2xl shadow-2xl pointer-events-auto">
+        <div className="flex items-center justify-between px-1 mb-1 border-b border-rose-300/20 pb-1">
+          <span className="text-[10px] uppercase font-mono tracking-wider text-rose-200/80 font-bold flex items-center gap-1">
+            <Camera className="w-3 h-3 text-rose-300" /> Camera Views
+          </span>
         </div>
+
+        {CAMERA_PRESETS.map((preset) => {
+          const IconComponent = preset.icon;
+          const isActive = currentCameraPreset === preset.id;
+          return (
+            <button
+              key={preset.id}
+              onClick={() => applyCameraPreset(preset)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs font-sans transition-all text-left cursor-pointer ${
+                isActive
+                  ? "bg-rose-500/30 text-rose-100 border border-rose-400/50 shadow-sm"
+                  : "text-rose-200/80 hover:text-white hover:bg-white/10"
+              }`}
+              title={preset.desc}
+            >
+              <IconComponent className="w-3.5 h-3.5 text-rose-300 shrink-0" />
+              <span className="truncate">{preset.label}</span>
+            </button>
+          );
+        })}
+
+        <div className="border-t border-rose-300/20 pt-1 mt-0.5 flex flex-col gap-1">
+          <button
+            onClick={() => setAutoRotate(!autoRotate)}
+            className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs font-sans transition-all cursor-pointer ${
+              autoRotate
+                ? "bg-emerald-500/30 text-emerald-200 border border-emerald-400/40"
+                : "text-rose-200/80 hover:text-white hover:bg-white/10"
+            }`}
+            title="Continuous 360-degree turntable rotation"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${autoRotate ? "animate-spin text-emerald-300" : "text-rose-300"}`} />
+            <span>{autoRotate ? "Spinning 360°" : "Auto Rotate"}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 4. The 3D Three.js WebGL Bloomed Lily Viewport */}
+      <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-2 sm:p-4">
+        <div className="absolute w-[480px] h-[480px] rounded-full bg-rose-600/15 blur-3xl pointer-events-none" />
 
         {/* Three.js Canvas Container */}
         <div
           ref={containerRef}
-          className="relative w-[360px] h-[480px] sm:w-[480px] sm:h-[560px] flex items-center justify-center touch-none select-none drop-shadow-[0_20px_50px_rgba(244,63,94,0.45)]"
+          className="relative w-[360px] h-[480px] sm:w-[500px] sm:h-[560px] flex items-center justify-center touch-none select-none drop-shadow-[0_20px_50px_rgba(244,63,94,0.45)]"
         />
 
-        {/* Prompt Cue Below the Lily */}
+        {/* Interactive Cue */}
         <div className="mt-2 text-center z-20">
           <p className="text-xs font-serif italic text-rose-200/90 tracking-wide">
-            {remainingPetalCount > 1
-              ? "Touch any 3D Stargazer petal to pluck it — watch it flutter into the water and reveal its story ♡"
-              : remainingPetalCount === 1
-              ? "The final heart petal holds our infinity... Click it to let it drop ♡"
-              : "All 8 petals rest peacefully on the water. Click any floating petal to re-read its memory ♡"}
+            Drag to rotate camera • Scroll to zoom • Click any petal to drop it into the water and reveal the next memory ♡
           </p>
         </div>
       </div>
 
-      {/* 4. THE GRAND CLIMAX: LILIES BLOOMING ACROSS THE STARRY SKY! */}
+      {/* 5. Climax Lilies Blooming Across the Night Sky */}
       <AnimatePresence>
         {bloomedLiliesEverywhere && (
           <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden">
@@ -966,7 +1146,6 @@ export default function SpaceConstellation() {
                 }}
                 className="absolute text-rose-400 drop-shadow-[0_8px_20px_rgba(244,63,94,0.55)]"
               >
-                {/* 6-pointed Stargazer Water Lily SVG */}
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <defs>
                     <radialGradient id={`lily-grad-${lily.id}`} cx="50%" cy="50%" r="50%">
@@ -976,7 +1155,6 @@ export default function SpaceConstellation() {
                       <stop offset="100%" stopColor="#ffffff" />
                     </radialGradient>
                   </defs>
-                  {/* 6 radiating lanceolate tepals */}
                   {[0, 60, 120, 180, 240, 300].map((deg, idx) => (
                     <path
                       key={idx}
@@ -987,7 +1165,6 @@ export default function SpaceConstellation() {
                       transform={`rotate(${deg} 50 50)`}
                     />
                   ))}
-                  {/* Inner golden stamens & pistil */}
                   {[30, 90, 150, 210, 270, 330].map((deg, idx) => (
                     <circle
                       key={`stamen-${idx}`}
@@ -1006,12 +1183,7 @@ export default function SpaceConstellation() {
         )}
       </AnimatePresence>
 
-      {/* 5. Floating Bottom Navigation & Guidance */}
-      <div className="relative z-20 pb-4 text-center text-xs text-rose-200/70 font-sans">
-        <span>Chapter 2 • Dedicated to Mythri by Ajay // Forever & Always</span>
-      </div>
-
-      {/* 6. Story Memory Modal for Plucked Petal */}
+      {/* 6. Story Memory Modal */}
       <AnimatePresence>
         {activeStory && !showGrandFinale && (
           <motion.div
@@ -1028,17 +1200,15 @@ export default function SpaceConstellation() {
               className="max-w-lg w-full bg-[#fffdfa] text-[#132e22] border-2 border-rose-300 rounded-[36px] p-6 sm:p-8 shadow-2xl relative overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Top Washi Tape */}
               <div className="absolute -top-1.5 right-10 z-20 pointer-events-none">
                 <WashiTape className="w-16 h-4 opacity-80" color="bg-rose-200/80" />
               </div>
 
-              {/* Header */}
               <div className="flex items-center justify-between border-b border-rose-200 pb-3 mb-4">
                 <div className="flex items-center gap-2">
                   <FlowerBlossom className="w-4 h-4" petalColor="#fda4af" centerColor="#fecdd3" />
                   <span className="text-xs font-bold text-rose-700 font-sans">
-                    {activeStory.name} // {activeStory.yearBadge}
+                    Story {activeStory.order} // {activeStory.yearBadge}
                   </span>
                 </div>
                 <button
@@ -1049,7 +1219,6 @@ export default function SpaceConstellation() {
                 </button>
               </div>
 
-              {/* Photo Frame */}
               <div className="relative rounded-2xl overflow-hidden mb-4 border border-rose-200 shadow-sm h-52 bg-rose-50">
                 <img
                   src={activeStory.photoUrl}
@@ -1058,7 +1227,6 @@ export default function SpaceConstellation() {
                 />
               </div>
 
-              {/* Title & Date */}
               <h4 className="font-serif text-2xl font-bold text-[#132e22] mb-1">
                 {activeStory.title}
               </h4>
@@ -1066,12 +1234,10 @@ export default function SpaceConstellation() {
                 {activeStory.date}
               </p>
 
-              {/* Story Content */}
               <div className="text-sm font-serif text-[#3d6350] leading-relaxed whitespace-pre-line mb-6 italic max-h-48 overflow-y-auto pr-1">
                 {activeStory.story}
               </div>
 
-              {/* Navigation Footer */}
               <div className="flex items-center justify-between border-t border-rose-200 pt-3 text-xs font-sans">
                 <button
                   onClick={prevStory}
@@ -1081,7 +1247,7 @@ export default function SpaceConstellation() {
                 </button>
 
                 <span className="font-bold text-rose-800">
-                  Petal {activeStory.order} of 8 Plucked
+                  Petal {activeStory.order} of 8 Dropped
                 </span>
 
                 <button
@@ -1096,7 +1262,7 @@ export default function SpaceConstellation() {
         )}
       </AnimatePresence>
 
-      {/* 7. Grand Finale Reveal Modal When All 8 Petals Have Fallen */}
+      {/* 7. Grand Finale Climax Modal */}
       <AnimatePresence>
         {showGrandFinale && (
           <motion.div
