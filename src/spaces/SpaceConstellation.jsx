@@ -979,11 +979,7 @@ export default function SpaceConstellation() {
             colors: ["#f43f5e", "#fb7185", "#fda4af", "#fef08a", "#ffffff"]
           });
         } catch (e) {}
-      }, 750);
-
-      setTimeout(() => {
-        setShowGrandFinale(true);
-      }, 2600);
+      }, 1500);
     }
   };
 
@@ -1209,7 +1205,10 @@ export default function SpaceConstellation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-[#050b14]/75 backdrop-blur-md flex items-center justify-center p-4"
-            onClick={() => setActiveStory(null)}
+            onClick={() => {
+              setActiveStory(null);
+              if (pluckedCount >= 8) setShowGrandFinale(true);
+            }}
           >
             <motion.div
               initial={{ scale: 0.92, y: 25 }}
@@ -1230,7 +1229,10 @@ export default function SpaceConstellation() {
                   </span>
                 </div>
                 <button
-                  onClick={() => setActiveStory(null)}
+                  onClick={() => {
+                    setActiveStory(null);
+                    if (pluckedCount >= 8) setShowGrandFinale(true);
+                  }}
                   className="p-1 rounded-full text-[#3d6350] hover:text-[#132e22] cursor-pointer"
                 >
                   <X className="w-5 h-5" />
@@ -1268,12 +1270,25 @@ export default function SpaceConstellation() {
                   Petal {activeStory.order} of 8 Dropped
                 </span>
 
-                <button
-                  onClick={nextStory}
-                  className="p-2 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-800 cursor-pointer transition-colors"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                {activeStory.order === 8 ? (
+                  <button
+                    onClick={() => {
+                      setActiveStory(null);
+                      setShowGrandFinale(true);
+                    }}
+                    className="px-3.5 py-1.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white font-bold cursor-pointer transition-all shadow-sm flex items-center gap-1 text-xs"
+                  >
+                    <span>Grand Finale</span>
+                    <Heart className="w-3.5 h-3.5 fill-white" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={nextStory}
+                    className="p-2 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-800 cursor-pointer transition-colors"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                )}
               </div>
             </motion.div>
           </motion.div>
