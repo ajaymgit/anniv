@@ -106,7 +106,7 @@ function generateSpokeWindows(cx, cy, hubR, rimR, count = 4) {
 export const GEARS_DATA = [
   {
     id: 1,
-    dimension: "The Late-Night Anchor",
+    dimension: "The 3 AM Co-Pilot",
     metaphor: "Always in Your Corner",
     accentColor: "#38bdf8",
     colorName: "Glacial Cyan",
@@ -117,18 +117,16 @@ export const GEARS_DATA = [
     toothCount: 15,
     rotSpeed: -1.2,
     spokeCount: 5,
-    before: "Cold, guarded, and locked inside my own head—pretending nothing mattered just to keep people away.",
-    after: "The guy who stays awake until 3 AM by your side, making sure you never face an exhausting night alone.",
-    story: `Before you, I was closed off behind walls I spent years building. I kept everyone at arm's length, gave cold one-word answers, and pretended I didn't care about anything just so no one could reach me.
+    story: `Before I met you, I was really closed off and kept to myself. I gave one-word replies and acted like I didn't care about anything, mostly because I didn't want to deal with anyone else.
 
-You never fought my walls; you just met me with steady warmth until every layer melted away. Now, staying awake through the night just to keep you company, being the one you lean on when you're exhausted, and quietly taking care of your world is the easiest thing I do. You turned someone who used to be detached into the one who will never let you feel alone.`,
-    quote: "You turned someone who used to be detached into the guy who will happily stay up all night making sure your world is taken care of.",
-    note: "Staying up with you until the world goes quiet ♡"
+Being with you changed all of that. Now, staying awake till 3:00 AM to help you out, staying on the call while you study, or fixing things when you're overwhelmed is the most natural thing for me. I just want to make sure you never have to face a rough night alone.`,
+    quote: "You turned a guy who didn't care about anything into someone who happily stays up till 3 AM just to make your life easier.",
+    note: "Staying up with you till the world goes quiet ♡"
   },
   {
     id: 2,
     dimension: "The Calm in the Storm",
-    metaphor: "Gentle Composure",
+    metaphor: "Learning Patience",
     accentColor: "#f59e0b",
     colorName: "Amber Flame",
     socketPos: { x: -72, y: -62 },
@@ -138,18 +136,16 @@ You never fought my walls; you just met me with steady warmth until every layer 
     toothCount: 22,
     rotSpeed: 0.9,
     spokeCount: 3,
-    before: "Hair-trigger anger, snapping over minor friction, and reacting on sharp impulse.",
-    after: "Taking a deep breath, holding my fire, and being your calm center when everything feels overwhelming.",
-    story: `I used to have a hot head. If something went wrong, my reflex was to clench my jaw, snap with a sharp tone, and let irritation take over. I thought reacting with fire was strength.
+    story: `I used to get irritated and lose my temper really fast. If anything went wrong, I'd get annoyed, snap, and react without thinking.
 
-Being with you completely rewrote my nervous system. You showed me that shouting through a storm never solved a single thing. Over seven years, you taught me how to take a breath, sit quietly with your heavy days, and meet your chaos with steady reassurance instead of matching the stress. You gave me the patience I never had.`,
-    quote: "You taught me that being strong isn't reacting with fire; it’s being the steady, calm listener when everything else is loud.",
-    note: "You taught me to breathe through chaos and be your safe harbor ♡"
+Being with you taught me so much patience. You showed me that shouting or getting mad never fixes anything. Now, when things get stressful or you're having a hard day, I just take a breath, listen to you quietly, and stay calm. You gave me the patience I never had.`,
+    quote: "You taught me that being strong isn't getting angry; it's staying calm when everything gets loud.",
+    note: "You taught me how to take a breath and stay calm ♡"
   },
   {
     id: 3,
     dimension: "Finding My Voice",
-    metaphor: "My Words Carry Weight",
+    metaphor: "Being Heard",
     accentColor: "#10b981",
     colorName: "Vivid Emerald",
     socketPos: { x: -74, y: 64 },
@@ -159,13 +155,11 @@ Being with you completely rewrote my nervous system. You showed me that shouting
     toothCount: 20,
     rotSpeed: -0.65,
     spokeCount: 4,
-    before: "Looking down, mumbling under my breath, and shrinking away into the corner.",
-    after: "Looking you in the eyes, speaking with honest confidence, and believing my voice matters.",
-    story: `I kept everything locked inside my chest. I looked down, mumbled under my breath, and stayed silent because I never believed what I had to say was worth the room's attention.
+    story: `I used to keep everything to myself. I mumbled under my breath, looked down, and never spoke up because I felt like no one would care anyway.
 
-Because you listened to me with your full heart and genuinely cared about my thoughts, I stopped shrinking into the corner. You gave volume to my silence. Now, I look you in the eyes, speak what I feel without fear, and articulate what I need with honest conviction.`,
-    quote: "You gave volume to my silence because you were the first person who made me feel like my words actually carried weight.",
-    note: "You made me feel heard for the first time in my life ♡"
+You changed that just by listening to me. You gave me your full attention and actually cared about what I thought. Because of you, I stopped hiding in the corner. Now I look you in the eyes and say what I feel without holding back.`,
+    quote: "You gave volume to my silence because you actually cared about what I had to say.",
+    note: "You made me feel heard for the first time ♡"
   },
   {
     id: 4,
@@ -180,18 +174,16 @@ Because you listened to me with your full heart and genuinely cared about my tho
     toothCount: 18,
     rotSpeed: 0.75,
     spokeCount: 4,
-    before: "Stubborn clashes, cold shoulders, and fighting defensive battles just to 'win'.",
-    after: "Putting down our pride, laughing through tension, and sitting down to talk things through together.",
-    story: `Early on, when we disagreed, our pride flared up. We had stubborn, fiery clashes where we fought to be right—walking away with bruised egos and cold silence.
+    story: `Early on, whenever we disagreed, we both got stubborn. We argued just to prove who was right, and it ended in cold silence and hurt egos.
 
-Over seven years, that dynamic completely transformed. We learned that being right means nothing if it hurts us. Now, when tension hits, we drop our defenses, sit down, and talk through it patiently. We stopped fighting each other and started solving life as a team.`,
-    quote: "We stopped fighting each other and started solving life as a team.",
-    note: "No ego between us—just choosing each other every time ♡"
+Over the years, we grew out of that. We realized winning an argument means nothing if we're hurting each other. Now, when things get tense, we just sit down, make tea, laugh it off, and talk it through. We don't fight each other anymore—we fix things together.`,
+    quote: "We stopped fighting each other and started solving things as a team.",
+    note: "No ego between us—just talking it out together ♡"
   },
   {
     id: 5,
     dimension: "The Grounded Truth",
-    metaphor: "Cutting Through the Static",
+    metaphor: "My Reality Check",
     accentColor: "#eab308",
     colorName: "Golden Lens",
     socketPos: { x: 78, y: 8 },
@@ -201,17 +193,15 @@ Over seven years, that dynamic completely transformed. We learned that being rig
     toothCount: 18,
     rotSpeed: -0.85,
     spokeCount: 3,
-    before: "Overthinking spirals, catastrophizing what-ifs, and sleepless nights trapped in mental panic.",
-    after: "Your straightforward, steady clarity that pulls me out of my head and brings me right back to earth.",
-    story: `My mind has a habit of racing ahead—magnifying small worries, spiraling into worst-case scenarios, and getting trapped in stressful narratives of my own making.
+    story: `I have a bad habit of overthinking. I start imagining the worst-case scenarios and get stuck in my own head panicking over things that haven't even happened.
 
-You became my reality check. When everything in my head is spinning, your steady, grounded clarity cuts straight through the static. Talking to you for ten minutes brings me back to solid earth and makes me realize things are never as terrifying as my thoughts made them seem. You bring me peace when my mind won't rest.`,
-    quote: "Whenever my mind starts spiraling into a hundred 'what-ifs', you bring me right back to earth with one sentence.",
-    note: "Your steady clarity cuts right through all my mental static ♡"
+You are my reality check. Whenever my thoughts start spinning out of control, you talk to me with so much common sense and clarity. Ten minutes with you and I'm right back on solid ground. You make things feel manageable again.`,
+    quote: "Whenever my mind starts spiraling with what-ifs, you talk to me for ten minutes and bring me right back to reality.",
+    note: "You always bring me right back to reality ♡"
   },
   {
     id: 6,
-    dimension: "No Longer Alone in the Arena",
+    dimension: "Your #1 Cheerleader",
     metaphor: "Never Alone Again",
     accentColor: "#059669",
     colorName: "Deep Jade",
@@ -222,18 +212,16 @@ You became my reality check. When everything in my head is spinning, your steady
     toothCount: 30,
     rotSpeed: 0.35,
     spokeCount: 5,
-    before: "Carrying every burden alone, hiding my stress, and pretending I didn't need anyone.",
-    after: "Taking pride in your happiness, sharing every load, and resting in having an anchor in my corner.",
-    story: `I operated like a solitary fighter. I believed relying on anyone was an invitation to get hurt, so I carried every burden alone, hid my stress, and kept my emotional armor tightly strapped on.
+    story: `I used to think relying on anyone was weak. I bottled up my stress, dealt with everything by myself, and never asked for help.
 
-Loving you showed me how exhausting it was to fight the world by myself. You became my safest home and my proudest partner. Sharing life with you, cheering for every dream you chase, and knowing you are standing in my corner changed how I face the world. I don't have to carry life alone anymore.`,
-    quote: "I spent years thinking I had to fight life alone. Loving you made me realize how much better it is to have an anchor in your corner.",
-    note: "I stopped fighting life alone because I found my partner ♡"
+Being with you showed me how tiring that was. You became my safe space. Celebrating your wins, sharing life with you, and knowing you're always in my corner changed how I look at everything. I don't have to carry the whole world alone anymore.`,
+    quote: "I spent years thinking I had to deal with everything alone. Loving you showed me how good it feels to have someone in your corner.",
+    note: "I don't have to face the world alone anymore ♡"
   },
   {
     id: 7,
     dimension: "The Man Standing Here Today",
-    metaphor: "Seven Years of Loving You",
+    metaphor: "Seven Years of Us",
     accentColor: "#86efac",
     colorName: "Starlight Gold",
     socketPos: { x: 0, y: 0 },
@@ -243,12 +231,10 @@ Loving you showed me how exhausting it was to fight the world by myself. You bec
     toothCount: 16,
     rotSpeed: 0.45,
     spokeCount: 4,
-    before: "An insecure, guarded boy hiding behind nonchalance, unsure of his purpose or worth.",
-    after: "A grounded, calm, protective partner who keeps his promises and loves you with his whole soul.",
-    story: `Looking back at who I used to be, I was an insecure, guarded boy hiding behind an aloof mask, unsure of where he belonged and scared of being vulnerable.
+    story: `Looking back at who I was seven years ago, I barely recognize that kid. I was insecure, angry, and hid behind an aloof attitude because I was scared of being vulnerable.
 
-Seven years of loving you, being held accountable by you, and sharing life with you turned that kid into a real man. I stand tall with calm shoulders, keep my promises, protect your peace, and live with genuine purpose. Everything gentle, steady, and good about me started with you.`,
-    quote: "Seven years of loving you, being held accountable by you, and sharing life with you turned an insecure kid into the man standing here today.",
+Seven years of loving you, learning from you, and growing with you turned me into a real man. I'm calmer, I take responsibility, and I know who I am. Everything good about me started with you.`,
+    quote: "Seven years of loving you turned an insecure kid into the man standing here today.",
     note: "Seven years of loving you made me who I am today ♡"
   }
 ];
@@ -592,7 +578,7 @@ export default function ClockworkTransformation({ playChime }) {
                   <WashiTape className="w-14 h-3.5 opacity-80" color="bg-emerald-200" />
                 </div>
 
-                <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-emerald-100">
+                <div className="flex items-center justify-between pb-2 mb-3 border-b border-emerald-100">
                   <div className="flex items-center gap-2">
                     <span
                       style={{ backgroundColor: activeStoryGear.accentColor }}
@@ -607,35 +593,16 @@ export default function ClockworkTransformation({ playChime }) {
                   </span>
                 </div>
 
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#132e22] mb-1">
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#132e22] mb-3">
                   {activeStoryGear.dimension}
                 </h3>
 
-                <div className="my-2.5 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans">
-                  <div className="p-2.5 rounded-2xl bg-slate-100 border border-slate-200">
-                    <span className="text-[10px] font-sans text-slate-500 uppercase block font-bold mb-0.5">
-                      Before You:
-                    </span>
-                    <p className="font-serif italic text-slate-800 font-medium text-xs sm:text-[13px]">
-                      {activeStoryGear.before}
-                    </p>
-                  </div>
-
-                  <div className="p-2.5 rounded-2xl bg-emerald-50 border border-emerald-200">
-                    <span className="text-[10px] font-sans text-emerald-700 uppercase block font-bold mb-0.5">
-                      With You:
-                    </span>
-                    <p className="font-serif italic text-emerald-950 font-medium text-xs sm:text-[13px]">
-                      {activeStoryGear.after}
-                    </p>
-                  </div>
-                </div>
-
-                <p className="text-xs sm:text-[13px] font-sans text-[#3d6350] leading-relaxed whitespace-pre-line mb-3">
+                {/* Removed Before You and After You comparison grid - story flows directly and naturally */}
+                <p className="text-xs sm:text-[13px] font-sans text-[#3d6350] leading-relaxed whitespace-pre-line mb-4">
                   {activeStoryGear.story}
                 </p>
 
-                <div className="p-3 rounded-2xl bg-emerald-50/90 border border-emerald-200 mb-2.5">
+                <div className="p-3.5 rounded-2xl bg-emerald-50/90 border border-emerald-200 mb-3">
                   <p className="text-xs font-serif italic text-emerald-950 font-medium leading-relaxed">
                     "{activeStoryGear.quote}"
                   </p>
