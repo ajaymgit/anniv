@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from "react";
-import MuseumGallery from "./chapter6/MuseumGallery";
+import ShadowArtGallery from "./chapter6/ShadowArtGallery";
 
 export default function SpaceMythriEffect() {
   const audioCtxRef = useRef(null);
@@ -41,7 +41,7 @@ export default function SpaceMythriEffect() {
 
   return (
     <div className="relative w-full h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] overflow-hidden select-none font-sans">
-      <MuseumGallery playChime={playAdaptiveChime} />
+      <ShadowArtGallery playChime={playAdaptiveChime} />
     </div>
   );
 }
