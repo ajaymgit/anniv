@@ -496,8 +496,9 @@ export default function SpaceConstellation() {
       }
     });
 
-    // Reset pond water lilies beside the flower to closed buds
+    // Reset pond water lilies beside the flower to closed buds (hidden initially)
     pondLiliesRef.current.forEach((pl) => {
+      pl.group.visible = false;
       pl.petalPivots.forEach(({ mesh }) => {
         mesh.rotation.x = -0.15;
       });
@@ -682,14 +683,17 @@ export default function SpaceConstellation() {
     scene.add(ripplePlane);
     ripplePlaneRef.current = ripplePlane;
 
-    // Floating water lilies beside the main flower on the nocturnal pond
+    // Floating water lilies beside the main flower on the nocturnal pond (hidden initially)
     const pondLilies = [
       buildPondLily(-1.75, 0.40, 0.78, 0.8, 0),
       buildPondLily(-2.40, -0.45, 0.60, 2.3, 1.2),
       buildPondLily(1.75, 0.40, 0.78, 3.9, 2.4),
       buildPondLily(2.40, -0.45, 0.60, 5.1, 3.6)
     ];
-    pondLilies.forEach((pl) => scene.add(pl.group));
+    pondLilies.forEach((pl) => {
+      pl.group.visible = false;
+      scene.add(pl.group);
+    });
     pondLiliesRef.current = pondLilies;
 
     // Botanical Lily Stem, Foliage, Receptacle, and Stamens
@@ -929,20 +933,6 @@ export default function SpaceConstellation() {
             stamenGroupRef.current.scale.setScalar(THREE.MathUtils.lerp(0.25, 1.0, stamenT));
           }
 
-          // Trigger blooming lilies across the page too
-          if (!bloomedLiliesTriggeredRef.current) {
-            bloomedLiliesTriggeredRef.current = true;
-            setBloomedLiliesEverywhere(true);
-          }
-
-          // Unfurl floating pond water lilies beside the flower
-          pondLiliesRef.current.forEach((pl) => {
-            pl.petalPivots.forEach(({ mesh, isOuter }) => {
-              const targetTilt = isOuter ? -1.18 : -1.05;
-              mesh.rotation.x = THREE.MathUtils.lerp(-0.15, targetTilt, easeT);
-            });
-          });
-
           // Inner glowing starlight intensifies as flower opens
           if (heartGlowRef.current) {
             heartGlowRef.current.intensity = THREE.MathUtils.lerp(0.3, 2.5, easeT);
@@ -1086,6 +1076,14 @@ export default function SpaceConstellation() {
         setBloomedLiliesEverywhere(true);
         markSpaceCompleted("02-constellation");
 
+        // Reveal and bloom pond water lilies beside the flower on the water
+        pondLiliesRef.current.forEach((pl) => {
+          pl.group.visible = true;
+          pl.petalPivots.forEach(({ mesh, isOuter }) => {
+            mesh.rotation.x = isOuter ? -1.18 : -1.05;
+          });
+        });
+
         try {
           confetti({
             particleCount: 160,
@@ -1103,6 +1101,9 @@ export default function SpaceConstellation() {
     setActiveStory(null);
     setBloomedLiliesEverywhere(false);
     bloomedLiliesTriggeredRef.current = false;
+    pondLiliesRef.current.forEach((pl) => {
+      pl.group.visible = false;
+    });
     setShowGrandFinale(false);
     setPluckedCount(0);
     replayBloom();
