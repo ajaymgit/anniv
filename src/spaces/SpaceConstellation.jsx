@@ -89,13 +89,13 @@ We learned how to forgive quickly, how to tease gently, and how to hold space fo
     order: 5,
     title: "Your Fierce, Unshakable Heart",
     yearBadge: "Year 05 // 2023",
-    date: "Year 05 // Benchmark of Integrity",
+    date: "Year 05 // That Fierce Heart",
     summary: "The quiet courage and fierce loyalty that defines who you are.",
     story: `The thing I admire most about you is how unconditionally you stand by the people you love.
 
 You never perform kindness for an audience. When someone is hurting, you show up. When things are difficult, you set your jaw, figure out what needs to be done, and do it with grace.
 
-In five years of watching you grow, my respect for your character only deepened. You are the standard of integrity and honesty in my life.`,
+In five years of watching you grow, my respect for you only got deeper. You're the most honest, loyal person in my life.`,
     photoUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80"
   },
   {
@@ -109,7 +109,7 @@ In five years of watching you grow, my respect for your character only deepened.
 
 Yet across busy schedules, departures, and counting down the days until we could sit in the same room again, our bond never wavered. Every late-night call and every countdown proved what we always knew:
 
-Physical miles could never dilute what we built. We were anchored in each other long before the miles appeared.`,
+Miles never changed what we have. We were solid long before the distance.`,
     photoUrl: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80"
   },
   {

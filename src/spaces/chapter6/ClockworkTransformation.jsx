@@ -110,7 +110,7 @@ export const GEARS_DATA = [
     dimension: "The Melted Fortress",
     shiftNumber: "01",
     trayLabel: "01 // Escapement",
-    metaphor: "Unlocking the Frozen Wall",
+    metaphor: "How You Melted My Walls",
     accentColor: "#38bdf8",
     colorName: "Glacial Cyan",
     socketPos: { x: 74, y: -74 },
@@ -120,13 +120,13 @@ export const GEARS_DATA = [
     toothCount: 15,
     rotSpeed: -1.2,
     spokeCount: 5,
-    before: "The Rigid Lock (Koyun from 'Ramparts of Ice')",
-    after: "Fluid Devotion (A Proud 'Girl's Boy')",
-    story: `Before I met you, my movement was completely jammed behind an aloof wall. Like Koyun from Ramparts of Ice, I guarded myself behind cold nonchalance and never spoke to any girl. My independence was a frozen fortress built so nobody could ever reach me.
+    before: "Aloof and guarded (like Koyun from 'Ramparts of Ice')",
+    after: "Completely devoted to you (proudly a 'girl's boy')",
+    story: `Before I met you, I was completely closed off behind an aloof wall. Like Koyun from Ramparts of Ice, I put on cold nonchalance and never spoke to any girl. My independence was just a wall to keep people out.
 
-You didn't force the lock; you just showed up with genuine warmth until every layer of ice melted. Today, I am completely, unashamedly a "girl's boy"—attentive to your cadence, proud to take care of you, and open to the life we share together.`,
-    quote: "You melted the ramparts of ice I hid behind, and taught me that softness is where real life begins.",
-    mechanicNote: "The escapement converts raw tension into measured, fluid motion. Her warmth unlocked a locked gear train."
+You didn't fight that wall; you just showed up with real warmth until every layer melted away. Today, I am completely, unashamedly a 'girl's boy'—learning your world, listening to your day, and proud to be the one who takes care of you.`,
+    quote: "You melted through all the walls I put up, and showed me it was okay to be soft.",
+    mechanicNote: "You unjammed my walls and let real life begin."
   },
   {
     id: 2,
@@ -134,7 +134,7 @@ You didn't force the lock; you just showed up with genuine warmth until every la
     dimension: "The Calmed Temper",
     shiftNumber: "02",
     trayLabel: "02 // Balance Wheel",
-    metaphor: "Regulating the Hair-Trigger Oscillation",
+    metaphor: "How You Calmed My Temper",
     accentColor: "#f59e0b",
     colorName: "Amber Flame",
     socketPos: { x: -72, y: -62 },
@@ -144,13 +144,13 @@ You didn't force the lock; you just showed up with genuine warmth until every la
     toothCount: 22,
     rotSpeed: 0.9,
     spokeCount: 3,
-    before: "Erratic, Hair-Trigger Anger & Defensive Flare-Ups",
-    after: "Patience, Composure & Holding My Fire",
-    story: `I used to have a hot head. Easily angered, quick to irritate, and defensive over the smallest friction. My hairspring was coiled too tight; at the slightest bump, it would flare up and react on impulse.
+    before: "Hair-trigger irritation, quick to snap",
+    after: "Patience, composure, and holding my fire",
+    story: `I used to have a hot head. Easily angered, quick to irritate, and defensive over the smallest friction. If something went sideways, my reflex was to flare up and react on impulse.
 
-Being with you rewrote my nervous system. You showed me that shouting through a storm never solved a thing. In seven years, you taught me how to hold my fire, breathe through the chaos, and meet hardship with calm composure instead of hostility.`,
-    quote: "You taught me that strength isn't shouting through a storm; it is the calm composure that outlasts it.",
-    mechanicNote: "The hairspring stabilizes erratic oscillation into a steady, composed 4Hz rhythm."
+Being with you completely rewrote my nervous system. You showed me that shouting through a storm never solved a single problem. In seven years, you taught me how to hold my fire, breathe through the chaos, and meet hardship with calm composure instead of hostility.`,
+    quote: "You showed me that shouting doesn't make you strong—staying calm and keeping your cool does.",
+    mechanicNote: "You slowed down my racing temper into quiet composure."
   },
   {
     id: 3,
@@ -158,7 +158,7 @@ Being with you rewrote my nervous system. You showed me that shouting through a 
     dimension: "Finding My Voice",
     shiftNumber: "03",
     trayLabel: "03 // Striking Barrel",
-    metaphor: "Winding Acoustic Volume & Resonance",
+    metaphor: "How You Found My Voice",
     accentColor: "#10b981",
     colorName: "Vivid Emerald",
     socketPos: { x: -74, y: 64 },
@@ -168,13 +168,13 @@ Being with you rewrote my nervous system. You showed me that shouting through a 
     toothCount: 20,
     rotSpeed: -0.65,
     spokeCount: 4,
-    before: "A Silent Voice Mumbled Under My Breath",
-    after: "Speaking Louder with Conviction & Confidence",
-    story: `I had a very silent voice. I mumbled my thoughts under my breath, shrank away from speaking up, and kept everything locked inside my head. I didn't believe what I had to say was worth the room's attention.
+    before: "Mumbling under my breath, staying silent",
+    after: "Speaking louder with real conviction",
+    story: `I had a very silent voice. I mumbled my thoughts under my breath, shrank away from speaking up, and kept everything locked inside my head. I didn't think what I had to say was worth the room's attention.
 
 Because of you, I literally started speaking louder. You listened so attentively and made me feel so heard that I realized my voice had value. You pushed me to articulate what I need and speak with genuine conviction.`,
-    quote: "You gave volume to my silence, and taught me that my voice deserves to be heard.",
-    mechanicNote: "The chime barrel strikes clear tones. Her active listening gave volume to his silence."
+    quote: "You listened so closely that I actually started speaking up. You taught me my voice matters.",
+    mechanicNote: "You gave volume to my silence."
   },
   {
     id: 4,
@@ -182,7 +182,7 @@ Because of you, I literally started speaking louder. You listened so attentively
     dimension: "How We Communicate",
     shiftNumber: "04",
     trayLabel: "04 // Planetary Mesh",
-    metaphor: "Turning Together Without Clashing",
+    metaphor: "How We Talk Now",
     accentColor: "#f43f5e",
     colorName: "Rose Quartz",
     socketPos: { x: -22, y: 72 },
@@ -192,13 +192,13 @@ Because of you, I literally started speaking louder. You listened so attentively
     toothCount: 18,
     rotSpeed: 0.75,
     spokeCount: 4,
-    before: "Stubborn Clashes Fighting to 'Win' the Argument",
-    after: "Patient, Unhurried Conversations Over Tea",
+    before: "Stubborn clashes fighting to 'win'",
+    after: "Sitting down for patient, unhurried talks",
     story: `Early on, when we disagreed, our gears grinded against each other. We had fiery, stubborn arguments where neither of us wanted to back down. We fought to win. Disagreements felt like territorial battles of pride.
 
-Over seven years, that dynamic completely transformed into true synchrony. Now, when tension happens, we sit down and patiently talk through it. We do real, unhurried communication. We stopped fighting each other and started solving things together.`,
-    quote: "We traded stubborn clashes for patient conversations, and turned arguments into deeper understanding.",
-    mechanicNote: "Differential gears harmonize two opposing torques into smooth, synchronized rotation."
+Over seven years, that dynamic completely transformed. Now, when tension happens, we sit down and patiently talk through it. We do real, unhurried communication. We stopped fighting each other and started solving things together.`,
+    quote: "We stopped fighting to be right, and started sitting down to actually talk.",
+    mechanicNote: "We stopped clashing against each other and started solving things together."
   },
   {
     id: 5,
@@ -206,7 +206,7 @@ Over seven years, that dynamic completely transformed into true synchrony. Now, 
     dimension: "The Grounded Lens",
     shiftNumber: "05",
     trayLabel: "05 // Tourbillon Axis",
-    metaphor: "Neutralizing Gravitational Panic & Static",
+    metaphor: "How You Ground Me",
     accentColor: "#eab308",
     colorName: "Golden Lens",
     socketPos: { x: 78, y: 8 },
@@ -216,13 +216,13 @@ Over seven years, that dynamic completely transformed into true synchrony. Now, 
     toothCount: 18,
     rotSpeed: -0.85,
     spokeCount: 3,
-    before: "Mental Fog & Magnified Worst-Case Panic",
-    after: "Her Grounded Clarity Cutting Through the Static",
+    before: "Spiraling into panic and mental fog",
+    after: "Your clear, grounded reality check",
     story: `When life got overwhelming, my head would distort reality—magnifying small problems, anticipating the worst-case scenario, and reacting out of panic. I lived inside stressful narratives of my own making.
 
 You became my reality check. When everything in my mind is racing, you have this grounded clarity that cuts through the static and helps me see things objectively as they truly are. You bring me back to solid earth every single time.`,
-    quote: "You are the lens that clears the fog, reminding me of what is real when my mind starts racing.",
-    mechanicNote: "The tourbillon rotates the escapement 360° to eliminate external disturbance and static."
+    quote: "When my thoughts start spiraling, you bring me right back down to earth.",
+    mechanicNote: "You cut through all the static in my head."
   },
   {
     id: 6,
@@ -230,7 +230,7 @@ You became my reality check. When everything in my mind is racing, you have this
     dimension: "The Anchor in the Corner",
     shiftNumber: "06",
     trayLabel: "06 // Mainspring Barrel",
-    metaphor: "The Unfailing Power Reserve",
+    metaphor: "Having You in My Corner",
     accentColor: "#059669",
     colorName: "Deep Jade",
     socketPos: { x: 50, y: 70 },
@@ -240,13 +240,13 @@ You became my reality check. When everything in my mind is racing, you have this
     toothCount: 30,
     rotSpeed: 0.35,
     spokeCount: 5,
-    before: "A Lone Wolf Bearing Every Burden in Solitude",
-    after: "An Unwavering Support System in My Corner",
+    before: "A lone wolf trying to fight alone",
+    after: "Knowing you are always in my corner",
     story: `I operated like a solitary fighter. I believed that every burden had to be carried alone, and that relying on anyone was an invitation to be let down. I had no safety net and pretended I didn't want one.
 
-You became my steadfast anchor. Through every exhaustion, career pivot, and heavy season, knowing you are standing in my corner changed how I face the world. I stopped fighting life alone, because I finally found my partner in the arena.`,
-    quote: "Because of your unwavering support, I never have to walk into the arena alone again.",
-    mechanicNote: "The mainspring barrel provides continuous torque to power the entire movement through adversity."
+You became my steadfast anchor. Through every exhaustion, career pivot, and heavy season, knowing you are standing in my corner changed how I face the world. I stopped fighting life alone, because I finally found my partner.`,
+    quote: "Because you're always in my corner, I never have to face anything alone.",
+    mechanicNote: "I stopped fighting life alone because I finally found my partner."
   },
   {
     id: 7,
@@ -254,7 +254,7 @@ You became my steadfast anchor. Through every exhaustion, career pivot, and heav
     dimension: "Becoming a Man",
     shiftNumber: "07",
     trayLabel: "07 // Center Crown Hand",
-    metaphor: "Seven Years Calibrated into Peace",
+    metaphor: "Becoming a Man Because of You",
     accentColor: "#86efac",
     colorName: "Starlight Gold",
     socketPos: { x: 0, y: 0 },
@@ -264,13 +264,13 @@ You became my steadfast anchor. Through every exhaustion, career pivot, and heav
     toothCount: 16,
     rotSpeed: 0.45,
     spokeCount: 4,
-    before: "An Insecure, Prickly Boy Hiding Behind a Mask",
-    after: "A Grounded, Protective, Loving Man",
+    before: "An insecure, prickly kid hiding behind nonchalance",
+    after: "A calm, responsible, protective man",
     story: `Looking back at the boy from October 2019—he was an insecure, angry, prickly kid hiding behind an aloof mask, unsure of who he was or where his life was going.
 
-In plain words: I’ve become a man because of you. Seven years of loving you, being held accountable by you, and sharing life with you turned a boy into someone calm, responsible, protective, and deeply at peace. Everything I am today started with you.`,
-    quote: "Seven years with you turned a guarded boy into a grounded man. Everything I am today started with you.",
-    mechanicNote: "All seven complications synchronized into a certified chronometer—stable, resilient, and built for a lifetime."
+In plain words: I’ve become a man because of you. Seven years of loving you, being held accountable by you, and sharing life with you turned a boy into someone calm, responsible, protective, and deeply at peace. Everything good about me started with you.`,
+    quote: "Seven years with you turned a guarded, angry kid into a real man. Everything good about me started with you.",
+    mechanicNote: "Seven years of loving you made me who I am today."
   }
 ];
 
@@ -860,14 +860,14 @@ export default function ClockworkTransformation({ playChime }) {
                 <div className="my-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-sans">
                   <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200">
                     <span className="text-[9px] font-mono text-slate-500 uppercase block font-bold mb-0.5">
-                      2019 // Uncalibrated State:
+                      2019 // Before You:
                     </span>
                     <p className="font-serif italic text-slate-800 font-semibold">{activeStoryGear.before}</p>
                   </div>
 
                   <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
                     <span className="text-[9px] font-mono text-emerald-700 uppercase block font-bold mb-0.5">
-                      2026 // Calibrated by Mythri:
+                      2026 // With You:
                     </span>
                     <p className="font-serif italic text-emerald-950 font-semibold">{activeStoryGear.after}</p>
                   </div>
@@ -885,7 +885,7 @@ export default function ClockworkTransformation({ playChime }) {
 
                 <div className="text-[10px] font-mono text-emerald-700 bg-[#f0fdf4] p-2 rounded-xl border border-emerald-100 flex items-center gap-1.5">
                   <SparkleStar className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Horological Impact: {activeStoryGear.mechanicNote}</span>
+                  <span>{activeStoryGear.mechanicNote}</span>
                 </div>
               </motion.div>
             ) : (
@@ -1038,7 +1038,7 @@ export default function ClockworkTransformation({ playChime }) {
               </div>
 
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 block mb-1">
-                Seven Years Calibrated // Movement Complete
+                Seven Years Together ♡
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#132e22] mb-3">
                 You Made Me Who I Am
@@ -1047,12 +1047,12 @@ export default function ClockworkTransformation({ playChime }) {
               <p className="text-xs sm:text-sm font-sans text-[#3d6350] leading-relaxed mb-5">
                 Every gear you placed represents a part of me that was guarded, angry, silent, or alone before October 2019. 
                 <br /><br />
-                Over seven years, your patience, warmth, and steady love calibrated every rough edge into peace. I’ve become a man because of you.
+                Over seven years, your patience, warmth, and steady love calmed every rough edge. I’ve become a man because of you.
               </p>
 
               <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 mb-5">
                 <p className="text-xs font-serif italic text-emerald-950 font-medium leading-relaxed">
-                  "Seven gears assembled. Seven years of us. Everything I am today started with you."
+                  "Seven gears assembled. Seven years of us. Everything good about me started with you."
                 </p>
               </div>
 
@@ -1060,7 +1060,7 @@ export default function ClockworkTransformation({ playChime }) {
                 onClick={() => setShowGrandFinale(false)}
                 className="w-full py-2.5 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-serif font-bold text-xs shadow-md transition-colors cursor-pointer"
               >
-                Inspect the Running Movement ♡
+                Watch It Turn ♡
               </button>
             </motion.div>
           </motion.div>

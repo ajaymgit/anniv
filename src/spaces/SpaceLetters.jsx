@@ -212,14 +212,14 @@ export default function SpaceLetters() {
           Words Kept For You
         </h2>
         <p className="text-sm sm:text-base text-[#3d6350] max-w-xl mx-auto leading-relaxed font-sans font-normal">
-          Seven hand-folded epistolary envelopes sealed with custom sage wax monograms. Quiet truths written specifically for you to read at your own unhurried pace.
+          Seven letters sealed with wax stamps. Little truths written just for you to read at your own pace.
         </p>
 
         {/* View Mode Toggle */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs font-sans">
           <div className="px-4 py-1.5 rounded-full bg-white border border-[#bbf7d0] text-emerald-800 font-semibold shadow-sm flex items-center gap-1.5">
             <Heart className="w-3.5 h-3.5 fill-emerald-400 text-emerald-600" />
-            <span>Unsealed: {readLetters.size} of 7 Epistles</span>
+            <span>Opened: {readLetters.size} of 7 Letters</span>
           </div>
 
           <div className="flex rounded-full bg-white border border-[#bbf7d0] p-1 shadow-sm">
@@ -316,7 +316,7 @@ export default function SpaceLetters() {
                     )}
                   </span>
                   <span className="text-emerald-700 font-bold group-hover:text-emerald-900 group-hover:translate-x-0.5 transition-all">
-                    Unfold Epistle ♡ →
+                    Open Letter ♡ →
                   </span>
                 </div>
               </motion.div>
