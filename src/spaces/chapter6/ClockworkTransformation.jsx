@@ -106,171 +106,150 @@ function generateSpokeWindows(cx, cy, hubR, rimR, count = 4) {
 export const GEARS_DATA = [
   {
     id: 1,
-    gearName: "The Escapement & Pallet Fork",
     dimension: "The 3 AM Co-Pilot & Dedicated Fixer",
-    shiftNumber: "01",
-    trayLabel: "01 // Escapement",
-    metaphor: "3 AM Co-Pilot",
+    metaphor: "Always in Your Corner",
     accentColor: "#38bdf8",
     colorName: "Glacial Cyan",
     socketPos: { x: 74, y: -74 },
     radius: 46,
-    material: "Steel",
+    material: "Pure Devotion",
     gradientId: "steelGrad",
     toothCount: 15,
     rotSpeed: -1.2,
     spokeCount: 5,
-    before: "Cold one-word replies, aloof hands in pockets, pretending nothing mattered",
-    after: "Staying up until 3:00 AM formatting PPTs, study calls, and building tools",
-    story: `Before you, I was completely detached, guarded, and wrapped up in my own head. I was reluctant to get involved in anyone else’s problems or invest emotional energy into daily logistics. My default reflex was cold one-word replies and pretending nothing mattered.
+    before: "Detached, guarded, aloof one-word replies, hands in pockets, pretending nothing mattered.",
+    after: "Your 24/7 co-pilot: staying up until 3:00 AM formatting PPTs, study calls, building custom apps.",
+    story: `Before you, I was completely detached, guarded, and wrapped up in my own head. I was reluctant to get involved in anyone else’s problems or invest emotional energy into daily logistics. My default reflex was cold one-word replies, aloof hands-in-pockets attitude, and pretending nothing mattered.
 
 Being with you turned me into your 24/7 co-pilot and personal support system. I stay up until 3:00 AM helping you format PPTs, research complex topics, clean up academic reports, and organize study decks whenever you're overwhelmed. 'Send me what you have, I’ll format it' became second nature—staying on the call while you study and building custom tools and apps just to make your life easier.`,
     quote: "You turned someone who used to be detached into the guy who will happily stay up all night making sure your world is taken care of.",
-    mechanicNote: "From aloof detachment to staying up until 3 AM in your corner."
+    note: "Staying up until 3 AM just to make your world easier ♡"
   },
   {
     id: 2,
-    gearName: "The Balance Wheel & Hairspring",
     dimension: "The 'Psychotherapist' Calm (Taming the Temper)",
-    shiftNumber: "02",
-    trayLabel: "02 // Balance Wheel",
-    metaphor: "Taming the Temper",
+    metaphor: "The Calm in the Storm",
     accentColor: "#f59e0b",
     colorName: "Amber Flame",
     socketPos: { x: -72, y: -62 },
     radius: 54,
-    material: "Rose Gold",
+    material: "Gentle Composure",
     gradientId: "roseGoldGrad",
     toothCount: 22,
     rotSpeed: 0.9,
     spokeCount: 3,
-    before: "Pacing the floor, sharp tone, reacting immediately on impulse",
-    after: "Taking a breath, observant patient listener, calm in chaotic moments",
-    story: `I used to have hair-trigger frustration and an instant defensive reflex. If something went sideways, my reflex was to pace the floor, snap with a sharp tone, clench my jaw, and react immediately on impulse.
+    before: "Hair-trigger frustration, sharp tone, pacing the floor, reacting immediately on impulse.",
+    after: "The observant, patient listener: steady reassurance and calm when everything gets loud.",
+    story: `I used to have hair-trigger frustration and an instant defensive reflex. If things went sideways, my reflex was to pace the floor, snap with a sharp tone, clench my jaw, and react immediately on impulse.
 
 Being with you made me the observant, patient listener. Like our inside joke about The Silent Patient—'reading this book is like your POV if you were a psychotherapist'—I learned to take a breath, sit with your rants, absorb chaotic moments, and respond with steady reassurance instead of matching the stress. I listen quietly without interrupting, ask 'what happened next?', and stay your calm center when everything else gets loud.`,
     quote: "You taught me that being strong isn't reacting with fire; it’s being the steady, calm listener when everything else is loud.",
-    mechanicNote: "Taught me to hold my fire and be your steady listener."
+    note: "You taught me to breathe through chaos and be your steady center ♡"
   },
   {
     id: 3,
-    gearName: "The Resonant Striking Barrel",
     dimension: "Finding Conviction (Volume & Voice)",
-    shiftNumber: "03",
-    trayLabel: "03 // Striking Barrel",
-    metaphor: "Volume & Voice",
+    metaphor: "My Words Carry Weight",
     accentColor: "#10b981",
     colorName: "Vivid Emerald",
     socketPos: { x: -74, y: 64 },
     radius: 48,
-    material: "Steel",
+    material: "Deep Conviction",
     gradientId: "steelGrad",
     toothCount: 20,
     rotSpeed: -0.65,
     spokeCount: 4,
-    before: "Looking down, speaking under breath, letting others dominate",
-    after: "Looking you in the eye, voicing needs, speaking with conviction",
+    before: "Looking down, mumbling under my breath, letting others dominate, shrinking into the corner.",
+    after: "Looking you in the eye, voicing what I need, speaking with confidence and real conviction.",
     story: `I kept my thoughts locked inside. I looked down, mumbled under my breath, and shrank away from asserting what I wanted, assuming people wouldn't care anyway.
 
 Because you always gave me your full, undivided attention and genuinely cared about my thoughts, I stopped shrinking into the corner. You gave volume to my silence. Now, I look you in the eye, voice what I need, and articulate ideas with confidence and real conviction.`,
     quote: "You gave volume to my silence because you were the first person who made me feel like my words actually carried weight.",
-    mechanicNote: "You made my words carry weight and gave volume to my silence."
+    note: "You made me feel heard for the first time in my life ♡"
   },
   {
     id: 4,
-    gearName: "The Differential Planetary Mesh",
     dimension: "'Send the Other Three Info Ya' (Communication Over Ego)",
-    shiftNumber: "04",
-    trayLabel: "04 // Planetary Mesh",
-    metaphor: "Communication Over Ego",
+    metaphor: "No Ego, Just Us",
     accentColor: "#f43f5e",
     colorName: "Rose Quartz",
     socketPos: { x: -22, y: 72 },
     radius: 40,
-    material: "Brass",
+    material: "Teamwork Rhythm",
     gradientId: "brassGrad",
     toothCount: 18,
     rotSpeed: 0.75,
     spokeCount: 4,
-    before: "Walking away mid-argument, cold shoulder, defensive debate points",
-    after: "'Let's sit down and figure this out,' collaborative problem-solving",
+    before: "Walking away mid-argument, cold shoulders, defensive debate points, fighting to 'win'.",
+    after: "'Let's sit down and figure this out,' making tea, laughing through tension, solving life as a team.",
     story: `Early on, disagreements were stubborn, defensive battles where we fought to 'win' or prove a point. Walking away mid-argument, cold shoulders, and bruised pride.
 
 Over seven years, that dynamic completely transformed into true teamwork rhythm. No passive-aggressive silence or bruised pride. Even when deadlines, fatigue, or friction hit, it shifts into collaborative problem-solving, making tea, laughing through the tension, and saying 'let's sit down and figure this out together'. We stopped fighting each other and started solving life as a team.`,
     quote: "We stopped fighting each other and started solving life as a team.",
-    mechanicNote: "Communication over ego: solving everything together as a team."
+    note: "No ego between us—just talking it through together ♡"
   },
   {
     id: 5,
-    gearName: "The Tourbillon Cage",
     dimension: "The Reality Check (Cutting Through Overthinking)",
-    shiftNumber: "05",
-    trayLabel: "05 // Tourbillon Axis",
-    metaphor: "Cutting Through Overthinking",
+    metaphor: "Grounding My Mind",
     accentColor: "#eab308",
     colorName: "Golden Lens",
     socketPos: { x: 78, y: 8 },
     radius: 44,
-    material: "Rose Gold",
+    material: "Grounded Clarity",
     gradientId: "roseGoldGrad",
     toothCount: 18,
     rotSpeed: -0.85,
     spokeCount: 3,
-    before: "Restless pacing, internal spiral, catastrophizing worst-case what-ifs",
-    after: "Mythri's straightforward clarity grounding me back in 10 minutes",
+    before: "Restless pacing, internal spirals, catastrophizing worst-case 'what-ifs', insomnia.",
+    after: "Your straightforward clarity cutting through the static and grounding me in 10 minutes.",
     story: `My head used to dive into overthinking rabbit holes—restless pacing, internal spirals, catastrophizing, and insomnia over imagined worst-case scenarios. I lived inside stressful narratives of my own making.
 
 You became my reality check. With your straightforward, no-nonsense clarity, you cut straight through the static and anchor me back to solid ground. Talking it out with you for ten minutes makes me realize things are never as impossible as my head made them seem.`,
     quote: "Whenever my mind starts spiraling into a hundred 'what-ifs', you bring me right back to earth with one sentence.",
-    mechanicNote: "Your straightforward clarity cuts through every mental spiral."
+    note: "Your steady clarity cuts right through all my mental static ♡"
   },
   {
     id: 6,
-    gearName: "The Mainspring Barrel",
     dimension: "From Lone Wolf to Her Number One Cheerleader",
-    shiftNumber: "06",
-    trayLabel: "06 // Mainspring Barrel",
-    metaphor: "Her #1 Cheerleader",
+    metaphor: "Never Alone Again",
     accentColor: "#059669",
     colorName: "Deep Jade",
     socketPos: { x: 50, y: 70 },
     radius: 68,
-    material: "Brass",
+    material: "Unconditional Anchor",
     gradientId: "brassGrad",
     toothCount: 30,
     rotSpeed: 0.35,
     spokeCount: 5,
-    before: "Solitary operator, hiding stress, refusing help, emotional armor",
-    after: "Building entire suites for you, cheering every win, sharing the load",
+    before: "Solitary operator, hiding stress, refusing help, carrying every burden alone.",
+    after: "Building entire suites for you, cheering every win, resting in having an anchor in my corner.",
     story: `I operated like a solitary fighter. I believed relying on anyone was a weakness, carried every burden alone, hid my stress, and kept emotional armor tightly strapped on.
 
 Loving you made me unashamedly your partner and biggest cheerleader. Whether it’s building an entire 7-chapter anniversary suite, crafting desktop companion apps like CoupleStick, or celebrating every milestone you hit, I take genuine pride in your wins. I stopped fighting life alone because I finally found a permanent anchor in my corner.`,
     quote: "I spent years thinking I had to fight life alone. Loving you made me realize how much better it is to have an anchor in your corner.",
-    mechanicNote: "From a lone wolf to your proudest cheerleader and teammate."
+    note: "I stopped fighting life alone because I found my partner ♡"
   },
   {
     id: 7,
-    gearName: "The Master Chronometer Crown",
     dimension: "The Culmination (October 2019 to Today)",
-    shiftNumber: "07",
-    trayLabel: "07 // Center Crown Hand",
-    metaphor: "October 2019 to Today",
+    metaphor: "Seven Years of Us",
     accentColor: "#86efac",
     colorName: "Starlight Gold",
     socketPos: { x: 0, y: 0 },
     radius: 36,
-    material: "Pure Gold",
+    material: "Full Devotion",
     gradientId: "goldGrad",
     toothCount: 16,
     rotSpeed: 0.45,
     spokeCount: 4,
-    before: "Insecure guarded kid wandering without direction, defensive walls",
-    after: "Grounded protective partner keeping promises, living with purpose",
+    before: "An insecure, guarded kid hiding behind nonchalance, unsure of purpose, defensive walls.",
+    after: "A grounded, protective partner who keeps promises, protects your peace, and lives with purpose.",
     story: `Looking back at who I used to be—I was an insecure, guarded kid from October 2019 hiding behind nonchalance, unsure of his purpose, and reacting defensively to the world to avoid vulnerability.
 
 Seven years of loving you, being held accountable by you, and sharing life with you turned that kid into a grounded, protective, reliable partner. I stand tall with calm shoulders, keep my promises, protect your peace, and live with real purpose. Seven years turned an insecure boy into the man standing here today.`,
     quote: "Seven years of loving you, being held accountable by you, and sharing life with you turned an insecure kid into the man standing here today.",
-    mechanicNote: "Seven years of loving you turned an insecure kid into a real man."
+    note: "Seven years of loving you turned an insecure boy into a real man ♡"
   }
 ];
 
@@ -447,7 +426,6 @@ export default function ClockworkTransformation({ playChime }) {
         if (!target) continue;
 
         const dist = Math.hypot(clientX - target.screenX, clientY - target.screenY);
-        // Generous snap radius based on target socket diameter
         const threshold = (sGear.radius / 400) * target.width * 1.5;
         if (dist <= threshold) {
           if (sGear.id === gear.id) {
@@ -501,7 +479,6 @@ export default function ClockworkTransformation({ playChime }) {
         const dropResult = checkDropResult(clientX, clientY, gear);
 
         if (dropResult.type === "match") {
-          // SUCCESSFUL MATCH & SNAP!
           playMechanicalSound("place");
           const newPlaced = new Set(placedGearIds).add(gear.id);
           setPlacedGearIds(newPlaced);
@@ -524,9 +501,8 @@ export default function ClockworkTransformation({ playChime }) {
             }, 650);
           }
         } else if (dropResult.type === "mismatch") {
-          // MISMATCH - User dropped onto a wrong socket
           playMechanicalSound("mismatch");
-          setMismatchNotice("Doesn't mesh here — try another pivot!");
+          setMismatchNotice("Not here — find where it fits in my heart ♡");
           if (mismatchTimeoutRef.current) clearTimeout(mismatchTimeoutRef.current);
           mismatchTimeoutRef.current = setTimeout(() => {
             setMismatchNotice(null);
@@ -566,26 +542,26 @@ export default function ClockworkTransformation({ playChime }) {
   return (
     <div className="relative w-full h-full flex flex-col justify-between overflow-hidden select-none font-sans bg-[#f7faf8] text-[#132e22]">
       {/* 1. Header Toolbar */}
-      <div className="z-20 px-4 sm:px-6 pt-2 pb-2 flex flex-wrap items-center justify-between gap-3 bg-white/95 backdrop-blur-md border-b border-emerald-200/90 shadow-2xs">
+      <div className="z-20 px-4 sm:px-6 pt-2.5 pb-2 flex flex-wrap items-center justify-between gap-3 bg-white/95 backdrop-blur-md border-b border-emerald-200/90 shadow-2xs">
         <div className="flex items-center gap-2">
           <RibbonBow className="w-5 h-4 text-emerald-600 shrink-0" />
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-serif text-sm sm:text-base font-bold text-[#132e22]">
-                Chapter 6 // The Watchmaker’s Workbench
+              <span className="font-serif text-base sm:text-lg font-bold text-[#132e22]">
+                The Mythri Effect ♡
               </span>
               <FlowerBlossom className="w-3.5 h-3.5" petalColor="#86efac" centerColor="#fef08a" />
             </div>
-            <p className="text-[10px] sm:text-[11px] text-[#3d6350] font-sans">
-              Drag each gear from the velvet tray on the right and find its matching socket in the watch caliber.
+            <p className="text-[11px] text-[#3d6350] font-serif italic">
+              Seven years of how loving you quietly rewrote my entire heart.
             </p>
           </div>
         </div>
 
         {/* Assembly Status & Audio */}
         <div className="flex items-center gap-2.5">
-          <div className="px-3 py-1 rounded-full bg-[#f0fdf4] border border-emerald-200 text-xs font-mono font-bold text-emerald-800 shadow-2xs">
-            Gears Placed: {placedGearIds.size} / 7
+          <div className="px-3.5 py-1 rounded-full bg-[#f0fdf4] border border-emerald-200 text-xs font-serif font-bold text-emerald-800 shadow-2xs">
+            {placedGearIds.size} of 7 in my heart ♡
           </div>
 
           <button
@@ -598,7 +574,7 @@ export default function ClockworkTransformation({ playChime }) {
         </div>
       </div>
 
-      {/* 2. Main Workstation Area: Story Plate (Left) + Watchcase (Center) + Velvet Tray on the RIGHT */}
+      {/* 2. Main Workstation Area: Story Plate (Left) + Turning Movement (Center) + Memories Tray on the RIGHT */}
       <div className="relative flex-1 w-full h-full flex flex-col lg:flex-row items-center justify-between p-3 sm:p-5 gap-4 lg:gap-6 overflow-hidden">
         {/* LEFT COLUMN: Active Transformation Story Plate */}
         <div className="w-full lg:w-[350px] xl:w-[410px] h-full flex flex-col justify-center overflow-y-auto shrink-0 z-10">
@@ -622,11 +598,11 @@ export default function ClockworkTransformation({ playChime }) {
                       style={{ backgroundColor: activeStoryGear.accentColor }}
                       className="w-3 h-3 rounded-full inline-block shadow-2xs"
                     />
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-800">
-                      Gear 0{activeStoryGear.id} Meshed // {activeStoryGear.material}
+                    <span className="text-xs font-serif font-bold text-emerald-800">
+                      With You ♡
                     </span>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-sans font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
                     {activeStoryGear.metaphor}
                   </span>
                 </div>
@@ -637,19 +613,19 @@ export default function ClockworkTransformation({ playChime }) {
 
                 <div className="my-2.5 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-sans">
                   <div className="p-2.5 rounded-2xl bg-slate-100 border border-slate-200">
-                    <span className="text-[9px] font-mono text-slate-500 uppercase block font-bold mb-0.5">
+                    <span className="text-[10px] font-sans text-slate-500 uppercase block font-bold mb-0.5">
                       Before You:
                     </span>
-                    <p className="font-serif italic text-slate-800 font-semibold text-[11px] sm:text-xs">
+                    <p className="font-serif italic text-slate-800 font-medium text-xs sm:text-[13px]">
                       {activeStoryGear.before}
                     </p>
                   </div>
 
                   <div className="p-2.5 rounded-2xl bg-emerald-50 border border-emerald-200">
-                    <span className="text-[9px] font-mono text-emerald-700 uppercase block font-bold mb-0.5">
+                    <span className="text-[10px] font-sans text-emerald-700 uppercase block font-bold mb-0.5">
                       With You:
                     </span>
-                    <p className="font-serif italic text-emerald-950 font-semibold text-[11px] sm:text-xs">
+                    <p className="font-serif italic text-emerald-950 font-medium text-xs sm:text-[13px]">
                       {activeStoryGear.after}
                     </p>
                   </div>
@@ -665,9 +641,9 @@ export default function ClockworkTransformation({ playChime }) {
                   </p>
                 </div>
 
-                <div className="text-[10px] font-mono text-emerald-700 bg-[#f0fdf4] p-2 rounded-xl border border-emerald-100 flex items-center gap-1.5">
+                <div className="text-[11px] font-sans text-emerald-800 bg-[#f0fdf4] p-2.5 rounded-xl border border-emerald-100 flex items-center gap-2">
                   <SparkleStar className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>{activeStoryGear.mechanicNote}</span>
+                  <span>{activeStoryGear.note}</span>
                 </div>
               </motion.div>
             ) : (
@@ -678,32 +654,30 @@ export default function ClockworkTransformation({ playChime }) {
               >
                 <RibbonBow className="w-9 h-7 text-emerald-600 mb-2.5" />
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#132e22] mb-2">
-                  Assemble My Movement, Gear by Gear
+                  How You Changed Me ♡
                 </h3>
                 <p className="text-xs sm:text-sm font-sans text-[#3d6350] max-w-sm leading-relaxed mb-4">
-                  Drag each gear from the velvet tray on the right and find its matching socket in the watch caliber.
-                  <br className="hidden sm:inline" />
-                  No clues are shown—examine each gear’s size and placement to discover where it belongs.
+                  Every piece of who I am today exists because of you. Drag each memory across to see what seven years of your love built in me.
                 </p>
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 font-bold bg-[#f0fdf4] px-4 py-2 rounded-2xl border border-emerald-200">
-                  <HandMetal className="w-4 h-4 text-emerald-600 animate-bounce" />
-                  <span>Drag gears from the right into the movement</span>
+                <div className="flex items-center gap-2 text-xs font-serif text-emerald-700 font-bold bg-[#f0fdf4] px-4 py-2 rounded-2xl border border-emerald-200">
+                  <Sparkles className="w-4 h-4 text-emerald-600 animate-pulse" />
+                  <span>Drag each memory across to begin ♡</span>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        {/* CENTER COLUMN: Photorealistic Open-Heart Skeleton Watchcase */}
+        {/* CENTER COLUMN: Turning Open-Heart Movement with Ghost Gears */}
         <div className="flex-1 h-full flex flex-col items-center justify-center relative min-w-0 z-0">
           <div
             ref={watchContainerRef}
             className="relative w-full max-w-[400px] sm:max-w-[450px] aspect-square rounded-[36px] bg-[#fffdfa] border-2 border-emerald-300 shadow-2xl p-3 sm:p-4 flex items-center justify-center overflow-hidden shrink-0 touch-none"
           >
-            {/* Circular Brushed Titanium Outer Bezel */}
+            {/* Outer Bezel Ring */}
             <div className="absolute inset-2 sm:inset-3 rounded-full border-[6px] sm:border-[8px] border-slate-300 shadow-2xl bg-radial from-[#ffffff] via-[#f8fafc] to-[#e2e8f0] pointer-events-none" />
 
-            {/* Geneva Stripes Movement Chassis Ring */}
+            {/* Inner Movement Ring */}
             <div className="absolute inset-5 sm:inset-6 rounded-full border border-amber-200 shadow-inner bg-radial from-[#ffffff] via-[#f7faf8] to-[#edf7f2] pointer-events-none opacity-90" />
 
             {/* 12 Heat-Blued Screws on the Bezel */}
@@ -807,10 +781,15 @@ export default function ClockworkTransformation({ playChime }) {
                 );
               })}
 
-              {/* A. UNPLACED GEAR SOCKETS (Neutral horological caliber recesses - NO GREEN!) */}
+              {/* A. UNPLACED GHOST GEARS: "Seen without being seen" for intuitive matching! */}
               {GEARS_DATA.map((gear) => {
                 const isPlaced = placedGearIds.has(gear.id);
                 if (isPlaced) return null;
+
+                const hubR = gear.radius * 0.28;
+                const rimInnerR = gear.radius * 0.72;
+                const ghostGearPath = generateInvoluteGearPath(0, 0, gear.radius, gear.toothCount, hubR);
+                const ghostSpokeWindows = generateSpokeWindows(0, 0, hubR + 4, rimInnerR - 2, gear.spokeCount);
 
                 return (
                   <g
@@ -818,30 +797,32 @@ export default function ClockworkTransformation({ playChime }) {
                     transform={`translate(${gear.socketPos.x}, ${gear.socketPos.y})`}
                     className="pointer-events-none"
                   >
-                    {/* Neutral Caliber Recess Bore */}
-                    <circle
-                      r={gear.radius}
+                    {/* Ghost Gear Silhouette Outline */}
+                    <path
+                      d={ghostGearPath}
                       fill="rgba(241, 245, 249, 0.45)"
                       stroke="#94a3b8"
                       strokeWidth="1.2"
-                      strokeDasharray="4 4"
+                      strokeDasharray="3 2"
+                      opacity="0.32"
                     />
 
-                    {/* Subtle Concentric Pitch Guide Ring */}
-                    <circle
-                      r={gear.radius * 0.76}
-                      fill="none"
-                      stroke="#cbd5e1"
-                      strokeWidth="0.8"
-                      strokeDasharray="2 3"
-                      opacity="0.85"
-                    />
+                    {/* Ghost Spokes */}
+                    {ghostSpokeWindows.map((swPath, wIdx) => (
+                      <path
+                        key={wIdx}
+                        d={swPath}
+                        fill="none"
+                        stroke="#cbd5e1"
+                        strokeWidth="0.8"
+                        opacity="0.35"
+                      />
+                    ))}
 
-                    {/* Recessed Pivot Jewel Well & Chaton Collar */}
-                    <circle r="9" fill="url(#chatonGrad)" stroke="#78350f" strokeWidth="1" />
-                    <circle r="5" fill="#334155" stroke="#0f172a" strokeWidth="1" />
-                    <circle r="2.8" fill="url(#rubyJewelGrad)" stroke="#4c0519" strokeWidth="0.8" />
-                    <circle cx="-0.9" cy="-0.9" r="0.7" fill="#ffffff" opacity="0.9" />
+                    {/* Subtle Pivot Chaton & Jewel */}
+                    <circle r={hubR} fill="none" stroke="#94a3b8" strokeWidth="0.8" opacity="0.4" />
+                    <circle r="7" fill="url(#chatonGrad)" stroke="#78350f" strokeWidth="0.8" opacity="0.6" />
+                    <circle r="3.5" fill="url(#rubyJewelGrad)" stroke="#4c0519" strokeWidth="0.6" opacity="0.65" />
                   </g>
                 );
               })}
@@ -908,7 +889,7 @@ export default function ClockworkTransformation({ playChime }) {
                 );
               })}
 
-              {/* C. WATCH HANDS */}
+              {/* C. TURNING HANDS */}
               {placedGearIds.size > 0 && (
                 <g className="pointer-events-none drop-shadow-md">
                   <g transform={`rotate(${(rotationAngle * 0.05) % 360})`}>
@@ -937,14 +918,14 @@ export default function ClockworkTransformation({ playChime }) {
               />
             </svg>
 
-            {/* Mismatch Feedback Toast (Shown briefly when dropped on wrong socket) */}
+            {/* Mismatch Feedback (Soft, emotional cue) */}
             <AnimatePresence>
               {mismatchNotice && (
                 <motion.div
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -8, scale: 0.95 }}
-                  className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 bg-[#1e293b]/95 text-amber-200 border border-amber-400/80 px-3.5 py-1.5 rounded-full shadow-xl text-[11px] font-mono font-bold pointer-events-none"
+                  className="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 bg-[#1e293b]/95 text-amber-200 border border-amber-400/80 px-4 py-1.5 rounded-full shadow-xl text-xs font-serif font-medium pointer-events-none"
                 >
                   <RotateCcw className="w-3.5 h-3.5 text-amber-300 animate-spin" />
                   <span>{mismatchNotice}</span>
@@ -952,36 +933,36 @@ export default function ClockworkTransformation({ playChime }) {
               )}
             </AnimatePresence>
 
-            {/* Subtle Interactive Instruction Cue (Neutral, no green) */}
+            {/* Subtle Interactive Instruction Cue (Neutral, pure emotion) */}
             {placedGearIds.size < 7 && !draggingGearId && !mismatchNotice && (
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-white/95 px-3 py-1 rounded-full border border-slate-300 shadow-md text-[11px] font-mono text-slate-700 font-bold pointer-events-none">
-                <Move className="w-3.5 h-3.5 text-slate-600 animate-pulse" />
-                <span>Drag gears from tray on right into movement</span>
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-white/95 px-3.5 py-1 rounded-full border border-emerald-200 shadow-md text-xs font-serif text-emerald-800 font-medium pointer-events-none">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
+                <span>Find where each piece fits into my heart ♡</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* RIGHT COLUMN: The Watchmaker’s Jeweled Tray (Drag Sources on the RIGHT) */}
+        {/* RIGHT COLUMN: Memories of Change Tray (Drag Sources on the RIGHT) */}
         <div className="w-full lg:w-[290px] xl:w-[330px] h-full flex flex-col bg-gradient-to-b from-[#064e3b] via-[#065f46] to-[#022c22] rounded-[28px] border-2 border-amber-300/60 shadow-2xl p-3 sm:p-4 text-white overflow-hidden shrink-0 z-10 select-none touch-none">
           {/* Tray Header */}
           <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-amber-200/20">
-            <div className="flex items-center gap-1.5 text-amber-200 font-mono font-bold text-xs">
+            <div className="flex items-center gap-1.5 text-amber-200 font-serif font-bold text-sm">
               <Clock className="w-4 h-4 text-amber-300" />
-              <span>Jeweled Gear Tray</span>
+              <span>Memories of Change ♡</span>
             </div>
-            <span className="text-[10px] font-mono text-emerald-200 px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/30">
+            <span className="text-[10px] font-sans text-emerald-200 px-2.5 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 font-medium">
               {7 - placedGearIds.size > 0
-                ? `${7 - placedGearIds.size} unplaced`
-                : "Calibrated ♡"}
+                ? `${7 - placedGearIds.size} left to explore`
+                : "All in my heart ♡"}
             </span>
           </div>
 
-          <p className="text-[10px] font-sans text-emerald-100/80 mb-2 leading-tight">
-            Hold and drag each gear to the movement on the left. Find where each complication meshes.
+          <p className="text-[11px] font-serif italic text-emerald-100/90 mb-2 leading-tight">
+            Hold and drag each memory across into my heart.
           </p>
 
-          {/* 7 Draggable Gear Cards in Vertical Velvet Rack */}
+          {/* 7 Draggable Memory Cards in Right Column */}
           <div className="flex-1 flex flex-col gap-2 overflow-y-auto pr-0.5">
             {GEARS_DATA.map((gear) => {
               const isPlaced = placedGearIds.has(gear.id);
@@ -1003,15 +984,15 @@ export default function ClockworkTransformation({ playChime }) {
                       : "bg-emerald-900/60 border-emerald-700/60 text-emerald-100 hover:border-amber-300 hover:bg-emerald-800/90 active:scale-[0.98] cursor-grab"
                   }`}
                 >
-                  {/* Miniature Gear Indicator */}
+                  {/* Miniature Indicator */}
                   <div className="relative w-8 h-8 rounded-full bg-slate-900 border border-amber-300/80 flex items-center justify-center shrink-0 shadow-inner">
                     <div
                       style={{
                         backgroundColor: isPlaced ? gear.accentColor : "#d97706"
                       }}
-                      className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold text-white shadow-2xs"
+                      className="w-4.5 h-4.5 rounded-full flex items-center justify-center text-[10px] font-serif font-bold text-white shadow-2xs"
                     >
-                      {isPlaced ? "✓" : gear.id}
+                      {isPlaced ? "♡" : gear.id}
                     </div>
                   </div>
 
@@ -1020,16 +1001,13 @@ export default function ClockworkTransformation({ playChime }) {
                       <span className="text-xs font-serif font-bold truncate text-white">
                         {gear.dimension}
                       </span>
-                      <span className="text-[9px] font-mono text-amber-200/90 shrink-0">
-                        {gear.radius}mm
-                      </span>
                     </div>
-                    <div className="flex items-center justify-between text-[10px] font-mono">
-                      <span className="text-emerald-200/80 truncate">
-                        {gear.toothCount}T • {gear.material}
+                    <div className="flex items-center justify-between text-[10px] font-sans">
+                      <span className="text-emerald-200/90 truncate italic">
+                        {gear.metaphor}
                       </span>
-                      <span className={`shrink-0 font-bold ${isPlaced ? "text-emerald-300" : "text-amber-300"}`}>
-                        {isPlaced ? "Meshed" : "Drag ⇠"}
+                      <span className={`shrink-0 font-bold ml-1 ${isPlaced ? "text-emerald-300" : "text-amber-300"}`}>
+                        {isPlaced ? "In my heart ♡" : "Drag ⇠"}
                       </span>
                     </div>
                   </div>
@@ -1040,7 +1018,7 @@ export default function ClockworkTransformation({ playChime }) {
         </div>
       </div>
 
-      {/* 3. FLOATING DRAGGED GEAR (Follows pointer during drag - NO GREEN!) */}
+      {/* 3. FLOATING DRAGGED TOKEN (Pure emotion!) */}
       {draggingGearId && currentDraggingGear && (
         <div
           style={{
@@ -1062,21 +1040,21 @@ export default function ClockworkTransformation({ playChime }) {
           >
             <div
               style={{ backgroundColor: currentDraggingGear.accentColor }}
-              className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold text-white shadow-sm mb-0.5"
+              className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-serif font-bold text-white shadow-sm mb-0.5"
             >
               0{currentDraggingGear.id}
             </div>
             <span className="text-[10px] font-serif font-bold text-[#132e22] text-center leading-tight">
               {currentDraggingGear.dimension}
             </span>
-            <span className="text-[8px] font-mono text-amber-800 font-bold mt-0.5">
-              Drop onto matching pivot
+            <span className="text-[8px] font-sans text-amber-900 font-semibold mt-0.5">
+              Place into my heart ♡
             </span>
           </div>
         </div>
       )}
 
-      {/* 4. Grand Finale Modal when all 7 gears are assembled */}
+      {/* 4. Grand Finale Modal when all 7 truths are assembled */}
       <AnimatePresence>
         {showGrandFinale && (
           <motion.div
@@ -1101,7 +1079,7 @@ export default function ClockworkTransformation({ playChime }) {
                 <Clock className="w-8 h-8 animate-spin" />
               </div>
 
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 block mb-1">
+              <span className="text-[11px] font-serif font-bold uppercase tracking-wider text-emerald-800 block mb-1">
                 Seven Years Together ♡
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#132e22] mb-3">
@@ -1109,14 +1087,14 @@ export default function ClockworkTransformation({ playChime }) {
               </h3>
 
               <p className="text-xs sm:text-sm font-sans text-[#3d6350] leading-relaxed mb-5">
-                Every gear you placed represents a part of me that was guarded, angry, silent, or alone before you. 
+                Every single part of me that is gentle, patient, loving, and strong was shaped by you. 
                 <br /><br />
-                Over seven years, your patience, warmth, and steady love calmed every rough edge. I’ve become a man because of you.
+                Over seven years, your warmth melted through every wall I ever put up. You turned an angry, guarded boy into a real man. Everything good about me started with you.
               </p>
 
               <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 mb-5">
                 <p className="text-xs font-serif italic text-emerald-950 font-medium leading-relaxed">
-                  "Seven gears assembled. Seven years of us. Everything good about me started with you."
+                  "Seven years of loving you. Every beat of my heart belongs to you."
                 </p>
               </div>
 
@@ -1124,7 +1102,7 @@ export default function ClockworkTransformation({ playChime }) {
                 onClick={() => setShowGrandFinale(false)}
                 className="w-full py-2.5 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-serif font-bold text-xs shadow-md transition-colors cursor-pointer"
               >
-                Watch It Turn ♡
+                Forever Yours ♡
               </button>
             </motion.div>
           </motion.div>
