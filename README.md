@@ -34,8 +34,17 @@ A bespoke interactive web suite built with React 19, Vite, Tailwind CSS, and Fra
 5. **Chapter 5: The Fifth Space**
    - Preview chamber for Heartbeat Frequency, Coordinate Atlas, and Forward Horizon.
 
-6. **Chapter 6: The Transformation (Personal Evolution)**
-   - Freeform interactive experience exploring personal growth, new perspectives learned, and the profound mutual effect over time.
+6. **Chapter 6: The Transformation (Three Freeform Architectural Plans)**
+   - **Core Theme:** *Personal evolution through shared time* — reflecting how her presence sparked genuine transformation over seven years, fostering new perspectives, emotional grounding, fresh habits, and becoming a new person.
+   - **Plan A — The Growth Ecosystem (Interactive Sandbox Canvas):**
+     - *Concept:* A fluid, physics-driven sandbox canvas where an initial minimalist core node ("Who I Was") is surrounded by draggable, free-floating "catalyst seeds" representing concrete dimensions of personal growth (e.g., *Quiet Composure*, *Learning How to Truly Listen*, *Appreciating Everyday Details*, *New Passions & Literary Tastes*, *Broadened Worldview*).
+     - *Interactivity:* Completely freeform placement and connection. Users can drag, group, and tether catalyst seeds to the core or to each other. Docking a seed causes organic growth rings to expand, spouts watercolor leaves, and reveals a personal reflection card detailing how that trait took root. Zero linear constraints; users can curate and explore their personal transformation constellation freely.
+   - **Plan B — The Constellation Weaver (Celestial Mind-Map & Sky Canvas):**
+     - *Concept:* An expansive, drifting celestial canvas populated by glowing star nodes categorized across transformation themes (*Perspectives Reimagined*, *Emotional Grounding*, *Habits & Everyday Rhythms*, *Shared Curiosity*).
+     - *Interactivity:* Touch or cursor drag draws luminous silk ribbon filaments between star nodes. Connecting stars forms bespoke geometric constellations; upon completion of each mini-cluster, a handwritten note unfurls with gentle audio resonance, highlighting the exact lesson or shift experienced through her presence. Includes pan, pinch-to-zoom, and free reset/reweave capabilities.
+   - **Plan C — The Metamorphosis Studio (Watercolor & Resonance Wash):**
+     - *Concept:* A tactile, gesture-driven digital watercolor wash environment. The scene begins in muted, monochromatic charcoal and parchment tones. A floating palette contains organic interactive elements and pigment drops representing facets of growth.
+     - *Interactivity:* Swiping, holding, or blending pigments across the textured canvas causes pastel matcha, warm ochre, and soft petal gradients to blossom outward. Embedded reflections, memories, and handwritten confessions gently float up from beneath the dried paint layers (*"Habits I gently absorbed from you"*, *"How my patience grew"*, *"Becoming someone I am proud of"*). Total artistic freedom with no right or wrong path, allowing organic discovery through tactile touch.
 
 7. **Chapter 7: Her Space**
    - Private writing sanctuary with prompt drawer and local autosave.
