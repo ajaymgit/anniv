@@ -1,37 +1,41 @@
 import React, { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, Sparkles, Layers } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
 import { RibbonBow, FlowerBlossom } from "../components/common/GirlyPopDecorations";
-import PlanAGrowthEcosystem from "./chapter6/PlanAGrowthEcosystem";
-import PlanBConstellationWeaver from "./chapter6/PlanBConstellationWeaver";
-import PlanCMetamorphosisStudio from "./chapter6/PlanCMetamorphosisStudio";
+import DemoStoneStacker from "./chapter6/DemoStoneStacker";
+import DemoPachinko from "./chapter6/DemoPachinko";
+import DemoEvolvingAvatar from "./chapter6/DemoEvolvingAvatar";
+import DemoBubbleMerge from "./chapter6/DemoBubbleMerge";
 
-const PLANS = [
+const DEMOS = [
   {
-    id: "A",
-    name: "Plan A: Growth Ecosystem",
-    shortName: "Plan A",
-    icon: "🌱",
-    subtitle: "Interactive Sandbox Canvas"
+    id: "stacker",
+    name: "Stone Stacker",
+    icon: "🪨",
+    desc: "Physics Balance"
   },
   {
-    id: "B",
-    name: "Plan B: Constellation Weaver",
-    shortName: "Plan B",
-    icon: "✨",
-    subtitle: "Celestial Mind-Map & Sky Canvas"
+    id: "pachinko",
+    name: "Pachinko Pegs",
+    icon: "🎯",
+    desc: "Bouncing Pearls"
   },
   {
-    id: "C",
-    name: "Plan C: Metamorphosis Studio",
-    shortName: "Plan C",
-    icon: "🎨",
-    subtitle: "Watercolor & Resonance Studio"
+    id: "avatar",
+    name: "Evolving Companion",
+    icon: "🧍",
+    desc: "Interactive Gifts"
+  },
+  {
+    id: "merge",
+    name: "Blossom Merge",
+    icon: "🫧",
+    desc: "Suika-style Merge"
   }
 ];
 
 export default function SpaceMythriEffect() {
-  const [selectedPlan, setSelectedPlan] = useState("A");
+  const [selectedDemo, setSelectedDemo] = useState("stacker");
   const [audioMuted, setAudioMuted] = useState(false);
   const audioCtxRef = useRef(null);
 
@@ -76,7 +80,7 @@ export default function SpaceMythriEffect() {
 
   return (
     <div className="relative w-full h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] flex flex-col justify-between overflow-hidden select-none font-sans">
-      {/* Top Header & Interactive Plan Switcher Bar */}
+      {/* Top Header & Interactive Demo Selector Bar */}
       <div className="z-30 w-full px-4 sm:px-6 pt-3 pb-2 flex flex-col sm:flex-row items-center justify-between gap-2.5 bg-white/95 backdrop-blur-md border-b border-emerald-200/80 shadow-2xs">
         {/* Title Section */}
         <div className="flex items-center gap-2.5">
@@ -84,36 +88,35 @@ export default function SpaceMythriEffect() {
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-serif text-sm sm:text-base font-bold text-[#132e22]">
-                Chapter 6 // The Transformation
+                Chapter 6 // Playful Demos
               </span>
               <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
             </div>
             <p className="text-[10px] sm:text-[11px] text-[#3d6350] font-sans">
-              Three freeform architectures exploring personal growth through shared time
+              Play around, succeed at the action, and trigger your transformative effect
             </p>
           </div>
         </div>
 
-        {/* Plan Switcher Pills */}
-        <div className="flex items-center gap-1.5 bg-[#f0fdf4] p-1 rounded-2xl border border-emerald-200 shadow-2xs">
-          {PLANS.map((plan) => {
-            const isActive = selectedPlan === plan.id;
+        {/* Demo Switcher Tabs */}
+        <div className="flex items-center gap-1 bg-[#f0fdf4] p-1 rounded-2xl border border-emerald-200 shadow-2xs overflow-x-auto max-w-full">
+          {DEMOS.map((demo) => {
+            const isActive = selectedDemo === demo.id;
             return (
               <button
-                key={plan.id}
+                key={demo.id}
                 onClick={() => {
-                  setSelectedPlan(plan.id);
+                  setSelectedDemo(demo.id);
                   playAdaptiveChime(523.25, 0.4);
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-sans font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-sans font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
                   isActive
                     ? "bg-white text-emerald-950 font-bold shadow-xs border border-emerald-300 ring-1 ring-emerald-200"
                     : "text-[#3d6350] hover:text-[#132e22] hover:bg-white/60"
                 }`}
               >
-                <span>{plan.icon}</span>
-                <span className="hidden md:inline">{plan.name}</span>
-                <span className="md:hidden">{plan.shortName}</span>
+                <span>{demo.icon}</span>
+                <span>{demo.name}</span>
               </button>
             );
           })}
@@ -131,45 +134,58 @@ export default function SpaceMythriEffect() {
         </div>
       </div>
 
-      {/* Dynamic Plan Container with AnimatePresence */}
+      {/* Dynamic Demo Container */}
       <div className="relative flex-1 w-full h-full overflow-hidden">
         <AnimatePresence mode="wait">
-          {selectedPlan === "A" && (
+          {selectedDemo === "stacker" && (
             <motion.div
-              key="plan-A"
+              key="demo-stacker"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.2 }}
               className="w-full h-full"
             >
-              <PlanAGrowthEcosystem playChime={playAdaptiveChime} />
+              <DemoStoneStacker playChime={playAdaptiveChime} />
             </motion.div>
           )}
 
-          {selectedPlan === "B" && (
+          {selectedDemo === "pachinko" && (
             <motion.div
-              key="plan-B"
+              key="demo-pachinko"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.2 }}
               className="w-full h-full"
             >
-              <PlanBConstellationWeaver playChime={playAdaptiveChime} />
+              <DemoPachinko playChime={playAdaptiveChime} />
             </motion.div>
           )}
 
-          {selectedPlan === "C" && (
+          {selectedDemo === "avatar" && (
             <motion.div
-              key="plan-C"
+              key="demo-avatar"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.2 }}
               className="w-full h-full"
             >
-              <PlanCMetamorphosisStudio playChime={playAdaptiveChime} />
+              <DemoEvolvingAvatar playChime={playAdaptiveChime} />
+            </motion.div>
+          )}
+
+          {selectedDemo === "merge" && (
+            <motion.div
+              key="demo-merge"
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="w-full h-full"
+            >
+              <DemoBubbleMerge playChime={playAdaptiveChime} />
             </motion.div>
           )}
         </AnimatePresence>
