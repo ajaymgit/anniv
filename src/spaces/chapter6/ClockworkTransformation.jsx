@@ -107,10 +107,10 @@ export const GEARS_DATA = [
   {
     id: 1,
     gearName: "The Escapement & Pallet Fork",
-    dimension: "The Melted Fortress",
+    dimension: "The 3 AM Co-Pilot & Dedicated Fixer",
     shiftNumber: "01",
     trayLabel: "01 // Escapement",
-    metaphor: "How You Melted My Walls",
+    metaphor: "3 AM Co-Pilot",
     accentColor: "#38bdf8",
     colorName: "Glacial Cyan",
     socketPos: { x: 74, y: -74 },
@@ -120,21 +120,21 @@ export const GEARS_DATA = [
     toothCount: 15,
     rotSpeed: -1.2,
     spokeCount: 5,
-    before: "Aloof and guarded (like Koyun from 'Ramparts of Ice')",
-    after: "Completely devoted to you (proudly a 'girl's boy')",
-    story: `Before I met you, I was completely closed off behind an aloof wall. Like Koyun from Ramparts of Ice, I put on cold nonchalance and never spoke to any girl. My independence was just a wall to keep people out.
+    before: "Cold one-word replies, aloof hands in pockets, pretending nothing mattered",
+    after: "Staying up until 3:00 AM formatting PPTs, study calls, and building tools",
+    story: `Before you, I was completely detached, guarded, and wrapped up in my own head. I was reluctant to get involved in anyone else’s problems or invest emotional energy into daily logistics. My default reflex was cold one-word replies and pretending nothing mattered.
 
-You didn't fight that wall; you just showed up with real warmth until every layer melted away. Today, I am completely, unashamedly a 'girl's boy'—learning your world, listening to your day, and proud to be the one who takes care of you.`,
-    quote: "You melted through all the walls I put up, and showed me it was okay to be soft.",
-    mechanicNote: "You unjammed my walls and let real life begin."
+Being with you turned me into your 24/7 co-pilot and personal support system. I stay up until 3:00 AM helping you format PPTs, research complex topics, clean up academic reports, and organize study decks whenever you're overwhelmed. 'Send me what you have, I’ll format it' became second nature—staying on the call while you study and building custom tools and apps just to make your life easier.`,
+    quote: "You turned someone who used to be detached into the guy who will happily stay up all night making sure your world is taken care of.",
+    mechanicNote: "From aloof detachment to staying up until 3 AM in your corner."
   },
   {
     id: 2,
     gearName: "The Balance Wheel & Hairspring",
-    dimension: "The Calmed Temper",
+    dimension: "The 'Psychotherapist' Calm (Taming the Temper)",
     shiftNumber: "02",
     trayLabel: "02 // Balance Wheel",
-    metaphor: "How You Calmed My Temper",
+    metaphor: "Taming the Temper",
     accentColor: "#f59e0b",
     colorName: "Amber Flame",
     socketPos: { x: -72, y: -62 },
@@ -144,21 +144,21 @@ You didn't fight that wall; you just showed up with real warmth until every laye
     toothCount: 22,
     rotSpeed: 0.9,
     spokeCount: 3,
-    before: "Hair-trigger irritation, quick to snap",
-    after: "Patience, composure, and holding my fire",
-    story: `I used to have a hot head. Easily angered, quick to irritate, and defensive over the smallest friction. If something went sideways, my reflex was to flare up and react on impulse.
+    before: "Pacing the floor, sharp tone, reacting immediately on impulse",
+    after: "Taking a breath, observant patient listener, calm in chaotic moments",
+    story: `I used to have hair-trigger frustration and an instant defensive reflex. If something went sideways, my reflex was to pace the floor, snap with a sharp tone, clench my jaw, and react immediately on impulse.
 
-Being with you completely rewrote my nervous system. You showed me that shouting through a storm never solved a single problem. In seven years, you taught me how to hold my fire, breathe through the chaos, and meet hardship with calm composure instead of hostility.`,
-    quote: "You showed me that shouting doesn't make you strong—staying calm and keeping your cool does.",
-    mechanicNote: "You slowed down my racing temper into quiet composure."
+Being with you made me the observant, patient listener. Like our inside joke about The Silent Patient—'reading this book is like your POV if you were a psychotherapist'—I learned to take a breath, sit with your rants, absorb chaotic moments, and respond with steady reassurance instead of matching the stress. I listen quietly without interrupting, ask 'what happened next?', and stay your calm center when everything else gets loud.`,
+    quote: "You taught me that being strong isn't reacting with fire; it’s being the steady, calm listener when everything else is loud.",
+    mechanicNote: "Taught me to hold my fire and be your steady listener."
   },
   {
     id: 3,
     gearName: "The Resonant Striking Barrel",
-    dimension: "Finding My Voice",
+    dimension: "Finding Conviction (Volume & Voice)",
     shiftNumber: "03",
     trayLabel: "03 // Striking Barrel",
-    metaphor: "How You Found My Voice",
+    metaphor: "Volume & Voice",
     accentColor: "#10b981",
     colorName: "Vivid Emerald",
     socketPos: { x: -74, y: 64 },
@@ -168,21 +168,21 @@ Being with you completely rewrote my nervous system. You showed me that shouting
     toothCount: 20,
     rotSpeed: -0.65,
     spokeCount: 4,
-    before: "Mumbling under my breath, staying silent",
-    after: "Speaking louder with real conviction",
-    story: `I had a very silent voice. I mumbled my thoughts under my breath, shrank away from speaking up, and kept everything locked inside my head. I didn't think what I had to say was worth the room's attention.
+    before: "Looking down, speaking under breath, letting others dominate",
+    after: "Looking you in the eye, voicing needs, speaking with conviction",
+    story: `I kept my thoughts locked inside. I looked down, mumbled under my breath, and shrank away from asserting what I wanted, assuming people wouldn't care anyway.
 
-Because of you, I literally started speaking louder. You listened so attentively and made me feel so heard that I realized my voice had value. You pushed me to articulate what I need and speak with genuine conviction.`,
-    quote: "You listened so closely that I actually started speaking up. You taught me my voice matters.",
-    mechanicNote: "You gave volume to my silence."
+Because you always gave me your full, undivided attention and genuinely cared about my thoughts, I stopped shrinking into the corner. You gave volume to my silence. Now, I look you in the eye, voice what I need, and articulate ideas with confidence and real conviction.`,
+    quote: "You gave volume to my silence because you were the first person who made me feel like my words actually carried weight.",
+    mechanicNote: "You made my words carry weight and gave volume to my silence."
   },
   {
     id: 4,
     gearName: "The Differential Planetary Mesh",
-    dimension: "How We Communicate",
+    dimension: "'Send the Other Three Info Ya' (Communication Over Ego)",
     shiftNumber: "04",
     trayLabel: "04 // Planetary Mesh",
-    metaphor: "How We Talk Now",
+    metaphor: "Communication Over Ego",
     accentColor: "#f43f5e",
     colorName: "Rose Quartz",
     socketPos: { x: -22, y: 72 },
@@ -192,21 +192,21 @@ Because of you, I literally started speaking louder. You listened so attentively
     toothCount: 18,
     rotSpeed: 0.75,
     spokeCount: 4,
-    before: "Stubborn clashes fighting to 'win'",
-    after: "Sitting down for patient, unhurried talks",
-    story: `Early on, when we disagreed, our gears grinded against each other. We had fiery, stubborn arguments where neither of us wanted to back down. We fought to win. Disagreements felt like territorial battles of pride.
+    before: "Walking away mid-argument, cold shoulder, defensive debate points",
+    after: "'Let's sit down and figure this out,' collaborative problem-solving",
+    story: `Early on, disagreements were stubborn, defensive battles where we fought to 'win' or prove a point. Walking away mid-argument, cold shoulders, and bruised pride.
 
-Over seven years, that dynamic completely transformed. Now, when tension happens, we sit down and patiently talk through it. We do real, unhurried communication. We stopped fighting each other and started solving things together.`,
-    quote: "We stopped fighting to be right, and started sitting down to actually talk.",
-    mechanicNote: "We stopped clashing against each other and started solving things together."
+Over seven years, that dynamic completely transformed into true teamwork rhythm. No passive-aggressive silence or bruised pride. Even when deadlines, fatigue, or friction hit, it shifts into collaborative problem-solving, making tea, laughing through the tension, and saying 'let's sit down and figure this out together'. We stopped fighting each other and started solving life as a team.`,
+    quote: "We stopped fighting each other and started solving life as a team.",
+    mechanicNote: "Communication over ego: solving everything together as a team."
   },
   {
     id: 5,
     gearName: "The Tourbillon Cage",
-    dimension: "The Grounded Lens",
+    dimension: "The Reality Check (Cutting Through Overthinking)",
     shiftNumber: "05",
     trayLabel: "05 // Tourbillon Axis",
-    metaphor: "How You Ground Me",
+    metaphor: "Cutting Through Overthinking",
     accentColor: "#eab308",
     colorName: "Golden Lens",
     socketPos: { x: 78, y: 8 },
@@ -216,21 +216,21 @@ Over seven years, that dynamic completely transformed. Now, when tension happens
     toothCount: 18,
     rotSpeed: -0.85,
     spokeCount: 3,
-    before: "Spiraling into panic and mental fog",
-    after: "Your clear, grounded reality check",
-    story: `When life got overwhelming, my head would distort reality—magnifying small problems, anticipating the worst-case scenario, and reacting out of panic. I lived inside stressful narratives of my own making.
+    before: "Restless pacing, internal spiral, catastrophizing worst-case what-ifs",
+    after: "Mythri's straightforward clarity grounding me back in 10 minutes",
+    story: `My head used to dive into overthinking rabbit holes—restless pacing, internal spirals, catastrophizing, and insomnia over imagined worst-case scenarios. I lived inside stressful narratives of my own making.
 
-You became my reality check. When everything in my mind is racing, you have this grounded clarity that cuts through the static and helps me see things objectively as they truly are. You bring me back to solid earth every single time.`,
-    quote: "When my thoughts start spiraling, you bring me right back down to earth.",
-    mechanicNote: "You cut through all the static in my head."
+You became my reality check. With your straightforward, no-nonsense clarity, you cut straight through the static and anchor me back to solid ground. Talking it out with you for ten minutes makes me realize things are never as impossible as my head made them seem.`,
+    quote: "Whenever my mind starts spiraling into a hundred 'what-ifs', you bring me right back to earth with one sentence.",
+    mechanicNote: "Your straightforward clarity cuts through every mental spiral."
   },
   {
     id: 6,
     gearName: "The Mainspring Barrel",
-    dimension: "The Anchor in the Corner",
+    dimension: "From Lone Wolf to Her Number One Cheerleader",
     shiftNumber: "06",
     trayLabel: "06 // Mainspring Barrel",
-    metaphor: "Having You in My Corner",
+    metaphor: "Her #1 Cheerleader",
     accentColor: "#059669",
     colorName: "Deep Jade",
     socketPos: { x: 50, y: 70 },
@@ -240,21 +240,21 @@ You became my reality check. When everything in my mind is racing, you have this
     toothCount: 30,
     rotSpeed: 0.35,
     spokeCount: 5,
-    before: "A lone wolf trying to fight alone",
-    after: "Knowing you are always in my corner",
-    story: `I operated like a solitary fighter. I believed that every burden had to be carried alone, and that relying on anyone was an invitation to be let down. I had no safety net and pretended I didn't want one.
+    before: "Solitary operator, hiding stress, refusing help, emotional armor",
+    after: "Building entire suites for you, cheering every win, sharing the load",
+    story: `I operated like a solitary fighter. I believed relying on anyone was a weakness, carried every burden alone, hid my stress, and kept emotional armor tightly strapped on.
 
-You became my steadfast anchor. Through every exhaustion, career pivot, and heavy season, knowing you are standing in my corner changed how I face the world. I stopped fighting life alone, because I finally found my partner.`,
-    quote: "Because you're always in my corner, I never have to face anything alone.",
-    mechanicNote: "I stopped fighting life alone because I finally found my partner."
+Loving you made me unashamedly your partner and biggest cheerleader. Whether it’s building an entire 7-chapter anniversary suite, crafting desktop companion apps like CoupleStick, or celebrating every milestone you hit, I take genuine pride in your wins. I stopped fighting life alone because I finally found a permanent anchor in my corner.`,
+    quote: "I spent years thinking I had to fight life alone. Loving you made me realize how much better it is to have an anchor in your corner.",
+    mechanicNote: "From a lone wolf to your proudest cheerleader and teammate."
   },
   {
     id: 7,
     gearName: "The Master Chronometer Crown",
-    dimension: "Becoming a Man",
+    dimension: "The Culmination (October 2019 to Today)",
     shiftNumber: "07",
     trayLabel: "07 // Center Crown Hand",
-    metaphor: "Becoming a Man Because of You",
+    metaphor: "October 2019 to Today",
     accentColor: "#86efac",
     colorName: "Starlight Gold",
     socketPos: { x: 0, y: 0 },
@@ -264,13 +264,13 @@ You became my steadfast anchor. Through every exhaustion, career pivot, and heav
     toothCount: 16,
     rotSpeed: 0.45,
     spokeCount: 4,
-    before: "An insecure, prickly kid hiding behind nonchalance",
-    after: "A calm, responsible, protective man",
-    story: `Looking back at who I used to be—I was an insecure, angry, prickly kid hiding behind an aloof mask, unsure of who he was or where his life was going.
+    before: "Insecure guarded kid wandering without direction, defensive walls",
+    after: "Grounded protective partner keeping promises, living with purpose",
+    story: `Looking back at who I used to be—I was an insecure, guarded kid from October 2019 hiding behind nonchalance, unsure of his purpose, and reacting defensively to the world to avoid vulnerability.
 
-In plain words: I’ve become a man because of you. Seven years of loving you, being held accountable by you, and sharing life with you turned a boy into someone calm, responsible, protective, and deeply at peace. Everything good about me started with you.`,
-    quote: "Seven years with you turned a guarded, angry kid into a real man. Everything good about me started with you.",
-    mechanicNote: "Seven years of loving you made me who I am today."
+Seven years of loving you, being held accountable by you, and sharing life with you turned that kid into a grounded, protective, reliable partner. I stand tall with calm shoulders, keep my promises, protect your peace, and live with real purpose. Seven years turned an insecure boy into the man standing here today.`,
+    quote: "Seven years of loving you, being held accountable by you, and sharing life with you turned an insecure kid into the man standing here today.",
+    mechanicNote: "Seven years of loving you turned an insecure kid into a real man."
   }
 ];
 

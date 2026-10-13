@@ -23,115 +23,115 @@ import {
 export const EXHIBITS = [
   {
     id: 1,
-    title: "The Ice Rampart",
-    subtitle: "Melting the Ice Wall",
-    plinthLabel: "Plinth I // 2019",
+    title: "The 3 AM Co-Pilot & Dedicated Fixer",
+    subtitle: "From Aloof Detachment to Her Dedicated Fixer",
+    plinthLabel: "Plinth I // Support",
     medium: "Faceted Ice Crystals & Unfurling Botanical Blossom",
     accentColor: "#38bdf8",
     colorName: "Glacial Cyan",
-    tagline: "From 'Ramparts of Ice' Nonchalance to Proud Devotion",
-    story: `Before I met you, I was an exact mirror of Koyun from Ramparts of Ice. 
+    tagline: "Staying Up All Night in Her Corner",
+    story: `Before you, I was completely detached, guarded, and wrapped up in my own head. Reluctant to get involved in anyone else’s problems or invest emotional energy into daily logistics. My default reflex was cold one-word replies and pretending nothing mattered.
 
-My vibe was aloof, guarded, and nonchalant. I acted like I didn't care about anything, and I never spoke to any girl. My independence was a frozen wall built to keep the world away.
+Being with you turned me into your 24/7 co-pilot and personal support system. I stay up until 3:00 AM helping you format PPTs, research complex topics, clean up academic reports, and organize study decks whenever you're overwhelmed. 
 
-You didn't fight that wall; you just showed up with genuine warmth until every layer of ice melted. Today, I am unashamedly a "girl's boy"—attentive to your world, learning your cadence, and proud to be the one who cares for you.`,
-    quote: "You melted the ramparts of ice I hid behind, and taught me that softness is where real life begins."
+'Send me what you have, I’ll format it' became second nature—staying on the call while you study and building custom tools just to make your life easier.`,
+    quote: "You turned someone who used to be detached into the guy who will happily stay up all night making sure your world is taken care of."
   },
   {
     id: 2,
-    title: "The Calmed Lantern",
+    title: "The 'Psychotherapist' Calm",
     subtitle: "Taming the Temper",
-    plinthLabel: "Plinth II // 2020",
+    plinthLabel: "Plinth II // Composure",
     medium: "Burnished Hexagonal Brass Lantern & Perpetual Candlelight",
     accentColor: "#f59e0b",
     colorName: "Amber Flame",
-    tagline: "From Hot-Headed Anger to Composure",
-    story: `I used to be a hot head. Easily angered, quick to irritate, and defensive over the smallest friction. My first reflex was to snap and fight back.
+    tagline: "The Observant, Steady Listener",
+    story: `I used to have hair-trigger frustration and an instant defensive reflex. If things went sideways, my reflex was to pace the floor, snap with a sharp tone, clench my jaw, and react immediately on impulse.
 
-Being with you taught me that losing my temper never solved a single problem. In seven years, you showed me how to hold my fire, breathe through chaos, and meet hardship with composure instead of hostility.
+Being with you made me the observant, patient listener. Like our inside joke about The Silent Patient ('reading this book is like your POV if you were a psychotherapist'), I learned to take a breath, sit with your rants, absorb chaotic moments, and respond with steady reassurance instead of matching the stress.
 
-My fire didn't disappear; you just gave it a steady lantern so it didn't burn everything around me.`,
-    quote: "You taught me that strength isn't shouting through a storm; it is the calm composure that outlasts it."
+I listen quietly without interrupting, ask 'what happened next?', and stay your calm center when everything else gets loud.`,
+    quote: "You taught me that being strong isn't reacting with fire; it’s being the steady, calm listener when everything else is loud."
   },
   {
     id: 3,
-    title: "The Resonant Voice",
-    subtitle: "Finding My Voice",
-    plinthLabel: "Plinth III // 2021",
+    title: "Finding Conviction",
+    subtitle: "Volume & Voice",
+    plinthLabel: "Plinth III // Resonance",
     medium: "Studio Metallic Acoustic Capsule & Orbital Soundwave Rings",
     accentColor: "#10b981",
     colorName: "Vivid Emerald",
-    tagline: "From a Silent Mumble to Speaking with Conviction",
-    story: `I had a very silent voice. I kept my thoughts under my breath, shrank away from speaking up, and kept everything locked inside my head.
+    tagline: "From a Silent Whisper to Real Conviction",
+    story: `I kept my thoughts locked inside. I looked down, mumbled under my breath, and shrank away from asserting what I wanted, assuming people wouldn't care anyway.
 
-Because of you, I literally started speaking louder. You listened so attentively and made me feel so heard that I realized my voice had value. 
+Because you always gave me your full, undivided attention and genuinely cared about my thoughts, I stopped shrinking into the corner. You gave volume to my silence.
 
-You pushed me to speak up, express what I think, and articulate what I need without shrinking down into a corner.`,
-    quote: "You gave volume to my silence, and taught me that my voice deserves to be heard."
+Now, I look you in the eye, voice what I need, and articulate ideas with confidence and real conviction.`,
+    quote: "You gave volume to my silence because you were the first person who made me feel like my words actually carried weight."
   },
   {
     id: 4,
-    title: "The Dialogue Table",
-    subtitle: "How We Communicate",
-    plinthLabel: "Plinth IV // 2022",
+    title: "'Send the Other Three Info Ya'",
+    subtitle: "Communication Over Ego",
+    plinthLabel: "Plinth IV // Dialogue",
     medium: "Polished Walnut Café Table, Ceramic Mugs & Shared Plate",
     accentColor: "#f43f5e",
     colorName: "Rose Quartz",
-    tagline: "From Fiery Arguments to Patient Talk",
-    story: `Early on, when we disagreed, we had fiery, stubborn arguments where neither of us wanted to back down. We fought to win.
+    tagline: "Solving Life as a Team",
+    story: `Early on, disagreements were stubborn, defensive battles where we fought to 'win' or prove a point with passive-aggressive distance and walking away mid-argument.
 
-Over seven years, that dynamic completely transformed. Now, when tension happens, we sit down and patiently talk through it. We do real, unhurried communication.
+Over seven years, that dynamic completely transformed into true teamwork rhythm. No passive-aggressive silence or bruised pride. Even when deadlines, fatigue, or friction hit, it shifts into collaborative problem-solving, making tea, laughing through the tension, and saying 'let's sit down and figure this out together'.
 
-We stopped fighting each other, and started fighting the problem together.`,
-    quote: "We traded stubborn clashes for patient conversations, and turned arguments into deeper understanding."
+We stopped fighting each other, and started solving life as a team.`,
+    quote: "We stopped fighting each other and started solving life as a team."
   },
   {
     id: 5,
-    title: "The Grounded Lens",
-    subtitle: "The Grounded Lens",
-    plinthLabel: "Plinth V // 2023",
+    title: "The Reality Check",
+    subtitle: "Cutting Through Overthinking",
+    plinthLabel: "Plinth V // Clarity",
     medium: "Optical Crystal Glass Prism on Gimbal Brass Mount",
     accentColor: "#eab308",
     colorName: "Golden Prism",
-    tagline: "Seeing Things as They Actually Are",
-    story: `When life got overwhelming, my head would distort reality—magnifying small problems, anticipating the worst, and reacting out of panic.
+    tagline: "Cutting Straight Through the Noise",
+    story: `My head used to dive into overthinking rabbit holes—restless pacing, internal spirals, catastrophizing, and insomnia over imagined worst-case scenarios. I lived inside stressful narratives of my own making.
 
-You became my reality check. When everything in my mind is racing, you have this grounded clarity that strips away the fog and helps me see things objectively as they truly are.
+You became my reality check. With your straightforward, no-nonsense clarity, you cut straight through the static and anchor me back to solid ground.
 
-You cut through all the static in my head and bring me back to solid ground.`,
-    quote: "You are the lens that clears the fog, reminding me of what is real when my mind starts racing."
+Talking it out with you for ten minutes makes me realize things are never as impossible as my head made them seem.`,
+    quote: "Whenever my mind starts spiraling into a hundred 'what-ifs', you bring me right back to earth with one sentence."
   },
   {
     id: 6,
-    title: "The Unshakable Anchor",
-    subtitle: "The Unfailing Support",
-    plinthLabel: "Plinth VI // 2024",
+    title: "Her Number One Cheerleader",
+    subtitle: "From Lone Wolf to Teammate",
+    plinthLabel: "Plinth VI // Anchor",
     medium: "Forged Dark Jade Bronze Anchor with Coiled Maritime Rope",
     accentColor: "#059669",
     colorName: "Deep Jade",
     tagline: "No Longer Alone in the Arena",
-    story: `I operated like a solitary fighter. I believed that every burden had to be carried alone, and that relying on anyone was an invitation to be let down.
+    story: `I operated like a solitary fighter. I believed relying on anyone was a weakness, carried every burden alone, hid my stress, and kept emotional armor tightly strapped on.
 
-You became my steadfast support system. Through every exhaustion, career pivot, and stressful season, knowing you are standing in my corner changed how I face the world.
+Loving you made me unashamedly your partner and biggest cheerleader. Whether it’s building an entire 7-chapter anniversary suite, crafting desktop companion apps like CoupleStick, or celebrating every milestone you hit, I take genuine pride in your wins.
 
-I stopped fighting life as a lone wolf, because I finally found my partner.`,
-    quote: "Because of your unwavering support, I never have to walk into the arena alone again."
+I stopped fighting life as a lone wolf, because I finally found a permanent anchor in my corner.`,
+    quote: "I spent years thinking I had to fight life alone. Loving you made me realize how much better it is to have an anchor in your corner."
   },
   {
     id: 7,
-    title: "The Man Standing Tall",
-    subtitle: "Becoming a Man",
+    title: "The Culmination",
+    subtitle: "October 2019 to Today",
     plinthLabel: "Plinth VII // Today",
     medium: "Cast Bronze Statue of a Man Holding a Radiant Lotus Core",
     accentColor: "#86efac",
     colorName: "Starlight Pearl",
-    tagline: "The Man I Am Today",
-    story: `If the boy from October 2019 saw me today, he wouldn't recognize me. 
+    tagline: "The Man Standing Here Today",
+    story: `Looking back at who I used to be—I was an insecure, guarded kid from October 2019 hiding behind nonchalance, unsure of his purpose, and reacting defensively to the world to avoid vulnerability.
 
-Back then, I was an angry, prickly kid hiding behind nonchalance. Seven years of loving you, being held accountable by you, and sharing life with you shaped me into who I am.
+Seven years of loving you, being held accountable by you, and sharing life with you turned that kid into a grounded, protective, reliable partner. 
 
-In plain words: I’ve become a man because of you. Calm, responsible, protective, and deeply at peace.`,
-    quote: "Seven years with you turned a guarded boy into a grounded man. Everything I am today started with you."
+I stand tall with calm shoulders, keep my promises, protect your peace, and live with real purpose. Seven years turned an insecure boy into the man standing here today.`,
+    quote: "Seven years of loving you, being held accountable by you, and sharing life with you turned an insecure kid into the man standing here today."
   }
 ];
 
