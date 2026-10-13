@@ -325,6 +325,70 @@ function buildPondLily(x, z, scale = 1.0, notchRotation = 0, offset = 0) {
   return { group, flower, petalPivots, baseY: -1.93, offset };
 }
 
+// Generates realistic botanical watercolor leaf texture with central vein
+function createLeafTexture() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 1024;
+  const ctx = canvas.getContext("2d");
+
+  // Deep forest emerald gradient with midrib highlight
+  const grad = ctx.createLinearGradient(0, 0, 256, 0);
+  grad.addColorStop(0.0, "#0f3d20");
+  grad.addColorStop(0.38, "#15803d");
+  grad.addColorStop(0.5, "#86efac");
+  grad.addColorStop(0.62, "#15803d");
+  grad.addColorStop(1.0, "#0f3d20");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 256, 1024);
+
+  // Subtle longitudinal parallel veins
+  ctx.strokeStyle = "rgba(187, 247, 208, 0.28)";
+  ctx.lineWidth = 1.2;
+  for (let x of [35, 70, 100, 156, 186, 221]) {
+    ctx.beginPath();
+    ctx.moveTo(x, 1024);
+    ctx.quadraticCurveTo(x + (x < 128 ? -8 : 8), 512, 128, 0);
+    ctx.stroke();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.ClampToEdgeWrapping;
+  texture.wrapT = THREE.ClampToEdgeWrapping;
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+// Builds an organic, slender lanceolate leaf with arching curve and tapered tip
+function createBotanicalLeafGeometry(width = 0.26, length = 1.35) {
+  const segX = 16;
+  const segY = 24;
+  const geom = new THREE.PlaneGeometry(width, length, segX, segY);
+  geom.translate(0, length / 2, 0); // pivot at base (y = 0)
+
+  const pos = geom.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i);
+    const y = pos.getY(i);
+    const u = Math.max(-1, Math.min(1, x / (width / 2)));
+    const v = Math.max(0, Math.min(1, y / length));
+
+    // Lanceolate outline: narrow at stem clasp, widest at ~35%, sharp tip
+    const widthFactor = Math.sin(Math.pow(v, 0.55) * Math.PI) * (1.0 - 0.25 * v);
+    pos.setX(i, (u * width / 2) * widthFactor);
+
+    // Natural arch: curves outward, drapes gently at tip
+    const archZ = Math.sin(v * Math.PI * 0.75) * 0.22 - Math.pow(v, 2.0) * 0.12;
+    // Transverse V-crease along midrib
+    const midrib = -Math.abs(u) * 0.03 * Math.sin(v * Math.PI);
+
+    pos.setZ(i, archZ + midrib);
+  }
+
+  geom.computeVertexNormals();
+  return geom;
+}
+
 // Builds single petal geometry with base anchored at y = 0
 function createPetalGeometry(width = 1.15, length = 2.45, isOuter = true) {
   const segX = 24;
@@ -720,30 +784,32 @@ export default function SpaceConstellation() {
     stemMesh.castShadow = true;
     lilyGroup.add(stemMesh);
 
-    // Arching leaves
-    const leafGeom = new THREE.PlaneGeometry(0.3, 0.98, 8, 12);
-    const leafPos = leafGeom.attributes.position;
-    for (let i = 0; i < leafPos.count; i++) {
-      const y = leafPos.getY(i);
-      const v = (y + 0.49) / 0.98;
-      leafPos.setZ(i, Math.sin(v * Math.PI * 0.7) * 0.15);
-    }
-    leafGeom.computeVertexNormals();
+    // Botanical lanceolate leaves spiraling naturally along the stem curve
+    const leafGeom = createBotanicalLeafGeometry(0.26, 1.35);
+    const leafTexture = createLeafTexture();
     const leafMat = new THREE.MeshStandardMaterial({
-      color: 0x15803d,
-      roughness: 0.45,
+      map: leafTexture,
+      roughness: 0.38,
+      metalness: 0.04,
       side: THREE.DoubleSide
     });
 
-    const leaf1 = new THREE.Mesh(leafGeom, leafMat);
-    leaf1.position.set(-0.35, -0.65, 0.06);
-    leaf1.rotation.set(0.35, 0.25, Math.PI / 3);
-    lilyGroup.add(leaf1);
+    const leafConfigs = [
+      { t: 0.32, rot: [0.65, 0.45, 0.95], scale: 0.85 },
+      { t: 0.52, rot: [-0.55, -0.65, -1.15], scale: 1.0 },
+      { t: 0.72, rot: [0.55, 2.2, 1.2], scale: 1.05 },
+      { t: 0.88, rot: [-0.45, -2.4, -1.25], scale: 0.95 }
+    ];
 
-    const leaf2 = new THREE.Mesh(leafGeom, leafMat);
-    leaf2.position.set(0.38, -1.05, -0.03);
-    leaf2.rotation.set(-0.25, -0.35, -Math.PI / 3.2);
-    lilyGroup.add(leaf2);
+    leafConfigs.forEach((cfg) => {
+      const pt = stemCurve.getPoint(cfg.t);
+      const leafMesh = new THREE.Mesh(leafGeom, leafMat);
+      leafMesh.position.set(pt.x, pt.y, pt.z);
+      leafMesh.rotation.set(...cfg.rot);
+      leafMesh.scale.setScalar(cfg.scale);
+      leafMesh.castShadow = true;
+      lilyGroup.add(leafMesh);
+    });
 
     // Receptacle base bud
     const baseBudGeom = new THREE.SphereGeometry(0.32, 20, 20);
