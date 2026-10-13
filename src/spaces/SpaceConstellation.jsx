@@ -236,6 +236,23 @@ function createLilyTexture() {
   return texture;
 }
 
+// Generates soft nocturnal water pool gradient fading seamlessly into starry sky
+function createWaterTexture() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 512;
+  const ctx = canvas.getContext("2d");
+  const grad = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+  grad.addColorStop(0.0, "rgba(10, 22, 38, 0.85)");
+  grad.addColorStop(0.55, "rgba(8, 18, 32, 0.65)");
+  grad.addColorStop(0.85, "rgba(6, 14, 25, 0.25)");
+  grad.addColorStop(1.0, "rgba(5, 11, 20, 0.0)");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 512, 512);
+  const texture = new THREE.CanvasTexture(canvas);
+  return texture;
+}
+
 // Builds single petal geometry with base anchored at y = 0
 function createPetalGeometry(width = 1.15, length = 2.45, isOuter = true) {
   const segX = 24;
@@ -332,27 +349,28 @@ export default function SpaceConstellation() {
   const [autoRotate, setAutoRotate] = useState(false);
   const [currentCameraPreset, setCurrentCameraPreset] = useState("cinematic");
 
-  // 8 distinct petals layout:
-  // In bud: tilt ~ 0.12 (upright, tightly clustered), radius ~ 0.16
-  // In full bloom: tilt ~ 1.18 (wide open 68 deg star!), radius ~ 0.58
+  // 8 distinct petals layout in a balanced double whorl:
+  // 4 Outer primary tepals (Petals 1..4 at 0, 90, 180, 270 deg) - wide star flare
+  // 4 Inner alternating tepals (Petals 5..8 at 45, 135, 225, 315 deg) - cupped bloom star
+  // Both layers bloom open into a balanced, star-shaped Stargazer lily (no awkward upright bunny ears)
   const PETAL_LAYOUT = [
-    { id: 1, angle: 0,                   bloomRadius: 0.58, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.05 },
-    { id: 2, angle: (2 * Math.PI) / 3,   bloomRadius: 0.58, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.05 },
-    { id: 3, angle: (4 * Math.PI) / 3,   bloomRadius: 0.58, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.05 },
-    { id: 4, angle: Math.PI / 3,         bloomRadius: 0.48, budRadius: 0.13, bloomTilt: 1.05, budTilt: 0.10, isOuter: false, wScale: 1.25 },
-    { id: 5, angle: Math.PI,             bloomRadius: 0.48, budRadius: 0.13, bloomTilt: 1.05, budTilt: 0.10, isOuter: false, wScale: 1.25 },
-    { id: 6, angle: (5 * Math.PI) / 3,   bloomRadius: 0.48, budRadius: 0.13, bloomTilt: 1.05, budTilt: 0.10, isOuter: false, wScale: 1.25 },
-    { id: 7, angle: Math.PI / 6,         bloomRadius: 0.28, budRadius: 0.09, bloomTilt: 0.42, budTilt: 0.08, isOuter: false, wScale: 0.95 },
-    { id: 8, angle: (7 * Math.PI) / 6,   bloomRadius: 0.12, budRadius: 0.05, bloomTilt: 0.22, budTilt: 0.06, isOuter: false, wScale: 0.88 }
+    { id: 1, angle: 0,                   bloomRadius: 0.54, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.08 },
+    { id: 2, angle: Math.PI / 2,         bloomRadius: 0.54, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.08 },
+    { id: 3, angle: Math.PI,             bloomRadius: 0.54, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.08 },
+    { id: 4, angle: (3 * Math.PI) / 2,   bloomRadius: 0.54, budRadius: 0.16, bloomTilt: 1.18, budTilt: 0.12, isOuter: true,  wScale: 1.08 },
+    { id: 5, angle: Math.PI / 4,         bloomRadius: 0.46, budRadius: 0.13, bloomTilt: 1.06, budTilt: 0.10, isOuter: false, wScale: 1.22 },
+    { id: 6, angle: (3 * Math.PI) / 4,   bloomRadius: 0.46, budRadius: 0.13, bloomTilt: 1.06, budTilt: 0.10, isOuter: false, wScale: 1.22 },
+    { id: 7, angle: (5 * Math.PI) / 4,   bloomRadius: 0.46, budRadius: 0.13, bloomTilt: 1.06, budTilt: 0.10, isOuter: false, wScale: 1.22 },
+    { id: 8, angle: (7 * Math.PI) / 4,   bloomRadius: 0.46, budRadius: 0.13, bloomTilt: 1.06, budTilt: 0.10, isOuter: false, wScale: 1.22 }
   ];
 
-  // Camera presets
+  // Camera presets - Framed so the entire flower, stem, and pool are fully visible without clipping
   const CAMERA_PRESETS = [
-    { id: "cinematic", label: "Cinematic", icon: Camera, pos: [0, 1.2, 5.2], target: [0, 0.4, 0], desc: "Beauty 3/4 Overview" },
-    { id: "top", label: "Top Bloom", icon: Maximize2, pos: [0, 5.2, 0.1], target: [0, 0.5, 0], desc: "Direct Downward Star Bloom" },
-    { id: "front", label: "Eye Level", icon: Eye, pos: [0, 0.5, 4.6], target: [0, 0.5, 0], desc: "Straight Front Profile" },
-    { id: "side", label: "Side Angle", icon: Compass, pos: [4.8, 0.8, 0], target: [0, 0.4, 0], desc: "Stem Arch & Reflexed Petals" },
-    { id: "macro", label: "Macro", icon: Sparkles, pos: [0, 0.7, 2.1], target: [0, 0.55, 0], desc: "Golden Anthers & Nectar Throat" }
+    { id: "cinematic", label: "Cinematic", icon: Camera, pos: [0, 0.8, 6.2], target: [0, 0.1, 0], desc: "Full Flower Overview" },
+    { id: "top", label: "Top Bloom", icon: Maximize2, pos: [0, 6.2, 0.1], target: [0, 0.2, 0], desc: "Direct Downward Star Bloom" },
+    { id: "front", label: "Eye Level", icon: Eye, pos: [0, 0.3, 5.8], target: [0, 0.2, 0], desc: "Straight Front Profile" },
+    { id: "side", label: "Side Angle", icon: Compass, pos: [5.8, 0.8, 0], target: [0, 0.1, 0], desc: "Stem Arch & Reflexed Petals" },
+    { id: "macro", label: "Macro", icon: Sparkles, pos: [0, 0.8, 2.6], target: [0, 0.45, 0], desc: "Golden Anthers & Nectar Throat" }
   ];
 
   const applyCameraPreset = (preset) => {
@@ -491,15 +509,15 @@ export default function SpaceConstellation() {
     const container = containerRef.current;
     if (!container) return;
 
-    const width = container.clientWidth || 400;
-    const height = container.clientHeight || 500;
+    const width = container.clientWidth || (typeof window !== "undefined" ? window.innerWidth : 800);
+    const height = container.clientHeight || (typeof window !== "undefined" ? window.innerHeight : 600);
 
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-    camera.position.set(0, 1.2, 5.2);
-    camera.lookAt(0, 0.4, 0);
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    camera.position.set(0, 0.8, 6.2);
+    camera.lookAt(0, 0.1, 0);
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -518,9 +536,9 @@ export default function SpaceConstellation() {
     controls.dampingFactor = 0.05;
     controls.maxPolarAngle = Math.PI / 2 + 0.12;
     controls.minPolarAngle = 0.05;
-    controls.minDistance = 1.6;
-    controls.maxDistance = 8.5;
-    controls.target.set(0, 0.4, 0);
+    controls.minDistance = 2.0;
+    controls.maxDistance = 10.0;
+    controls.target.set(0, 0.1, 0);
     controls.autoRotate = false;
     controls.autoRotateSpeed = 1.5;
     controlsRef.current = controls;
@@ -550,14 +568,16 @@ export default function SpaceConstellation() {
     scene.add(heartGlow);
     heartGlowRef.current = heartGlow;
 
-    // Soft Nocturnal Reflective Water Pool (blends into starry night)
-    const waterGeom = new THREE.CircleGeometry(3.5, 64);
+    // Soft Nocturnal Reflective Water Pool (blends into starry night without harsh boundaries)
+    const waterGeom = new THREE.CircleGeometry(4.8, 64);
+    const waterTexture = createWaterTexture();
     const waterMat = new THREE.MeshStandardMaterial({
-      color: 0x07111e,
+      map: waterTexture,
       roughness: 0.12,
       metalness: 0.85,
       transparent: true,
-      opacity: 0.48
+      opacity: 0.85,
+      side: THREE.DoubleSide
     });
     const waterPlane = new THREE.Mesh(waterGeom, waterMat);
     waterPlane.rotation.x = -Math.PI / 2;
@@ -889,8 +909,8 @@ export default function SpaceConstellation() {
 
     const handleResize = () => {
       if (!container || !rendererRef.current || !cameraRef.current) return;
-      const w = container.clientWidth || 400;
-      const h = container.clientHeight || 500;
+      const w = container.clientWidth || (typeof window !== "undefined" ? window.innerWidth : 800);
+      const h = container.clientHeight || (typeof window !== "undefined" ? window.innerHeight : 600);
       cameraRef.current.aspect = w / h;
       cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(w, h);
@@ -993,7 +1013,7 @@ export default function SpaceConstellation() {
   const remainingPetalCount = Math.max(0, 8 - pluckedCount);
 
   return (
-    <div className="relative w-full min-h-[calc(100vh-65px)] bg-[#070e17] text-white overflow-hidden select-none font-sans flex flex-col justify-between">
+    <div className="relative w-full h-[calc(100vh-65px)] bg-[#070e17] text-white overflow-hidden select-none font-sans flex flex-col justify-between">
       {/* 1. Starry Night Atmospheric Backdrop */}
       <img
         src="/starry-night.jpg"
@@ -1002,6 +1022,15 @@ export default function SpaceConstellation() {
       />
 
       <div className="absolute inset-0 bg-gradient-to-b from-[#060b13]/85 via-[#08121f]/75 to-[#04080e]/95 pointer-events-none" />
+
+      {/* Full-Screen Three.js Canvas Container (NO box, NO frame, entire flower visible) */}
+      <div
+        ref={containerRef}
+        className="absolute inset-0 w-full h-full z-10 touch-none select-none"
+      />
+
+      {/* Atmospheric center glow behind flower */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full bg-rose-600/10 blur-3xl pointer-events-none z-10" />
 
       {/* 2. Top Header Overlay */}
       <div className="relative z-30 pt-5 px-4 sm:px-8 flex flex-wrap items-center justify-between gap-3 pointer-events-none max-w-6xl mx-auto w-full">
@@ -1100,22 +1129,11 @@ export default function SpaceConstellation() {
         </div>
       </div>
 
-      {/* 4. The 3D Three.js WebGL Bloomed Lily Viewport */}
-      <div className="relative z-20 flex-1 flex flex-col items-center justify-center p-2 sm:p-4">
-        <div className="absolute w-[480px] h-[480px] rounded-full bg-rose-600/15 blur-3xl pointer-events-none" />
-
-        {/* Three.js Canvas Container */}
-        <div
-          ref={containerRef}
-          className="relative w-[360px] h-[480px] sm:w-[500px] sm:h-[560px] flex items-center justify-center touch-none select-none drop-shadow-[0_20px_50px_rgba(244,63,94,0.45)]"
-        />
-
-        {/* Interactive Cue */}
-        <div className="mt-2 text-center z-20">
-          <p className="text-xs font-serif italic text-rose-200/90 tracking-wide">
-            Drag to rotate camera • Scroll to zoom • Click any petal to drop it into the water and reveal the next memory ♡
-          </p>
-        </div>
+      {/* 4. Bottom Interactive Cue Overlay */}
+      <div className="relative z-30 pb-5 text-center pointer-events-none">
+        <p className="text-xs font-serif italic text-rose-200/90 tracking-wide bg-slate-900/60 backdrop-blur-md px-5 py-2 rounded-full inline-block border border-rose-300/20 shadow-lg">
+          Drag to rotate camera • Scroll to zoom • Click any petal to drop it into the water and reveal the next memory ♡
+        </p>
       </div>
 
       {/* 5. Climax Lilies Blooming Across the Night Sky */}
