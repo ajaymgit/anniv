@@ -1,14 +1,22 @@
-import React, { useState, useRef, useCallback } from "react";
-import { Volume2, VolumeX, Layers, Compass } from "lucide-react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
+import { Volume2, VolumeX, ArrowLeftRight, Layers } from "lucide-react";
 import { RibbonBow, FlowerBlossom } from "../components/common/GirlyPopDecorations";
-import MuseumGallery from "./chapter6/MuseumGallery";
-import AnamorphicScribbleSculpture from "./chapter6/AnamorphicScribbleSculpture";
+import { useAnniversary } from "../context/AnniversaryContext";
+import BiTemporalIceSlider from "./chapter6/BiTemporalIceSlider";
+import ArtifactsVitrine from "./chapter6/ArtifactsVitrine";
 
 export default function SpaceMythriEffect() {
-  // Mode switcher between the two 7-exhibit presentations
-  const [galleryMode, setGalleryMode] = useState("pedestals"); // 'pedestals' | 'sculpture'
-  const audioCtxRef = useRef(null);
+  const { markSpaceCompleted } = useAnniversary();
+  const [selectedFormat, setSelectedFormat] = useState("slider"); // 'slider' | 'vitrine'
   const [audioMuted, setAudioMuted] = useState(false);
+  const audioCtxRef = useRef(null);
+
+  // Mark space completed
+  useEffect(() => {
+    if (markSpaceCompleted) {
+      markSpaceCompleted("06-mythri-effect");
+    }
+  }, [markSpaceCompleted]);
 
   // Shared Procedural Web Audio Engine
   const playAdaptiveChime = useCallback(
@@ -51,53 +59,53 @@ export default function SpaceMythriEffect() {
 
   return (
     <div className="relative w-full h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] flex flex-col justify-between overflow-hidden select-none font-sans">
-      {/* Top Header & Exhibition View Switcher */}
+      {/* Top Header & Format Comparison Selector */}
       <div className="z-30 w-full px-4 sm:px-6 pt-3 pb-2 flex flex-wrap items-center justify-between gap-3 bg-white/95 backdrop-blur-md border-b border-emerald-200/80 shadow-2xs">
         <div className="flex items-center gap-2.5">
           <RibbonBow className="w-6 h-5 text-emerald-600 shrink-0" />
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-serif text-sm sm:text-base font-bold text-[#132e22]">
-                Chapter 6 // The Seven Transformations
+                Chapter 6 // The Mythri Effect (Two Presentation Formats)
               </span>
               <FlowerBlossom className="w-3.5 h-3.5" petalColor="#86efac" centerColor="#fef08a" />
             </div>
             <p className="text-[10px] sm:text-[11px] text-[#3d6350] font-sans">
-              Seven distinct milestones of personal evolution documented across seven years
+              Comparing two emotional presentation models for your seven transformations
             </p>
           </div>
         </div>
 
-        {/* View Mode Switcher Pills & Audio Toggle */}
+        {/* Format Switcher Pills & Audio Toggle */}
         <div className="flex items-center gap-2">
           <div className="flex items-center bg-[#f0fdf4] p-1 rounded-2xl border border-emerald-200 shadow-2xs text-xs font-serif font-bold">
             <button
               onClick={() => {
-                setGalleryMode("pedestals");
+                setSelectedFormat("slider");
                 playAdaptiveChime(523.25, 0.4);
               }}
               className={`px-3 py-1 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
-                galleryMode === "pedestals"
+                selectedFormat === "slider"
+                  ? "bg-white text-emerald-950 shadow-xs border border-emerald-300 ring-1 ring-emerald-200"
+                  : "text-[#3d6350] hover:text-[#132e22]"
+              }`}
+            >
+              <ArrowLeftRight className="w-3.5 h-3.5 text-emerald-600" />
+              <span>1. "Melt the Ice" Slider</span>
+            </button>
+            <button
+              onClick={() => {
+                setSelectedFormat("vitrine");
+                playAdaptiveChime(587.33, 0.4);
+              }}
+              className={`px-3 py-1 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedFormat === "vitrine"
                   ? "bg-white text-emerald-950 shadow-xs border border-emerald-300 ring-1 ring-emerald-200"
                   : "text-[#3d6350] hover:text-[#132e22]"
               }`}
             >
               <Layers className="w-3.5 h-3.5 text-emerald-600" />
-              <span>7 Museum Pedestals</span>
-            </button>
-            <button
-              onClick={() => {
-                setGalleryMode("sculpture");
-                playAdaptiveChime(587.33, 0.4);
-              }}
-              className={`px-3 py-1 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
-                galleryMode === "sculpture"
-                  ? "bg-white text-emerald-950 shadow-xs border border-emerald-300 ring-1 ring-emerald-200"
-                  : "text-[#3d6350] hover:text-[#132e22]"
-              }`}
-            >
-              <Compass className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Single 3D Scribble Wire</span>
+              <span>2. 7 Artifacts Vitrine</span>
             </button>
           </div>
 
@@ -113,10 +121,10 @@ export default function SpaceMythriEffect() {
 
       {/* Main Experience Viewport */}
       <div className="relative flex-1 w-full h-full overflow-hidden">
-        {galleryMode === "pedestals" ? (
-          <MuseumGallery playChime={playAdaptiveChime} />
+        {selectedFormat === "slider" ? (
+          <BiTemporalIceSlider playChime={playAdaptiveChime} />
         ) : (
-          <AnamorphicScribbleSculpture playChime={playAdaptiveChime} />
+          <ArtifactsVitrine playChime={playAdaptiveChime} />
         )}
       </div>
     </div>
