@@ -2,40 +2,36 @@ import React, { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 import { RibbonBow, FlowerBlossom } from "../components/common/GirlyPopDecorations";
-import DemoStoneStacker from "./chapter6/DemoStoneStacker";
-import DemoPachinko from "./chapter6/DemoPachinko";
-import DemoEvolvingAvatar from "./chapter6/DemoEvolvingAvatar";
-import DemoBubbleMerge from "./chapter6/DemoBubbleMerge";
+import DemoBiTemporalGallery from "./chapter6/DemoBiTemporalGallery";
+import DemoRippleResonance from "./chapter6/DemoRippleResonance";
+import DemoLivingTree from "./chapter6/DemoLivingTree";
 
-const DEMOS = [
+const DIRECTIONS = [
   {
-    id: "stacker",
-    name: "Stone Stacker",
-    icon: "🪨",
-    desc: "Physics Balance"
+    id: "gallery",
+    name: "1. Bi-Temporal Gallery",
+    shortName: "1. Before & After",
+    icon: "🎞️",
+    desc: "Interactive Archival Lens (2019 vs 2026)"
   },
   {
-    id: "pachinko",
-    name: "Pachinko Pegs",
-    icon: "🎯",
-    desc: "Bouncing Pearls"
-  },
-  {
-    id: "avatar",
-    name: "Evolving Companion",
-    icon: "🧍",
-    desc: "Interactive Gifts"
-  },
-  {
-    id: "merge",
-    name: "Blossom Merge",
+    id: "resonance",
+    name: "2. Ripple & Resonance",
+    shortName: "2. Ripple & Touch",
     icon: "🫧",
-    desc: "Suika-style Merge"
+    desc: "Bioluminescent Touch & Botanical Chimes"
+  },
+  {
+    id: "tree",
+    name: "3. The Living Tree",
+    shortName: "3. 2,556 Days",
+    icon: "🌳",
+    desc: "Dendrochronology of 7 Annual Growth Rings"
   }
 ];
 
 export default function SpaceMythriEffect() {
-  const [selectedDemo, setSelectedDemo] = useState("stacker");
+  const [selectedDirection, setSelectedDirection] = useState("gallery");
   const [audioMuted, setAudioMuted] = useState(false);
   const audioCtxRef = useRef(null);
 
@@ -65,14 +61,14 @@ export default function SpaceMythriEffect() {
         const peak = Math.min(0.12, 0.03 + velocity * 0.07);
         gain.gain.setValueAtTime(0.0001, ctx.currentTime);
         gain.gain.linearRampToValueAtTime(peak, ctx.currentTime + 0.04);
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.4);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.2);
 
         osc.connect(filter);
         filter.connect(gain);
         gain.connect(ctx.destination);
 
         osc.start();
-        osc.stop(ctx.currentTime + 2.5);
+        osc.stop(ctx.currentTime + 2.3);
       } catch (e) {}
     },
     [audioMuted]
@@ -80,43 +76,44 @@ export default function SpaceMythriEffect() {
 
   return (
     <div className="relative w-full h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] flex flex-col justify-between overflow-hidden select-none font-sans">
-      {/* Top Header & Interactive Demo Selector Bar */}
+      {/* Top Header & Interactive Direction Selector Bar */}
       <div className="z-30 w-full px-4 sm:px-6 pt-3 pb-2 flex flex-col sm:flex-row items-center justify-between gap-2.5 bg-white/95 backdrop-blur-md border-b border-emerald-200/80 shadow-2xs">
         {/* Title Section */}
         <div className="flex items-center gap-2.5">
-          <RibbonBow className="w-6 h-5 text-emerald-500 shrink-0" />
+          <RibbonBow className="w-6 h-5 text-emerald-600 shrink-0" />
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-serif text-sm sm:text-base font-bold text-[#132e22]">
-                Chapter 6 // Playful Demos
+                Chapter 6 // The Mythri Effect (3 Interactive Concepts)
               </span>
-              <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
+              <FlowerBlossom className="w-3.5 h-3.5" petalColor="#86efac" centerColor="#fef08a" />
             </div>
             <p className="text-[10px] sm:text-[11px] text-[#3d6350] font-sans">
-              Play around, succeed at the action, and trigger your transformative effect
+              Exploring personal transformation and who I became across seven years with you
             </p>
           </div>
         </div>
 
-        {/* Demo Switcher Tabs */}
-        <div className="flex items-center gap-1 bg-[#f0fdf4] p-1 rounded-2xl border border-emerald-200 shadow-2xs overflow-x-auto max-w-full">
-          {DEMOS.map((demo) => {
-            const isActive = selectedDemo === demo.id;
+        {/* Direction Switcher Tabs */}
+        <div className="flex items-center gap-1.5 bg-[#f0fdf4] p-1 rounded-2xl border border-emerald-200 shadow-2xs overflow-x-auto max-w-full">
+          {DIRECTIONS.map((dir) => {
+            const isActive = selectedDirection === dir.id;
             return (
               <button
-                key={demo.id}
+                key={dir.id}
                 onClick={() => {
-                  setSelectedDemo(demo.id);
+                  setSelectedDirection(dir.id);
                   playAdaptiveChime(523.25, 0.4);
                 }}
-                className={`px-3 py-1.5 rounded-xl text-xs font-sans font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-serif font-bold transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
                   isActive
-                    ? "bg-white text-emerald-950 font-bold shadow-xs border border-emerald-300 ring-1 ring-emerald-200"
+                    ? "bg-white text-emerald-950 shadow-xs border border-emerald-300 ring-1 ring-emerald-200"
                     : "text-[#3d6350] hover:text-[#132e22] hover:bg-white/60"
                 }`}
               >
-                <span>{demo.icon}</span>
-                <span>{demo.name}</span>
+                <span>{dir.icon}</span>
+                <span className="hidden md:inline">{dir.name}</span>
+                <span className="md:hidden">{dir.shortName}</span>
               </button>
             );
           })}
@@ -137,55 +134,42 @@ export default function SpaceMythriEffect() {
       {/* Dynamic Demo Container */}
       <div className="relative flex-1 w-full h-full overflow-hidden">
         <AnimatePresence mode="wait">
-          {selectedDemo === "stacker" && (
+          {selectedDirection === "gallery" && (
             <motion.div
-              key="demo-stacker"
+              key="demo-gallery"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.2 }}
               className="w-full h-full"
             >
-              <DemoStoneStacker playChime={playAdaptiveChime} />
+              <DemoBiTemporalGallery playChime={playAdaptiveChime} />
             </motion.div>
           )}
 
-          {selectedDemo === "pachinko" && (
+          {selectedDirection === "resonance" && (
             <motion.div
-              key="demo-pachinko"
+              key="demo-resonance"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.2 }}
               className="w-full h-full"
             >
-              <DemoPachinko playChime={playAdaptiveChime} />
+              <DemoRippleResonance playChime={playAdaptiveChime} />
             </motion.div>
           )}
 
-          {selectedDemo === "avatar" && (
+          {selectedDirection === "tree" && (
             <motion.div
-              key="demo-avatar"
+              key="demo-tree"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.2 }}
               className="w-full h-full"
             >
-              <DemoEvolvingAvatar playChime={playAdaptiveChime} />
-            </motion.div>
-          )}
-
-          {selectedDemo === "merge" && (
-            <motion.div
-              key="demo-merge"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="w-full h-full"
-            >
-              <DemoBubbleMerge playChime={playAdaptiveChime} />
+              <DemoLivingTree playChime={playAdaptiveChime} />
             </motion.div>
           )}
         </AnimatePresence>
