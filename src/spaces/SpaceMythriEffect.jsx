@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useEffect } from "react";
 import { useAnniversary } from "../context/AnniversaryContext";
-import AbstractGenerativeMuseum from "./chapter6/AbstractGenerativeMuseum";
+import MuseumGallery from "./chapter6/MuseumGallery";
 
 export default function SpaceMythriEffect() {
   const { markSpaceCompleted } = useAnniversary();
@@ -49,8 +49,8 @@ export default function SpaceMythriEffect() {
   }, []);
 
   return (
-    <div className="relative w-full h-[calc(100vh-65px)] bg-[#06170f] text-white overflow-hidden select-none font-sans">
-      <AbstractGenerativeMuseum playChime={playAdaptiveChime} />
+    <div className="relative w-full h-[calc(100vh-65px)] bg-[#f7faf8] text-[#132e22] overflow-hidden select-none font-sans">
+      <MuseumGallery playChime={playAdaptiveChime} />
     </div>
   );
 }
