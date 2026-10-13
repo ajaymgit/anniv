@@ -39,43 +39,43 @@ const CHAPTER_METADATA = {
   "01-time-heist": {
     designArchetype: "Arcade Console",
     formatBadge: "Tactile Mission Terminal",
-    yearTag: "Year 01 // 2019",
+    yearTag: "Year 01",
     highlight: "7 tactile memory games: crossword, darkroom, sliding tiles & trivia"
   },
   "02-constellation": {
     designArchetype: "The Enchanted Rose",
     formatBadge: "8 Petals & Blooming Sea",
-    yearTag: "Year 02 // 2020",
+    yearTag: "Year 02",
     highlight: "Interactive 8-petal rose with stories, water ripples & blooming rose finale"
   },
   "03-seven-letters": {
     designArchetype: "Stationery Desk",
-    formatBadge: "Wax-Sealed Epistles",
-    yearTag: "Year 03 // 2021",
+    formatBadge: "Love Letters",
+    yearTag: "Year 03",
     highlight: "7 folded parchment envelopes sealed with custom sage wax monograms"
   },
   "04-couplestick": {
     designArchetype: "macOS Desktop App",
     formatBadge: "Retro-Modern Software Lab",
-    yearTag: "Year 04 // 2022",
+    yearTag: "Year 04",
     highlight: "Mac window chrome with partner sticker, real-time pokes & installer"
   },
   "05-undecided": {
     designArchetype: "Analog Radio Receiver",
     formatBadge: "FM Tuner & Cassette Deck",
-    yearTag: "Year 05 // 2023",
+    yearTag: "Year 05",
     highlight: "Interactive 104.7 FM frequency dial, needle slider & cassette tapes"
   },
   "06-mythri-effect": {
-    designArchetype: "Living Art Museum",
-    formatBadge: "Botanical Exhibition Frame",
-    yearTag: "Year 06 // 2024",
-    highlight: "Curated fine-art museum frame with touch-responsive blooming flora"
+    designArchetype: "Clockwork Movement",
+    formatBadge: "Watchmaker's Movement",
+    yearTag: "Year 06",
+    highlight: "Interactive watch movement with 7 calibrated gears you assemble"
   },
   "07-her-space": {
     designArchetype: "Bound Hardcover Diary",
     formatBadge: "Linen Stitched Notebook",
-    yearTag: "Year 07 // Today",
+    yearTag: "Year 07",
     highlight: "Open book with mint ruled lines, red margin, silk ribbon & private ink"
   }
 };
@@ -128,7 +128,7 @@ export default function MasterHub() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 border border-[#bbf7d0] text-xs font-semibold text-emerald-800 mb-5 shadow-sm"
           >
             <FlowerBlossom className="w-3.5 h-3.5" petalColor="#bbf7d0" centerColor="#fef08a" />
-            <span>Seven Years of Us ♡ 2019 — 2026</span>
+            <span>Seven Years of Us ♡ Always & Forever</span>
             <SparkleStar className="w-3 h-3 text-amber-400" />
           </motion.div>
 

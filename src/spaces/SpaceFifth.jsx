@@ -151,7 +151,7 @@ export default function SpaceFifth() {
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
             <span className="font-serif font-bold text-sm tracking-wider text-emerald-900">
-              RETRO SOUND LAB • MODEL VII // 2019–2026
+              RETRO SOUND LAB • MODEL VII
             </span>
           </div>
 

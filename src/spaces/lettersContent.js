@@ -9,7 +9,7 @@ export const DEFAULT_LETTERS = [
     roman: "I",
     title: "On Quiet Fierceness",
     subtitle: "Something I admire about you",
-    postmark: "OCTOBER 2019 // THE FIRST DAY",
+    postmark: "THE FIRST DAY",
     stampCode: "PAR AVION • No. 01",
     preview: "The quiet strength with which you hold your ground and protect everyone you love...",
     date: "Chapter 1 // The Discovery",

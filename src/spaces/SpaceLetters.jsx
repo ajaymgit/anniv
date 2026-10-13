@@ -28,7 +28,7 @@ export const LETTERS = [
     roman: "I",
     title: "On Quiet Fierceness",
     subtitle: "Something I admire about you",
-    postmark: "OCTOBER 2019 // DISCOVERY",
+    postmark: "THE DISCOVERY",
     stampCode: "PAR AVION • No. 01",
     preview: "The quiet grace with which you hold your ground and carry everyone around you...",
     date: "Chapter 1 // The Discovery",

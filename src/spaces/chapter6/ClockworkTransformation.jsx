@@ -266,7 +266,7 @@ You became my steadfast anchor. Through every exhaustion, career pivot, and heav
     spokeCount: 4,
     before: "An insecure, prickly kid hiding behind nonchalance",
     after: "A calm, responsible, protective man",
-    story: `Looking back at the boy from October 2019—he was an insecure, angry, prickly kid hiding behind an aloof mask, unsure of who he was or where his life was going.
+    story: `Looking back at who I used to be—I was an insecure, angry, prickly kid hiding behind an aloof mask, unsure of who he was or where his life was going.
 
 In plain words: I’ve become a man because of you. Seven years of loving you, being held accountable by you, and sharing life with you turned a boy into someone calm, responsible, protective, and deeply at peace. Everything good about me started with you.`,
     quote: "Seven years with you turned a guarded, angry kid into a real man. Everything good about me started with you.",
@@ -860,14 +860,14 @@ export default function ClockworkTransformation({ playChime }) {
                 <div className="my-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-sans">
                   <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200">
                     <span className="text-[9px] font-mono text-slate-500 uppercase block font-bold mb-0.5">
-                      2019 // Before You:
+                      Before You:
                     </span>
                     <p className="font-serif italic text-slate-800 font-semibold">{activeStoryGear.before}</p>
                   </div>
 
                   <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200">
                     <span className="text-[9px] font-mono text-emerald-700 uppercase block font-bold mb-0.5">
-                      2026 // With You:
+                      With You:
                     </span>
                     <p className="font-serif italic text-emerald-950 font-semibold">{activeStoryGear.after}</p>
                   </div>
@@ -1045,7 +1045,7 @@ export default function ClockworkTransformation({ playChime }) {
               </h3>
 
               <p className="text-xs sm:text-sm font-sans text-[#3d6350] leading-relaxed mb-5">
-                Every gear you placed represents a part of me that was guarded, angry, silent, or alone before October 2019. 
+                Every gear you placed represents a part of me that was guarded, angry, silent, or alone before you. 
                 <br /><br />
                 Over seven years, your patience, warmth, and steady love calmed every rough edge. I’ve become a man because of you.
               </p>

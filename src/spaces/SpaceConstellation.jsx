@@ -32,8 +32,8 @@ export const LILY_STORIES = [
     id: 1,
     order: 1,
     title: "Where Two Aries Collided",
-    yearBadge: "Year 01 // 2019",
-    date: "October 2019 // The First Spark",
+    yearBadge: "Year 01",
+    date: "The First Spark",
     summary: "Two headstrong souls who found their equal in each other.",
     story: `There was an instant, unspoken recognition between us from the very first talk. 
 
@@ -46,7 +46,7 @@ You weren't like anyone else I had ever met. You carried this fierce, quiet auth
     id: 2,
     order: 2,
     title: "Midnight Rain & Empty Roads",
-    yearBadge: "Year 02 // 2020",
+    yearBadge: "Year 02",
     date: "Year 02 // City Nights",
     summary: "Riding through rain at 1 AM with your arms around me.",
     story: `Some of my favorite memories with you don't cost a single rupee.
@@ -60,7 +60,7 @@ In that quiet midnight city, with nobody else around, I realized I would ride an
     id: 3,
     order: 3,
     title: "The Corner Table & Crispy Fries",
-    yearBadge: "Year 03 // 2021",
+    yearBadge: "Year 03",
     date: "Year 03 // Favorite Café",
     summary: "Four hours passing like four minutes across a wooden table.",
     story: `Sitting across from you over iced coffees, watching the afternoon light shift into evening.
@@ -74,7 +74,7 @@ With you, there was never any awkward silence—only comfort so deep it felt lik
     id: 4,
     order: 4,
     title: "Learning Your Quiet Cadence",
-    yearBadge: "Year 04 // 2022",
+    yearBadge: "Year 04",
     date: "Year 04 // Inside Jokes",
     summary: "Understanding your silence and laughing through stubborn UNO rivalries.",
     story: `By year four, love was no longer a question—it had become our second nature.
@@ -88,7 +88,7 @@ We learned how to forgive quickly, how to tease gently, and how to hold space fo
     id: 5,
     order: 5,
     title: "Your Fierce, Unshakable Heart",
-    yearBadge: "Year 05 // 2023",
+    yearBadge: "Year 05",
     date: "Year 05 // That Fierce Heart",
     summary: "The quiet courage and fierce loyalty that defines who you are.",
     story: `The thing I admire most about you is how unconditionally you stand by the people you love.
@@ -102,7 +102,7 @@ In five years of watching you grow, my respect for you only got deeper. You're t
     id: 6,
     order: 6,
     title: "Counting Gates & Time Zones",
-    yearBadge: "Year 06 // 2024",
+    yearBadge: "Year 06",
     date: "Year 06 // The Distance Anchor",
     summary: "Counting down airport gates, knowing distance could never dilute us.",
     story: `Distance tests everything. It tests patience, routines, and endurance.
@@ -117,7 +117,7 @@ Miles never changed what we have. We were solid long before the distance.`,
     order: 7,
     name: "Heart Petal VII",
     title: "Unshakable Home",
-    yearBadge: "Year 07 // 2025",
+    yearBadge: "Year 07",
     date: "Year 07 // The Sanctuary",
     summary: "In a chaotic noisy world, you are the peace I always come home to.",
     story: `At the end of an exhausting week, when the world demands too much and everything feels noisy—just sitting beside you cuts through all the static.
@@ -132,7 +132,7 @@ In seven years, you turned love from a fleeting feeling into a permanent home.`,
     order: 8,
     name: "The Core Heart Tepal",
     title: "Seven Years & An Infinity Ahead",
-    yearBadge: "October 2026 // Today & Forever",
+    yearBadge: "Today & Forever",
     date: "Forever & Always",
     summary: "The final petal that blooms an entire garden of lilies for you.",
     story: `This is the heart of the lily, and the center of my life.
