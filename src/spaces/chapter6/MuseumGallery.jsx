@@ -26,7 +26,7 @@ export const EXHIBITS = [
     title: "The Ice Rampart",
     subtitle: "Melting the Ice Wall",
     plinthLabel: "Plinth I // 2019",
-    medium: "Single-Stroke 3D Scribble Wire • 380+ Loops",
+    medium: "Faceted Ice Crystals & Unfurling Botanical Blossom",
     accentColor: "#38bdf8",
     colorName: "Glacial Cyan",
     tagline: "From 'Ramparts of Ice' Nonchalance to Proud Devotion",
@@ -42,7 +42,7 @@ You didn't fight that wall; you just showed up with genuine warmth until every l
     title: "The Calmed Lantern",
     subtitle: "Taming the Temper",
     plinthLabel: "Plinth II // 2020",
-    medium: "Single-Stroke 3D Scribble Wire • 410+ Loops",
+    medium: "Burnished Hexagonal Brass Lantern & Perpetual Candlelight",
     accentColor: "#f59e0b",
     colorName: "Amber Flame",
     tagline: "From Hot-Headed Anger to Composure",
@@ -55,10 +55,10 @@ My fire didn't disappear; you just gave it a steady lantern so it didn't burn ev
   },
   {
     id: 3,
-    title: "The Speaking Voice",
+    title: "The Resonant Voice",
     subtitle: "Finding My Voice",
     plinthLabel: "Plinth III // 2021",
-    medium: "Single-Stroke 3D Scribble Wire • 390+ Loops",
+    medium: "Studio Metallic Acoustic Capsule & Orbital Soundwave Rings",
     accentColor: "#10b981",
     colorName: "Vivid Emerald",
     tagline: "From a Silent Mumble to Speaking with Conviction",
@@ -71,10 +71,10 @@ You pushed me to speak up, express what I think, and articulate what I need with
   },
   {
     id: 4,
-    title: "The Two in Conversation",
+    title: "The Dialogue Table",
     subtitle: "How We Communicate",
     plinthLabel: "Plinth IV // 2022",
-    medium: "Single-Stroke 3D Scribble Wire • 440+ Loops",
+    medium: "Polished Walnut Café Table, Ceramic Mugs & Shared Plate",
     accentColor: "#f43f5e",
     colorName: "Rose Quartz",
     tagline: "From Fiery Arguments to Patient Talk",
@@ -87,10 +87,10 @@ We stopped fighting each other, and started fighting the problem together.`,
   },
   {
     id: 5,
-    title: "The Clear Eye of Truth",
+    title: "The Grounded Lens",
     subtitle: "The Grounded Lens",
     plinthLabel: "Plinth V // 2023",
-    medium: "Single-Stroke 3D Scribble Wire • 420+ Loops",
+    medium: "Optical Crystal Glass Prism on Gimbal Brass Mount",
     accentColor: "#eab308",
     colorName: "Golden Prism",
     tagline: "Seeing Things as They Actually Are",
@@ -106,7 +106,7 @@ You cut through all the static in my head and bring me back to solid ground.`,
     title: "The Unshakable Anchor",
     subtitle: "The Unfailing Support",
     plinthLabel: "Plinth VI // 2024",
-    medium: "Single-Stroke 3D Scribble Wire • 400+ Loops",
+    medium: "Forged Dark Jade Bronze Anchor with Coiled Maritime Rope",
     accentColor: "#059669",
     colorName: "Deep Jade",
     tagline: "No Longer Alone in the Arena",
@@ -122,7 +122,7 @@ I stopped fighting life as a lone wolf, because I finally found my partner.`,
     title: "The Man Standing Tall",
     subtitle: "Becoming a Man",
     plinthLabel: "Plinth VII // Today",
-    medium: "Single-Stroke 3D Scribble Wire • 460+ Loops",
+    medium: "Cast Bronze Statue of a Man Holding a Radiant Lotus Core",
     accentColor: "#86efac",
     colorName: "Starlight Pearl",
     tagline: "The Man I Am Today",
@@ -135,261 +135,427 @@ In plain words: I’ve become a man because of you. Calm, responsible, protectiv
   }
 ];
 
-// Helper: Generates a genuine, full-on 3D SINGLE-STROKE continuous tangled scribble
-function createSingleStrokeScribbleSpline(id) {
-  const points = [];
-  let globalT = 0;
+// Helper: Assembles genuine, multi-part, high-craft 3D sculptural objects for each pedestal
+function createExhibit3DSculpture(id) {
+  const group = new THREE.Group();
 
-  // Retrieve base anchor silhouette
-  let anchors = [];
   switch (id) {
     case 1: {
-      // 1. The Ice Ramparts
-      anchors = [
-        new THREE.Vector2(-0.85, -0.9),
-        new THREE.Vector2(-0.85, 0.2),
-        new THREE.Vector2(-0.65, 0.2),
-        new THREE.Vector2(-0.65, 0.65),
-        new THREE.Vector2(-0.4, 0.65),
-        new THREE.Vector2(-0.4, 1.05),
-        new THREE.Vector2(-0.1, 0.75),
-        new THREE.Vector2(0.0, 1.15),
-        new THREE.Vector2(0.1, 0.75),
-        new THREE.Vector2(0.4, 1.05),
-        new THREE.Vector2(0.4, 0.65),
-        new THREE.Vector2(0.65, 0.65),
-        new THREE.Vector2(0.65, 0.2),
-        new THREE.Vector2(0.85, 0.2),
-        new THREE.Vector2(0.85, -0.9),
-        new THREE.Vector2(0.5, -0.9),
-        new THREE.Vector2(0.2, -0.3),
-        new THREE.Vector2(-0.1, 0.1),
-        new THREE.Vector2(0.1, 0.5),
-        new THREE.Vector2(-0.2, 0.2),
-        new THREE.Vector2(-0.3, -0.4),
-        new THREE.Vector2(-0.6, -0.9),
-        new THREE.Vector2(-0.85, -0.9)
+      // 1. The Ice Rampart: Translucent faceted ice spires split open with a blooming golden sprout
+      const iceMat = new THREE.MeshStandardMaterial({
+        color: 0xbae6fd,
+        roughness: 0.1,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.8,
+        emissive: 0x38bdf8,
+        emissiveIntensity: 0.25
+      });
+
+      // 6 Faceted Ice Crystal Spires
+      const crystalPositions = [
+        [-0.35, 0.45, 0.1, 0.18, 0.9, 5, -0.15],
+        [0.35, 0.45, -0.1, 0.18, 0.9, 5, 0.15],
+        [-0.55, 0.35, -0.15, 0.14, 0.7, 5, -0.25],
+        [0.55, 0.35, 0.15, 0.14, 0.7, 5, 0.25],
+        [-0.2, 0.6, -0.2, 0.16, 1.2, 5, -0.08],
+        [0.2, 0.6, 0.2, 0.16, 1.2, 5, 0.08]
       ];
+
+      crystalPositions.forEach(([x, y, z, r, h, seg, rotZ]) => {
+        const crystal = new THREE.Mesh(new THREE.ConeGeometry(r, h, seg), iceMat);
+        crystal.position.set(x, y, z);
+        crystal.rotation.z = rotZ;
+        group.add(crystal);
+      });
+
+      // Living golden botanical stem emerging through the central fracture
+      const stemCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(-0.05, 0.35, 0.02),
+        new THREE.Vector3(0.04, 0.75, -0.02),
+        new THREE.Vector3(0, 1.05, 0)
+      ]);
+      const stemGeom = new THREE.TubeGeometry(stemCurve, 24, 0.022, 8, false);
+      const stemMat = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        roughness: 0.35,
+        metalness: 0.2,
+        emissive: 0x059669,
+        emissiveIntensity: 0.3
+      });
+      const stemMesh = new THREE.Mesh(stemGeom, stemMat);
+      group.add(stemMesh);
+
+      // Unfurling blossom at apex
+      const budGeom = new THREE.SphereGeometry(0.12, 16, 16);
+      const budMat = new THREE.MeshStandardMaterial({
+        color: 0xfef08a,
+        roughness: 0.2,
+        emissive: 0xf59e0b,
+        emissiveIntensity: 0.5
+      });
+      const budMesh = new THREE.Mesh(budGeom, budMat);
+      budMesh.position.set(0, 1.08, 0);
+      budMesh.scale.set(0.9, 1.4, 0.9);
+      group.add(budMesh);
+
+      // Two emerald leaves curling out
+      const leafGeom = new THREE.ConeGeometry(0.1, 0.35, 4);
+      const leaf1 = new THREE.Mesh(leafGeom, stemMat);
+      leaf1.position.set(-0.12, 0.6, 0.05);
+      leaf1.rotation.set(0.3, 0, Math.PI / 3);
+      group.add(leaf1);
+
+      const leaf2 = new THREE.Mesh(leafGeom, stemMat);
+      leaf2.position.set(0.12, 0.8, -0.05);
+      leaf2.rotation.set(-0.3, 0, -Math.PI / 3);
+      group.add(leaf2);
       break;
     }
     case 2: {
-      // 2. The Calmed Lantern & Teardrop Flame
-      anchors = [
-        new THREE.Vector2(0, -0.85),
-        new THREE.Vector2(-0.65, -0.85),
-        new THREE.Vector2(-0.55, 0.55),
-        new THREE.Vector2(-0.75, 0.75),
-        new THREE.Vector2(0, 1.05),
-        new THREE.Vector2(0, 1.25),
-        new THREE.Vector2(0.15, 1.15),
-        new THREE.Vector2(0, 1.05),
-        new THREE.Vector2(0.75, 0.75),
-        new THREE.Vector2(0.55, 0.55),
-        new THREE.Vector2(0.65, -0.85),
-        new THREE.Vector2(0, -0.85),
-        // Inner flame path
-        new THREE.Vector2(0, -0.5),
-        new THREE.Vector2(-0.22, -0.15),
-        new THREE.Vector2(-0.12, 0.22),
-        new THREE.Vector2(0, 0.45),
-        new THREE.Vector2(0.12, 0.22),
-        new THREE.Vector2(0.22, -0.15),
-        new THREE.Vector2(0, -0.5),
-        new THREE.Vector2(-0.65, -0.85)
-      ];
+      // 2. The Calmed Lantern: Burnished hexagonal brass lantern with glowing candle flame
+      const brassMat = new THREE.MeshStandardMaterial({
+        color: 0xd97706,
+        roughness: 0.28,
+        metalness: 0.82
+      });
+
+      // Hexagonal base plate
+      const basePlate = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.52, 0.08, 6), brassMat);
+      basePlate.position.y = 0.04;
+      group.add(basePlate);
+
+      // 6 Vertical brass struts
+      for (let i = 0; i < 6; i++) {
+        const th = (i / 6) * Math.PI * 2;
+        const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.85, 8), brassMat);
+        strut.position.set(Math.cos(th) * 0.44, 0.48, Math.sin(th) * 0.44);
+        group.add(strut);
+      }
+
+      // Translucent glass chamber
+      const glassMat = new THREE.MeshStandardMaterial({
+        color: 0xfef3c7,
+        roughness: 0.15,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.35
+      });
+      const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.82, 6), glassMat);
+      glass.position.y = 0.48;
+      group.add(glass);
+
+      // Pagoda roof canopy & chimney
+      const roof = new THREE.Mesh(new THREE.ConeGeometry(0.6, 0.38, 6), brassMat);
+      roof.position.y = 1.08;
+      group.add(roof);
+
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.022, 8, 20), brassMat);
+      ring.position.y = 1.35;
+      group.add(ring);
+
+      // Wax candle inside
+      const candleMat = new THREE.MeshStandardMaterial({ color: 0xfffbeb, roughness: 0.5 });
+      const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.36, 16), candleMat);
+      candle.position.y = 0.26;
+      group.add(candle);
+
+      // Glowing teardrop flame
+      const flameMat = new THREE.MeshStandardMaterial({
+        color: 0xf59e0b,
+        roughness: 0.1,
+        emissive: 0xfbbf24,
+        emissiveIntensity: 1.2
+      });
+      const flame = new THREE.Mesh(new THREE.SphereGeometry(0.08, 16, 16), flameMat);
+      flame.position.y = 0.52;
+      flame.scale.set(0.8, 1.8, 0.8);
+      group.add(flame);
+
+      // Real candle point light inside lantern
+      const candleLight = new THREE.PointLight(0xfbbf24, 1.5, 3.5);
+      candleLight.position.set(0, 0.52, 0);
+      group.add(candleLight);
       break;
     }
     case 3: {
-      // 3. The Speaking Voice Profile with Acoustic Soundwave Arcs
-      anchors = [
-        new THREE.Vector2(-0.5, 0.95),
-        new THREE.Vector2(-0.7, 0.7),
-        new THREE.Vector2(-0.75, 0.3),
-        new THREE.Vector2(-0.65, 0.0),
-        new THREE.Vector2(-0.45, -0.2),
-        new THREE.Vector2(-0.55, -0.7),
-        new THREE.Vector2(-0.2, -0.7),
-        new THREE.Vector2(-0.2, -0.4),
-        new THREE.Vector2(-0.05, -0.3),
-        new THREE.Vector2(-0.1, -0.15),
-        new THREE.Vector2(0.05, -0.1),
-        new THREE.Vector2(-0.05, -0.05),
-        new THREE.Vector2(0.0, 0.15),
-        new THREE.Vector2(-0.15, 0.3),
-        new THREE.Vector2(-0.1, 0.55),
-        new THREE.Vector2(-0.35, 0.8),
-        new THREE.Vector2(-0.5, 0.95),
-        // Radiating Soundwaves
-        new THREE.Vector2(0.25, 0.25),
-        new THREE.Vector2(0.4, 0.0),
-        new THREE.Vector2(0.25, -0.25),
-        new THREE.Vector2(0.55, 0.5),
-        new THREE.Vector2(0.75, 0.0),
-        new THREE.Vector2(0.55, -0.5),
-        new THREE.Vector2(0.85, 0.75),
-        new THREE.Vector2(1.1, 0.0),
-        new THREE.Vector2(0.85, -0.75),
-        new THREE.Vector2(-0.5, -0.7)
-      ];
+      // 3. The Resonant Voice: Vintage studio microphone & concentric orbital soundwaves
+      const chromeMat = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        roughness: 0.2,
+        metalness: 0.85
+      });
+
+      // Circular weighted base stand & vertical neck
+      const base = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 0.08, 24), chromeMat);
+      base.position.y = 0.04;
+      group.add(base);
+
+      const stand = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.65, 12), chromeMat);
+      stand.position.y = 0.4;
+      group.add(stand);
+
+      // Microphone capsule & grille
+      const capsule = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.45, 24), chromeMat);
+      capsule.position.y = 0.92;
+      group.add(capsule);
+
+      const grille = new THREE.Mesh(new THREE.SphereGeometry(0.18, 20, 20), chromeMat);
+      grille.position.y = 1.15;
+      group.add(grille);
+
+      // 3 Concentric Glowing Orbital Soundwave Rings
+      const ringMat = new THREE.MeshStandardMaterial({
+        color: 0x34d399,
+        roughness: 0.2,
+        metalness: 0.7,
+        emissive: 0x10b981,
+        emissiveIntensity: 0.8
+      });
+
+      const soundRadii = [0.45, 0.72, 1.0];
+      soundRadii.forEach((rad, i) => {
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(rad, 0.018, 8, 48), ringMat);
+        ring.position.y = 1.05;
+        ring.rotation.x = Math.PI / 4 + i * 0.12;
+        ring.rotation.y = i * 0.4;
+        group.add(ring);
+      });
       break;
     }
     case 4: {
-      // 4. The Two in Conversation Across Table
-      anchors = [
-        new THREE.Vector2(-0.8, -0.85),
-        new THREE.Vector2(-0.8, -0.25),
-        new THREE.Vector2(-0.5, 0.0),
-        new THREE.Vector2(-0.4, 0.35),
-        new THREE.Vector2(-0.55, 0.75),
-        new THREE.Vector2(-0.3, 0.8),
-        new THREE.Vector2(-0.2, 0.45),
-        new THREE.Vector2(-0.15, 0.15),
-        new THREE.Vector2(-0.3, -0.1),
-        new THREE.Vector2(-0.35, -0.35),
-        new THREE.Vector2(-0.4, -0.85),
-        new THREE.Vector2(0.4, -0.85), // table bridge
-        new THREE.Vector2(0.35, -0.35),
-        new THREE.Vector2(0.3, -0.1),
-        new THREE.Vector2(0.15, 0.15),
-        new THREE.Vector2(0.2, 0.45),
-        new THREE.Vector2(0.3, 0.8),
-        new THREE.Vector2(0.55, 0.75),
-        new THREE.Vector2(0.4, 0.35),
-        new THREE.Vector2(0.5, 0.0),
-        new THREE.Vector2(0.8, -0.25),
-        new THREE.Vector2(0.8, -0.85),
-        // Overhead speech ribbon loop connecting both
-        new THREE.Vector2(0.3, 0.5),
-        new THREE.Vector2(0.0, 0.75),
-        new THREE.Vector2(-0.3, 0.5),
-        new THREE.Vector2(-0.8, -0.85)
-      ];
+      // 4. The Dialogue Table: Miniature café table, two ceramic mugs & rising steam
+      const woodMat = new THREE.MeshStandardMaterial({
+        color: 0x78350f, // Walnut
+        roughness: 0.4,
+        metalness: 0.1
+      });
+
+      // Pedestal stand and round tabletop
+      const tableBase = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.38, 0.08, 24), woodMat);
+      tableBase.position.y = 0.04;
+      group.add(tableBase);
+
+      const tableLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.65, 12), woodMat);
+      tableLeg.position.y = 0.4;
+      group.add(tableLeg);
+
+      const tabletop = new THREE.Mesh(new THREE.CylinderGeometry(0.72, 0.72, 0.06, 36), woodMat);
+      tabletop.position.y = 0.74;
+      group.add(tabletop);
+
+      // Two ceramic coffee mugs facing each other
+      const mug1Mat = new THREE.MeshStandardMaterial({ color: 0xf43f5e, roughness: 0.3 });
+      const mug1 = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.18, 16), mug1Mat);
+      mug1.position.set(-0.32, 0.85, 0.05);
+      group.add(mug1);
+
+      const mug2Mat = new THREE.MeshStandardMaterial({ color: 0xfda4af, roughness: 0.3 });
+      const mug2 = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.18, 16), mug2Mat);
+      mug2.position.set(0.32, 0.85, -0.05);
+      group.add(mug2);
+
+      // Central golden plate
+      const plate = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.2, 0.2, 0.03, 24),
+        new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.3, metalness: 0.6 })
+      );
+      plate.position.set(0, 0.78, 0);
+      group.add(plate);
+
+      // Rising steam loops connecting in heart arch
+      const steamCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.32, 0.95, 0.05),
+        new THREE.Vector3(-0.25, 1.15, 0.08),
+        new THREE.Vector3(0, 1.35, 0),
+        new THREE.Vector3(0.25, 1.15, -0.08),
+        new THREE.Vector3(0.32, 0.95, -0.05)
+      ]);
+      const steamMesh = new THREE.Mesh(
+        new THREE.TubeGeometry(steamCurve, 24, 0.014, 6, false),
+        new THREE.MeshBasicMaterial({ color: 0xfecdd3, transparent: true, opacity: 0.65 })
+      );
+      group.add(steamMesh);
       break;
     }
     case 5: {
-      // 5. The Clear Eye of Truth & Center Focus Ray
-      anchors = [
-        new THREE.Vector2(-0.95, 0.0),
-        new THREE.Vector2(-0.6, 0.5),
-        new THREE.Vector2(0.0, 0.7),
-        new THREE.Vector2(0.6, 0.5),
-        new THREE.Vector2(0.95, 0.0),
-        new THREE.Vector2(0.6, -0.5),
-        new THREE.Vector2(0.0, -0.7),
-        new THREE.Vector2(-0.6, -0.5),
-        new THREE.Vector2(-0.95, 0.0),
-        // Iris & Pupil loops
-        new THREE.Vector2(0.0, 0.45),
-        new THREE.Vector2(-0.35, 0.0),
-        new THREE.Vector2(0.0, -0.45),
-        new THREE.Vector2(0.35, 0.0),
-        new THREE.Vector2(0.0, 0.22),
-        new THREE.Vector2(-0.18, 0.0),
-        new THREE.Vector2(0.0, -0.22),
-        new THREE.Vector2(0.18, 0.0),
-        // Vertical focus plumb line
-        new THREE.Vector2(0.0, 1.05),
-        new THREE.Vector2(0.0, -1.05),
-        new THREE.Vector2(-0.95, 0.0)
-      ];
+      // 5. The Grounded Lens: Optical triangular glass prism on brass gimbal stand
+      const brassMat = new THREE.MeshStandardMaterial({
+        color: 0xca8a04,
+        roughness: 0.28,
+        metalness: 0.85
+      });
+
+      // Tripod mount
+      const mountBase = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 0.08, 24), brassMat);
+      mountBase.position.y = 0.04;
+      group.add(mountBase);
+
+      const mountFork1 = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.7, 8), brassMat);
+      mountFork1.position.set(-0.32, 0.45, 0);
+      group.add(mountFork1);
+
+      const mountFork2 = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.7, 8), brassMat);
+      mountFork2.position.set(0.32, 0.45, 0);
+      group.add(mountFork2);
+
+      // Triangular Crystal Glass Prism
+      const prismMat = new THREE.MeshStandardMaterial({
+        color: 0xfef9c3,
+        roughness: 0.08,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.78,
+        emissive: 0xeab308,
+        emissiveIntensity: 0.35
+      });
+      const prism = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.75, 3), prismMat);
+      prism.position.set(0, 0.82, 0);
+      prism.rotation.z = Math.PI / 2;
+      group.add(prism);
+
+      // Vertical plumb laser beam of clarity shooting through center
+      const beamMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 1.4, 8), beamMat);
+      beam.position.set(0, 0.82, 0);
+      group.add(beam);
+
+      // Focused disc target on plinth
+      const target = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.02, 16), brassMat);
+      target.position.set(0, 0.14, 0);
+      group.add(target);
       break;
     }
     case 6: {
-      // 6. The Unshakable Anchor
-      anchors = [
-        new THREE.Vector2(0, 0.8),
-        new THREE.Vector2(-0.2, 0.95),
-        new THREE.Vector2(0, 1.1),
-        new THREE.Vector2(0.2, 0.95),
-        new THREE.Vector2(0, 0.8),
-        // Cross stock
-        new THREE.Vector2(-0.65, 0.6),
-        new THREE.Vector2(0.65, 0.6),
-        new THREE.Vector2(0, 0.6),
-        new THREE.Vector2(0, -0.75),
-        // Flukes
-        new THREE.Vector2(0.7, -0.65),
-        new THREE.Vector2(0.8, -0.3),
-        new THREE.Vector2(0.65, -0.75),
-        new THREE.Vector2(0, -1.05),
-        new THREE.Vector2(-0.65, -0.75),
-        new THREE.Vector2(-0.8, -0.3),
-        new THREE.Vector2(-0.7, -0.65),
-        new THREE.Vector2(0, -0.75),
-        new THREE.Vector2(0, 0.8)
-      ];
+      // 6. The Unshakable Anchor: Heavy maritime anchor with curved flukes and coiled rope
+      const bronzeMat = new THREE.MeshStandardMaterial({
+        color: 0x064e3b, // Deep jade bronze
+        roughness: 0.35,
+        metalness: 0.8
+      });
+
+      // Vertical shank
+      const shank = new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.048, 1.15, 12), bronzeMat);
+      shank.position.set(0, 0.65, 0);
+      group.add(shank);
+
+      // Top shackle ring
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.15, 0.03, 8, 20), bronzeMat);
+      ring.position.set(0, 1.25, 0);
+      group.add(ring);
+
+      // Horizontal cross stock
+      const stock = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.82, 12), bronzeMat);
+      stock.position.set(0, 1.05, 0);
+      stock.rotation.z = Math.PI / 2;
+      group.add(stock);
+
+      // Curved lower flukes
+      const fluke = new THREE.Mesh(
+        new THREE.TorusGeometry(0.44, 0.048, 10, 24, Math.PI),
+        bronzeMat
+      );
+      fluke.position.set(0, 0.35, 0);
+      fluke.rotation.z = Math.PI;
+      group.add(fluke);
+
+      // Barbed palms on ends of flukes
+      const palm1 = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.22, 4), bronzeMat);
+      palm1.position.set(-0.44, 0.42, 0);
+      palm1.rotation.z = -Math.PI / 3;
+      group.add(palm1);
+
+      const palm2 = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.22, 4), bronzeMat);
+      palm2.position.set(0.44, 0.42, 0);
+      palm2.rotation.z = Math.PI / 3;
+      group.add(palm2);
+
+      // Realistic coiled rope wrapping around shank
+      const ropePoints = [];
+      for (let i = 0; i <= 36; i++) {
+        const t = (i / 36) * Math.PI * 6;
+        ropePoints.push(
+          new THREE.Vector3(
+            Math.cos(t) * (0.08 + i * 0.003),
+            0.15 + (i / 36) * 0.8,
+            Math.sin(t) * (0.08 + i * 0.003)
+          )
+        );
+      }
+      const ropeSpline = new THREE.CatmullRomCurve3(ropePoints);
+      const rope = new THREE.Mesh(
+        new THREE.TubeGeometry(ropeSpline, 36, 0.02, 6, false),
+        new THREE.MeshStandardMaterial({ color: 0xd6d3d1, roughness: 0.8 })
+      );
+      group.add(rope);
       break;
     }
     case 7: {
-      // 7. The Man Standing Tall with Blooming Heart
-      anchors = [
-        new THREE.Vector2(0, 0.75),
-        new THREE.Vector2(-0.18, 0.92),
-        new THREE.Vector2(0, 1.1),
-        new THREE.Vector2(0.18, 0.92),
-        new THREE.Vector2(0, 0.75),
-        // Shoulders and body
-        new THREE.Vector2(-0.55, 0.55),
-        new THREE.Vector2(-0.38, 0.0),
-        new THREE.Vector2(-0.35, -0.95),
-        new THREE.Vector2(-0.1, -0.95),
-        new THREE.Vector2(0.0, -0.3),
-        new THREE.Vector2(0.1, -0.95),
-        new THREE.Vector2(0.35, -0.95),
-        new THREE.Vector2(0.38, 0.0),
-        new THREE.Vector2(0.55, 0.55),
-        new THREE.Vector2(0, 0.6),
-        // Blooming Heart at Chest
-        new THREE.Vector2(0, 0.4),
-        new THREE.Vector2(-0.18, 0.48),
-        new THREE.Vector2(-0.25, 0.28),
-        new THREE.Vector2(0, 0.05),
-        new THREE.Vector2(0.25, 0.28),
-        new THREE.Vector2(0.18, 0.48),
-        new THREE.Vector2(0, 0.4),
-        new THREE.Vector2(-0.55, 0.55)
-      ];
+      // 7. The Man Standing Tall: Classical cast bronze statue of a man holding radiant lotus core
+      const statueMat = new THREE.MeshStandardMaterial({
+        color: 0xd97706, // Polished bronze
+        roughness: 0.25,
+        metalness: 0.85
+      });
+
+      // Pedestal base block
+      const statueBase = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.08, 0.5), statueMat);
+      statueBase.position.y = 0.04;
+      group.add(statueBase);
+
+      // Legs standing upright
+      const leg1 = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.055, 0.7, 12), statueMat);
+      leg1.position.set(-0.16, 0.42, 0);
+      group.add(leg1);
+
+      const leg2 = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.055, 0.7, 12), statueMat);
+      leg2.position.set(0.16, 0.42, 0);
+      group.add(leg2);
+
+      // Upright torso & broad shoulders
+      const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.16, 0.52, 16), statueMat);
+      torso.position.set(0, 0.95, 0);
+      group.add(torso);
+
+      // Head held high with confident posture
+      const head = new THREE.Mesh(new THREE.SphereGeometry(0.14, 20, 20), statueMat);
+      head.position.set(0, 1.34, 0);
+      head.scale.set(0.85, 1.05, 0.85);
+      group.add(head);
+
+      // Arms clasped at chest holding the radiant core
+      const armCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.25, 1.15, 0),
+        new THREE.Vector3(-0.18, 0.95, 0.16),
+        new THREE.Vector3(0, 0.92, 0.18),
+        new THREE.Vector3(0.18, 0.95, 0.16),
+        new THREE.Vector3(0.25, 1.15, 0)
+      ]);
+      const arms = new THREE.Mesh(new THREE.TubeGeometry(armCurve, 16, 0.045, 8, false), statueMat);
+      group.add(arms);
+
+      // Glowing Starlight Lotus Heart in his hands
+      const lotusMat = new THREE.MeshStandardMaterial({
+        color: 0x86efac,
+        roughness: 0.15,
+        emissive: 0x10b981,
+        emissiveIntensity: 1.1
+      });
+      const lotus = new THREE.Mesh(new THREE.SphereGeometry(0.09, 16, 16), lotusMat);
+      lotus.position.set(0, 0.95, 0.2);
+      group.add(lotus);
+
+      const lotusLight = new THREE.PointLight(0x86efac, 1.4, 2.5);
+      lotusLight.position.set(0, 0.95, 0.22);
+      group.add(lotusLight);
       break;
     }
     default:
       break;
   }
 
-  // Generate continuous single stroke with frantic 3D scribble micro-loops and depth jitter
-  const totalPasses = 2;
-  for (let pass = 0; pass < totalPasses; pass++) {
-    for (let i = 0; i < anchors.length - 1; i++) {
-      const p1 = anchors[i];
-      const p2 = anchors[i + 1];
-      const segmentSteps = 10;
-
-      for (let s = 0; s < segmentSteps; s++) {
-        globalT += 0.085;
-        const alpha = s / segmentSteps;
-        const baseX = p1.x + (p2.x - p1.x) * alpha;
-        const baseY = p1.y + (p2.y - p1.y) * alpha;
-
-        // Micro-scribble loop displacement in 3D
-        const scribbleRadius = 0.045 + Math.sin(globalT * 11) * 0.025;
-        const loopAngle = globalT * Math.PI * 4;
-        
-        // Depth jitter (visible when rotating in 3D, collapses from front)
-        const zDepth = Math.sin(globalT * 5.2) * 0.28 + Math.cos(globalT * 3.1) * 0.12;
-
-        points.push(
-          new THREE.Vector3(
-            baseX + Math.cos(loopAngle) * scribbleRadius,
-            baseY + Math.sin(loopAngle) * scribbleRadius,
-            zDepth
-          )
-        );
-      }
-    }
-  }
-
-  // Fit smooth 3D CatmullRom spline to the continuous single stroke
-  const spline = new THREE.CatmullRomCurve3(points, false, "centripetal", 0.35);
-  return spline;
+  return group;
 }
 
 export default function MuseumGallery({ playChime }) {
@@ -405,10 +571,9 @@ export default function MuseumGallery({ playChime }) {
   const [audioMuted, setAudioMuted] = useState(false);
   const [showFullPlaque, setShowFullPlaque] = useState(false);
 
-  // Pedestal Meshes & Spotlights references
+  // Pedestal references
   const pedestalGroupsRef = useRef([]);
   const spotLightsRef = useRef([]);
-  const wireMeshesRef = useRef([]);
 
   // Drag interaction to spin active sculpture on its pedestal
   const isDraggingRef = useRef(false);
@@ -426,7 +591,7 @@ export default function MuseumGallery({ playChime }) {
     [audioMuted, playChime]
   );
 
-  // Build the 3D Museum Hall Scene with Single-Stroke 3D Scribbles
+  // Build the 3D Museum Hall Scene with Genuine 3D Sculptures
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -439,7 +604,7 @@ export default function MuseumGallery({ playChime }) {
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 0.5, 4.4);
+    camera.position.set(0, 0.6, 4.4);
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -453,7 +618,7 @@ export default function MuseumGallery({ playChime }) {
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 2. Ambient Museum Lighting
+    // 2. Ambient Museum Hall Lighting
     const ambientLight = new THREE.AmbientLight(0xfffdfa, 1.4);
     scene.add(ambientLight);
 
@@ -461,10 +626,10 @@ export default function MuseumGallery({ playChime }) {
     hallLight.position.set(5, 8, 6);
     scene.add(hallLight);
 
-    // 3. Polished Museum Hall Floor
+    // 3. Polished Emerald Marble Floor
     const floorGeom = new THREE.PlaneGeometry(60, 20);
     const floorMat = new THREE.MeshStandardMaterial({
-      color: 0x064e3b, // Polished emerald marble
+      color: 0x064e3b, // Polished deep emerald marble
       roughness: 0.15,
       metalness: 0.85
     });
@@ -474,7 +639,7 @@ export default function MuseumGallery({ playChime }) {
     floorMesh.receiveShadow = true;
     scene.add(floorMesh);
 
-    // Subtle gallery wall backdrop
+    // Gallery Wall Backdrop
     const wallGeom = new THREE.PlaneGeometry(60, 15);
     const wallMat = new THREE.MeshStandardMaterial({
       color: 0xf7faf8,
@@ -488,7 +653,6 @@ export default function MuseumGallery({ playChime }) {
     const pedestalSpacing = 3.8;
     const pedestalGroups = [];
     const spotLights = [];
-    const wireMeshes = [];
 
     EXHIBITS.forEach((exhibit, idx) => {
       const group = new THREE.Group();
@@ -498,7 +662,7 @@ export default function MuseumGallery({ playChime }) {
       pedestalGroups.push(group);
 
       // A. Stone Pedestal Plinth
-      const plinthGeom = new THREE.CylinderGeometry(0.85, 0.95, 1.3, 36);
+      const plinthGeom = new THREE.CylinderGeometry(0.88, 0.98, 1.3, 36);
       const plinthMat = new THREE.MeshStandardMaterial({
         color: 0xf0fdf4,
         roughness: 0.45,
@@ -510,8 +674,8 @@ export default function MuseumGallery({ playChime }) {
       plinthMesh.receiveShadow = true;
       group.add(plinthMesh);
 
-      // Brass plinth top trim collar
-      const collarGeom = new THREE.CylinderGeometry(0.88, 0.88, 0.06, 36);
+      // Burnished Brass Collar Ring
+      const collarGeom = new THREE.CylinderGeometry(0.9, 0.9, 0.06, 36);
       const collarMat = new THREE.MeshStandardMaterial({
         color: 0xd97706,
         roughness: 0.25,
@@ -521,20 +685,20 @@ export default function MuseumGallery({ playChime }) {
       collarMesh.position.y = -0.28;
       group.add(collarMesh);
 
-      // Pedestal Base Ring on Floor
-      const baseRimGeom = new THREE.RingGeometry(0.9, 1.15, 36);
+      // Floor Glow Rim
+      const baseRimGeom = new THREE.RingGeometry(0.92, 1.18, 36);
       const baseRimMat = new THREE.MeshBasicMaterial({
         color: new THREE.Color(exhibit.accentColor),
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.4
+        opacity: 0.45
       });
       const baseRimMesh = new THREE.Mesh(baseRimGeom, baseRimMat);
       baseRimMesh.rotation.x = -Math.PI / 2;
       baseRimMesh.position.y = -1.59;
       group.add(baseRimMesh);
 
-      // B. Dedicated Museum Spotlight directly above this pedestal
+      // B. Dedicated Ceiling Spotlight
       const spot = new THREE.SpotLight(
         new THREE.Color(exhibit.accentColor),
         idx === 0 ? 4.5 : 1.2,
@@ -548,22 +712,12 @@ export default function MuseumGallery({ playChime }) {
       scene.add(spot);
       spotLights.push(spot);
 
-      // C. THE FULL-ON SINGLE-STROKE CONTINUOUS 3D SCRIBBLE WIRE SCULPTURE!
-      const spline = createSingleStrokeScribbleSpline(exhibit.id);
-      const tubeGeom = new THREE.TubeGeometry(spline, 320, 0.016, 6, false);
-      const wireMat = new THREE.MeshStandardMaterial({
-        color: new THREE.Color(exhibit.accentColor),
-        roughness: 0.25,
-        metalness: 0.85,
-        emissive: new THREE.Color(exhibit.accentColor),
-        emissiveIntensity: idx === 0 ? 0.8 : 0.15
-      });
-      const wireMesh = new THREE.Mesh(tubeGeom, wireMat);
-      wireMesh.position.set(0, 0.5, 0); // Perched above plinth
-      group.add(wireMesh);
-      wireMeshes.push(wireMesh);
+      // C. THE AUTHENTIC 3D SCULPTURAL MASTERPIECE FOR THIS EXHIBIT
+      const sculpture = createExhibit3DSculpture(exhibit.id);
+      sculpture.position.set(0, -0.25, 0); // Perched directly atop brass collar
+      group.add(sculpture);
 
-      // Stardust particles hovering around sculpture
+      // Floating stardust particles around sculpture
       const dustGeom = new THREE.BufferGeometry();
       const dustCount = 35;
       const dustPositions = new Float32Array(dustCount * 3);
@@ -577,7 +731,7 @@ export default function MuseumGallery({ playChime }) {
         color: 0xfef08a,
         size: 0.035,
         transparent: true,
-        opacity: 0.6
+        opacity: 0.65
       });
       const dustParticles = new THREE.Points(dustGeom, dustMat);
       dustParticles.position.set(0, 0.5, 0);
@@ -586,7 +740,6 @@ export default function MuseumGallery({ playChime }) {
 
     pedestalGroupsRef.current = pedestalGroups;
     spotLightsRef.current = spotLights;
-    wireMeshesRef.current = wireMeshes;
 
     // 5. Animation Loop
     let animId;
@@ -599,14 +752,14 @@ export default function MuseumGallery({ playChime }) {
       // Smooth camera translation along the gallery hall
       camera.position.x += (targetCamXRef.current - camera.position.x) * 0.08;
 
-      // Rotate each scribble sculpture gently; active sculpture responds to user drag spin
+      // Rotate each 3D sculpture; active sculpture responds to user drag spin
       pedestalGroupsRef.current.forEach((grp, idx) => {
-        const wire = grp.children[3]; // The 3D wire sculpture
-        if (wire) {
+        const sculp = grp.children[3]; // The 3D sculpture group
+        if (sculp) {
           if (idx === activeIdx) {
-            wire.rotation.y = activeSpinRef.current + Math.sin(elapsed * 0.6) * 0.08;
+            sculp.rotation.y = activeSpinRef.current + Math.sin(elapsed * 0.6) * 0.08;
           } else {
-            wire.rotation.y = elapsed * 0.4 + idx * 1.2;
+            sculp.rotation.y = elapsed * 0.35 + idx * 1.2;
           }
         }
       });
@@ -616,7 +769,7 @@ export default function MuseumGallery({ playChime }) {
 
     animate();
 
-    // 6. Pointer Drag to Spin Active Sculpture
+    // 6. Pointer Drag to Spin Active Sculpture 360°
     const onPointerDown = (e) => {
       isDraggingRef.current = true;
       prevPointerRef.current = {
@@ -679,10 +832,6 @@ export default function MuseumGallery({ playChime }) {
         spot.intensity = i === idx ? 4.5 : 1.1;
       });
 
-      wireMeshesRef.current.forEach((wire, i) => {
-        wire.material.emissiveIntensity = i === idx ? 0.8 : 0.15;
-      });
-
       triggerChime(392 + idx * 55);
     },
     [triggerChime]
@@ -714,12 +863,12 @@ export default function MuseumGallery({ playChime }) {
           <div>
             <div className="flex items-center gap-2">
               <span className="font-serif text-sm sm:text-base font-bold text-[#132e22]">
-                Chapter 6 // 3D Single-Stroke Scribble Museum
+                Chapter 6 // The Museum of Seven Transformations
               </span>
               <FlowerBlossom className="w-3.5 h-3.5" petalColor="#86efac" centerColor="#fef08a" />
             </div>
             <p className="text-[10px] sm:text-[11px] text-[#3d6350] font-sans">
-              Each sculpture is literally one continuous unbroken wire stroke. Drag horizontally to spin and reveal the chaotic 3D scribble depth!
+              Seven distinct sculptural installations on museum plinths. Drag horizontally to inspect each in 360°.
             </p>
           </div>
         </div>
@@ -815,7 +964,7 @@ export default function MuseumGallery({ playChime }) {
         {/* Drag Hint Overlay Cue */}
         <div className="absolute top-4 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-emerald-200 text-[11px] font-serif font-bold text-emerald-900 shadow-2xs pointer-events-none flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Drag horizontally to spin the single-stroke scribble in 3D</span>
+          <span>Drag horizontally on the sculpture to inspect in 360°</span>
         </div>
       </div>
 
