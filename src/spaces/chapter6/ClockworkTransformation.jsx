@@ -117,10 +117,10 @@ export const GEARS_DATA = [
     toothCount: 15,
     rotSpeed: -1.2,
     spokeCount: 5,
-    story: `Before I met you, I was really closed off and kept to myself. I gave one-word replies and acted like I didn't care about anything, mostly because I didn't want to deal with anyone else.
+    story: `Before I met you, I was really closed off and kept to myself. I gave one-word replies and acted like I didn't care, mostly because I never wanted to invest in anyone else.
 
-Being with you changed all of that. Now, staying awake till 3:00 AM to help you out, staying on the call while you study, or fixing things when you're overwhelmed is the most natural thing for me. I just want to make sure you never have to face a rough night alone.`,
-    quote: "You turned a guy who didn't care about anything into someone who happily stays up till 3 AM just to make your life easier.",
+But you changed that completely. Loving you made me want to show up for you every single day. Now, staying awake till 3:00 AM just to help you out, staying on the call while you study, or fixing things when you're overwhelmed is the most natural thing in the world to me. I just never want you to face a stressful night alone.`,
+    quote: "You turned a guy who didn't care about anything into someone who happily stays up till 3 AM just to take care of you.",
     note: "Staying up with you till the world goes quiet ♡"
   },
   {
@@ -136,11 +136,11 @@ Being with you changed all of that. Now, staying awake till 3:00 AM to help you 
     toothCount: 22,
     rotSpeed: 0.9,
     spokeCount: 3,
-    story: `I used to get irritated and lose my temper really fast. If anything went wrong, I'd get annoyed, snap, and react without thinking.
+    story: `I used to have a hot head and lose my temper so fast over small things. If anything went wrong, my reflex was to snap, get annoyed, and react on impulse.
 
-Being with you taught me so much patience. You showed me that shouting or getting mad never fixes anything. Now, when things get stressful or you're having a hard day, I just take a breath, listen to you quietly, and stay calm. You gave me the patience I never had.`,
-    quote: "You taught me that being strong isn't getting angry; it's staying calm when everything gets loud.",
-    note: "You taught me how to take a breath and stay calm ♡"
+But honestly, handling you is what taught me real patience. Learning how to be there for you through your moods, sitting quietly through your rants, and calming you down when you're overwhelmed completely changed me. Instead of reacting with fire, you taught me to just take a breath, hold you close, and be your safe space. You made me a patient man.`,
+    quote: "Handling you through all your moods and storms is what actually taught me real patience.",
+    note: "Handling you through your storms taught me real patience ♡"
   },
   {
     id: 3,
@@ -157,9 +157,9 @@ Being with you taught me so much patience. You showed me that shouting or gettin
     spokeCount: 4,
     story: `I used to keep everything to myself. I mumbled under my breath, looked down, and never spoke up because I felt like no one would care anyway.
 
-You changed that just by listening to me. You gave me your full attention and actually cared about what I thought. Because of you, I stopped hiding in the corner. Now I look you in the eyes and say what I feel without holding back.`,
-    quote: "You gave volume to my silence because you actually cared about what I had to say.",
-    note: "You made me feel heard for the first time ♡"
+But you changed that just by the way you looked at me. You gave me your full attention, asked what was on my mind, and actually cared about what I had to say. Because of you, I stopped hiding in the corner. You gave me the confidence to look you in the eyes and speak without holding back.`,
+    quote: "You gave volume to my silence because you were the first person who genuinely made me feel heard.",
+    note: "You made my voice matter for the first time ♡"
   },
   {
     id: 4,
@@ -174,11 +174,11 @@ You changed that just by listening to me. You gave me your full attention and ac
     toothCount: 18,
     rotSpeed: 0.75,
     spokeCount: 4,
-    story: `Early on, whenever we disagreed, we both got stubborn. We argued just to prove who was right, and it ended in cold silence and hurt egos.
+    story: `Early on, whenever we disagreed, my pride would get in the way. We argued just to prove who was right, and it always ended in cold silence and hurt feelings.
 
-Over the years, we grew out of that. We realized winning an argument means nothing if we're hurting each other. Now, when things get tense, we just sit down, make tea, laugh it off, and talk it through. We don't fight each other anymore—we fix things together.`,
-    quote: "We stopped fighting each other and started solving things as a team.",
-    note: "No ego between us—just talking it out together ♡"
+Over the years, you showed me how pointless that was. Winning an argument means nothing if I'm hurting you. Now, when things get tense, you and I just sit down, make tea, laugh it off, and talk it through. You taught me to put my ego aside so we can solve life together as a team.`,
+    quote: "You taught me that our relationship matters way more than my ego.",
+    note: "No ego with you—we fix everything together ♡"
   },
   {
     id: 5,
@@ -193,11 +193,11 @@ Over the years, we grew out of that. We realized winning an argument means nothi
     toothCount: 18,
     rotSpeed: -0.85,
     spokeCount: 3,
-    story: `I have a bad habit of overthinking. I start imagining the worst-case scenarios and get stuck in my own head panicking over things that haven't even happened.
+    story: `I have a bad habit of overthinking and imagining the worst possible scenarios. I get stuck in my own head panicking over things that haven't even happened.
 
-You are my reality check. Whenever my thoughts start spinning out of control, you talk to me with so much common sense and clarity. Ten minutes with you and I'm right back on solid ground. You make things feel manageable again.`,
-    quote: "Whenever my mind starts spiraling with what-ifs, you talk to me for ten minutes and bring me right back to reality.",
-    note: "You always bring me right back to reality ♡"
+But you are my reality check. Whenever my thoughts start spinning out of control, you talk to me with so much common sense, clarity, and warmth. Ten minutes of hearing your voice brings me right back on solid ground. You make the whole world feel manageable again.`,
+    quote: "Whenever my head starts spiraling with a hundred what-ifs, you talk to me for ten minutes and bring me right back to reality.",
+    note: "Your voice always brings me back to reality ♡"
   },
   {
     id: 6,
@@ -212,11 +212,11 @@ You are my reality check. Whenever my thoughts start spinning out of control, yo
     toothCount: 30,
     rotSpeed: 0.35,
     spokeCount: 5,
-    story: `I used to think relying on anyone was weak. I bottled up my stress, dealt with everything by myself, and never asked for help.
+    story: `I used to think relying on anyone was weak. I bottled up all my stress, dealt with everything by myself, and never let anyone see when I was struggling.
 
-Being with you showed me how tiring that was. You became my safe space. Celebrating your wins, sharing life with you, and knowing you're always in my corner changed how I look at everything. I don't have to carry the whole world alone anymore.`,
-    quote: "I spent years thinking I had to deal with everything alone. Loving you showed me how good it feels to have someone in your corner.",
-    note: "I don't have to face the world alone anymore ♡"
+But you made it safe for me to put down my guard. You became my home. Celebrating your wins, sharing every single part of my life with you, and knowing you're in my corner changed how I face the world. I don't have to carry everything alone anymore, because I have you.`,
+    quote: "I spent years thinking I had to face the world alone, until you gave me a reason to let someone in.",
+    note: "I never have to face the world alone because of you ♡"
   },
   {
     id: 7,
@@ -231,9 +231,9 @@ Being with you showed me how tiring that was. You became my safe space. Celebrat
     toothCount: 16,
     rotSpeed: 0.45,
     spokeCount: 4,
-    story: `Looking back at who I was seven years ago, I barely recognize that kid. I was insecure, angry, and hid behind an aloof attitude because I was scared of being vulnerable.
+    story: `Looking back at who I was seven years ago, I barely recognize that kid. I was insecure, angry, and hid behind an aloof attitude because I was terrified of being vulnerable.
 
-Seven years of loving you, learning from you, and growing with you turned me into a real man. I'm calmer, I take responsibility, and I know who I am. Everything good about me started with you.`,
+Seven years of loving you, being held accountable by you, and sharing life with you turned me into a real man. I'm calmer, I take responsibility, and I know who I am—and every single good thing about me exists because of you.`,
     quote: "Seven years of loving you turned an insecure kid into the man standing here today.",
     note: "Seven years of loving you made me who I am today ♡"
   }
@@ -597,7 +597,6 @@ export default function ClockworkTransformation({ playChime }) {
                   {activeStoryGear.dimension}
                 </h3>
 
-                {/* Removed Before You and After You comparison grid - story flows directly and naturally */}
                 <p className="text-xs sm:text-[13px] font-sans text-[#3d6350] leading-relaxed whitespace-pre-line mb-4">
                   {activeStoryGear.story}
                 </p>
