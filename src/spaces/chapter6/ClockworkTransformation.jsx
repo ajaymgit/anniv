@@ -11,8 +11,8 @@ import {
   Clock,
   Wand2,
   HandMetal,
-  HelpCircle,
-  Eye
+  Move,
+  HelpCircle
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useAnniversary } from "../../context/AnniversaryContext";
@@ -63,7 +63,6 @@ function generateInvoluteGearPath(cx, cy, r, teeth, innerR) {
     d += `A ${rRoot.toFixed(1)} ${rRoot.toFixed(1)} 0 0 1 ${x5.toFixed(2)} ${y5.toFixed(2)} `;
   }
 
-  // Inner cutout boundary
   if (innerR) {
     d += ` M ${cx + innerR} ${cy} A ${innerR} ${innerR} 0 1 0 ${cx - innerR} ${cy} A ${innerR} ${innerR} 0 1 0 ${cx + innerR} ${cy}`;
   }
@@ -75,7 +74,7 @@ function generateInvoluteGearPath(cx, cy, r, teeth, innerR) {
 function generateSpokeWindows(cx, cy, hubR, rimR, count = 4) {
   const paths = [];
   const step = (Math.PI * 2) / count;
-  const armWidth = 0.28; // Spoke width fraction
+  const armWidth = 0.28;
 
   for (let i = 0; i < count; i++) {
     const aStart = i * step + step * (armWidth / 2);
@@ -278,19 +277,24 @@ In plain words: I’ve become a man because of you. Seven years of loving you, b
 export default function ClockworkTransformation({ playChime }) {
   const { markSpaceCompleted } = useAnniversary();
 
-  // State: placed gear IDs
+  // Assembly state
   const [placedGearIds, setPlacedGearIds] = useState(new Set());
-  const [selectedTrayGearId, setSelectedTrayGearId] = useState(1);
   const [activeStoryGearId, setActiveStoryGearId] = useState(null);
   const [rotationAngle, setRotationAngle] = useState(0);
   const [audioMuted, setAudioMuted] = useState(false);
   const [showGrandFinale, setShowGrandFinale] = useState(false);
 
+  // Active drag state
+  const [draggingGearId, setDraggingGearId] = useState(null);
+  const [dragPointerPos, setDragPointerPos] = useState({ x: 0, y: 0 });
+  const [isNearSocket, setIsNearSocket] = useState(false);
+
+  const watchContainerRef = useRef(null);
   const audioCtxRef = useRef(null);
   const animFrameRef = useRef(null);
   const lastTimeRef = useRef(performance.now());
 
-  // Procedural Web Audio Engine: Dual-impulse synthetic ruby pallet click + metallic resonance
+  // Procedural Web Audio Engine
   const playMechanicalSound = useCallback(
     (type = "place") => {
       if (audioMuted) return;
@@ -306,7 +310,6 @@ export default function ClockworkTransformation({ playChime }) {
         const now = ctx.currentTime;
 
         if (type === "place") {
-          // 1. Heavy Swiss brass chassis lock click
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           const filter = ctx.createBiquadFilter();
@@ -329,7 +332,6 @@ export default function ClockworkTransformation({ playChime }) {
           osc.start(now);
           osc.stop(now + 0.16);
 
-          // 2. High-grade ruby jewel chime resonance
           const ringOsc = ctx.createOscillator();
           const ringGain = ctx.createGain();
           ringOsc.type = "sine";
@@ -345,7 +347,6 @@ export default function ClockworkTransformation({ playChime }) {
           ringOsc.start(now + 0.02);
           ringOsc.stop(now + 0.7);
         } else if (type === "tick") {
-          // Precise 4Hz mechanical chronometer tick
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
           const filter = ctx.createBiquadFilter();
@@ -373,7 +374,7 @@ export default function ClockworkTransformation({ playChime }) {
     [audioMuted]
   );
 
-  // Animation Loop: Real gear motion
+  // Animation Loop: Gear rotation
   useEffect(() => {
     let tickAccumulator = 0;
 
@@ -402,38 +403,118 @@ export default function ClockworkTransformation({ playChime }) {
     };
   }, [placedGearIds.size, playMechanicalSound]);
 
-  // Place Gear into Movement
-  const placeGear = (gearId) => {
+  // Compute screen pixel position of any SVG socket
+  const getSocketScreenPos = useCallback((socketPos) => {
+    if (!watchContainerRef.current) return null;
+    const rect = watchContainerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    // SVG viewBox is [-200, -200, 400, 400]
+    const screenX = centerX + (socketPos.x / 400) * rect.width;
+    const screenY = centerY + (socketPos.y / 400) * rect.height;
+    return { screenX, screenY, width: rect.width };
+  }, []);
+
+  // Check proximity between pointer and target gear socket
+  const checkProximity = useCallback(
+    (clientX, clientY, gear) => {
+      const target = getSocketScreenPos(gear.socketPos);
+      if (!target) return false;
+
+      const dist = Math.hypot(clientX - target.screenX, clientY - target.screenY);
+      // Snap threshold based on gear radius scaled to screen pixels
+      const threshold = (gear.radius / 400) * target.width * 1.5;
+      return dist <= threshold;
+    },
+    [getSocketScreenPos]
+  );
+
+  // DRAG INTERACTION HANDLERS (Unified Pointer Events for mouse & touch)
+  const startDrag = (gearId, e) => {
     if (placedGearIds.has(gearId)) {
       setActiveStoryGearId(gearId);
       return;
     }
 
-    playMechanicalSound("place");
-    const newPlaced = new Set(placedGearIds).add(gearId);
-    setPlacedGearIds(newPlaced);
-    setActiveStoryGearId(gearId);
+    const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+    const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
 
-    if (playChime) playChime(392 + gearId * 65, 0.6);
-
-    const nextUnplaced = GEARS_DATA.find((g) => !newPlaced.has(g.id));
-    if (nextUnplaced) {
-      setSelectedTrayGearId(nextUnplaced.id);
-    } else {
-      setSelectedTrayGearId(null);
-      setTimeout(() => {
-        setShowGrandFinale(true);
-        try {
-          confetti({
-            particleCount: 170,
-            spread: 130,
-            origin: { y: 0.6 },
-            colors: ["#10b981", "#34d399", "#f59e0b", "#fef08a", "#ffffff"]
-          });
-        } catch (e) {}
-      }, 650);
-    }
+    setDraggingGearId(gearId);
+    setDragPointerPos({ x: clientX, y: clientY });
+    setIsNearSocket(false);
   };
+
+  const onPointerMove = useCallback(
+    (e) => {
+      if (!draggingGearId) return;
+
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+
+      setDragPointerPos({ x: clientX, y: clientY });
+
+      const gear = GEARS_DATA.find((g) => g.id === draggingGearId);
+      if (gear) {
+        const near = checkProximity(clientX, clientY, gear);
+        setIsNearSocket(near);
+      }
+    },
+    [draggingGearId, checkProximity]
+  );
+
+  const onPointerUp = useCallback(
+    (e) => {
+      if (!draggingGearId) return;
+
+      const clientX = e.clientX || (e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : dragPointerPos.x);
+      const clientY = e.clientY || (e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : dragPointerPos.y);
+
+      const gear = GEARS_DATA.find((g) => g.id === draggingGearId);
+
+      if (gear && checkProximity(clientX, clientY, gear)) {
+        // SUCCESSFUL SNAP & PLACE!
+        playMechanicalSound("place");
+        const newPlaced = new Set(placedGearIds).add(gear.id);
+        setPlacedGearIds(newPlaced);
+        setActiveStoryGearId(gear.id);
+
+        if (playChime) playChime(392 + gear.id * 65, 0.6);
+
+        if (newPlaced.size === 7) {
+          setTimeout(() => {
+            setShowGrandFinale(true);
+            try {
+              confetti({
+                particleCount: 170,
+                spread: 130,
+                origin: { y: 0.6 },
+                colors: ["#10b981", "#34d399", "#f59e0b", "#fef08a", "#ffffff"]
+              });
+            } catch (err) {}
+          }, 650);
+        }
+      }
+
+      setDraggingGearId(null);
+      setIsNearSocket(false);
+    },
+    [draggingGearId, dragPointerPos, checkProximity, placedGearIds, playMechanicalSound, playChime]
+  );
+
+  useEffect(() => {
+    if (draggingGearId) {
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("touchmove", onPointerMove, { passive: false });
+      window.addEventListener("touchend", onPointerUp);
+    }
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("touchmove", onPointerMove);
+      window.removeEventListener("touchend", onPointerUp);
+    };
+  }, [draggingGearId, onPointerMove, onPointerUp]);
 
   useEffect(() => {
     if (placedGearIds.size === 7 && markSpaceCompleted) {
@@ -442,6 +523,7 @@ export default function ClockworkTransformation({ playChime }) {
   }, [placedGearIds, markSpaceCompleted]);
 
   const activeStoryGear = GEARS_DATA.find((g) => g.id === activeStoryGearId);
+  const currentDraggingGear = GEARS_DATA.find((g) => g.id === draggingGearId);
 
   return (
     <div className="relative w-full h-full flex flex-col justify-between overflow-hidden select-none font-sans bg-[#f7faf8] text-[#132e22]">
@@ -457,7 +539,7 @@ export default function ClockworkTransformation({ playChime }) {
               <FlowerBlossom className="w-3.5 h-3.5" petalColor="#86efac" centerColor="#fef08a" />
             </div>
             <p className="text-[10px] sm:text-[11px] text-[#3d6350] font-sans">
-              Pick each gear from the workbench tray below to assemble the movement and calibrate my personal transformation.
+              Drag each gear from the velvet tray below and drop it into its matching socket in the movement.
             </p>
           </div>
         </div>
@@ -465,7 +547,7 @@ export default function ClockworkTransformation({ playChime }) {
         {/* Assembly Status & Audio */}
         <div className="flex items-center gap-2.5">
           <div className="px-3 py-1 rounded-full bg-[#f0fdf4] border border-emerald-200 text-xs font-mono font-bold text-emerald-800 shadow-2xs">
-            Complications Calibrated: {placedGearIds.size} / 7
+            Gears Placed: {placedGearIds.size} / 7
           </div>
 
           <button
@@ -478,17 +560,20 @@ export default function ClockworkTransformation({ playChime }) {
         </div>
       </div>
 
-      {/* 2. Main Workstation Area: Ultra-Realistic Luxury Watch Case (Left) + Story Plate (Right) */}
+      {/* 2. Main Workstation Area: Watchcase (Left) + Story Plate (Right) */}
       <div className="relative flex-1 w-full h-full flex flex-col lg:flex-row items-center justify-between p-3 sm:p-6 gap-6 overflow-y-auto">
         {/* LEFT / CENTER: Photorealistic Open-Heart Skeleton Watchcase */}
-        <div className="relative w-full max-w-[440px] sm:max-w-[480px] aspect-square rounded-[40px] bg-[#fffdfa] border-2 border-emerald-300 shadow-2xl p-3 sm:p-4 flex items-center justify-center overflow-hidden shrink-0">
+        <div
+          ref={watchContainerRef}
+          className="relative w-full max-w-[440px] sm:max-w-[480px] aspect-square rounded-[40px] bg-[#fffdfa] border-2 border-emerald-300 shadow-2xl p-3 sm:p-4 flex items-center justify-center overflow-hidden shrink-0 touch-none"
+        >
           {/* Circular Brushed Titanium Outer Bezel */}
           <div className="absolute inset-2 sm:inset-3 rounded-full border-[6px] sm:border-[8px] border-slate-300 shadow-2xl bg-radial from-[#ffffff] via-[#f8fafc] to-[#e2e8f0] pointer-events-none" />
 
-          {/* Côtes de Genève (Geneva Stripes) Inner Movement Chassis Ring */}
+          {/* Geneva Stripes Movement Chassis Ring */}
           <div className="absolute inset-5 sm:inset-6 rounded-full border border-amber-200 shadow-inner bg-radial from-[#ffffff] via-[#f7faf8] to-[#edf7f2] pointer-events-none opacity-90" />
 
-          {/* 12 Mirror-Polished Heat-Blued Screws on the Bezel */}
+          {/* 12 Heat-Blued Screws on the Bezel */}
           {Array.from({ length: 12 }).map((_, i) => {
             const ang = (i / 12) * Math.PI * 2;
             const radius = 46.5;
@@ -502,19 +587,14 @@ export default function ClockworkTransformation({ playChime }) {
                 }}
                 className="absolute w-2.5 h-2.5 rounded-full bg-blue-700 border border-blue-900 shadow-xs flex items-center justify-center pointer-events-none"
               >
-                {/* Screw slot */}
-                <div
-                  style={{ transform: `rotate(${i * 30 + 15}deg)` }}
-                  className="w-2 h-0.5 bg-blue-200"
-                />
+                <div style={{ transform: `rotate(${i * 30 + 15}deg)` }} className="w-2 h-0.5 bg-blue-200" />
               </div>
             );
           })}
 
           {/* SVG Movement Viewport */}
-          <svg viewBox="-200 -200 400 400" className="w-full h-full z-10 drop-shadow-xl overflow-visible">
+          <svg viewBox="-200 -200 400 400" className="w-full h-full z-10 drop-shadow-xl overflow-visible pointer-events-none">
             <defs>
-              {/* Realistic Brushed Brass Gradient with Specular Sheen */}
               <linearGradient id="brassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#fef08a" />
                 <stop offset="25%" stopColor="#f59e0b" />
@@ -523,7 +603,6 @@ export default function ClockworkTransformation({ playChime }) {
                 <stop offset="100%" stopColor="#78350f" />
               </linearGradient>
 
-              {/* Realistic Polished Rhodium / Steel Gradient */}
               <linearGradient id="steelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#ffffff" />
                 <stop offset="28%" stopColor="#f1f5f9" />
@@ -532,7 +611,6 @@ export default function ClockworkTransformation({ playChime }) {
                 <stop offset="100%" stopColor="#475569" />
               </linearGradient>
 
-              {/* Realistic Rose Gold Gradient */}
               <linearGradient id="roseGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#ffe4e6" />
                 <stop offset="30%" stopColor="#fb7185" />
@@ -541,7 +619,6 @@ export default function ClockworkTransformation({ playChime }) {
                 <stop offset="100%" stopColor="#9f1239" />
               </linearGradient>
 
-              {/* Pure Yellow Gold Gradient */}
               <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#fef9c3" />
                 <stop offset="35%" stopColor="#eab308" />
@@ -549,7 +626,6 @@ export default function ClockworkTransformation({ playChime }) {
                 <stop offset="100%" stopColor="#854d0e" />
               </linearGradient>
 
-              {/* Synthetic Ruby Jewel Bearing with Deep Refraction */}
               <radialGradient id="rubyJewelGrad" cx="30%" cy="30%" r="70%">
                 <stop offset="0%" stopColor="#fecdd3" />
                 <stop offset="25%" stopColor="#f43f5e" />
@@ -558,35 +634,32 @@ export default function ClockworkTransformation({ playChime }) {
                 <stop offset="100%" stopColor="#4c0519" />
               </radialGradient>
 
-              {/* Gold Chaton Setting Collar */}
               <radialGradient id="chatonGrad" cx="35%" cy="35%" r="65%">
                 <stop offset="0%" stopColor="#fef08a" />
                 <stop offset="50%" stopColor="#eab308" />
                 <stop offset="100%" stopColor="#78350f" />
               </radialGradient>
 
-              {/* Côtes de Genève (Geneva Stripes) Pattern for Movement Plate */}
               <pattern id="genevaStripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                 <rect width="10" height="20" fill="#f8fafc" opacity="0.6" />
                 <rect x="10" width="10" height="20" fill="#edf2f7" opacity="0.8" />
                 <line x1="0" y1="0" x2="0" y2="20" stroke="#cbd5e1" strokeWidth="0.8" />
               </pattern>
 
-              {/* Real Depth Drop Shadows */}
               <filter id="gearShadow" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="1.5" dy="2.5" stdDeviation="2.5" floodColor="#0f172a" floodOpacity="0.35" />
               </filter>
 
-              <filter id="socketGlow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#10b981" floodOpacity="0.6" />
+              <filter id="targetDropGlow" x="-30%" y="-30%" width="160%" height="160%">
+                <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#10b981" floodOpacity="0.8" />
               </filter>
             </defs>
 
-            {/* BASEPLATE: Côtes de Genève Guilloché Plate */}
+            {/* BASEPLATE */}
             <circle r="148" fill="url(#genevaStripes)" stroke="#cbd5e1" strokeWidth="2" opacity="0.85" />
             <circle r="148" fill="none" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" />
 
-            {/* CHAPTER RING: 60 Delicate Minute Track Indices */}
+            {/* MINUTE TRACK */}
             {Array.from({ length: 60 }).map((_, i) => {
               const a = (i / 60) * Math.PI * 2;
               const isHour = i % 5 === 0;
@@ -605,29 +678,29 @@ export default function ClockworkTransformation({ playChime }) {
               );
             })}
 
-            {/* A. UNPLACED GEAR SOCKET PIVOTS (Authentic gold chaton settings with alignment guides) */}
+            {/* A. UNPLACED GEAR SOCKET TARGETS */}
             {GEARS_DATA.map((gear) => {
               const isPlaced = placedGearIds.has(gear.id);
-              const isSelectedInTray = selectedTrayGearId === gear.id;
-
               if (isPlaced) return null;
+
+              const isBeingDragged = draggingGearId === gear.id;
+              const isDropHovered = isBeingDragged && isNearSocket;
 
               return (
                 <g
                   key={gear.id}
                   transform={`translate(${gear.socketPos.x}, ${gear.socketPos.y})`}
-                  onClick={() => placeGear(gear.id)}
-                  className="cursor-pointer group"
+                  className="pointer-events-auto"
                 >
-                  {/* Outer Alignment Dashed Guide */}
+                  {/* Outer Alignment Drop Target Ring */}
                   <circle
                     r={gear.radius}
-                    fill={isSelectedInTray ? "rgba(16, 185, 129, 0.16)" : "rgba(226, 232, 240, 0.35)"}
-                    stroke={isSelectedInTray ? "#10b981" : "#94a3b8"}
-                    strokeWidth={isSelectedInTray ? "2.5" : "1.2"}
-                    strokeDasharray={isSelectedInTray ? "6 3" : "4 4"}
-                    filter={isSelectedInTray ? "url(#socketGlow)" : undefined}
-                    className={isSelectedInTray ? "animate-pulse" : ""}
+                    fill={isDropHovered ? "rgba(16, 185, 129, 0.28)" : isBeingDragged ? "rgba(16, 185, 129, 0.12)" : "rgba(226, 232, 240, 0.35)"}
+                    stroke={isDropHovered ? "#059669" : isBeingDragged ? "#10b981" : "#94a3b8"}
+                    strokeWidth={isDropHovered ? "3.5" : isBeingDragged ? "2.5" : "1.2"}
+                    strokeDasharray={isBeingDragged ? "6 3" : "4 4"}
+                    filter={isBeingDragged ? "url(#targetDropGlow)" : undefined}
+                    className={isBeingDragged ? "animate-pulse" : ""}
                   />
 
                   {/* Recessed Pivot Jewel Well */}
@@ -638,18 +711,18 @@ export default function ClockworkTransformation({ playChime }) {
                   <text
                     textAnchor="middle"
                     dy="4"
-                    fill={isSelectedInTray ? "#059669" : "#64748b"}
+                    fill={isDropHovered ? "#047857" : isBeingDragged ? "#059669" : "#64748b"}
                     fontSize="11"
                     fontFamily="monospace"
                     fontWeight="bold"
                   >
-                    Slot 0{gear.id}
+                    {isDropHovered ? "DROP!" : `Slot 0${gear.id}`}
                   </text>
                 </g>
               );
             })}
 
-            {/* B. PLACED PHOTOREALISTIC INVOLUTE GEARS (Turning with real meshing geometry) */}
+            {/* B. PLACED PHOTOREALISTIC INVOLUTE GEARS */}
             {GEARS_DATA.map((gear) => {
               const isPlaced = placedGearIds.has(gear.id);
               if (!isPlaced) return null;
@@ -659,9 +732,7 @@ export default function ClockworkTransformation({ playChime }) {
               const hubR = gear.radius * 0.28;
               const rimInnerR = gear.radius * 0.72;
 
-              // Compute continuous involute gear tooth path
               const gearPath = generateInvoluteGearPath(0, 0, gear.radius, gear.toothCount, hubR);
-              // Compute skeletonized spoke windows
               const spokeWindows = generateSpokeWindows(0, 0, hubR + 4, rimInnerR - 2, gear.spokeCount);
 
               return (
@@ -670,9 +741,8 @@ export default function ClockworkTransformation({ playChime }) {
                   transform={`translate(${gear.socketPos.x}, ${gear.socketPos.y}) rotate(${angle})`}
                   onClick={() => setActiveStoryGearId(gear.id)}
                   filter="url(#gearShadow)"
-                  className="cursor-pointer group"
+                  className="cursor-pointer group pointer-events-auto"
                 >
-                  {/* Focus Glow if active story */}
                   {isFocused && (
                     <circle
                       r={gear.radius + 6}
@@ -684,57 +754,23 @@ export default function ClockworkTransformation({ playChime }) {
                     />
                   )}
 
-                  {/* Main Involute Gear Body with Beveled Tooth Edges */}
-                  <path
-                    d={gearPath}
-                    fill={`url(#${gear.gradientId})`}
-                    stroke="#78350f"
-                    strokeWidth="1.2"
-                  />
+                  <path d={gearPath} fill={`url(#${gear.gradientId})`} stroke="#78350f" strokeWidth="1.2" />
 
-                  {/* Skeletonized Spoke Windows Cut Through Movement */}
                   {spokeWindows.map((swPath, wIdx) => (
-                    <path
-                      key={wIdx}
-                      d={swPath}
-                      fill="#f8fafc"
-                      stroke="#92400e"
-                      strokeWidth="1.2"
-                      opacity="0.9"
-                    />
+                    <path key={wIdx} d={swPath} fill="#f8fafc" stroke="#92400e" strokeWidth="1.2" opacity="0.9" />
                   ))}
 
-                  {/* Outer Rim Circular Bevel Rings */}
-                  <circle
-                    r={gear.radius * 0.88}
-                    fill="none"
-                    stroke="#ffffff"
-                    strokeWidth="0.8"
-                    opacity="0.6"
-                  />
-                  <circle
-                    r={rimInnerR}
-                    fill="none"
-                    stroke="#78350f"
-                    strokeWidth="1.2"
-                    opacity="0.8"
-                  />
+                  <circle r={gear.radius * 0.88} fill="none" stroke="#ffffff" strokeWidth="0.8" opacity="0.6" />
+                  <circle r={rimInnerR} fill="none" stroke="#78350f" strokeWidth="1.2" opacity="0.8" />
 
-                  {/* Central Gold Chaton Collar */}
                   <circle r={hubR} fill="url(#chatonGrad)" stroke="#78350f" strokeWidth="1.2" />
-
-                  {/* 2 Micro Heat-Blued Screws on Chaton */}
                   <circle cx={-hubR * 0.65} cy="0" r="1.8" fill="#1d4ed8" stroke="#172554" strokeWidth="0.5" />
                   <circle cx={hubR * 0.65} cy="0" r="1.8" fill="#1d4ed8" stroke="#172554" strokeWidth="0.5" />
 
-                  {/* Deep Crimson Synthetic Ruby Jewel Bearing with Specular Glint */}
                   <circle r="7.5" fill="url(#rubyJewelGrad)" stroke="#4c0519" strokeWidth="1" />
-                  {/* Jewel oil sink pit */}
                   <circle r="2.8" fill="#4c0519" opacity="0.6" />
-                  {/* Diamond-cut specular pinhead reflection */}
                   <circle cx="-2.2" cy="-2.2" r="1.2" fill="#ffffff" opacity="0.95" />
 
-                  {/* Specific Detail for Balance Wheel (Gear 2): Physical Breguet Hairspring Spiral */}
                   {gear.id === 2 && (
                     <path
                       d="M 0,0 Q 5,-4 8,3 Q 14,10 16,-5 Q 22,-16 26,8 Q 32,24 38,-10"
@@ -748,32 +784,17 @@ export default function ClockworkTransformation({ playChime }) {
               );
             })}
 
-            {/* C. WATCH HANDS: Polished Feuille (Leaf) Hands with Counterweights */}
+            {/* C. WATCH HANDS */}
             {placedGearIds.size > 0 && (
               <g className="pointer-events-none drop-shadow-md">
-                {/* Hour Hand (Faceted deep blued steel) */}
                 <g transform={`rotate(${(rotationAngle * 0.05) % 360})`}>
-                  <path
-                    d="M 0,16 L 3.5,0 L 0,-74 L -3.5,0 Z"
-                    fill="#132e22"
-                    stroke="#042f2e"
-                    strokeWidth="1"
-                  />
+                  <path d="M 0,16 L 3.5,0 L 0,-74 L -3.5,0 Z" fill="#132e22" stroke="#042f2e" strokeWidth="1" />
                   <circle cx="0" cy="0" r="6" fill="#132e22" />
                 </g>
-
-                {/* Minute Hand (Slender lancette hand) */}
                 <g transform={`rotate(${(rotationAngle * 0.6) % 360})`}>
-                  <path
-                    d="M 0,22 L 2.8,0 L 0,-112 L -2.8,0 Z"
-                    fill="#047857"
-                    stroke="#064e3b"
-                    strokeWidth="0.8"
-                  />
+                  <path d="M 0,22 L 2.8,0 L 0,-112 L -2.8,0 Z" fill="#047857" stroke="#064e3b" strokeWidth="0.8" />
                   <circle cx="0" cy="0" r="5" fill="#047857" />
                 </g>
-
-                {/* Seconds Hand (Carmine needle with counterweight ring) */}
                 <g transform={`rotate(${(rotationAngle * 3.6) % 360})`}>
                   <line x1="0" y1="28" x2="0" y2="-128" stroke="#f43f5e" strokeWidth="1.4" />
                   <circle cx="0" cy="20" r="4.5" fill="none" stroke="#f43f5e" strokeWidth="1.2" />
@@ -783,7 +804,7 @@ export default function ClockworkTransformation({ playChime }) {
               </g>
             )}
 
-            {/* D. Sapphire Crystal Reflection Glare */}
+            {/* Sapphire Glass Glare */}
             <path
               d="M -130,-130 Q 0,-60 130,-130 A 148 148 0 0 1 130,130 Q 0,60 -130,130 Z"
               fill="url(#steelGrad)"
@@ -792,16 +813,16 @@ export default function ClockworkTransformation({ playChime }) {
             />
           </svg>
 
-          {/* Interactive Socket Cue Overlay */}
-          {placedGearIds.size < 7 && selectedTrayGearId && (
+          {/* Interactive Cue Badge */}
+          {placedGearIds.size < 7 && !draggingGearId && (
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-white/95 px-3 py-1 rounded-full border border-emerald-300 shadow-md text-[11px] font-mono text-emerald-800 font-bold pointer-events-none">
-              <HandMetal className="w-3.5 h-3.5 text-emerald-600 animate-bounce" />
-              <span>Tap highlighted socket in watch or gear in tray</span>
+              <Move className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
+              <span>Drag gear from velvet tray below into its socket</span>
             </div>
           )}
         </div>
 
-        {/* RIGHT: The Active Transformation Story Plate */}
+        {/* RIGHT: Active Transformation Story Plate */}
         <div className="w-full max-w-xl flex-1 flex flex-col justify-between">
           <AnimatePresence mode="wait">
             {activeStoryGear ? (
@@ -813,12 +834,10 @@ export default function ClockworkTransformation({ playChime }) {
                 transition={{ duration: 0.22 }}
                 className="bg-white border-2 border-emerald-300 rounded-[32px] p-6 sm:p-7 shadow-xl relative overflow-hidden text-[#132e22]"
               >
-                {/* Washi Tape */}
                 <div className="absolute -top-1.5 right-10 pointer-events-none">
                   <WashiTape className="w-16 h-4 opacity-80" color="bg-emerald-200" />
                 </div>
 
-                {/* Complication Badge Header */}
                 <div className="flex items-center justify-between pb-2 mb-3 border-b border-emerald-100">
                   <div className="flex items-center gap-2">
                     <span
@@ -834,12 +853,10 @@ export default function ClockworkTransformation({ playChime }) {
                   </span>
                 </div>
 
-                {/* Dimension Title */}
                 <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#132e22] mb-1">
                   {activeStoryGear.dimension}
                 </h3>
 
-                {/* Before vs After Mechanical Tuning Card */}
                 <div className="my-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-sans">
                   <div className="p-3 rounded-2xl bg-slate-100 border border-slate-200">
                     <span className="text-[9px] font-mono text-slate-500 uppercase block font-bold mb-0.5">
@@ -856,26 +873,22 @@ export default function ClockworkTransformation({ playChime }) {
                   </div>
                 </div>
 
-                {/* Personal Story */}
                 <p className="text-xs sm:text-sm font-sans text-[#3d6350] leading-relaxed whitespace-pre-line mb-4">
                   {activeStoryGear.story}
                 </p>
 
-                {/* Quote Pull-Box */}
                 <div className="p-3.5 rounded-2xl bg-emerald-50/90 border border-emerald-200 mb-3">
                   <p className="text-xs font-serif italic text-emerald-950 font-medium leading-relaxed">
                     "{activeStoryGear.quote}"
                   </p>
                 </div>
 
-                {/* Horological Note */}
                 <div className="text-[10px] font-mono text-emerald-700 bg-[#f0fdf4] p-2 rounded-xl border border-emerald-100 flex items-center gap-1.5">
                   <SparkleStar className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span>Horological Impact: {activeStoryGear.mechanicNote}</span>
                 </div>
               </motion.div>
             ) : (
-              /* Initial Welcome Prompt if no gear placed yet */
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -886,11 +899,11 @@ export default function ClockworkTransformation({ playChime }) {
                   Assemble My Movement, Gear by Gear
                 </h3>
                 <p className="text-xs sm:text-sm font-sans text-[#3d6350] max-w-md leading-relaxed mb-4">
-                  Before you, I was a collection of uncalibrated, guarded parts. Tap each gear from the workbench tray below to place it into the watchcase—and reveal each personal change your love gave me.
+                  Drag each gear from the velvet tray below and drop it into its matching socket in the watchcase. Each gear placed reveals the authentic change your love gave me over seven years.
                 </p>
                 <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 font-bold bg-[#f0fdf4] px-4 py-2 rounded-2xl border border-emerald-200">
-                  <Clock className="w-4 h-4 text-emerald-600 animate-spin" />
-                  <span>Tap Gear 01 below to begin</span>
+                  <HandMetal className="w-4 h-4 text-emerald-600 animate-bounce" />
+                  <span>Drag Gear 01 from the tray below into Slot 01</span>
                 </div>
               </motion.div>
             )}
@@ -898,12 +911,12 @@ export default function ClockworkTransformation({ playChime }) {
         </div>
       </div>
 
-      {/* 3. The Watchmaker’s Workbench Tray (Plush Jeweler’s Suede Tray) */}
-      <div className="z-20 px-3 sm:px-6 py-2.5 bg-gradient-to-t from-[#064e3b] via-[#065f46] to-[#047857] text-white border-t-2 border-amber-300/60 shadow-xl flex flex-col gap-1.5">
+      {/* 3. The Watchmaker’s Workbench Velvet Tray (Drag Sources) */}
+      <div className="z-20 px-3 sm:px-6 py-2.5 bg-gradient-to-t from-[#064e3b] via-[#065f46] to-[#047857] text-white border-t-2 border-amber-300/60 shadow-xl flex flex-col gap-1.5 select-none touch-none">
         <div className="flex items-center justify-between text-xs font-sans">
           <div className="flex items-center gap-1.5 text-amber-200 font-mono font-bold text-[11px]">
             <Clock className="w-3.5 h-3.5 text-amber-300" />
-            <span>The Watchmaker's Jeweled Tray // Tap any gear to assemble it into the movement</span>
+            <span>The Watchmaker's Jeweled Tray // Hold & Drag each gear into the movement above</span>
           </div>
           <span className="text-[11px] font-mono text-emerald-200">
             {7 - placedGearIds.size > 0
@@ -912,32 +925,30 @@ export default function ClockworkTransformation({ playChime }) {
           </span>
         </div>
 
-        {/* 7 Realistic Gear Inventory Tokens */}
+        {/* 7 Draggable Gear Inventory Tokens */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1">
           {GEARS_DATA.map((gear) => {
             const isPlaced = placedGearIds.has(gear.id);
-            const isSelected = selectedTrayGearId === gear.id;
+            const isBeingDragged = draggingGearId === gear.id;
 
             return (
-              <button
+              <div
                 key={gear.id}
-                onClick={() => {
-                  setSelectedTrayGearId(gear.id);
-                  placeGear(gear.id);
-                }}
-                className={`px-3 py-2 rounded-2xl border transition-all flex items-center gap-2.5 cursor-pointer shrink-0 text-left ${
+                onPointerDown={(e) => startDrag(gear.id, e)}
+                onTouchStart={(e) => startDrag(gear.id, e)}
+                className={`px-3 py-2 rounded-2xl border transition-all flex items-center gap-2.5 cursor-grab active:cursor-grabbing shrink-0 text-left select-none touch-none ${
                   isPlaced
-                    ? "bg-emerald-950/80 border-emerald-500/80 text-emerald-100 shadow-2xs hover:bg-emerald-900"
-                    : isSelected
-                    ? "bg-amber-400 text-slate-950 border-amber-200 shadow-lg scale-105 ring-2 ring-amber-300"
-                    : "bg-emerald-900/60 border-emerald-700/60 text-emerald-100 hover:border-amber-300 hover:bg-emerald-800/80"
+                    ? "bg-emerald-950/80 border-emerald-500/80 text-emerald-100 shadow-2xs hover:bg-emerald-900 opacity-90 cursor-pointer"
+                    : isBeingDragged
+                    ? "bg-amber-400 text-slate-950 border-amber-200 shadow-xl scale-105 opacity-60 ring-2 ring-amber-300"
+                    : "bg-emerald-900/70 border-emerald-700/60 text-emerald-100 hover:border-amber-300 hover:bg-emerald-800 active:scale-95"
                 }`}
               >
-                {/* Mini Realistic Gear Graphic in Tray */}
+                {/* Mini Gear Avatar */}
                 <div className="relative w-7 h-7 rounded-full bg-slate-900 border border-amber-300/80 flex items-center justify-center shrink-0 shadow-inner">
                   <div
                     style={{
-                      backgroundColor: isPlaced ? gear.accentColor : isSelected ? "#059669" : "#d97706"
+                      backgroundColor: isPlaced ? gear.accentColor : "#d97706"
                     }}
                     className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold text-white shadow-2xs"
                   >
@@ -951,23 +962,57 @@ export default function ClockworkTransformation({ playChime }) {
                   </div>
                   <span
                     className={`text-[9px] font-mono block ${
-                      isSelected
-                        ? "text-slate-900 font-semibold"
-                        : isPlaced
-                        ? "text-emerald-300"
-                        : "text-emerald-300/70"
+                      isPlaced ? "text-emerald-300" : "text-emerald-300/80"
                     }`}
                   >
-                    {isPlaced ? "Assembled" : "Tap to Place"}
+                    {isPlaced ? "Assembled" : "Drag to Socket"}
                   </span>
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>
       </div>
 
-      {/* 4. Grand Finale Modal when all 7 gears are assembled */}
+      {/* 4. FLOATING DRAGGED GEAR (Under the user's cursor/finger while actively dragging) */}
+      {draggingGearId && currentDraggingGear && (
+        <div
+          style={{
+            position: "fixed",
+            left: `${dragPointerPos.x}px`,
+            top: `${dragPointerPos.y}px`,
+            transform: "translate(-50%, -50%)",
+            pointerEvents: "none",
+            zIndex: 9999
+          }}
+          className="transition-transform duration-75"
+        >
+          <div
+            style={{
+              borderColor: isNearSocket ? "#10b981" : "#f59e0b",
+              boxShadow: isNearSocket
+                ? "0 0 25px rgba(16, 185, 129, 0.85), 0 10px 20px rgba(0,0,0,0.3)"
+                : "0 10px 25px rgba(0,0,0,0.4)"
+            }}
+            className="w-20 h-20 rounded-full bg-[#fffdfa]/95 border-2 flex flex-col items-center justify-center p-1 backdrop-blur-xs scale-110"
+          >
+            <div
+              style={{ backgroundColor: currentDraggingGear.accentColor }}
+              className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold text-white shadow-sm mb-0.5"
+            >
+              0{currentDraggingGear.id}
+            </div>
+            <span className="text-[9px] font-serif font-bold text-[#132e22] text-center leading-tight">
+              {currentDraggingGear.dimension}
+            </span>
+            <span className="text-[8px] font-mono text-emerald-700 font-bold mt-0.5">
+              {isNearSocket ? "✓ Drop to Snap!" : "Drop on Socket"}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* 5. Grand Finale Modal when all 7 gears are assembled */}
       <AnimatePresence>
         {showGrandFinale && (
           <motion.div
@@ -1000,7 +1045,7 @@ export default function ClockworkTransformation({ playChime }) {
               </h3>
 
               <p className="text-xs sm:text-sm font-sans text-[#3d6350] leading-relaxed mb-5">
-                Every gear you just placed represents a part of me that was guarded, angry, silent, or alone before October 2019. 
+                Every gear you placed represents a part of me that was guarded, angry, silent, or alone before October 2019. 
                 <br /><br />
                 Over seven years, your patience, warmth, and steady love calibrated every rough edge into peace. I’ve become a man because of you.
               </p>
