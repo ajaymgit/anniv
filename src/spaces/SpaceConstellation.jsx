@@ -754,7 +754,7 @@ export default function SpaceConstellation() {
       const dist = Math.hypot(e.clientX - down.x, e.clientY - down.y);
       const dt = Date.now() - down.time;
 
-      if (dist > 7 || dt > 650) {
+      if (dist > 18 || dt > 850) {
         return;
       }
 
@@ -857,24 +857,24 @@ export default function SpaceConstellation() {
         lilyGroup.rotation.z = Math.cos(elapsed * 0.7) * 0.012;
       }
 
-      // Animate active falling petals (flutter down and disappear)
+      // Animate active falling petals (flutter down and disappear into the water)
       for (let i = fallingPetalsRef.current.length - 1; i >= 0; i--) {
         const fp = fallingPetalsRef.current[i];
-        fp.progress += 0.022;
+        fp.progress += 0.024;
 
-        fp.mesh.position.y -= 0.055;
-        fp.mesh.position.x += Math.sin(fp.progress * 6.5) * 0.03;
-        fp.mesh.position.z += Math.cos(fp.progress * 5.0) * 0.018;
+        fp.mesh.position.y -= 0.042;
+        fp.mesh.position.x += Math.sin(fp.progress * 4.8) * 0.024;
+        fp.mesh.position.z += Math.cos(fp.progress * 3.6) * 0.016;
 
-        fp.mesh.rotation.x += 0.045;
-        fp.mesh.rotation.z += 0.035;
+        fp.mesh.rotation.x += 0.038;
+        fp.mesh.rotation.z += 0.028;
 
-        if (fp.mesh.position.y < -0.8) {
-          fp.mesh.material.opacity = Math.max(0, fp.mesh.material.opacity - 0.035);
+        if (fp.mesh.position.y < -1.35) {
+          fp.mesh.material.opacity = Math.max(0, fp.mesh.material.opacity - 0.038);
         }
 
         // Reaches water surface -> ripple and DISAPPEAR
-        if (fp.mesh.position.y <= -1.90 || fp.mesh.material.opacity <= 0) {
+        if (fp.mesh.position.y <= -1.92 || fp.mesh.material.opacity <= 0) {
           if (ripplePlaneRef.current) {
             ripplePlaneRef.current.position.set(fp.mesh.position.x, -1.94, fp.mesh.position.z);
             ripplePlaneRef.current.material.opacity = 0.95;
@@ -963,7 +963,7 @@ export default function SpaceConstellation() {
     setTimeout(() => {
       setActiveStory(currentStory);
       isPluckingRef.current = false;
-    }, 550);
+    }, 1400);
 
     // All 8 petals shed
     if (newCount >= 8) {
